@@ -1,14 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const controller = require('../../controllers/employeeController')
+const controller = require('../../controllers/screenController')
 // get all
 router.get('/', controller.default)
 
-// add employee
+// add screen
 router.post('/', controller.create)
 
-// update emplyee
+// update screen
 router.put('/:id', controller.update)
+
 // delete
 router.delete('/:id', controller.delete)
 module.exports = router

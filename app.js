@@ -5,6 +5,7 @@ const express = require('express')
 // Require Router Handlers
 const forms = require('./routes/api/forms')
 const emplyees = require('./routes/api/employees')
+const screens = require('./routes/api/screens')
 const app = express()
 // Init middleware
 app.use(express.json())
@@ -23,6 +24,7 @@ db
 // Direct routes to appropriate files
 app.use('/api/forms', forms)
 app.use('/api/employees', emplyees)
+app.use('/api/screens', screens)
 
 // 500 internal server error handler
 app.use((err, _req, res, next) => {
