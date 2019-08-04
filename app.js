@@ -4,8 +4,11 @@ const express = require('express')
 
 // Require Router Handlers
 const forms = require('./routes/api/forms')
-
+const emplyees = require('./routes/api/employees')
 const app = express()
+// Init middleware
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 // DB authenticate
 const db = require('./config/database')
@@ -19,6 +22,7 @@ db
   })
 // Direct routes to appropriate files
 app.use('/api/forms', forms)
+app.use('/api/employees', emplyees)
 
 // 500 internal server error handler
 app.use((err, _req, res, next) => {
