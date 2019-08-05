@@ -23,9 +23,7 @@ exports.create = async (req, res) => {
     })
   }
   try {
-    const newScreen = await Screen.create({
-      name: req.body.name
-    })
+    const newScreen = await Screen.create(req.body)
     return res.json({
       status: 'New screen was added',
       data: newScreen

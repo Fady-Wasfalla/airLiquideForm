@@ -1,13 +1,11 @@
-const Employee = require('../models/Employee')
+const Permission = require('../models/Permission')
 // show
 exports.default = async (req, res) => {
-  var os = require('os')
-  console.log(os.userInfo().username)
   try {
-    const entities = await Employee.findAll({ raw: true })
+    const screens = await Permission.findAll({ raw: true })
     return res.json({
       status: 'Success',
-      data: entities
+      data: screens
     })
   } catch (error) {
     return res.status(400).json({
@@ -25,10 +23,10 @@ exports.create = async (req, res) => {
     })
   }
   try {
-    const newEmployee = await Employee.create(req.body)
+    const newPermission = await Permission.create(req.body)
     return res.json({
-      status: 'New emplyee was added',
-      data: newEmployee
+      status: 'New screen was added',
+      data: newPermission
     })
   } catch (error) {
     return res.status(400).json({
@@ -46,12 +44,12 @@ exports.update = async (req, res) => {
     })
   }
   try {
-    await Employee.update(
+    await Permission.update(
       req.body,
       { where: { id: req.params.id } }
     )
     return res.json({
-      status: 'updated successfully'
+      status: 'Screen was updated'
     })
   } catch (error) {
     return res.status(400).json({
@@ -63,11 +61,11 @@ exports.update = async (req, res) => {
 // delete
 exports.delete = async (req, res) => {
   try {
-    await Employee.destroy(
+    await Permission.destroy(
       { where: { id: req.params.id } }
     )
     return res.json({
-      status: 'Employee was deleted'
+      status: 'Screen was deleted'
     })
   } catch (error) {
     return res.status(400).json({
