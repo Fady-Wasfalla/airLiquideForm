@@ -3,9 +3,14 @@ const express = require('express')
 // const path = require('path')
 
 // Require Router Handlers
-const forms = require('./routes/api/forms')
+const emplyees = require('./routes/api/employees')
+const screens = require('./routes/api/screens')
+const permissions = require('./routes/api/permissions')
 
 const app = express()
+// Init middleware
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 // DB authenticate
 const db = require('./config/database')
@@ -18,7 +23,9 @@ db
     console.error('Unable to connect to the database:', err)
   })
 // Direct routes to appropriate files
-app.use('/api/forms', forms)
+app.use('/api/employees', emplyees)
+app.use('/api/screens', screens)
+app.use('/api/permissions', permissions)
 
 // 500 internal server error handler
 app.use((err, _req, res, next) => {
