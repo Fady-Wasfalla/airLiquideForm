@@ -1,10 +1,12 @@
 const Sequelize = require('sequelize')
 const db = require('../config/database')
-const Employee = db.define('Employees', {
+const Employee = db.define('Employee', {
   userName: Sequelize.STRING,
   email: Sequelize.STRING,
-  activation: Sequelize.BOOLEAN },
-{ timestamps: false
+  activation: Sequelize.BOOLEAN,
+  name: Sequelize.STRING },
+{ timestamps: false,
+  freezeTableName: true
 }
 )
 
