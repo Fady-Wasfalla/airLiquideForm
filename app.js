@@ -6,6 +6,7 @@ const express = require('express')
 const emplyees = require('./routes/api/employees')
 const screens = require('./routes/api/screens')
 const permissions = require('./routes/api/permissions')
+const histories = require('./routes/api/histories')
 
 const app = express()
 // Init middleware
@@ -26,6 +27,7 @@ db
 app.use('/api/employees', emplyees)
 app.use('/api/screens', screens)
 app.use('/api/permissions', permissions)
+app.use('/api/histories', histories)
 
 // 500 internal server error handler
 app.use((err, _req, res, next) => {

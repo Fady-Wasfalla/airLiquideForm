@@ -1,8 +1,8 @@
-const Employee = require('../models/Employee')
+const History = require('../models/History')
 // show
 exports.default = async (req, res) => {
   try {
-    const entities = await Employee.findAll({ raw: true })
+    const entities = await History.findAll({ raw: true })
     return res.json({
       status: 'Success',
       data: entities
@@ -23,10 +23,10 @@ exports.create = async (req, res) => {
     })
   }
   try {
-    const newEmployee = await Employee.create(req.body)
+    const newHistory = await History.create(req.body)
     return res.json({
-      status: 'New emplyee was added',
-      data: newEmployee
+      status: 'New History was added',
+      data: newHistory
     })
   } catch (error) {
     return res.status(400).json({
@@ -44,7 +44,7 @@ exports.update = async (req, res) => {
     })
   }
   try {
-    await Employee.update(
+    await History.update(
       req.body,
       { where: { id: req.params.id } }
     )
@@ -61,11 +61,11 @@ exports.update = async (req, res) => {
 // delete
 exports.delete = async (req, res) => {
   try {
-    await Employee.destroy(
+    await History.destroy(
       { where: { id: req.params.id } }
     )
     return res.json({
-      status: 'Employee was deleted'
+      status: 'Hidtory was deleted'
     })
   } catch (error) {
     return res.status(400).json({
