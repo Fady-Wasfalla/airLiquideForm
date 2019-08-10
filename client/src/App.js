@@ -3,8 +3,8 @@ import './App.css';
 import { BrowserRouter as Router, Route , Switch } from "react-router-dom";
 import Header from './components/header'
 import Footer from './components/footer'
-import Adel from './components/adel'
-import adel from './components/adel';
+import Adel from './components/adel';
+import FillForm from './components/fillForm';
 
 function App() {
   return (
@@ -18,7 +18,8 @@ function App() {
         <Route component={Header} />
         
               <Switch>
-              <Route exact path="/adel" component={adel} />
+              <Route exact path="/adel" component={Adel} />
+              <Route exact path="/fillForm" component={FillForm} />
 
               </Switch>
          

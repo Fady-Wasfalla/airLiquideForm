@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Navbar , Nav , NavDropdown , Form , Button , FormControl } from "react-bootstrap";
-import ReactDOM from 'react-dom'
+import { Navbar , Nav , NavDropdown } from "react-bootstrap";
 import logo from '../images/air-liquide-creative-oxygen.svg'
 
 class header extends Component {
