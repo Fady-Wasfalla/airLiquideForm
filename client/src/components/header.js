@@ -12,7 +12,7 @@ class header extends Component {
       render() {
         return (
           <React.Fragment>
-          <Navbar bg="dark" expand="lg">
+            <Navbar bg="light" variant="dark">
              <Navbar.Brand href="#home">
               <img
                 src={logo}

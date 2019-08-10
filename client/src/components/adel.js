@@ -4,14 +4,14 @@ import { Navbar , Nav , NavDropdown , Form , Button , FormControl, Row ,Col } fr
 import ReactDOM from 'react-dom'
 import logo from '../images/air-liquide-creative-oxygen.svg'
 
-class footer extends Component {
+class adel extends Component {
 
     state = {
       }
       render() {
         return (
           <React.Fragment>
-          <Navbar bg="light" fixed="bottom">
+              
           <Col md={5}/>
               <img
                 src={logo}
@@ -19,8 +19,8 @@ class footer extends Component {
                 height="30"
                 className="d-inline-block align-top"
               />
-              © Air Liquide 2019
-        </Navbar>
+              <p>do it in the same way</p>
+
         </React.Fragment>
         )
       }
@@ -28,4 +28,4 @@ class footer extends Component {
 }
 
 
-export default footer;
+export default adel;
