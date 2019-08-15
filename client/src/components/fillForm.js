@@ -3,6 +3,7 @@ import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import logo from '../images/air-liquide-creative-oxygen.svg'
 import CustomerBasicInfo from './customerBasicInfo'
 import LogisticsValidationForm from './logisticsValidationForm'
+import CustomerInstallationForm from './customerInstallationForm'
 
 
 class fillForm extends Component {
@@ -25,6 +26,12 @@ class fillForm extends Component {
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><LogisticsValidationForm/></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><CustomerInstallationForm/></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><CustomerInstallationForm/></Col>
                 <Row><br/></Row>
                 
                 <Row>

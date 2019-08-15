@@ -1,11 +1,22 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import ContactPerson from './contactPerson'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class customerBasicInfo extends Component {
 
     state = {
+        startDate: new Date()
       }
+
+
+      handleChange(date) {
+        console.log(date)
+        this.setState({startDate: date})
+      }
+
+     
       render() {
         return (
             <React.Fragment>
@@ -31,7 +42,14 @@ class customerBasicInfo extends Component {
                         </Form.Row>
 
                         <Form.Row>
-
+                        <Form.Group as={Col} controlId="customerName">
+                            <Form.Label>Date</Form.Label>
+                            <br/>
+                            <DatePicker
+                                selected={this.state.startDate}
+                                onChange={this.handleChange.bind(this)}
+                                />
+                            </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
