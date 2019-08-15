@@ -4,6 +4,8 @@ import logo from '../images/air-liquide-creative-oxygen.svg'
 import CustomerBasicInfo from './customerBasicInfo'
 import LogisticsValidationForm from './logisticsValidationForm'
 import CustomerInstallationForm from './customerInstallationForm'
+import PriForm from './priForm'
+
 
 
 class fillForm extends Component {
@@ -31,7 +33,7 @@ class fillForm extends Component {
                 <Col md={{ span: 12, offset: 0 }}><CustomerInstallationForm/></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><CustomerInstallationForm/></Col>
+                <Col md={{ span: 12, offset: 0 }}><PriForm/></Col>
                 <Row><br/></Row>
                 
                 <Row>

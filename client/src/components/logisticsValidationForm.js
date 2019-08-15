@@ -345,6 +345,7 @@ class logisticsValidationForm extends Component {
                             </Form.Group>
                         </Form.Row>
 
+                       
 
                     </Form>
                 </Col>
