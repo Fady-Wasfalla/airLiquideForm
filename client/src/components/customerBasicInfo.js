@@ -7,13 +7,17 @@ import "react-datepicker/dist/react-datepicker.css";
 class customerBasicInfo extends Component {
 
     state = {
-        startDate: new Date()
+        name:"",
+        date: new Date(),
+        address:"",
+        zone:"",
+        address:"",
       }
 
 
       handleChange(date) {
         console.log(date)
-        this.setState({startDate: date})
+        this.setState({date: date})
       }
 
      
@@ -31,12 +35,14 @@ class customerBasicInfo extends Component {
 
                             <Form.Group as={Col} controlId="customerName">
                             <Form.Label>Customer Name</Form.Label>
-                            <Form.Control as="textarea" rows="1" />
+                            <Form.Control as="textarea" rows="1" 
+                            onChange={(e)=>{this.setState({name:e.target.value})}}/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridPassword">
                             <Form.Label>Customer Zone</Form.Label>
-                            <Form.Control as="textarea" rows="1"  />
+                            <Form.Control as="textarea" rows="1" 
+                            onChange={(e)=>{this.setState({zone:e.target.value})}} />
                             </Form.Group>
 
                         </Form.Row>
@@ -46,7 +52,7 @@ class customerBasicInfo extends Component {
                             <Form.Label>Date</Form.Label>
                             <br/>
                             <DatePicker
-                                selected={this.state.startDate}
+                                selected={this.state.date}
                                 onChange={this.handleChange.bind(this)}
                                 />
                             </Form.Group>
@@ -55,7 +61,8 @@ class customerBasicInfo extends Component {
                         <Form.Row>
                             <Form.Group as={Col} controlId="textarea">
                             <Form.Label>Customer Full Address</Form.Label>
-                            <Form.Control as="textarea" rows="2" />
+                            <Form.Control as="textarea" rows="2" 
+                            onChange={(e)=>{this.setState({address:e.target.value})}}/>
                             </Form.Group>
                         </Form.Row>
 

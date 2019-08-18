@@ -13,9 +13,9 @@ class customerInstallationForm extends Component {
             { value: 'Product 2', label: 'Product 2' },
             { value: 'Product 3', label: 'Product 3' },
           ],
-        ProductSelectedOption : "",
+        product : "",
 
-        ApplicationProduct:"",
+        applicationProduct:"",
 
         //Required Phase Type Options dropdown list ... you have to change both value and label with the same name
         RequiredPhaseTypeOptions : [
@@ -23,7 +23,7 @@ class customerInstallationForm extends Component {
             { value: 'RequiredPhase 2', label: 'RequiredPhase 2' },
             { value: 'RequiredPhase 3', label: 'RequiredPhase 3' },
           ],
-          RequiredPhaseSelectedOption : "", 
+          requiredPhase : "", 
 
         //Flow Unit Type Options dropdown list ... you have to change both value and label with the same name
         FlowUnitTypeOptions : [
@@ -31,45 +31,45 @@ class customerInstallationForm extends Component {
             { value: 'FlowUnit 2', label: 'FlowUnit 2' },
             { value: 'FlowUnit 3', label: 'FlowUnit 3' },
           ],
-        FlowUnitSelectedOption : "",
+        flowUnit : "",
 
-        AverageFlowRateValue:0,
-        AveragePressure:0,
-        AverageDuration:0,
+        averageFlowRateValue:0,
+        averagePressure:0,
+        averageDuration:0,
 
-        MaximumFlowRrateValue:0 ,
-        MaximumPressure:0,
+        maximumFlowRrateValue:0 ,
+        maximumPressure:0,
 
         MaximumDurationUnitTypeOptions : [
             { value: 'Minutes', label: 'Minutes' },
             { value: 'Hours', label: 'Hours' },
           ],
-        MaximumDurationUnitSelectedOption : "",
-        MaximumDurationValue:0 ,
-        RepetitionPerDay:0  ,
+        maximumDurationUnit : "",
+        maximumDurationValue:0 ,
+        repetitionPerDay:0  ,
 
-        FutureExpansionNotes:"",
+        futureExpansionNotes:"",
         
       }
 
-      ProductHandleChange = ProductSelectedOption => {
-        this.setState({ ProductSelectedOption });
-        console.log(ProductSelectedOption)
+      ProductHandleChange = product => {
+        this.setState({ product });
+        console.log(product)
       };
 
-      RequiredPhaseHandleChange = RequiredPhaseSelectedOption => {
-        this.setState({ RequiredPhaseSelectedOption });
-        console.log(RequiredPhaseSelectedOption)
+      RequiredPhaseHandleChange = requiredPhase => {
+        this.setState({ requiredPhase });
+        console.log(requiredPhase)
       };
 
-      FlowUnitHandleChange = FlowUnitSelectedOption => {
-        this.setState({ FlowUnitSelectedOption });
-        console.log(FlowUnitSelectedOption)
+      FlowUnitHandleChange = flowUnit => {
+        this.setState({ flowUnit });
+        console.log(flowUnit)
       };
 
-      MaximumDurationUnitHandleChange = MaximumDurationUnitSelectedOption => {
-        this.setState({ MaximumDurationUnitSelectedOption });
-        console.log(MaximumDurationUnitSelectedOption)
+      MaximumDurationUnitHandleChange = maximumDurationUnit => {
+        this.setState({ maximumDurationUnit });
+        console.log(maximumDurationUnit)
       };
      
       render() {
@@ -85,15 +85,15 @@ class customerInstallationForm extends Component {
                             <Form.Group as={Col} controlId="ProductType" >
                             <Form.Label>Product</Form.Label>
                             <Select
-                            value={this.state.ProductSelectedOption}
+                            value={this.state.product}
                             onChange={this.ProductHandleChange}
                             options={this.state.ProductTypeOptions}
                             />
                             </Form.Group>
 
-                            <Form.Group as={Col} controlId="ApplicationProduct">
+                            <Form.Group as={Col} controlId="applicationProduct">
                             <Form.Label>Application Product</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({ApplicationProduct:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({applicationProduct:e.target.value})}} />
                             </Form.Group>
                         
 
@@ -105,7 +105,7 @@ class customerInstallationForm extends Component {
                             <Form.Group as={Col} controlId="RequiredPhase" >
                             <Form.Label>Required Phase</Form.Label>
                             <Select
-                            value={this.state.RequiredPhaseSelectedOption}
+                            value={this.state.requiredPhase}
                             onChange={this.RequiredPhaseHandleChange}
                             options={this.state.RequiredPhaseTypeOptions}
                             />
@@ -114,7 +114,7 @@ class customerInstallationForm extends Component {
                             <Form.Group as={Col} controlId="FlowUnit" >
                             <Form.Label>Flow Unit</Form.Label>
                             <Select
-                            value={this.state.FlowUnitSelectedOption}
+                            value={this.state.flowUnit}
                             onChange={this.FlowUnitHandleChange}
                             options={this.state.FlowUnitTypeOptions}
                             />
@@ -124,21 +124,21 @@ class customerInstallationForm extends Component {
 
                     <Form.Row>
                         
-                         <Form.Group as={Col} controlId="AverageFlowRateValue">
+                         <Form.Group as={Col} controlId="averageFlowRateValue">
                             <Form.Label>Average Flow Rate Value</Form.Label>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({AverageFlowRateValue:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({averageFlowRateValue:e.target.value})}} />
                         </Form.Group>
 
-                         <Form.Group as={Col} controlId="AveragePressure">
+                         <Form.Group as={Col} controlId="averagePressure">
                             <Form.Label>Average Pressure</Form.Label>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({AveragePressure:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({averagePressure:e.target.value})}} />
                         </Form.Group>
 
-                            <Form.Group as={Col} controlId="AverageDuration" >
+                            <Form.Group as={Col} controlId="averageDuration" >
                             <Form.Label>Average Duration</Form.Label>
                             <InputGroup >
                             <InputGroup.Append>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({AverageDuration:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({averageDuration:e.target.value})}} />
                             <InputGroup.Text id="basic-addon2">Hrs/Day</InputGroup.Text>
                                 </InputGroup.Append>
                             </InputGroup>
@@ -150,14 +150,14 @@ class customerInstallationForm extends Component {
 
                     <Form.Row>
 
-                         <Form.Group as={Col} controlId="MaximumFlowRrateValue">
+                         <Form.Group as={Col} controlId="maximumFlowRrateValue">
                             <Form.Label>Maximum Flow Rrate Value</Form.Label>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({MaximumFlowRrateValue:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({maximumFlowRrateValue:e.target.value})}} />
                         </Form.Group>
 
-                         <Form.Group as={Col} controlId="MaximumPressure">
+                         <Form.Group as={Col} controlId="maximumPressure">
                             <Form.Label>Maximum Pressure</Form.Label>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({MaximumPressure:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({maximumPressure:e.target.value})}} />
                         </Form.Group>
 
                     </Form.Row>
@@ -167,29 +167,29 @@ class customerInstallationForm extends Component {
                         <Form.Group as={Col} controlId="MaximumDurationUnit" >
                             <Form.Label>Maximum Duration Unit</Form.Label>
                             <Select
-                            value={this.state.MaximumDurationUnitSelectedOption}
+                            value={this.state.maximumDurationUnit}
                             onChange={this.MaximumDurationUnitHandleChange}
                             options={this.state.MaximumDurationUnitTypeOptions}
                             />
                         </Form.Group>
                 
-                        <Form.Group as={Col} controlId="MaximumDurationValue">
+                        <Form.Group as={Col} controlId="maximumDurationValue">
                             <Form.Label>Maximum Duration Value</Form.Label>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({MaximumDurationValue:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({maximumDurationValue:e.target.value})}} />
                         </Form.Group>
 
-                        <Form.Group as={Col} controlId="RepetitionPerDay">
+                        <Form.Group as={Col} controlId="repetitionPerDay">
                             <Form.Label>Repetition/Day</Form.Label>
-                            <FormControl type={"number"}  onChange={(e)=>{this.setState({RepetitionPerDay:e.target.value})}} />
+                            <FormControl type={"number"}  onChange={(e)=>{this.setState({repetitionPerDay:e.target.value})}} />
                         </Form.Group>
                         
 
                     </Form.Row>
 
                     <Form.Row>
-                        <Form.Group as={Col} controlId="FutureExpansionNotes">
+                        <Form.Group as={Col} controlId="futureExpansionNotes">
                             <Form.Label>Future Expansion Notes</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({FutureExpansionNotes:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({futureExpansionNotes:e.target.value})}} />
                         </Form.Group>
                     </Form.Row>
                         

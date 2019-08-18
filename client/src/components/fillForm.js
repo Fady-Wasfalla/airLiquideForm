@@ -11,6 +11,16 @@ import PriForm from './priForm'
 class fillForm extends Component {
 
     state = {
+      CBI:[],
+      name:{},
+      two:"sjnj",
+      }
+
+      handleChange =() =>{
+        console.log(this.state.name)
+      }
+      callBackFunction = (childData) => {
+        this.setState({name:childData})
       }
       render() {
         return (
@@ -24,7 +34,7 @@ class fillForm extends Component {
                 <Row><br/></Row>
                 </Col>
 
-                <Col md={{ span: 12, offset: 0 }}><CustomerBasicInfo/></Col>
+                <Col md={{ span: 12, offset: 0 }}><CustomerBasicInfo /></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><LogisticsValidationForm/></Col>
@@ -33,11 +43,12 @@ class fillForm extends Component {
                 <Col md={{ span: 12, offset: 0 }}><CustomerInstallationForm/></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><PriForm/></Col>
+                <Col md={{ span: 12, offset: 0 }}><PriForm ParentCallBack={this.callBackFunction}/></Col>
                 <Row><br/></Row>
                 
                 <Row>
-                <Col md={{ span: 0, offset: 5 }}><Button className="bg-secondary text-white">Submit</Button></Col>
+                <Col md={{ span: 0, offset: 5 }}><Button className="bg-secondary text-white"
+                onClick={this.handleChange}>Submit</Button></Col>
                 <Col md={{ span: 2, offset: 0 }}><Button className="bg-secondary text-white">Save as a draft</Button></Col>
                 </Row>
 

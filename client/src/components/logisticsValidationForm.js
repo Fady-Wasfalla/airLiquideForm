@@ -16,7 +16,7 @@ class logisticsValidationForm extends Component {
             { value: 'Customer Type 2', label: 'Customer Type 2' },
             { value: 'Customer Type 3', label: 'Customer Type 3' },
           ],
-        CustomerTypeSelectedOption : "",
+        customerType : "",
 
         //Buissness type dropdown list ... you have to change both value and label with the same name
          BuissnesTypeOptions : [
@@ -24,10 +24,10 @@ class logisticsValidationForm extends Component {
             { value: 'Buissnes Type 2', label: 'Buissnes Type 2' },
             { value: 'Buissnes Type 3', label: 'Buissnes Type 3' },
           ],
-        BuissnesTypeSelectedOption : "",
+        businessType : "",
 
-        StartDeliveryDate: new Date(),
-        ForecastDeliveryEnd: new Date(),
+        startDeliveryDate: new Date(),
+        forecastDeliveryEnd: new Date(),
 
         //Product type dropdown list ... you have to change both value and label with the same name
         ProductTypeOptions : [
@@ -35,94 +35,94 @@ class logisticsValidationForm extends Component {
             { value: 'Product 2', label: 'Product 2' },
             { value: 'Product 3', label: 'Product 3' },
           ],
-        ProductSelectedOption : "",
+        product : "",
         
-        Purity:0,
+        purity:0,
         
         CustomerConsumtionTypeOptions : [
-            { value: 'Regular', label: 'Regular' },
+            { value: 'regular', label: 'regular' },
             { value: 'Patch', label: 'Patch' },
           ],
-        CustomerConsumtionTypeSelectedOption:"",
-        CustomerConsumtionRegularShow:"none" ,
+        customerConsumption:"",
+        CustomerConsumtionregularShow:"none" ,
         CustomerConsumtionPatchShow:"none",
-        CustomerConsumptionRatePerMonths:0,
-        CustomerConsumptionDays:0,
-        CustomerConsumptionRatePerHr:0,
-        ProductAvailablity:false,
-        DeilveryType:"",
-        DeilveryTypeShow:"none",
-        StartDeliveryTime: '00:00',
-        EndDeliveryTime: '00:00',
-        SeasonalConsumption:0,
-        SeasonPeriod:0,
-        CustomerTank:0,
-        CustomerDeadLevel:0,
-        UsableCapacityAboveDeadLevel:0,
-        PeakConsumption:0,
-        FrequencyOfPeakConsumption:"",
-        WeightScale:0,
-        TankGuage:0,
-        LvfComment:"",
+        regularMonths:0,
+        patchDay:0,
+        patchAvgHrs:0,
+        productAvailability:false,
+        availableDelivery:"",
+        availableDeliveryShow:"none",
+        startDeliveryTime: '00:00',
+        endDeliveryTime: '00:00',
+        seasonalConsumption:0,
+        seasonPeriod:0,
+        customerTank:0,
+        customerDeadLevel:0,
+        usableCapacityAboveDeadLevel:0,
+        peakConsumption:0,
+        frequencyOfPeakConsumption:"",
+        weightScale:0,
+        weightScale:0,
+        lvfComment:"",
 
       }
 
-      CustomerTypeHandleChange = CustomerTypeSelectedOption => {
-        this.setState({ CustomerTypeSelectedOption });
-        console.log(CustomerTypeSelectedOption)
+      CustomerTypeHandleChange = customerType => {
+        this.setState({ customerType });
+        console.log(customerType)
       };
 
-      BuissnesTypeHandleChange = BuissnesTypeSelectedOption => {
-        this.setState({ BuissnesTypeSelectedOption });
-        console.log(BuissnesTypeSelectedOption)
+      BuissnesTypeHandleChange = businessType => {
+        this.setState({ businessType });
+        console.log(businessType)
       };
 
-      StartDeliveryDateHandleChange(date) {
+      startDeliveryDateHandleChange(date) {
         console.log(date)
-        this.setState({StartDeliveryDate: date})
+        this.setState({startDeliveryDate: date})
       }
 
-      ForecastDeliveryEndHandleChange(date) {
+      forecastDeliveryEndHandleChange(date) {
         console.log(date)
-        this.setState({ForecastDeliveryEnd: date})
+        this.setState({forecastDeliveryEnd: date})
       }
 
-      ProductHandleChange = ProductSelectedOption => {
-        this.setState({ ProductSelectedOption });
-        console.log(ProductSelectedOption)
+      ProductHandleChange = product => {
+        this.setState({ product });
+        console.log(product)
       };
       
-      CustomerConsumtionHandleChange  = CustomerConsumtionTypeSelectedOption => {
-        this.setState({ CustomerConsumtionTypeSelectedOption });
-        console.log(CustomerConsumtionTypeSelectedOption)
+      CustomerConsumtionHandleChange  = customerConsumption => {
+        this.setState({ customerConsumption });
+        console.log(customerConsumption)
 
-        if (CustomerConsumtionTypeSelectedOption.value === 'Regular') {
-          this.setState({CustomerConsumtionRegularShow:""})
+        if (customerConsumption.value === 'regular') {
+          this.setState({CustomerConsumtionregularShow:""})
           console.log("regular none")
           this.setState({CustomerConsumtionPatchShow:"none"})
         }
         else{
-          this.setState({CustomerConsumtionRegularShow:"none"})
+          this.setState({CustomerConsumtionregularShow:"none"})
           console.log("patch none")
           this.setState({CustomerConsumtionPatchShow:""})
         }
       };
 
 
-      DeilveryTypeHandleChange = DeilveryType => {
-        this.setState({ DeilveryType });
-        console.log(DeilveryType)
-        if (DeilveryType.value === 'Other') {
-          this.setState({DeilveryTypeShow:""})
+      availableDeliveryHandleChange = availableDelivery => {
+        this.setState({ availableDelivery });
+        console.log(availableDelivery)
+        if (availableDelivery.value === 'Other') {
+          this.setState({availableDeliveryShow:""})
         }
         else{
-          this.setState({DeilveryTypeShow:"none"})
+          this.setState({availableDeliveryShow:"none"})
         }
       };
 
-      StartDeliveryTimeHandleChange = StartDeliveryTime => this.setState({ StartDeliveryTime })
+      startDeliveryTimeHandleChange = startDeliveryTime => this.setState({ startDeliveryTime })
       
-      EndDeliveryTimeHandleChange = EndDeliveryTime => this.setState({ EndDeliveryTime })
+      endDeliveryTimeHandleChange = endDeliveryTime => this.setState({ endDeliveryTime })
 
 
       
@@ -144,7 +144,7 @@ class logisticsValidationForm extends Component {
                             <Form.Group as={Col} controlId=">CustomerType" >
                             <Form.Label>Customer's Type</Form.Label>
                             <Select
-                            value={this.state.CustomerTypeSelectedOption}
+                            value={this.state.customerType}
                             onChange={this.CustomerTypeHandleChange}
                             options={this.state.CustomerTypeOptions}
                             />
@@ -153,7 +153,7 @@ class logisticsValidationForm extends Component {
                             <Form.Group as={Col} controlId="BuissnesType">
                             <Form.Label>Buissnes Type</Form.Label>
                             <Select
-                            value={this.state.BuissnesTypeSelectedOption}
+                            value={this.state.businessType}
                             onChange={this.BuissnesTypeHandleChange}
                             options={this.state.BuissnesTypeOptions}
                             />
@@ -162,20 +162,20 @@ class logisticsValidationForm extends Component {
                         </Form.Row>
 
                         <Form.Row>
-                            <Form.Group as={Col} controlId="StartDeliveryDate">
+                            <Form.Group as={Col} controlId="startDeliveryDate">
                                 <Form.Label>Start Delivery Date</Form.Label>
                                 <br/>
                                 <DatePicker
-                                    selected={this.state.StartDeliveryDate}
-                                    onChange={this.StartDeliveryDateHandleChange.bind(this)}
+                                    selected={this.state.startDeliveryDate}
+                                    onChange={this.startDeliveryDateHandleChange.bind(this)}
                                     />
                             </Form.Group>
-                            <Form.Group as={Col} controlId="ForecastDeliveryEnd">
+                            <Form.Group as={Col} controlId="forecastDeliveryEnd">
                                 <Form.Label>Forecast Delivery End</Form.Label>
                                 <br/>
                                 <DatePicker
-                                    selected={this.state.ForecastDeliveryEnd}
-                                    onChange={this.ForecastDeliveryEndHandleChange.bind(this)}
+                                    selected={this.state.forecastDeliveryEnd}
+                                    onChange={this.forecastDeliveryEndHandleChange.bind(this)}
                                     />
                             </Form.Group>
                         </Form.Row>
@@ -193,15 +193,15 @@ class logisticsValidationForm extends Component {
                             <Form.Group as={Col} controlId="ProductType" >
                             <Form.Label>Product</Form.Label>
                             <Select
-                            value={this.state.ProductSelectedOption}
+                            value={this.state.product}
                             onChange={this.ProductHandleChange}
                             options={this.state.ProductTypeOptions}
                             />
                             </Form.Group>
 
-                            <Form.Group as={Col} controlId="Purity" >
-                            <Form.Label>Purity</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({Purity:e.target.value})}} />
+                            <Form.Group as={Col} controlId="purity" >
+                            <Form.Label>purity</Form.Label>
+                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({purity:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
 
@@ -210,43 +210,43 @@ class logisticsValidationForm extends Component {
                             <Form.Group as={Col} controlId="CustomerConsumtionType" >
                                 <Form.Label>Customer Consumption Type</Form.Label>
                                 <Select
-                                value={this.state.CustomerConsumtionTypeSelectedOption}
+                                value={this.state.customerConsumption}
                                 onChange={this.CustomerConsumtionHandleChange}
                                 options={this.state.CustomerConsumtionTypeOptions}
                                 />
-                            <Form.Check type="checkbox" label="Product Availablity" onChange={(e)=>{this.setState({ProductAvailablity:e.target.checked})}}/>
+                            <Form.Check type="checkbox" label="Product Availablity" onChange={(e)=>{this.setState({productAvailability:e.target.checked})}}/>
                             </Form.Group>
                           </Col>
 
 
-                            <Form.Group as={Col} controlId="CustomerConsumptionRatePerMonths"
-                             style={{display:this.state.CustomerConsumtionRegularShow}} >
+                            <Form.Group as={Col} controlId="regularMonths"
+                             style={{display:this.state.CustomerConsumtionregularShow}} >
                             <Form.Label>Customer Consumption Rate Per Months</Form.Label>
                             <InputGroup >
                             <InputGroup.Append>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({CustomerConsumptionRatePerMonths:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({regularMonths:e.target.value})}} />
                                 <InputGroup.Text id="basic-addon2">/ Months</InputGroup.Text>
                                 </InputGroup.Append>
                             </InputGroup>
                             </Form.Group>
 
-                            <Form.Group as={Col} controlId="CustomerConsumptionDays"
+                            <Form.Group as={Col} controlId="patchDay"
                             style={{display:this.state.CustomerConsumtionPatchShow}} >
                             <Form.Label>Customer Consumption Days</Form.Label>
                             <InputGroup >
                             <InputGroup.Append>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({CustomerConsumptionDays:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({patchDay:e.target.value})}} />
                             <InputGroup.Text id="basic-addon2">Days</InputGroup.Text>
                                 </InputGroup.Append>
                             </InputGroup>
                             </Form.Group>
 
-                            <Form.Group as={Col} controlId="CustomerConsumptionRatePerHr"
+                            <Form.Group as={Col} controlId="patchAvgHrs"
                             style={{display:this.state.CustomerConsumtionPatchShow}} >
                             <Form.Label>Customer Consumption Rate Per Hr</Form.Label>
                             <InputGroup>
                             <InputGroup.Append>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({CustomerConsumptionRatePerHr:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({patchAvgHrs:e.target.value})}} />
                             <InputGroup.Text id="basic-addon2">Avg./Hr</InputGroup.Text>
                                 </InputGroup.Append>
                             </InputGroup>
@@ -256,38 +256,38 @@ class logisticsValidationForm extends Component {
                         
 
                         <Form.Row>
-                        <Form.Group as={Col} controlId="SeasonalConsumption" >
+                        <Form.Group as={Col} controlId="seasonalConsumption" >
                             <Form.Label>Seasonal Consumption</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({SeasonalConsumption:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({seasonalConsumption:e.target.value})}} />
                             </Form.Group>
-                            <Form.Group as={Col} controlId="SeasonPeriod" >
+                            <Form.Group as={Col} controlId="seasonPeriod" >
                             <Form.Label>Season Period</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({SeasonPeriod:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({seasonPeriod:e.target.value})}} />
                             </Form.Group>
-                            <Form.Group as={Col} controlId="CustomerTank" >
+                            <Form.Group as={Col} controlId="customerTank" >
                             <Form.Label>Customer Tank</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({CustomerTank:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({customerTank:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
-                        <Form.Group as={Col} controlId="CustomerDeadLevel" >
+                        <Form.Group as={Col} controlId="customerDeadLevel" >
                             <Form.Label>Customer Dead Level</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({CustomerDeadLevel:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({customerDeadLevel:e.target.value})}} />
                             </Form.Group>
-                            <Form.Group as={Col} controlId="UsableCapacityAboveDeadLevel" >
+                            <Form.Group as={Col} controlId="usableCapacityAboveDeadLevel" >
                             <Form.Label>Usable Capacity Above Dead Level</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({UsableCapacityAboveDeadLevel:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({usableCapacityAboveDeadLevel:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
 
-                            <Form.Group as={Col} controlId="PeakConsumption" >
+                            <Form.Group as={Col} controlId="peakConsumption" >
                             <Form.Label>Peak Consumption</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({PeakConsumption:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({peakConsumption:e.target.value})}} />
                             </Form.Group>
-                            <Form.Group as={Col} controlId="FrequencyOfPeakConsumption">
+                            <Form.Group as={Col} controlId="frequencyOfPeakConsumption">
                               <Form.Label>Frequency Of Peak Consumption</Form.Label>
                               <Form.Control as="textarea" rows="1" placeHolder="times/period" />
                               </Form.Group>
@@ -295,53 +295,53 @@ class logisticsValidationForm extends Component {
 
                         <Form.Row >
                          <Col md={6}>
-                            <Form.Group as={Col} controlId="DeilveryType" >
+                            <Form.Group as={Col} controlId="availableDelivery" >
                             <Form.Label>Deilvery Type</Form.Label>
                             <Select
-                            value={this.state.DeilveryType}
-                            onChange={this.DeilveryTypeHandleChange}
+                            value={this.state.availableDelivery}
+                            onChange={this.availableDeliveryHandleChange}
                             options={[{value:'24 Hours',label:'24 Hours'},{value:'Other',label:'Other'}]}
                             />
                             </Form.Group>
                             </Col>
 
-                            <Form.Group as={Col} controlId="StartDeliveryTime"
-                             style={{display:this.state.DeilveryTypeShow}}>
+                            <Form.Group as={Col} controlId="startDeliveryTime"
+                             style={{display:this.state.availableDeliveryShow}}>
                                 <Form.Label>Start Delivery Time</Form.Label>
                                 <br/>
                                 <TimePicker
-                                    onChange={this.StartDeliveryTimeHandleChange}
-                                    value={this.state.StartDeliveryTime}
+                                    onChange={this.startDeliveryTimeHandleChange}
+                                    value={this.state.startDeliveryTime}
                                     />
                             </Form.Group>
 
-                            <Form.Group as={Col} controlId="EndDeliveryTime"
-                             style={{display:this.state.DeilveryTypeShow}}>
+                            <Form.Group as={Col} controlId="endDeliveryTime"
+                             style={{display:this.state.availableDeliveryShow}}>
                                 <Form.Label>End Delivery Time</Form.Label>
                                 <br/>
                                 <TimePicker
-                                    onChange={this.EndDeliveryTimeHandleChange}
-                                    value={this.state.EndDeliveryTime}
+                                    onChange={this.endDeliveryTimeHandleChange}
+                                    value={this.state.endDeliveryTime}
                                     />
                             </Form.Group>
                         </Form.Row>
 
                         
                         <Form.Row>
-                        <Form.Group as={Col} controlId="WeightScale" >
+                        <Form.Group as={Col} controlId="weightScale" >
                             <Form.Label>Weight Scale</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({WeightScale:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({weightScale:e.target.value})}} />
                             </Form.Group>
-                            <Form.Group as={Col} controlId="TankGuage" >
+                            <Form.Group as={Col} controlId="weightScale" >
                             <Form.Label>Tank Guage</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({TankGuage:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({weightScale:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
-                            <Form.Group as={Col} controlId="LvfComment">
+                            <Form.Group as={Col} controlId="lvfComment">
                             <Form.Label>Lvf Comment</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({LvfComment:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({lvfComment:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
 

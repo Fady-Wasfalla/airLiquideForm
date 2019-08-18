@@ -5,29 +5,30 @@ import 'mdbreact/dist/css/mdb.css'
 class contactPerson extends Component {
 
     state = {
-        contactPersons :[],
-        numbers:[]
+        contactPersonName :[],
+        contactPersonWay:[]
       }
 
       addPerson(){
-        this.setState({contactPersons:[... this.state.contactPersons,""]})
-        this.setState({numbers:[... this.state.numbers,""]})
+        this.setState({contactPersonName:[... this.state.contactPersonName,""]})
+        this.setState({contactPersonWay:[... this.state.contactPersonWay,""]})
       }
 
       handleChangeName(e,index){
-        this.state.contactPersons[index] = e.target.value
-        this.setState({contactPersons:this.state.contactPersons})
+        this.state.contactPersonName[index] = e.target.value
+        this.setState({contactPersonName:this.state.contactPersonName})
+        
       }
       handleChangePhone(e,index){
-        this.state.numbers[index] = e.target.value
-        this.setState({numbers:this.state.numbers})
+        this.state.contactPersonWay[index] = e.target.value
+        this.setState({contactPersonWay:this.state.contactPersonWay})
       }
 
       removePerson(index){
-        this.state.contactPersons.splice(index,1)
-        this.setState({contactPersons:this.state.contactPersons})
-        this.state.numbers.splice(index,1)
-        this.setState({numbers:this.state.numbers})
+        this.state.contactPersonName.splice(index,1)
+        this.setState({contactPersonName:this.state.contactPersonName})
+        this.state.contactPersonWay.splice(index,1)
+        this.setState({contactPersonWay:this.state.contactPersonWay})
       }
 
       render() {
@@ -40,7 +41,7 @@ class contactPerson extends Component {
                 <Row>
                 <Col md={5}>
                 {
-                    this.state.contactPersons.map((person,index)=>{
+                    this.state.contactPersonName.map((person,index)=>{
                         return (
                             <Form>
                                 <Form.Row>
@@ -56,12 +57,12 @@ class contactPerson extends Component {
                 </Col>
                 <Col md={5}>
                 {
-                    this.state.numbers.map((number,index)=>{
+                    this.state.contactPersonWay.map((number,index)=>{
                         return (
                             <Form>
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="phone">
-                                    <Form.Label>Phone Number</Form.Label>
+                                    <Form.Label>Way</Form.Label>
                                     <Form.Control as="textarea" rows="1" onChange={(e)=>this.handleChangePhone(e , index)}  value={number} />
                                     </Form.Group>
                                     <Button variant="outline" style={{height: .05*window.innerHeight + 'px'}}
