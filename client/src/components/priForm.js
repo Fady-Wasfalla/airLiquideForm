@@ -88,18 +88,118 @@ class priForm extends Component {
         populationCmtsCmt:"",
         transportationCorridorCmt:"",
 
-        //4.4. Customer */
-        industrialCmts:false ,
-        industrialCmtsCmt :""  ,
-        durabilityOfCustomerActivities:false,
-        durabilityOfCustomerActivitiesCmt :"" ,
-        newBusinessCustomer:false,
-        newBusinessCustomerCmt :"",
-        strategicCustomer:false,
-        strategicCustomerCmt :"" ,
-        customerCmts:false,
-        customerCmtsCmt :"" ,
+        // 4.4. Customer 
+        financialSituation:false  ,
+        financialSituationCmt:""  ,
+        newBusinessCustomer:false ,
+        durabilityOfCustomerActivities:false ,
+        strategicCustomer:false ,
+        strategicCustomerCmt:"" ,
+        customerCmts:false ,
+        customerCmtsCmt:"" ,
 
+        // 5. Project Organisation
+        jointProjectThirdParties:false ,
+        jointProjectThirdPartiesCmt:"" ,
+        necessaryDesignAuthorities:false ,
+        necessaryDesignAuthoritiesCmt:"" ,
+        jointProjectInvolvingAirLiquide:false ,
+        jointProjectInvolvingAirLiquideCmt:"" ,
+        projectSubmittedToThirdParty:false ,
+        projectSubmittedToThirdPartyCmt:"" ,
+        equipmentSuppliedByCustomer:false ,
+        equipmentSuppliedByCustomerCmt:"" ,
+        difficultyAccessExpertise:false ,
+        difficultyAccessExpertiseCmt:"" ,
+        useStandBbyAssets:false ,
+        useStandBbyAssetsCmt:"" ,
+        issueOfResource:false ,
+        issueOfResourceCmt:"" ,
+        projectOrganisationCmts:false ,
+        projectOrganisationCmtsCmt:"" ,
+
+        // 6. Processes, Products, Technology (PPT), Equipment
+        equipmentTechnologySupplier:false ,
+        equipmentTechnologySupplierCmt:"" ,
+        majorProblemEncountered:false ,
+        majorProblemEncounteredCmt:"" ,
+        qualifiedValidatedEquipment:false ,
+        qualifiedValidatedEquipmentCmt:""  ,
+        requirementsUtilitiesSpecification:false ,
+        requirementsUtilitiesSpecificationCmt:"" ,
+        newImposedAssociates:false ,
+        newImposedAssociatesCmt:""  ,
+        installatioProductRequireHazardous:false ,
+        installatioProductRequireHazardousCmt:"" ,
+        innovationNewlyDeveloped:false ,
+        innovationNewlyDevelopedCmt:"" ,
+        productsRawMaterials:false,
+        productsRawMaterialsCmt:"" ,
+        projectUsingInnovativePpt:false ,
+        projectUsingInnovativePptCmt:""  ,
+        operationHaveNegativeImpact:false ,
+        operationHaveNegativeImpactCmt:"" ,
+        intellectualPropertyWatch:false ,
+        intellectualPropertyWatchCmt:""  ,
+        riskAnalysisProject:false ,
+        riskAnalysisProjectCmt:"" ,
+        lackMainEquipments:false ,
+        lackMainEquipmentsCmt:"" ,
+        previousRiskAnalysis:false,
+        previousRiskAnalysisCmt:"",
+        lackSimilarProcess:false ,
+        lackSimilarProcessCmt:"" ,
+        processesProductsCmts:false ,
+        processesProductsCmtsCmt:"" ,
+
+        // 7. Operation Conditions 
+        customizedPlant:false ,
+        customizedPlantCmt:""  ,
+        noOperatingExperienceSimilarProcess:false ,
+        noOperatingExperienceSimilarProcessCmt:"" ,
+        newServiceBySubsidiary:false  ,
+        newServiceBySubsidiaryCmt:"" ,
+        potentialBackflow :false ,
+        potentialBackflowCmt:"" ,
+        includeTransportationActivities:false ,
+        includeTransportationActivitiesCmt:"" ,
+        specialTraining:false ,
+        specialTrainingCmt:"" ,
+        operationDoneByCustomer:false ,
+        operationDoneByCustomerCmt:"" ,
+        unattendedFacility:false ,
+        unattendedFacilityCmt:"" ,
+        operatingWithoutDesign:false ,
+        operatingWithoutDesignCmt:"" ,
+        remoteFillingLines:false ,
+        remoteFillingLinesCmt:"" ,
+        operationCmts:false ,
+        operationCmtsCmt:""  ,
+
+        // 8. Customer Requirements
+        notFullyDefined:false ,
+        notFullyDefinedCmt:"" ,
+        mandatoryCustomerStandards:false ,
+        mandatoryCustomerStandardsCmt:"" ,
+        technicalIssues:false ,
+        technicalIssuesCmt:"" ,
+        specificInsurance:false ,
+        specificInsuranceCmt:"" ,
+        contractualTargets:false  ,
+        contractualTargetsCmt:"" ,
+        requiredStudies:false ,
+        requiredStudiesCmt:"" ,
+        requiredStudiesReliability:false ,
+        requiredStudiesReliabilityCmt:"" ,
+        peakFlowRequirement:false ,
+        peakFlowRequirementCmt:"" ,
+        safetyIntegrityLevel:false ,
+        safetyIntegrityLevelCmt:"" ,
+        customerRequirementCmts:false ,
+        customerRequirementCmtsCmt:"" ,
+
+
+        
       }
 
       sendData =()=>{
@@ -548,8 +648,693 @@ class priForm extends Component {
                             </Form.Group>
                        </Form.Row>
 
-                       <Button
-                       onClick={this.sendData}>a7a</Button>
+                       <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="residentialArea"
+                            custom={true}
+                            inline={true}
+                            label="Residential area"
+                            onChange={(e)=>{this.setState({residentialArea:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.residentialArea}
+                            onChange={(e)=>{this.setState({residentialAreaCmt:e.target.value})}} />
+                            </Form.Group>
+                            
+                            <Form.Group as={Col}  >
+                            <Form.Check id="isolatedArea"
+                            custom={true}
+                            inline={true}
+                            label="Isolated area"
+                            onChange={(e)=>{this.setState({isolatedArea:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.isolatedArea}
+                            onChange={(e)=>{this.setState({isolatedAreaCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="publicBuilding"
+                            custom={true}
+                            inline={true}
+                            label="Public Building"
+                            onChange={(e)=>{this.setState({publicBuilding:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.publicBuilding}
+                            onChange={(e)=>{this.setState({publicBuildingCmt:e.target.value})}} />
+                            </Form.Group>
+                            
+                       </Form.Row>
+
+                       <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="siteAccessibility"
+                            custom={true}
+                            inline={true}
+                            label="Issue with site accessibility"
+                            onChange={(e)=>{this.setState({siteAccessibility:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.siteAccessibility}
+                            onChange={(e)=>{this.setState({siteAccessibilityCmt:e.target.value})}} />
+                            </Form.Group>
+                            
+                            <Form.Group as={Col}  >
+                            <Form.Check id="transportationCorridor"
+                            custom={true}
+                            inline={true}
+                            label="Transportation corridor"
+                            onChange={(e)=>{this.setState({transportationCorridor:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.transportationCorridor}
+                            onChange={(e)=>{this.setState({transportationCorridorCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="highSecurityRisk"
+                            custom={true}
+                            inline={true}
+                            label="High security risk (terrorism, vandalism, etc)"
+                            onChange={(e)=>{this.setState({highSecurityRisk:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.highSecurityRisk}
+                            onChange={(e)=>{this.setState({highSecurityRiskCmt:e.target.value})}} />
+                            </Form.Group>
+
+                       </Form.Row>
+
+                       <Form.Row>
+
+                            <Col md={{ offset:0 ,span:6}} >
+                            <Form.Check id="populationCmts"
+                            custom={true}
+                            inline={true}
+                            label="Other / Comments"
+                            onChange={(e)=>{this.setState({populationCmts:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.populationCmts}
+                            onChange={(e)=>{this.setState({populationCmtsCmt:e.target.value})}} />
+                            </Col>
+
+                       </Form.Row>
+
+                       <Row><br/></Row>
+                        <Form.Row>
+                            <Form.Group as={Col} >
+                                <Form.Label style={{ color:"black" , fontSize:"16px" , fontStyle:"italic" }}>
+                                4.4. Customer</Form.Label>
+                            </Form.Group>
+                       </Form.Row>
+
+                       <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="financialSituation"
+                            custom={true}
+                            inline={true}
+                            label="Financial situation (solvency) of the customer (pay on time, not healthy)"
+                            onChange={(e)=>{this.setState({financialSituation:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.financialSituation}
+                            onChange={(e)=>{this.setState({financialSituationCmt:e.target.value})}} />
+                            </Form.Group>
+                            
+                            <Col md={{ offset:1 ,span:3}} >
+                            <Row style={{height: .04*window.innerHeight + 'px'}}/>
+                            <Form.Check id="newBusinessCustomer"
+                            custom={true}
+                            inline={true}
+                            label="New business for the customer"
+                            onChange={(e)=>{this.setState({newBusinessCustomer:e.target.checked})}}/>
+                            </Col>
+
+                            <Col md={{ offset:0 ,span:3}} >
+                            <Row style={{height: .04*window.innerHeight + 'px'}}/>
+                            <Form.Check id="durabilityOfCustomerActivities"
+                            custom={true}
+                            inline={true}
+                            label="Durability of customer activities"
+                            onChange={(e)=>{this.setState({durabilityOfCustomerActivities:e.target.checked})}}/>
+                            </Col>
+
+                       </Form.Row>
+
+                       <Form.Row>
+                            <Form.Group as={Col}  >
+                            <Form.Check id="strategicCustomer"
+                            custom={true}
+                            inline={true}
+                            label="Strategic customer (dedicated AL development for a new customer, new area,
+                                remote sources…)"
+                            onChange={(e)=>{this.setState({strategicCustomer:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.strategicCustomer}
+                            onChange={(e)=>{this.setState({strategicCustomerCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .033*window.innerHeight + 'px'}}/>
+                            <Form.Check id="customerCmts"
+                            custom={true}
+                            inline={true}
+                            label="Other / Comments"
+                            onChange={(e)=>{this.setState({customerCmts:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.customerCmts}
+                            onChange={(e)=>{this.setState({customerCmtsCmt:e.target.value})}} />
+                            </Form.Group>
+                       </Form.Row>
+
+
+                       <Row><br/></Row>
+                        <Form.Row>
+                            <Form.Group as={Col} >
+                                <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic" }}>5. Project Organisation</Form.Label>
+                            </Form.Group>
+                       </Form.Row>
+
+                        <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="jointProjectThirdParties"
+                            custom={true}
+                            inline={true}
+                            label="Joint project with third parties"
+                            onChange={(e)=>{this.setState({jointProjectThirdParties:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.jointProjectThirdParties}
+                            onChange={(e)=>{this.setState({jointProjectThirdPartiesCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="necessaryDesignAuthorities"
+                            custom={true}
+                            inline={true}
+                            label="All necessary Design Authorities are not identified"
+                            onChange={(e)=>{this.setState({necessaryDesignAuthorities:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.necessaryDesignAuthorities}
+                            onChange={(e)=>{this.setState({necessaryDesignAuthoritiesCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="jointProjectInvolvingAirLiquide"
+                            custom={true}
+                            inline={true}
+                            label="Joint project involving Air Liquide entities (E&C, ALHZ, etc..)"
+                            onChange={(e)=>{this.setState({jointProjectInvolvingAirLiquide:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.jointProjectInvolvingAirLiquide}
+                            onChange={(e)=>{this.setState({jointProjectInvolvingAirLiquideCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+                        <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="projectSubmittedToThirdParty"
+                            custom={true}
+                            inline={true}
+                            label="Project submitted to third party validation List"
+                            onChange={(e)=>{this.setState({projectSubmittedToThirdParty:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.projectSubmittedToThirdParty}
+                            onChange={(e)=>{this.setState({projectSubmittedToThirdPartyCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="equipmentSuppliedByCustomer"
+                            custom={true}
+                            inline={true}
+                            label="Equipments / services supplied by the customer"
+                            onChange={(e)=>{this.setState({equipmentSuppliedByCustomer:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.equipmentSuppliedByCustomer}
+                            onChange={(e)=>{this.setState({equipmentSuppliedByCustomerCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="difficultyAccessExpertise"
+                            custom={true}
+                            inline={true}
+                            label="Difficulty to access expertise"
+                            onChange={(e)=>{this.setState({difficultyAccessExpertise:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.difficultyAccessExpertise}
+                            onChange={(e)=>{this.setState({difficultyAccessExpertiseCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+                    
+                        <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="useStandBbyAssets"
+                            custom={true}
+                            inline={true}
+                            label="Use of stand-by assets (not in use for a long time)"
+                            onChange={(e)=>{this.setState({useStandBbyAssets:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.useStandBbyAssets}
+                            onChange={(e)=>{this.setState({useStandBbyAssetsCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="issueOfResource"
+                            custom={true}
+                            inline={true}
+                            label="Issue of resource (e.g. long lasting project)"
+                            onChange={(e)=>{this.setState({issueOfResource:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.issueOfResource}
+                            onChange={(e)=>{this.setState({issueOfResourceCmt:e.target.value})}} />
+                            </Form.Group>
+                            
+                            <Form.Group as={Col}  >
+                            <Form.Check id="projectOrganisationCmts"
+                            custom={true}
+                            inline={true}
+                            label="Other / comment"
+                            onChange={(e)=>{this.setState({projectOrganisationCmts:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.projectOrganisationCmts}
+                            onChange={(e)=>{this.setState({projectOrganisationCmtsCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+                        <Row><br/></Row>
+                        <Form.Row>
+                            <Form.Group as={Col} >
+                                <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic" }}>6. Processes, Products, Technology (PPT), Equipment</Form.Label>
+                            </Form.Group>
+                       </Form.Row>
+
+                       <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="equipmentTechnologySupplier"
+                            custom={true}
+                            inline={true}
+                            label="Equipment/Technology supplier:Qualified supplier(yes or no)"
+                            onChange={(e)=>{this.setState({equipmentTechnologySupplier:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.equipmentTechnologySupplier}
+                            placeHolder={"yes/no : justification"}
+                            onChange={(e)=>{this.setState({equipmentTechnologySupplierCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="majorProblemEncountered"
+                            custom={true}
+                            inline={true}
+                            label="Major problem encountered on similar project"
+                            onChange={(e)=>{this.setState({majorProblemEncountered:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.majorProblemEncountered}
+                            onChange={(e)=>{this.setState({majorProblemEncounteredCmt:e.target.value})}} />
+                            </Form.Group>
+                            
+                            <Form.Group as={Col}  >
+                            <Form.Check id="qualifiedValidatedEquipment"
+                            custom={true}
+                            inline={true}
+                            label="Qualified / validated equipment (yes or no)"
+                            onChange={(e)=>{this.setState({qualifiedValidatedEquipment:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.qualifiedValidatedEquipment}
+                            placeHolder={"yes/no : justification"}
+                            onChange={(e)=>{this.setState({qualifiedValidatedEquipmentCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+                        <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="requirementsUtilitiesSpecification"
+                            custom={true}
+                            inline={true}
+                            label="Requirements on utilities specification not fully covered (water specification …)"
+                            onChange={(e)=>{this.setState({requirementsUtilitiesSpecification:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.requirementsUtilitiesSpecification}
+                            onChange={(e)=>{this.setState({requirementsUtilitiesSpecificationCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Form.Check id="newImposedAssociates"
+                            custom={true}
+                            inline={true}
+                            label="New or imposed associates or contractors"
+                            onChange={(e)=>{this.setState({newImposedAssociates:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.newImposedAssociates}
+                            onChange={(e)=>{this.setState({newImposedAssociatesCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="installatioProductRequireHazardous"
+                            custom={true}
+                            inline={true}
+                            label="Installation or product may require hazardous waste disposal / recycling cost now or
+                            in the future"
+                            onChange={(e)=>{this.setState({installatioProductRequireHazardous:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.installatioProductRequireHazardous}
+                            onChange={(e)=>{this.setState({installatioProductRequireHazardousCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+
+                        <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Form.Check id="innovationNewlyDeveloped"
+                            custom={true}
+                            inline={true}
+                            label="Innovation and/or newly developed PPT"
+                            onChange={(e)=>{this.setState({innovationNewlyDeveloped:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.innovationNewlyDeveloped}
+                            onChange={(e)=>{this.setState({innovationNewlyDevelopedCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="productsRawMaterials"
+                            custom={true}
+                            inline={true}
+                            label="Products or raw materials may have negative impacts on health (e.g. carcinogenic)"
+                            onChange={(e)=>{this.setState({productsRawMaterials:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.productsRawMaterials}
+                            onChange={(e)=>{this.setState({productsRawMaterialsCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+
+                            <Form.Check id="projectUsingInnovativePpt"
+                            custom={true}
+                            inline={true}
+                            label="Project using one or several innovative PPT"
+                            onChange={(e)=>{this.setState({projectUsingInnovativePpt:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.projectUsingInnovativePpt}
+                            onChange={(e)=>{this.setState({projectUsingInnovativePptCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+                         <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="operationHaveNegativeImpact"
+                            custom={true}
+                            inline={true}
+                            label="Operation may have negative impact on the environment (e.g. air emissions, energy
+                                consumption, liquid discharges)"
+                            onChange={(e)=>{this.setState({operationHaveNegativeImpact:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.operationHaveNegativeImpact}
+                            onChange={(e)=>{this.setState({operationHaveNegativeImpactCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Form.Check id="intellectualPropertyWatch"
+                            custom={true}
+                            inline={true}
+                            label="Intellectual property watch"
+                            onChange={(e)=>{this.setState({intellectualPropertyWatch:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.intellectualPropertyWatch}
+                            onChange={(e)=>{this.setState({intellectualPropertyWatchCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="riskAnalysisProject"
+                            custom={true}
+                            inline={true}
+                            label="Risk analysis of the whole project (integration of risk analysis of subsystems)
+                                    does not exist"
+                            onChange={(e)=>{this.setState({riskAnalysisProject:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.riskAnalysisProject}
+                            onChange={(e)=>{this.setState({riskAnalysisProjectCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+                         <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Form.Check id="lackMainEquipments"
+                            custom={true}
+                            inline={true}
+                            label="Lack of references for main equipments or suppliers"
+                            onChange={(e)=>{this.setState({lackMainEquipments:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.lackMainEquipments}
+                            onChange={(e)=>{this.setState({lackMainEquipmentsCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Form.Check id="previousRiskAnalysis"
+                            custom={true}
+                            inline={true}
+                            label="Previous risk analysis"
+                            onChange={(e)=>{this.setState({previousRiskAnalysis:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.previousRiskAnalysis}
+                            onChange={(e)=>{this.setState({previousRiskAnalysisCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="lackSimilarProcess"
+                            custom={true}
+                            inline={true}
+                            label="Lack of experience with similar process / First application for subsidiary"
+                            onChange={(e)=>{this.setState({lackSimilarProcess:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.lackSimilarProcess}
+                            onChange={(e)=>{this.setState({lackSimilarProcessCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+                        <Form.Row>
+                            <Col md={{ offset:0 ,span:6}}>
+                            <Form.Check id="processesProductsCmts"
+                            custom={true}
+                            inline={true}
+                            label="Other / Comments"
+                            onChange={(e)=>{this.setState({processesProductsCmts:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.processesProductsCmts}
+                            onChange={(e)=>{this.setState({processesProductsCmtsCmt:e.target.value})}} />
+                            </Col>
+                        </Form.Row>
+
+                        <Row><br/></Row>
+                        <Form.Row>
+                            <Form.Group as={Col} >
+                                <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic" }}>7. Operation Conditions</Form.Label>
+                            </Form.Group>
+                       </Form.Row>
+                        
+                         <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Form.Check id="customizedPlant"
+                            custom={true}
+                            inline={true}
+                            label="Customized plant / equipment (tailor made)"
+                            onChange={(e)=>{this.setState({customizedPlant:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.customizedPlant}
+                            onChange={(e)=>{this.setState({customizedPlantCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Form.Check id="noOperatingExperienceSimilarProcess"
+                            custom={true}
+                            inline={true}
+                            label="No operating experience of similar process / equipment"
+                            onChange={(e)=>{this.setState({noOperatingExperienceSimilarProcess:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.noOperatingExperienceSimilarProcess}
+                            onChange={(e)=>{this.setState({noOperatingExperienceSimilarProcessCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="newServiceBySubsidiary"
+                            custom={true}
+                            inline={true}
+                            label="New service offered by subsidiary (e.g. after-sales service, maintenance)"
+                            onChange={(e)=>{this.setState({newServiceBySubsidiary:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.newServiceBySubsidiary}
+                            onChange={(e)=>{this.setState({newServiceBySubsidiaryCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+                        <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="potentialBackflow"
+                            custom={true}
+                            inline={true}
+                            label="Potential backflow from the customer (leading to contamination, overpressure…)"
+                            onChange={(e)=>{this.setState({potentialBackflow:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.potentialBackflow}
+                            onChange={(e)=>{this.setState({potentialBackflowCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Form.Check id="includeTransportationActivities"
+                            custom={true}
+                            inline={true}
+                            label="Include transportation activities"
+                            onChange={(e)=>{this.setState({includeTransportationActivities:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.includeTransportationActivities}
+                            onChange={(e)=>{this.setState({includeTransportationActivitiesCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="specialTraining"
+                            custom={true}
+                            inline={true}
+                            label="Special training is required (e.g. for Electronics Specialty Gases)"
+                            onChange={(e)=>{this.setState({specialTraining:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.specialTraining}
+                            onChange={(e)=>{this.setState({specialTrainingCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+                        <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Form.Check id="operationDoneByCustomer"
+                            custom={true}
+                            inline={true}
+                            label="Operation done by a customer , third-party , contractor"
+                            onChange={(e)=>{this.setState({operationDoneByCustomer:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.operationDoneByCustomer}
+                            onChange={(e)=>{this.setState({operationDoneByCustomerCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Form.Check id="unattendedFacility"
+                            custom={true}
+                            inline={true}
+                            label="Unattended facility"
+                            onChange={(e)=>{this.setState({unattendedFacility:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.unattendedFacility}
+                            onChange={(e)=>{this.setState({unattendedFacilityCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="operatingWithoutDesign"
+                            custom={true}
+                            inline={true}
+                            label="Operating conditions without design experience(e.g.filling hydrogen cylinders at
+                                700 bars,oxygen cylinders at 300 bars)"
+                            onChange={(e)=>{this.setState({operatingWithoutDesign:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.operatingWithoutDesign}
+                            onChange={(e)=>{this.setState({operatingWithoutDesignCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+                        <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="remoteFillingLines"
+                            custom={true}
+                            inline={true}
+                            label="Remote filling lines are used between unloading point and filled storage tank"
+                            onChange={(e)=>{this.setState({remoteFillingLines:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.remoteFillingLines}
+                            onChange={(e)=>{this.setState({remoteFillingLinesCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="operationCmts"
+                            custom={true}
+                            inline={true}
+                            label="Other / Comments"
+                            onChange={(e)=>{this.setState({operationCmts:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.operationCmts}
+                            onChange={(e)=>{this.setState({operationCmtsCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+                        <Row><br/></Row>
+                        <Form.Row>
+                            <Form.Group as={Col} >
+                                <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic" }}>8. Customer Requirements</Form.Label>
+                            </Form.Group>
+                       </Form.Row>
+
+                       <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="notFullyDefined"
+                            custom={true}
+                            inline={true}
+                            label="Not fully defined"
+                            onChange={(e)=>{this.setState({notFullyDefined:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.notFullyDefined}
+                            onChange={(e)=>{this.setState({notFullyDefinedCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="mandatoryCustomerStandards"
+                            custom={true}
+                            inline={true}
+                            label="Mandatory customer standards to be followed"
+                            onChange={(e)=>{this.setState({mandatoryCustomerStandards:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.mandatoryCustomerStandards}
+                            onChange={(e)=>{this.setState({mandatoryCustomerStandardsCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="technicalIssues"
+                            custom={true}
+                            inline={true}
+                            label="Technical issues"
+                            onChange={(e)=>{this.setState({technicalIssues:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.technicalIssues}
+                            onChange={(e)=>{this.setState({technicalIssuesCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+                        <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Form.Check id="specificInsurance"
+                            custom={true}
+                            inline={true}
+                            label="Specific insurance required by the customer"
+                            onChange={(e)=>{this.setState({specificInsurance:e.target.checked})}}/>
+                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.specificInsurance}
+                            onChange={(e)=>{this.setState({specificInsuranceCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="contractualTargets"
+                            custom={true}
+                            inline={true}
+                            label="Contractual targets for reliability, availability, safety, quality (e.g. food safety)"
+                            onChange={(e)=>{this.setState({contractualTargets:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.contractualTargets}
+                            onChange={(e)=>{this.setState({contractualTargetsCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}  >
+                            <Form.Check id="requiredStudies"
+                            custom={true}
+                            inline={true}
+                            label="Required studies for operational permits (fire fighting, lightning protection, ATEX …)"
+                            onChange={(e)=>{this.setState({requiredStudies:e.target.checked})}}/>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.requiredStudies}
+                            onChange={(e)=>{this.setState({requiredStudiesCmt:e.target.value})}} />
+                            </Form.Group>
+
+                        </Form.Row>
+
+
+                       <Button onClick={this.sendData}>send Data</Button>
 
                         <Row><br/></Row>
 
