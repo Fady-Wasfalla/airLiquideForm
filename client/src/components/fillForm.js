@@ -47,9 +47,9 @@ class fillForm extends Component {
                 <Row><br/></Row>
                 
                 <Row>
-                <Col md={{ span: 0, offset: 5 }}><Button className="bg-secondary text-white"
+                <Col md={{ span: 12, offset: 5 }}>
+                <Button className="bg-secondary text-white"
                 onClick={this.handleChange}>Submit</Button></Col>
-                <Col md={{ span: 2, offset: 0 }}><Button className="bg-secondary text-white">Save as a draft</Button></Col>
                 </Row>
 
                 <Row><br/></Row>
