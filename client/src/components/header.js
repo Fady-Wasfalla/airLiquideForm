@@ -11,7 +11,7 @@ class header extends Component {
       render() {
         return (
           <React.Fragment>
-            <Navbar bg="light" variant="dark">
+            <Navbar bg="light" variant="dark" >
              <Navbar.Brand href="#home">
               <img
                 src={logo}
@@ -24,6 +24,8 @@ class header extends Component {
               <Nav.Link href="http://localhost:3000/distributionFeedback">Distribution</Nav.Link>
               <Nav.Link href="http://localhost:3000/sourcingFeedback">Sourcing</Nav.Link>
               <Nav.Link href="http://localhost:3000/fleatFeedback">Fleat</Nav.Link>
+              <Nav.Link href="http://localhost:3000/cifFeedBack">CI</Nav.Link>
+
 
         </Navbar>
         </React.Fragment>

@@ -37,6 +37,7 @@ class customerBiDisplay extends Component {
                 <Row><br/></Row>
                 <Col md={12}>
                 <Collapse in={this.state.open}>
+                <fieldset disabled="disabled">
                     <Form>
 
                         <Form.Row>
@@ -88,6 +89,7 @@ class customerBiDisplay extends Component {
                         </Form.Row>
                         
                     </Form>
+                    </fieldset>
                     </Collapse>
                 </Col>
                 </Card>
