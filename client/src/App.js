@@ -8,6 +8,8 @@ import FillForm from './components/fillForm';
 import FleatFeedback from './components/feedback/fleatFeedback';
 import DistributionFeedback from './components/feedback/distributionFeedback';
 import SourcingFeedback from './components/feedback/sourcingFeedback';
+import CifFeedback from './components/feedback/cifFeedBack';
+
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
               <Route exact path="/distributionFeedback" component={DistributionFeedback} />
               <Route exact path="/sourcingFeedback" component={SourcingFeedback} />
               <Route exact path="/fleatFeedback" component={FleatFeedback} />
+              <Route exact path="/cifFeedback" component={CifFeedback} />
 
               </Switch>
          
