@@ -65,7 +65,7 @@ class fluidCard extends Component {
                             <Form>
                                 <Form.Row>
                                     <Form.Group as={Col}>
-                                    <Form.Label>Fluid or Product</Form.Label>
+                                    <Form.Label>Fluid or Product </Form.Label>
                                     <Form.Control as="textarea" rows="1" onChange={(e)=>this.handleChangeFluid(e , index)} value={fluid} />
                                     </Form.Group>
                                 </Form.Row>

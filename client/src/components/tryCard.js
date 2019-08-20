@@ -17,7 +17,9 @@ class tryCard extends Component {
         natureOther:"",
       }
 
-   
+      sendData =(i)=>{
+        this.props.ParentCallBack(this.state,i)
+      }
 
       render() {
         return (
@@ -27,11 +29,11 @@ class tryCard extends Component {
 
                 <Form.Row>
                             <Form.Group as={Col} >
-                            <Form.Label>Fluid / Product</Form.Label>
+                            <Form.Label>Fluid / Product </Form.Label>
                             <Form.Control as="textarea" rows="1" 
-                            onChange={(e)=>{this.setState({fluidOrProduct:e.target.value})
-                            console.log(e.target.value)}}/>
+                            onChange={(e)=>{this.setState({fluidOrProduct:e.target.value})}}/>
                             </Form.Group>
+                            
 
                             <Form.Group as={Col} >
                             <Form.Label>Extreme pressure (Bar)</Form.Label>
@@ -62,31 +64,44 @@ class tryCard extends Component {
                             </Form.Group>
 
                 </Form.Row>
-
+                
                 <Form.Row>
-                            <Col md={4}>
+                            <Col md={12}>
                             <Card border="secondary">
+                            <Form.Row>
                             <Form.Group as={Col} >
                             <Form.Label>Natures</Form.Label>
                             <Form.Control as="textarea" rows="1" 
-                            onChange={(e)=>{this.setState({fluidOrProduct:e.target.value})
+                            onChange={(e)=>{this.setState({nature1:e.target.value})
                             console.log(e.target.value)}}/>
                             </Form.Group>
                             
                             <Form.Group as={Col} >
+                            <Row style={{height: .044*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" 
-                            onChange={(e)=>{this.setState({fluidOrProduct:e.target.value})
+                            onChange={(e)=>{this.setState({nature2:e.target.value})
                             console.log(e.target.value)}}/>
                             </Form.Group>
 
                             <Form.Group as={Col} >
+                            <Row style={{height: .044*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" 
-                            onChange={(e)=>{this.setState({fluidOrProduct:e.target.value})
+                            onChange={(e)=>{this.setState({nature3:e.target.value})
                             console.log(e.target.value)}}/>
                             </Form.Group>
+
+                            <Form.Group as={Col} >
+                            <Row style={{height: .044*window.innerHeight + 'px'}}/>
+                            <Form.Control as="textarea" rows="2" 
+                            placeHolder={"if there are more than three fluids , Write them all here"}
+                            onChange={(e)=>{this.setState({natureOther:e.target.value})
+                            console.log(e.target.value)}}/>
+                            </Form.Group>
+
+                            </Form.Row>
                             </Card>
-                            </Col>          
-                </Form.Row>
+                            </Col>    
+                </Form.Row>      
 
 
             </Form>

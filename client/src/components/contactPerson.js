@@ -21,7 +21,6 @@ class contactPerson extends Component {
       handleChangeName(e,index){
         this.state.contactPersonName[index] = e.target.value
         this.setState({contactPersonName:this.state.contactPersonName})
-        
       }
       handleChangeTitle(e,index){
         this.state.title[index] = e.target.value
@@ -127,6 +126,8 @@ class contactPerson extends Component {
                     })
                 }
                 </Col>
+
+                
                 
                 </Row>
               

@@ -7,7 +7,7 @@ class fluids extends Component {
 
     state = {
         fluidOrProduct:[],
-       
+        fluidOrProductState:[],
     }
 
     addFluid = () => {
@@ -16,8 +16,18 @@ class fluids extends Component {
 
     removefluid(index){
         this.state.fluidOrProduct.splice(index,1)
-        this.setState({fluidOrProduct:this.state.fluidOrProduct})
+        console.log(index)
+        this.setState({fluidOrProduct:this.state.fluidOrProduct})   
+        this.setState({fluidOrProduct:this.state.fluidOrProductState})   
     }
+
+    callBackFunction = (Data,i) => {
+        this.state.fluidOrProductState[i] = Data
+    }
+
+    handleChange =() =>{
+        console.log(this.state.fluidOrProductState)
+      }
       
 
       render() {
@@ -29,15 +39,22 @@ class fluids extends Component {
                 >＋</Button>
                
                 {
-                    this.state.fluidOrProduct.map((fluid,index)=>{
+                    this.state.fluidOrProduct.map((val,index)=>{
                         return (
-                            <Col>
-                            <Card border="secondary">  
-                            <Card.Header as="h2">Fluid Information</Card.Header>
+                            <Col md={12}>
+                            <Card border="secondary">
+                            <Card.Header>
+                            
+                            <Col >
+                            <Row>
+                            <Card.Text style={{ color:"black" , fontSize:"18px" }}>Fluid Information</Card.Text>
+                            <Col md={{offset:10}}><Button variant="outline" 
+                                onClick={()=>this.removefluid(index)}>✗</Button></Col>
+                            </Row>
+                            </Col></Card.Header>
                             <Row><br/></Row>                   
-                            <FluidCard/>
-                            <Button variant="outline" style={{height: .05*window.innerHeight + 'px'}}
-                            onClick={()=>this.removefluid(index)}>✘</Button>
+                            <FluidCard ParentCallBack={this.callBackFunction} ind={index}/>
+                            
                             </Card>
                             <Row><br/></Row>
                             </Col>
