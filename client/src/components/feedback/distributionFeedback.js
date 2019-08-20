@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
+import FormDisplay from '../display/formDisplay'
 import ResponseCard from './responseCard'
 
 
@@ -23,6 +24,9 @@ class distributionFeedback extends Component {
                 <Col  md={{ span: 12, offset: 0 }}>
                 <Row><br/></Row>
                 </Col>
+
+                <Col md={{ span: 12, offset: 0 }}><FormDisplay /></Col>
+                <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><ResponseCard /></Col>
                 <Row><br/></Row>

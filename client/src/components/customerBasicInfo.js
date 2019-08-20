@@ -12,7 +12,6 @@ class customerBasicInfo extends Component {
         address:"",
         zone:"",
         address:"",
-        open:false,
       }
 
 
@@ -27,13 +26,9 @@ class customerBasicInfo extends Component {
         return (
             <React.Fragment>
                 <Card border="secondary" >
-                <Card.Header as="h5" className="bg-dark text-white" > Customer Basics Info
-                <Button variant="outline-light"
-                 onClick={(e)=>{this.setState({open:!this.state.open})}}>☰</Button>
-                </Card.Header>
+                <Card.Header as="h5" className="bg-dark text-white" > Customer Basics Info</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
-                <Collapse in={this.state.open}>
                     <Form>
                         <Form.Row>
                             
@@ -76,7 +71,6 @@ class customerBasicInfo extends Component {
                         </Form.Row>
                         
                     </Form>
-                    </Collapse>
                 </Col>
                 </Card>
             </React.Fragment>

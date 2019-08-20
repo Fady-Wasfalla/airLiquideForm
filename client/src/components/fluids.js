@@ -6,8 +6,8 @@ import 'mdbreact/dist/css/mdb.css'
 class fluids extends Component {
 
     state = {
-        fluidOrProduct:[],
-        fluidOrProductState:[],
+        fluidOrProduct:[{}],
+        fluidOrProductState:[{}],
     }
 
     addFluid = () => {
@@ -61,7 +61,6 @@ class fluids extends Component {
                         )
                     })
                 }
-            <Button onClick={this.handleChange}>Print</Button>
             </React.Fragment>
         )
       }

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card , FormControl , Button} from "react-bootstrap";
+import { Form , Col , Row , Card , FormControl , Button , Collapse} from "react-bootstrap";
 import Fluids from '../fluids'
 import "react-datepicker/dist/react-datepicker.css";
 
-class priForm extends Component {
+class priDisplay extends Component {
 
     state = {
+
         // 1. Project description and general comments
         descriptionAndGeneralCmts:"",
 
@@ -257,12 +258,10 @@ class priForm extends Component {
         facilityAgeCmt:"" ,
         acquisitionCmtsCmt:"" ,
 
+        open:false,
         
-      }
+    }
 
-      sendData =()=>{
-          this.props.ParentCallBack(this.state)
-      }
 
 
      
@@ -270,9 +269,17 @@ class priForm extends Component {
         return (
             <React.Fragment>
                 <Card border="secondary" >
-                <Card.Header as="h5" className="bg-dark text-white" >PRI Form</Card.Header>
+                <Card.Header as="h5" className="bg-secondary text-white" >
+                <Row style={{height: .04*window.innerHeight + 'px'}}>
+                <Col>PRI Form</Col>
+                <Button variant="outline-light" size="sm"
+                 onClick={(e)=>{this.setState({open:!this.state.open})
+                                }}>☰</Button>
+                 </Row>
+                 </Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
+                <Collapse in={this.state.open}>
                     <Form>
                        <Form.Row>
                             <Form.Group as={Col} >
@@ -1821,15 +1828,10 @@ class priForm extends Component {
 
                        </Form.Row>
 
-
-
-
-
-                       <Button onClick={this.sendData}>send Data</Button>
-
                         <Row><br/></Row>
 
                     </Form>
+                </Collapse>
                 </Col>
                 </Card>
             </React.Fragment>
@@ -1839,4 +1841,4 @@ class priForm extends Component {
 }
 
 
-export default priForm;
+export default priDisplay;

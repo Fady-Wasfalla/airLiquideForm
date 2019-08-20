@@ -100,6 +100,7 @@ class tryCard extends Component {
 
                             </Form.Row>
                             </Card>
+                            <Row><br/></Row>
                             </Col>    
                 </Form.Row>      
 

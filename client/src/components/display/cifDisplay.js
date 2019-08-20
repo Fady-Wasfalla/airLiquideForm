@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card, FormControl , InputGroup } from "react-bootstrap";
+import { Form , Col , Row , Card, FormControl , InputGroup , Collapse , Button} from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from 'react-select';
 
 
-class customerInstallationForm extends Component {
+class cifDisplay extends Component {
 
     state = {
         //Product Type Options dropdown list ... you have to change both value and label with the same name
@@ -49,6 +49,8 @@ class customerInstallationForm extends Component {
         repetitionPerDay:0  ,
 
         futureExpansionNotes:"",
+
+        open:false,
         
       }
 
@@ -76,9 +78,17 @@ class customerInstallationForm extends Component {
         return (
             <React.Fragment>
                 <Card border="secondary" >
-                <Card.Header as="h5" className="bg-dark text-white" >Customer Installation Form</Card.Header>
+                <Card.Header as="h5" className="bg-secondary text-white" >
+                <Row style={{height: .04*window.innerHeight + 'px'}}>
+                <Col>Customer Installation Form</Col>
+                <Button variant="outline-light" size="sm"
+                 onClick={(e)=>{this.setState({open:!this.state.open})
+                                }}>☰</Button>
+                 </Row>
+                 </Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
+                <Collapse in={this.state.open}>
                     <Form>
 
                     <Form.Row >
@@ -195,6 +205,7 @@ class customerInstallationForm extends Component {
                         
                         
                     </Form>
+                </Collapse>
                 </Col>
                 </Card>
             </React.Fragment>
@@ -204,4 +215,4 @@ class customerInstallationForm extends Component {
 }
 
 
-export default customerInstallationForm;
+export default cifDisplay;

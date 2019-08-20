@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import ResponseCard from './responseCard'
+import FormDisplay from '../display/formDisplay'
+
 
 
 
@@ -23,6 +25,10 @@ class sourcingFeedback extends Component {
                 <Col  md={{ span: 12, offset: 0 }}>
                 <Row><br/></Row>
                 </Col>
+
+                <Col md={{ span: 12, offset: 0 }}><FormDisplay /></Col>
+                <Row><br/></Row>
+
 
                 <Col md={{ span: 12, offset: 0 }}><ResponseCard /></Col>
                 <Row><br/></Row>

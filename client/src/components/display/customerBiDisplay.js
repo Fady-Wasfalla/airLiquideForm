@@ -4,7 +4,7 @@ import ContactPerson from '../contactPerson'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-class customerBasicInfo extends Component {
+class customerBiDisplay extends Component {
 
     state = {
         name:"",
@@ -12,32 +12,54 @@ class customerBasicInfo extends Component {
         address:"",
         zone:"",
         address:"",
+
         open:false,
-      }
+    }
 
-
-      handleChange(date) {
+    handleChange(date) {
         console.log(date)
         this.setState({date: date})
-      }
-
+    }
       
      
       render() {
         return (
             <React.Fragment>
                 <Card border="secondary" >
-                <Card.Header as="h5" className="bg-dark text-white" > Customer Basics Info
-                <Button variant="outline-light"
-                 onClick={(e)=>{this.setState({open:!this.state.open})}}>☰</Button>
+                <Card.Header as="h5" className="bg-secondary text-white" >
+                <Row style={{height: .04*window.innerHeight + 'px'}}>
+                <Col>Customer Basics Info</Col>
+                <Button variant="outline-light" size="sm"
+                 onClick={(e)=>{this.setState({open:!this.state.open})
+                                }}>☰</Button>
+                 </Row>
                 </Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
                 <Collapse in={this.state.open}>
                     <Form>
+
+                        <Form.Row>
+
+                            <Form.Group as={Col}  >
+                            <Form.Label>Form ID</Form.Label>
+                            <Form.Control as="textarea" rows="1" 
+                            onChange={(e)=>{this.setState({zone:e.target.value})}} />
+                            </Form.Group>
+
+                        <Form.Group as={Col} >
+                            <Form.Label>Date</Form.Label>
+                            <br/>
+                            <DatePicker
+                                selected={this.state.date}
+                                onChange={this.handleChange.bind(this)}
+                                />
+                            </Form.Group>
+                        </Form.Row>
+
                         <Form.Row>
                             
-                            <Form.Group as={Col} controlId="customerName">
+                            <Form.Group as={Col}  >
                             <Form.Label>Customer Name</Form.Label>
                             <Form.Control as="textarea" rows="1" 
                             onChange={(e)=>{this.setState({name:e.target.value})}}/>
@@ -52,16 +74,6 @@ class customerBasicInfo extends Component {
                         </Form.Row>
 
 
-                        <Form.Row>
-                        <Form.Group as={Col} controlId="customerName">
-                            <Form.Label>Date</Form.Label>
-                            <br/>
-                            <DatePicker
-                                selected={this.state.date}
-                                onChange={this.handleChange.bind(this)}
-                                />
-                            </Form.Group>
-                        </Form.Row>
 
                         <Form.Row>
                             <Form.Group as={Col} controlId="textarea">
@@ -86,4 +98,4 @@ class customerBasicInfo extends Component {
 }
 
 
-export default customerBasicInfo;
+export default customerBiDisplay;

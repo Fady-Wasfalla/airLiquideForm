@@ -260,7 +260,7 @@ class priForm extends Component {
         
       }
 
-      sendData =()=>{
+    sendData =()=>{
           this.props.ParentCallBack(this.state)
       }
 

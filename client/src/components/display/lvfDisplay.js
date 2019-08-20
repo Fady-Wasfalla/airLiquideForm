@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card, Button , FormControl , InputGroup} from "react-bootstrap";
+import { Form , Col , Row , Card, Button , FormControl , InputGroup , Collapse} from "react-bootstrap";
 import Select from 'react-select';
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker"
@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 
-class logisticsValidationForm extends Component {
+class lvfDisplay extends Component {
     
     state = {
         //Customer's type dropdown list ... you have to change both value and label with the same name
@@ -64,6 +64,9 @@ class logisticsValidationForm extends Component {
         weightScale:0,
         weightScale:0,
         lvfComment:"",
+
+        open:false,
+
 
       }
 
@@ -130,9 +133,17 @@ class logisticsValidationForm extends Component {
         return (
             <React.Fragment>
                 <Card border="secondary" >
-                <Card.Header as="h5" className="bg-dark text-white" >Logistics Validation Form</Card.Header>
+                <Card.Header as="h5" className="bg-secondary text-white" >
+                <Row style={{height: .04*window.innerHeight + 'px'}}>
+                <Col>Logistics Validation Form</Col>
+                <Button variant="outline-light" size="sm"
+                 onClick={(e)=>{this.setState({open:!this.state.open})
+                                }}>☰</Button>
+                 </Row>
+                 </Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
+                <Collapse in={this.state.open}>                
                     <Form>
                         <Form.Row>
                             <Form.Group as={Col} >
@@ -348,6 +359,7 @@ class logisticsValidationForm extends Component {
                        
 
                     </Form>
+                  </Collapse>
                 </Col>
                 </Card>
             </React.Fragment>
@@ -357,4 +369,4 @@ class logisticsValidationForm extends Component {
 }
 
 
-export default logisticsValidationForm;
+export default lvfDisplay;
