@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
-import PredeliveryIdentificationReport from './predeliveryIdentificationReport'
+import ResponseCard from './responseCard'
 
 
 
-class priFeedback extends Component {
+
+class distributionFeedback extends Component {
 
     state = {
      
@@ -17,16 +18,14 @@ class priFeedback extends Component {
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>
                 <Card border="secondary">
-                <Card.Header as="h4" className="bg-primary text-white">PRI Feedback</Card.Header>                
+                <Card.Header as="h4" className="bg-primary text-white">Distribution Feedback</Card.Header>                
                 <Row><br/></Row>
                 <Col  md={{ span: 12, offset: 0 }}>
                 <Row><br/></Row>
                 </Col>
 
-                <Col md={{ span: 12, offset: 0 }}><PredeliveryIdentificationReport /></Col>
+                <Col md={{ span: 12, offset: 0 }}><ResponseCard /></Col>
                 <Row><br/></Row>
-                
-                
                 
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>
@@ -48,4 +47,4 @@ class priFeedback extends Component {
 }
 
 
-export default priFeedback;
+export default distributionFeedback;

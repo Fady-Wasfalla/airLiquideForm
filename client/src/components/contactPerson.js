@@ -5,10 +5,10 @@ import 'mdbreact/dist/css/mdb.css'
 class contactPerson extends Component {
 
     state = {
-        contactPersonName :[],
-        title:[],
-        phone:[],
-        mail:[],
+        contactPersonName :[""],
+        title:[""],
+        phone:[""],
+        mail:[""],
       }
 
       addPerson(){

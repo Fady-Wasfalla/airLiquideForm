@@ -64,7 +64,8 @@ class predeliveryIdentificationReport extends Component {
         areaObstacles:false ,
         areaObstaclesMP:"" ,
         areaObstaclesCmt:"" ,
-
+        
+        //Vehicle Type Options dropdown list ... you have to change both value and label with the same name
         vehicleTypeOptions : [
             { value: 'Road Tanker', label: 'Road Tanker' },
             { value: 'Mobile Tank', label: 'Mobile Tank' },
@@ -543,6 +544,18 @@ class predeliveryIdentificationReport extends Component {
                             options={this.state.vehicleTypeOptions}
                             />
                             </Col>
+                        </Form.Row>
+
+                        <Row style={{height: .015*window.innerHeight + 'px'}}/>
+                        <Form.Row>
+                        <Form.Group as={Col} >
+                            <Form.Label style={{fontWeight:"bold"}}> Inspector </Form.Label>
+                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({inspector:e.target.value})}} />
+                        </Form.Group>
+                        <Form.Group as={Col} >
+                            <Form.Label style={{fontWeight:"bold"}}> Approver </Form.Label>
+                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({approver:e.target.value})}} />
+                        </Form.Group>
                         </Form.Row>
 
                     </Form>

@@ -20,15 +20,11 @@ class header extends Component {
                 className="d-inline-block align-top"
               />
             </Navbar.Brand>
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link href="http://localhost:3000/fillForm">Fill Form</Nav.Link>
+              <Nav.Link href="http://localhost:3000/distributionFeedback">Distribution</Nav.Link>
+              <Nav.Link href="http://localhost:3000/sourcingFeedback">Sourcing</Nav.Link>
+              <Nav.Link href="http://localhost:3000/fleatFeedback">Fleat</Nav.Link>
+
         </Navbar>
         </React.Fragment>
         )
