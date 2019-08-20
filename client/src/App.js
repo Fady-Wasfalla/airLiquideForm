@@ -5,6 +5,7 @@ import Header from './components/header'
 import Footer from './components/footer'
 import Adel from './components/adel';
 import FillForm from './components/fillForm';
+import PriFeedback from './components/priFeedback';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Switch>
               <Route exact path="/adel" component={Adel} />
               <Route exact path="/fillForm" component={FillForm} />
+              <Route exact path="/priFeedback" component={PriFeedback} />
 
               </Switch>
          

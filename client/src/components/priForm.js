@@ -381,7 +381,7 @@ class priForm extends Component {
                             label="mobile (transportable equipt…) "
                             onChange={(e)=>{this.setState({mobile:e.target.checked})}}/>
                             </Form.Group>
-
+                                
                             <Form.Group as={Col}  >
                             <Form.Check id="onBoardEquipment"
                             custom={true}

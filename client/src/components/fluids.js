@@ -61,7 +61,7 @@ class fluids extends Component {
                         )
                     })
                 }
-            
+            <Button onClick={this.handleChange}>Print</Button>
             </React.Fragment>
         )
       }

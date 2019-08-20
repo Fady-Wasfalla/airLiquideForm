@@ -34,6 +34,7 @@ class fillForm extends Component {
                 <Row><br/></Row>
                 </Col>
 
+                
                 <Col md={{ span: 12, offset: 0 }}><CustomerBasicInfo /></Col>
                 <Row><br/></Row>
 
