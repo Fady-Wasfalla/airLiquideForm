@@ -22,4 +22,5 @@ exports.delete = async (req, res) => {
 }
 /* sales man submit a form */
 exports.submit = async (req, res) => {
+  
 }
