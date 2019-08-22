@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
-import PredeliveryIdentificationReport from './predeliveryIdentificationReport'
+import Irmr from './irmr'
 import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
 
@@ -8,7 +8,7 @@ import FormDisplay from '../display/formDisplay'
 
 
 
-class fleatFeedback extends Component {
+class prFeedback extends Component {
 
     state = {
      
@@ -21,7 +21,7 @@ class fleatFeedback extends Component {
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>
                 <Card border="secondary">
-                <Card.Header as="h4" className="bg-primary text-white">Fleat Feedback</Card.Header>                
+                <Card.Header as="h4" className="bg-primary text-white">PR Feedback</Card.Header>                
                 <Row><br/></Row>
                 <Col  md={{ span: 12, offset: 0 }}>
                 <Row><br/></Row>
@@ -30,7 +30,7 @@ class fleatFeedback extends Component {
                 <Col md={{ span: 12, offset: 0 }}><FormDisplay /></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><PredeliveryIdentificationReport /></Col>
+                <Col md={{ span: 12, offset: 0 }}><Irmr /></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><ResponseCard /></Col>
@@ -58,4 +58,4 @@ class fleatFeedback extends Component {
 }
 
 
-export default fleatFeedback;
+export default prFeedback;

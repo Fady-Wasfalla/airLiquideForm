@@ -40,7 +40,7 @@ class logisticsValidationForm extends Component {
         purity:0,
         
         CustomerConsumtionTypeOptions : [
-            { value: 'regular', label: 'regular' },
+            { value: 'Regular', label: 'Regular' },
             { value: 'Patch', label: 'Patch' },
           ],
         customerConsumption:"",
@@ -65,53 +65,45 @@ class logisticsValidationForm extends Component {
         weightScale:0,
         lvfComment:"",
 
+        fieldset:"",
       }
 
-      CustomerTypeHandleChange = customerType => {
-        this.setState({ customerType });
-        console.log(customerType)
+      CustomerTypeHandleChange = (customerType) => {
+        this.setState({ customerType:customerType.value });
       };
 
-      BuissnesTypeHandleChange = businessType => {
-        this.setState({ businessType });
-        console.log(businessType)
+      BuissnesTypeHandleChange = (businessType) => {
+        this.setState({ businessType:businessType.value });
       };
 
       startDeliveryDateHandleChange(date) {
-        console.log(date)
         this.setState({startDeliveryDate: date})
       }
 
       forecastDeliveryEndHandleChange(date) {
-        console.log(date)
         this.setState({forecastDeliveryEnd: date})
       }
 
-      ProductHandleChange = product => {
-        this.setState({ product });
-        console.log(product)
+      ProductHandleChange = (product) => {
+        this.setState({ product:product.value });
       };
       
-      CustomerConsumtionHandleChange  = customerConsumption => {
-        this.setState({ customerConsumption });
-        console.log(customerConsumption)
+      CustomerConsumtionHandleChange  = (customerConsumption) => {
+        this.setState({ customerConsumption:customerConsumption.value });
 
-        if (customerConsumption.value === 'regular') {
+        if (customerConsumption.value === 'Regular') {
           this.setState({CustomerConsumtionregularShow:""})
-          console.log("regular none")
           this.setState({CustomerConsumtionPatchShow:"none"})
         }
         else{
           this.setState({CustomerConsumtionregularShow:"none"})
-          console.log("patch none")
           this.setState({CustomerConsumtionPatchShow:""})
         }
       };
 
 
-      availableDeliveryHandleChange = availableDelivery => {
-        this.setState({ availableDelivery });
-        console.log(availableDelivery)
+      availableDeliveryHandleChange = (availableDelivery) => {
+        this.setState({ availableDelivery:availableDelivery.value });
         if (availableDelivery.value === 'Other') {
           this.setState({availableDeliveryShow:""})
         }
@@ -124,7 +116,20 @@ class logisticsValidationForm extends Component {
       
       endDeliveryTimeHandleChange = endDeliveryTime => this.setState({ endDeliveryTime })
 
+      
+      sendData =()=>{
+        this.props.ParentCallBack(this.state)
+      }
 
+      submitData=()=>{
+        this.sendData()
+        if (this.state.fieldset===""){
+            this.setState({fieldset:"disabled"})
+        }
+        else{
+            this.setState({fieldset:""})
+        }
+    }
       
       render() {
         return (
@@ -133,6 +138,7 @@ class logisticsValidationForm extends Component {
                 <Card.Header as="h5" className="bg-dark text-white" >Logistics Validation Form</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
+                <fieldset disabled={this.state.fieldset}>
                     <Form>
                         <Form.Row>
                             <Form.Group as={Col} >
@@ -144,7 +150,7 @@ class logisticsValidationForm extends Component {
                             <Form.Group as={Col} controlId=">CustomerType" >
                             <Form.Label>Customer's Type</Form.Label>
                             <Select
-                            value={this.state.customerType}
+                            value={this.state.customerType.value}
                             onChange={this.CustomerTypeHandleChange}
                             options={this.state.CustomerTypeOptions}
                             />
@@ -153,7 +159,7 @@ class logisticsValidationForm extends Component {
                             <Form.Group as={Col} controlId="BuissnesType">
                             <Form.Label>Buissnes Type</Form.Label>
                             <Select
-                            value={this.state.businessType}
+                            value={this.state.businessType.value}
                             onChange={this.BuissnesTypeHandleChange}
                             options={this.state.BuissnesTypeOptions}
                             />
@@ -193,7 +199,7 @@ class logisticsValidationForm extends Component {
                             <Form.Group as={Col} controlId="ProductType" >
                             <Form.Label>Product</Form.Label>
                             <Select
-                            value={this.state.product}
+                            value={this.state.product.value}
                             onChange={this.ProductHandleChange}
                             options={this.state.ProductTypeOptions}
                             />
@@ -210,7 +216,7 @@ class logisticsValidationForm extends Component {
                             <Form.Group as={Col} controlId="CustomerConsumtionType" >
                                 <Form.Label>Customer Consumption Type</Form.Label>
                                 <Select
-                                value={this.state.customerConsumption}
+                                value={this.state.customerConsumption.value}
                                 onChange={this.CustomerConsumtionHandleChange}
                                 options={this.state.CustomerConsumtionTypeOptions}
                                 />
@@ -298,7 +304,7 @@ class logisticsValidationForm extends Component {
                             <Form.Group as={Col} controlId="availableDelivery" >
                             <Form.Label>Deilvery Type</Form.Label>
                             <Select
-                            value={this.state.availableDelivery}
+                            value={this.state.availableDelivery.value}
                             onChange={this.availableDeliveryHandleChange}
                             options={[{value:'24 Hours',label:'24 Hours'},{value:'Other',label:'Other'}]}
                             />
@@ -348,7 +354,19 @@ class logisticsValidationForm extends Component {
                        
 
                     </Form>
+                </fieldset>
                 </Col>
+                <Card.Footer > 
+                <Row style={{height: .018*window.innerHeight + 'px'}}>
+                            <Col md={{offset:11}} >
+                            <Form.Check id="submitLVF"
+                            custom={true}
+                            inline={true}
+                            label="Submit"
+                            onChange={this.submitData}/>
+                            </Col> 
+                </Row>
+                </Card.Footer>
                 </Card>
             </React.Fragment>
         )

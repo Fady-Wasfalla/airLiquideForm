@@ -12,14 +12,33 @@ class customerBasicInfo extends Component {
         address:"",
         zone:"",
         address:"",
-      }
+        fieldset:"",
+        contactPerson:{},
+    }
 
 
-      handleChange(date) {
+    handleChange(date) {
         console.log(date)
         this.setState({date: date})
       }
 
+    sendData =()=>{
+        this.props.ParentCallBack(this.state)
+    }
+
+    submitData=()=>{
+        this.sendData()
+        if (this.state.fieldset===""){
+            this.setState({fieldset:"disabled"})
+        }
+        else{
+            this.setState({fieldset:""})
+        }
+    }
+
+    contactPersonCallBackFunction = (childData) => {
+        this.setState({contactPerson:childData})
+      }
       
      
       render() {
@@ -29,6 +48,7 @@ class customerBasicInfo extends Component {
                 <Card.Header as="h5" className="bg-dark text-white" > Customer Basics Info</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
+                <fieldset disabled={this.state.fieldset}>
                     <Form>
                         <Form.Row>
                             
@@ -67,11 +87,23 @@ class customerBasicInfo extends Component {
                         </Form.Row>
 
                         <Form.Row>
-                        <Col md={12}><ContactPerson/></Col>
+                        <Col md={12}><ContactPerson ParentCallBack={this.contactPersonCallBackFunction}/></Col>
                         </Form.Row>
                         
                     </Form>
+                </fieldset>
                 </Col>
+                <Card.Footer > 
+                <Row style={{height: .018*window.innerHeight + 'px'}}>
+                            <Col md={{offset:11}} >
+                            <Form.Check id="submitCBI"
+                            custom={true}
+                            inline={true}
+                            label="Submit"
+                            onChange={this.submitData}/>
+                            </Col> 
+                </Row>
+                </Card.Footer>
                 </Card>
             </React.Fragment>
         )

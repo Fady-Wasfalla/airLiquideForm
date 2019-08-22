@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card , FormControl , Button} from "react-bootstrap";
 import Fluids from './fluids'
+import Utilities from './utilities'
+
 import "react-datepicker/dist/react-datepicker.css";
 
 class priForm extends Component {
@@ -24,6 +26,10 @@ class priForm extends Component {
         mobile:false,
         onBoardEquipment:false,
         onBoardEquipmentType:"",
+
+        //3. Fluids
+        fluids:{},
+        utilities:{},
 
         //4. Site information
 	    //4.1. Natural 
@@ -257,6 +263,7 @@ class priForm extends Component {
         facilityAgeCmt:"" ,
         acquisitionCmtsCmt:"" ,
 
+        fieldset:"",
         
       }
 
@@ -264,6 +271,23 @@ class priForm extends Component {
           this.props.ParentCallBack(this.state)
       }
 
+    submitData=()=>{
+        this.sendData()
+        if (this.state.fieldset===""){
+            this.setState({fieldset:"disabled"})
+        }
+        else{
+            this.setState({fieldset:""})
+          }
+    }
+
+    fluidsCallBackFunction = (childData) => {
+        this.setState({fluids:childData})
+    }
+
+    utilitiesCallBackFunction = (childData) => {
+        this.setState({utilities:childData})
+    }
 
      
       render() {
@@ -273,6 +297,7 @@ class priForm extends Component {
                 <Card.Header as="h5" className="bg-dark text-white" >PRI Form</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
+                <fieldset disabled={this.state.fieldset}>
                     <Form>
                        <Form.Row>
                             <Form.Group as={Col} >
@@ -405,7 +430,11 @@ class priForm extends Component {
                        </Form.Row>
 
                        <Form.Row>
-                        <Col md={12}><Fluids/></Col>
+                        <Col md={12}><Fluids ParentCallBack={this.fluidsCallBackFunction}/></Col>
+                        </Form.Row>
+
+                        <Form.Row>
+                        <Col md={12}><Utilities ParentCallBack={this.utilitiesCallBackFunction}/></Col>
                         </Form.Row>
 
 
@@ -1821,16 +1850,22 @@ class priForm extends Component {
 
                        </Form.Row>
 
-
-
-
-
-                       <Button onClick={this.sendData}>send Data</Button>
-
                         <Row><br/></Row>
 
                     </Form>
+                </fieldset>
                 </Col>
+                <Card.Footer > 
+                <Row style={{height: .018*window.innerHeight + 'px'}}>
+                            <Col md={{offset:11}} >
+                            <Form.Check id="submitPRI"
+                            custom={true}
+                            inline={true}
+                            label="Submit"
+                            onChange={this.submitData}/>
+                            </Col> 
+                </Row>
+                </Card.Footer>
                 </Card>
             </React.Fragment>
         )

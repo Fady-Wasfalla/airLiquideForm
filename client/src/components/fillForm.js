@@ -11,17 +11,38 @@ import PriForm from './priForm'
 class fillForm extends Component {
 
     state = {
-      CBI:[],
-      name:{},
-      two:"sjnj",
+      cbi:{},
+      lvf:{},
+      cif:{},
+      pri:{},
+     
       }
 
       handleChange =() =>{
-        console.log(this.state.name)
+        console.log("Customer Basics info",this.state.cbi)
+        console.log("LVF",this.state.lvf)
+        console.log("cif",this.state.cif)
+        console.log("PRI",this.state.pri)
+
+
       }
-      callBackFunction = (childData) => {
-        this.setState({name:childData})
+
+      cbiCallBackFunction = (childData) => {
+        this.setState({cbi:childData})
       }
+
+      lvfCallBackFunction = (childData) => {
+        this.setState({lvf:childData})
+      }
+
+      cifCallBackFunction = (childData) => {
+        this.setState({cif:childData})
+      }
+
+      priCallBackFunction = (childData) => {
+         this.setState({pri:childData})
+      }
+
       render() {
         return (
             <React.Fragment>
@@ -35,16 +56,16 @@ class fillForm extends Component {
                 </Col>
 
                 
-                <Col md={{ span: 12, offset: 0 }}><CustomerBasicInfo /></Col>
+                <Col md={{ span: 12, offset: 0 }}><CustomerBasicInfo ParentCallBack={this.cbiCallBackFunction}/></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><LogisticsValidationForm/></Col>
+                <Col md={{ span: 12, offset: 0 }}><LogisticsValidationForm ParentCallBack={this.lvfCallBackFunction}/></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><CustomerInstallationForm/></Col>
+                <Col md={{ span: 12, offset: 0 }}><CustomerInstallationForm ParentCallBack={this.cifCallBackFunction}/></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><PriForm ParentCallBack={this.callBackFunction}/></Col>
+                <Col md={{ span: 12, offset: 0 }}><PriForm ParentCallBack={this.priCallBackFunction}/></Col>
                 <Row><br/></Row>
                 
                 <Row>

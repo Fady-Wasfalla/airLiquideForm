@@ -21,20 +21,24 @@ class contactPerson extends Component {
       handleChangeName(e,index){
         this.state.contactPersonName[index] = e.target.value
         this.setState({contactPersonName:this.state.contactPersonName})
+        this.props.ParentCallBack(this.state)
       }
       handleChangeTitle(e,index){
         this.state.title[index] = e.target.value
         this.setState({title:this.state.title})
+        this.props.ParentCallBack(this.state)
       }
 
       handleChangePhone(e,index){
         this.state.phone[index] = e.target.value
         this.setState({phone:this.state.phone})
+        this.props.ParentCallBack(this.state)
       }
 
       handleChangeMail(e,index){
         this.state.mail[index] = e.target.value
         this.setState({mail:this.state.mail})
+        this.props.ParentCallBack(this.state)
       }
 
       removePerson(index){
