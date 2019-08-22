@@ -4,7 +4,7 @@ const Form = db.define('Form', {
   employeeId: Sequelize.INTEGER,
   name: Sequelize.STRING,
   address: Sequelize.STRING,
-  date: Sequelize.DataTypes.date.toString(),
+  date: Sequelize.DataTypes.DATE.toString(),
   zone: Sequelize.STRING,
   distributionSubmition: Sequelize.BOOLEAN,
   sourcingSubmition: Sequelize.BOOLEAN,

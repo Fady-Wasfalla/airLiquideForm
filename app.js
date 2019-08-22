@@ -77,7 +77,7 @@ app.use('/api/pdiAps', pdiAPs)
 app.use('/api/pdiFiles', pdiFiles)
 app.use('/api/questions', questions)
 app.use('/api/fireExtinguishers', fireExtinguishers)
-// 500 internal server error handler
+// // 500 internal server error handler
 app.use((err, _req, res, next) => {
   if (err.statusCode === 400) {
     return next(err)

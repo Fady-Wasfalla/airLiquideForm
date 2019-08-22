@@ -16,3 +16,4 @@ router.post('/', entity.create)
 router.put('/:id', entity.update)
 // delete
 router.delete('/:id', entity.delete)
+module.exports = router

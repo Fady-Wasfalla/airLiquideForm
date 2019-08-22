@@ -1,4 +1,5 @@
 const express = require('express')
+
 const router = express.Router()
 
 /* cif routes */
@@ -16,3 +17,4 @@ router.post('/', Cif.create)
 router.put('/:id', Cif.update)
 // delete
 router.delete('/:id', Cif.delete)
+module.exports = router

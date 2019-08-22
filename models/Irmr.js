@@ -7,13 +7,13 @@ const Irmr = db.define('Irmr', {
 
   /* IRMR classification */
   irmrClassification: Sequelize.STRING,
-  irmrDate: Sequelize.DataTypes.Date.toString(),
+  irmrDate: Sequelize.DataTypes.DATE.toString(),
   irmrsignature: Sequelize.STRING,
   irmrGround: Sequelize.STRING,
 
   /* SIS classification */
   sisClassification: Sequelize.STRING,
-  sisDate: Sequelize.DataTypes.Date.toString(),
+  sisDate: Sequelize.DataTypes.DATE.toString(),
   sisSignature: Sequelize.STRING,
   sisGround: Sequelize.STRING,
   sisSfety: Sequelize.BOOLEAN,
