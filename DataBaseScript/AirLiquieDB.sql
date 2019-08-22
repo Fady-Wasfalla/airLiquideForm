@@ -7,8 +7,8 @@ Create table Employee (
 id int IDENTITY(1,1) PRIMARY KEY,
 userName NVARCHAR(300) not null unique , /* make them unique and not null*/ 
 email NVARCHAR(300) , /* make them unique and not null*/
+departement NVARCHAR(300) , /* make them unique and not null*/
 [activation] BIT DEFAULT 1 not null ,
-profilePic varbinary(MAX)
 )
 Go
 
@@ -32,30 +32,39 @@ Go
 /* Form */
 create table [dbo].[Form](
 id int IDENTITY(1,1) PRIMARY KEY,
-employeeName NVARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
-name NVARCHAR(200),
-contactPerson NVARCHAR(200),
-phone NVARCHAR(20),
-address NVARCHAR(200),
-zone NVARCHAR(100),
-finalized BIT default 0 ,
-distributionSubmition BIT default 0 ,
-sourcingSubmition BIT default 0 ,
-fleatSubmition BIT default 0 ,
-irmrSubmition BIT default 0 ,
-ciSubmition BIT default 0 ,
+FOREIGN KEY(employeeId) REFERENCES Employee(id),
+[name] NVARCHAR(200),
+[date] date ,
+[address] NVARCHAR(200),
+[zone] NVARCHAR(100),
+distributionSubmition bit DEFAULT 0,
+sourcingSubmition bit DEFAULT 0 ,
+fleatSubmition bit DEFAULT 0,
+irmrSubmition bit DEFAULT 0,
+ciSubmition bit DEFAULT 0,
 )
 go
 
-create table [dbo].[FormFiles](
+
+create table [dbo].[FormFiles] (
+id int IDENTITY(1,1) PRIMARY KEY,
+formId int FOREIGN KEY REFERENCES Form(id),
+[name] VARCHAR(300),
+[path] varchar(5000)
+)
+go
+
+create table [dbo].[ContactPerson](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-name NVARCHAR(250) ,
-[file] varbinary(MAX),
+contactPersonName nvarchar(500),
+title nvarchar(500) ,
+phone nvarchar(500) ,
+mail nvarchar(500) ,
 )
 go
 
-/* Q&As */
+
 create table [dbo].[Question](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
@@ -68,33 +77,35 @@ answer NVARCHAR(200),
 )
 
 
+
 /* LVF form */
 create table [dbo].[Lvf](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName NVARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
-[date] date ,
-requestedBy NVARCHAR(100)  ,
 customerType NVARCHAR(100)  ,
-customerNeed NVARCHAR(100) ,
 businessType NVARCHAR(100) ,
 startDeliveryDate date  ,
 forecastDeliveryEnd date  ,
 product NVARCHAR(100) ,
 purity NVARCHAR(100) ,
 customerConsumption NVARCHAR(100) ,
-regular float ,
+regularMonths float ,
 patchDay float ,
 patchAvgHrs float ,
+productAvailability bit ,
 seasonalConsumption float  ,
+seasonPeriod float , 
 customerTank float ,
 customerDeadLevel float  ,
 usableCapacityAboveDeadLevel float ,
 peakConsumption float ,
-frequencyOfPeakConsumption float ,
+frequencyOfPeakConsumption NVARCHAR(300) ,
 availableDelivery float ,
+startDeliveryTime time ,
+endDeliveryTime time ,
 weightScale float ,
 tankGuage float ,
+lvfComment NVARCHAR(300) ,
 )
 go
 
@@ -102,7 +113,6 @@ go
 create table [dbo].[Cif](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName NVARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
 product NVARCHAR(200) ,
 applicationProduct NVARCHAR(300) ,
 requiredPhase NVARCHAR(200) ,
@@ -140,25 +150,23 @@ go
 create table [dbo].[CifFiles](
 id int IDENTITY(1,1) PRIMARY KEY,
 CifResponseId int FOREIGN KEY REFERENCES CifResponse(id) ,
-name NVARCHAR(250) ,
-[file] varbinary(MAX),
+[path] varchar(5000)
 )
 go
 
 
 
 
-create table [dbo].[PRI](
+create table [dbo].[Pri](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName NVARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
+
 /* First part of PRI form */
 businessUnit NVARCHAR(100) ,
 projectName NVARCHAR(100) ,
 projectLocation NVARCHAR(100) ,
 capitalInvestment NVARCHAR(100) ,
 deadlineSubmittingBid date ,
-[Date] date ,
 businessDeveloper NVARCHAR(100) ,
 projectManager NVARCHAR(100) ,
 ownerRepresentative NVARCHAR(100) ,
@@ -168,13 +176,13 @@ descriptionAndGeneralCmts NVARCHAR(2000) ,
 
 /* 2. Facility or Equipment	 */
 facilityOrEquipment NVARCHAR(100),
-facilityOrEquipmentRemarks NVARCHAR(2000),
+facilityOrEquipmentRemarks NVARCHAR(200),
 applicationType NVARCHAR(100) ,
-applicationTypeRemarks NVARCHAR(2000) ,
+applicationTypeRemarks NVARCHAR(200) ,
 projectType NVARCHAR(100) ,
-projectTypeRemarks NVARCHAR(2000) ,
-facilityOrEquipmentSupply NVARCHAR(2000) ,
-facilityOrEquipmentCmts NVARCHAR(2000) ,
+projectTypeRemarks NVARCHAR(200) ,
+facilityOrEquipmentSupply NVARCHAR(200) ,
+facilityOrEquipmentCmts NVARCHAR(200) ,
 fixedStandardBulk BIT ,
 fixedBulkTankOnly BIT ,
 onlySupplyOfProduct BIT ,
@@ -408,7 +416,6 @@ obsoleteEquipment BIT ,
 potentialNonComplianceEnvironmental BIT ,
 facilityAge BIT ,
 acquisitionCmts BIT ,
-
 technicalInspectionCmt NVARCHAR(250) ,
 potentialNonComplianceSafetyCmt NVARCHAR(250)  ,
 significantDiscrepanciesALCmt NVARCHAR(250)  ,
@@ -433,17 +440,15 @@ extremePressure float,
 extremeTemperature float,
 maximumFlow float ,
 volumeStored float ,
-Characteristics float ,
-
+characteristics float ,
+nature1 NVARCHAR(200),
+nature2 NVARCHAR(200),
+nature3 NVARCHAR(200),
+natureOther  NVARCHAR(200),
 )
 go
 
-create table [dbo].[Natures](
-id int IDENTITY(1,1) PRIMARY KEY,
-fluidId int FOREIGN KEY REFERENCES Fluids(id) ,
-nature NVARCHAR(200),
-)
-go
+
 
 create table [dbo].[Utilities](
 id int IDENTITY(1,1) PRIMARY KEY,
@@ -506,11 +511,11 @@ IrmrId int FOREIGN KEY REFERENCES IRMR(id) ,
 actions nvarchar(500),
 )
 go
+
 create table [dbo].[IrmrFiles](
 id int IDENTITY(1,1) PRIMARY KEY,
 IrmrId int FOREIGN KEY REFERENCES IRMR(id) ,
-name NVARCHAR(250) ,
-[file] varbinary(MAX),
+[path] varchar(5000)
 )
 go
 
@@ -521,7 +526,6 @@ formId int FOREIGN KEY REFERENCES Form(id) ,
 employeeName NVARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
 product NVARCHAR(100) ,
 purity NVARCHAR(100) ,
-productAvailability BIT ,
 customerConsumption NVARCHAR(100) ,
 regular float ,
 patchDay float ,
@@ -542,11 +546,11 @@ distributionsId int FOREIGN KEY REFERENCES Distributions(id) ,
 actions nvarchar(500),
 )
 go
+
 create table [dbo].[DistributionsFiles](
 id int IDENTITY(1,1) PRIMARY KEY,
 distributionsId int FOREIGN KEY REFERENCES Distributions(id) ,
-name NVARCHAR(250) ,
-[file] varbinary(MAX),
+[path] varchar(5000)
 )
 go
 
@@ -558,7 +562,6 @@ formId int FOREIGN KEY REFERENCES Form(id) ,
 employeeName NVARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
 product NVARCHAR(100) ,
 purity NVARCHAR(100) ,
-productAvailability BIT ,
 customerConsumption NVARCHAR(100) ,
 regular float ,
 patchDay float ,
@@ -579,11 +582,11 @@ sourcingsId int FOREIGN KEY REFERENCES Sourcings(id) ,
 actions nvarchar(500)
 )
 go
+
 create table [dbo].[SourcingsFiles](
 id int IDENTITY(1,1) PRIMARY KEY,
 sourcingsId int FOREIGN KEY REFERENCES Sourcings(id) ,
-name NVARCHAR(250) ,
-[file] varbinary(MAX),
+[path] varchar(5000)
 )
 go
 
@@ -652,8 +655,8 @@ go
 create table [dbo].[PdiFiles](
 id int IDENTITY(1,1) PRIMARY KEY,
 pdiId int FOREIGN KEY REFERENCES Pdi(id) ,
-name NVARCHAR(250) ,
-[file] varbinary(MAX),
+[path] varchar(5000)
+
 )
 go
 
@@ -668,4 +671,3 @@ irmrSubmition datetime ,
 ciSubmition datetime ,
 )
 go
-

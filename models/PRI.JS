@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../config/database')
-const PRI = db.define('PRI', {
+const Pri = db.define('Pri', {
   formId: Sequelize.INTEGER,
   employeeName: Sequelize.STRING,
   /* First part of PRI form */
@@ -9,11 +9,11 @@ const PRI = db.define('PRI', {
   projectLocation: Sequelize.STRING,
   capitalInvestment: Sequelize.STRING,
   deadlineSubmittingBid: Sequelize.date,
-  Date: Sequelize.date,
+  Date: Sequelize.DataTypes.data.toString(),
   businessDeveloper: Sequelize.STRING,
   projectManager: Sequelize.STRING,
   ownerRepresentative: Sequelize.STRING,
-  iRMR: Sequelize.STRING,
+  // iRMR: Sequelize.STRING, msh mwgod f script l akher
 
   // 1. Project description and general Cmts
   descriptionAndGeneralCmts: Sequelize.STRING,
@@ -274,4 +274,4 @@ const PRI = db.define('PRI', {
 }
 )
 
-module.exports = PRI
+module.exports = Pri

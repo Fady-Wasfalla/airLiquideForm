@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../config/database')
-const History = db.define('Employee', {
+const History = db.define('History', {
   formId: Sequelize.INTEGER,
   formSubmition: Sequelize.DataTypes.DATE.toString(),
   distributionSubmition: Sequelize.DataTypes.DATE.toString(),
