@@ -18,11 +18,13 @@ class fireExtinguishers extends Component {
       handleChangeNumber(e,index){
         this.state.number[index] = e.target.value
         this.setState({number:this.state.number})
+        this.props.ParentCallBack(this.state)
       }
 
       handleChangeCapacity(e,index){
         this.state.capacity[index] = e.target.value
         this.setState({capacity:this.state.capacity})
+        this.props.ParentCallBack(this.state)
       }
 
       removeFireExtinguishers(index){
@@ -30,6 +32,7 @@ class fireExtinguishers extends Component {
         this.setState({number:this.state.number})
         this.state.capacity.splice(index,1)
         this.setState({capacity:this.state.capacity})
+        this.props.ParentCallBack(this.state)
       }
 
       render() {

@@ -10,9 +10,16 @@ import FormDisplay from '../display/formDisplay'
 class sourcingFeedback extends Component {
 
     state = {
-     
-      }
+      finalDecision:{},
+    }
 
+      finalDecisionCallBackFunction = (childData) => {
+          this.setState({finalDecision:childData})
+      }
+      
+      handleChange=()=>{
+        console.log(this.state)
+      }
      
       render() {
         return (
@@ -30,7 +37,7 @@ class sourcingFeedback extends Component {
                 <Row><br/></Row>
 
 
-                <Col md={{ span: 12, offset: 0 }}><ResponseCard /></Col>
+                <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>
                 <Row><br/></Row>
                 
                 <Row>

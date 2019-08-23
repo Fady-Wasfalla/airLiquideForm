@@ -3,12 +3,11 @@ import { Form , Col , Row , Card , Button } from "react-bootstrap";
 import Select from 'react-select';
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker"
-import FireExtinguishers from '../fireExtinguishers'
 import "react-datepicker/dist/react-datepicker.css";
 
 
 
-class predeliveryIdentificationReport extends Component {
+class irmr extends Component {
     
     state = {
 
@@ -51,6 +50,7 @@ class predeliveryIdentificationReport extends Component {
         decisionComment:"",
 
         criticalSectionDisplay:"none",
+        fieldset:"",
     }
 
 
@@ -62,6 +62,22 @@ class predeliveryIdentificationReport extends Component {
         this.setState({sisDate: date})
       }
 
+    sendData =()=>{
+        this.props.ParentCallBack(this.state)
+    }
+
+    submitData=()=>{
+        this.sendData()
+        if (this.state.fieldset===""){
+            this.setState({fieldset:"disabled"})
+        }
+        else{
+            this.setState({fieldset:""})
+        }
+    }
+
+    
+
       
       render() {
         return (
@@ -70,9 +86,8 @@ class predeliveryIdentificationReport extends Component {
                 <Card.Header as="h5" className="bg-dark text-white" >Project Categorization</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
+                <fieldset disabled={this.state.fieldset}>            
                     <Form>
-
-
                         <Form.Row>
                             <Form.Group as={Col} >
                                 <Form.Label style={{ color:"black" , fontSize:"20px" , fontWeight:"bold" , textDecoration:"underline" }}>
@@ -358,7 +373,19 @@ class predeliveryIdentificationReport extends Component {
 
 
                     </Form>
+                    </fieldset>
                 </Col>
+                <Card.Footer > 
+                <Row style={{height: .018*window.innerHeight + 'px'}}>
+                            <Col md={{offset:11}} >
+                            <Form.Check id="submitIrmr"
+                            custom={true}
+                            inline={true}
+                            label="Submit"
+                            onChange={this.submitData}/>
+                            </Col> 
+                </Row>
+                </Card.Footer>
                 </Card>
             </React.Fragment>
         )
@@ -367,4 +394,4 @@ class predeliveryIdentificationReport extends Component {
 }
 
 
-export default predeliveryIdentificationReport;
+export default irmr;

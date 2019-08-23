@@ -32,6 +32,7 @@ class utilities extends Component {
         this.setState({utility:this.state.utility})
         this.state.details.splice(index,1)
         this.setState({details:this.state.details})
+        this.props.ParentCallBack(this.state)
       }
 
       render() {

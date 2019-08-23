@@ -21,7 +21,7 @@ class fillForm extends Component {
       handleChange =() =>{
         console.log("Customer Basics info",this.state.cbi)
         console.log("LVF",this.state.lvf)
-        console.log("cif",this.state.cif)
+        console.log("CIF",this.state.cif)
         console.log("PRI",this.state.pri)
 
 

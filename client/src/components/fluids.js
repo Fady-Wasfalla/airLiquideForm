@@ -52,6 +52,7 @@ class fluids extends Component {
         this.setState({nature3:this.state.nature3})
         this.state.natureOther.splice(index,1)
         this.setState({natureOther:this.state.natureOther})
+        this.props.ParentCallBack(this.state)
    
     }
 

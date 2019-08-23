@@ -50,6 +50,7 @@ class contactPerson extends Component {
         this.setState({phone:this.state.phone})
         this.state.mail.splice(index,1)
         this.setState({mail:this.state.mail})
+        this.props.ParentCallBack(this.state)
       }
 
       render() {

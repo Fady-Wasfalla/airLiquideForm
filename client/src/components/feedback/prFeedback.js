@@ -11,9 +11,22 @@ import FormDisplay from '../display/formDisplay'
 class prFeedback extends Component {
 
     state = {
-     
+        finalDecision:{},
+        irmr:{},
+
       }
 
+    finalDecisionCallBackFunction = (childData) => {
+        this.setState({finalDecision:childData})
+    }
+
+    irmrCallBackFunction = (childData) => {
+      this.setState({irmr:childData})
+    }
+
+    handleChange=()=>{
+      console.log(this.state)
+    }
      
       render() {
         return (
@@ -30,10 +43,10 @@ class prFeedback extends Component {
                 <Col md={{ span: 12, offset: 0 }}><FormDisplay /></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><Irmr /></Col>
+                <Col md={{ span: 12, offset: 0 }}><Irmr ParentCallBack={this.irmrCallBackFunction} /></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><ResponseCard /></Col>
+                <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>
                 <Row><br/></Row>
                 
                 

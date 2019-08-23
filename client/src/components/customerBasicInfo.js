@@ -38,7 +38,7 @@ class customerBasicInfo extends Component {
 
     contactPersonCallBackFunction = (childData) => {
         this.setState({contactPerson:childData})
-      }
+    }
       
      
       render() {

@@ -3,7 +3,7 @@ import { Form , Col , Row , Card , Button } from "react-bootstrap";
 import Select from 'react-select';
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker"
-import FireExtinguishers from '../fireExtinguishers'
+import FireExtinguishers from './fireExtinguishers'
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -60,6 +60,7 @@ class predeliveryIdentificationReport extends Component {
         fireExtinguishers:false ,
         fireExtinguishersMP:"" ,
         fireExtinguishersCmt:"" ,
+        fireExtinguishersList:{},
         
         areaObstacles:false ,
         areaObstaclesMP:"" ,
@@ -78,6 +79,9 @@ class predeliveryIdentificationReport extends Component {
         
         decision:""  , /* disapprove   approve   approve with recommendation */
         decisionComment:"",
+
+        fieldset:"",
+
     }
 
     handleChange = () =>{
@@ -92,7 +96,25 @@ class predeliveryIdentificationReport extends Component {
         console.log(vehicleType)
       };
 
+
+    sendData=()=>{
+        this.props.ParentCallBack(this.state)
+    }
+
+    submitData=()=>{
+        this.sendData()
+        if (this.state.fieldset===""){
+            this.setState({fieldset:"disabled"})
+        }
+        else{
+            this.setState({fieldset:""})
+        }
+    }
       
+    fireExtinguishersCallBackFunction = (childData) => {
+        this.setState({fireExtinguishersList:childData})
+    }
+
       render() {
         return (
             <React.Fragment>
@@ -100,6 +122,7 @@ class predeliveryIdentificationReport extends Component {
                 <Card.Header as="h5" className="bg-dark text-white" >Pre-delivery Identification Report</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
+                <fieldset disabled={this.state.fieldset}>                
                     <Form>
 
                         <Row style={{height: .04*window.innerHeight + 'px'}}/>
@@ -500,7 +523,7 @@ class predeliveryIdentificationReport extends Component {
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                        <Col md={12}><FireExtinguishers/></Col>
+                        <Col md={12}><FireExtinguishers ParentCallBack={this.fireExtinguishersCallBackFunction}/></Col>
                         </Form.Row>
 
                         <Row style={{height: .04*window.innerHeight + 'px'}}/>
@@ -559,7 +582,19 @@ class predeliveryIdentificationReport extends Component {
                         </Form.Row>
 
                     </Form>
+                    </fieldset>
                 </Col>
+                <Card.Footer > 
+                <Row style={{height: .018*window.innerHeight + 'px'}}>
+                            <Col md={{offset:11}} >
+                            <Form.Check id="submitPDI"
+                            custom={true}
+                            inline={true}
+                            label="Submit"
+                            onChange={this.submitData}/>
+                </Col> 
+                </Row>
+                </Card.Footer>
                 </Card>
             </React.Fragment>
         )
