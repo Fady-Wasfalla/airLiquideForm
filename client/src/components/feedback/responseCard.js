@@ -35,7 +35,11 @@ class responseCard extends Component {
       }
 
     sendData =()=>{
-        this.props.ParentCallBack(this.state)
+        let sentData = Object.assign({},this.state)
+        delete sentData.actionPlanDisplay
+        delete sentData.commentDisplay
+        delete sentData.fieldset
+        this.props.ParentCallBack(sentData)
     }
 
     submitData=()=>{
@@ -129,7 +133,7 @@ class responseCard extends Component {
             <Card.Footer > 
                 <Row style={{height: .018*window.innerHeight + 'px'}}>
                             <Col md={{offset:11}} >
-                            <Form.Check id="submitResponse"
+                            <Form.Check id="submitResponse" required={"required"}
                             custom={true}
                             inline={true}
                             label="Submit"

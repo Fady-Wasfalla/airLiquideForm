@@ -268,7 +268,9 @@ class priForm extends Component {
       }
 
     sendData =()=>{
-          this.props.ParentCallBack(this.state)
+        let sentData = Object.assign({},this.state)
+        delete sentData.fieldset
+        this.props.ParentCallBack(sentData)
       }
 
     submitData=()=>{

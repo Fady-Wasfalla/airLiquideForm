@@ -71,7 +71,13 @@ class customerInstallationForm extends Component {
       };
      
       sendData =()=>{
-        this.props.ParentCallBack(this.state)
+        let sentData = Object.assign({},this.state)
+        delete sentData.ProductTypeOptions
+        delete sentData.RequiredPhaseTypeOptions
+        delete sentData.FlowUnitTypeOptions
+        delete sentData.MaximumDurationUnitTypeOptions
+        delete sentData.fieldset
+        this.props.ParentCallBack(sentData)
       }
 
       submitData=()=>{

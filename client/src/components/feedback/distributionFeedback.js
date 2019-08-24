@@ -42,7 +42,7 @@ class distributionFeedback extends Component {
                 
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>
-                <Button className="bg-primary text-white"
+                <Button className="bg-primary text-white" type="submit"
                 onClick={this.handleChange}>Submit</Button></Col>
                 </Row>
 

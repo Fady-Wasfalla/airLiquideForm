@@ -12,18 +12,20 @@ class customerBasicInfo extends Component {
         address:"",
         zone:"",
         address:"",
-        fieldset:"",
         contactPerson:{},
+        fieldset:"",
     }
-
 
     handleChange(date) {
         console.log(date)
         this.setState({date: date})
       }
-
+    
+    
     sendData =()=>{
-        this.props.ParentCallBack(this.state)
+        let sentData = Object.assign({},this.state)
+        delete sentData.fieldset
+        this.props.ParentCallBack(sentData)
     }
 
     submitData=()=>{

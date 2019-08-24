@@ -77,8 +77,6 @@ class predeliveryIdentificationReport extends Component {
         inspector:"" ,
         approver:"" ,
         
-        decision:""  , /* disapprove   approve   approve with recommendation */
-        decisionComment:"",
 
         fieldset:"",
 
@@ -98,7 +96,10 @@ class predeliveryIdentificationReport extends Component {
 
 
     sendData=()=>{
-        this.props.ParentCallBack(this.state)
+        let sentData = Object.assign({},this.state)
+        delete sentData.vehicleTypeOptions
+        delete sentData.fieldset
+        this.props.ParentCallBack(sentData)
     }
 
     submitData=()=>{

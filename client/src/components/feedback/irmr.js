@@ -46,9 +46,6 @@ class irmr extends Component {
         eisRequiring:false ,
         eisCmt:"" ,
 
-        decision:""  , /* disapprove   approve   approve with recommendation */
-        decisionComment:"",
-
         criticalSectionDisplay:"none",
         fieldset:"",
     }
@@ -63,6 +60,9 @@ class irmr extends Component {
       }
 
     sendData =()=>{
+        let sentData = Object.assign({},this.state)
+        delete sentData.criticalSectionDisplay
+        delete sentData.fieldset
         this.props.ParentCallBack(this.state)
     }
 

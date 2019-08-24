@@ -118,7 +118,16 @@ class logisticsValidationForm extends Component {
 
       
       sendData =()=>{
-        this.props.ParentCallBack(this.state)
+        let sentData = Object.assign({},this.state)
+        delete sentData.CustomerTypeOptions
+        delete sentData.BuissnesTypeOptions
+        delete sentData.ProductTypeOptions
+        delete sentData.CustomerConsumtionTypeOptions
+        delete sentData.CustomerConsumtionregularShow
+        delete sentData.CustomerConsumtionPatchShow
+        delete sentData.availableDeliveryShow
+        delete sentData.fieldset
+        this.props.ParentCallBack(sentData)
       }
 
       submitData=()=>{

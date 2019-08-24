@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
-import FluidCard from './fluidCard'
 import 'mdbreact/dist/css/mdb.css'
 
 class fluids extends Component {
