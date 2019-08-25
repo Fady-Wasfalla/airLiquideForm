@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Footer } from "react";
-import { Navbar , Nav , NavDropdown , Form , Button , FormControl, Row ,Col } from "react-bootstrap";
-import ReactDOM from 'react-dom'
+import { Col } from "react-bootstrap";
 import logo from '../images/air-liquide-creative-oxygen.svg'
 
 class adel extends Component {
