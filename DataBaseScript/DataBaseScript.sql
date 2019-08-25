@@ -472,12 +472,10 @@ irmrsignature VARCHAR(300) ,
 irmrGround VARCHAR(300) ,
 
 /*SIS classification */
-sisClassification VARCHAR(300) ,
 sisDate Date	,
 sisSignature VARCHAR(300) ,
 sisGround VARCHAR(300) ,
 sisSfety BIT ,
-sisReliability BIT ,
 sisEnvironmentRisk BIT ,
 sisProjectManagement BIT ,
 sisOperationRisk BIT ,
