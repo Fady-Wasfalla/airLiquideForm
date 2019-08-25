@@ -1,4 +1,4 @@
-const Model = require('../models/Form')
+const Model = require('../models/Employee')
 const entityController = require('./main')
 
 exports.default = async (req, res) => {
@@ -19,4 +19,11 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   await entityController.delete(req, res, Model)
+}
+/* sales man submit a form */
+exports.newForm = async (req, res) => {
+const cbi = req.body.cbi
+const lvf = req.body.lvf
+const cif = req.body.cif
+const pri = req.body.pri
 }

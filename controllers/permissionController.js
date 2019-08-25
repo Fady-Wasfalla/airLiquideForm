@@ -1,4 +1,4 @@
-const Model = require('../models/Form')
+const Model = require('../models/Permission')
 const entityController = require('./main')
 
 exports.default = async (req, res) => {
