@@ -6,21 +6,19 @@ const Irmr = db.define('Irmr', {
   projectType: Sequelize.STRING,
 
   /* IRMR classification */
-  irmrClassification: Sequelize.STRING,
   irmrDate: Sequelize.DataTypes.DATE.toString(),
   irmrsignature: Sequelize.STRING,
   irmrGround: Sequelize.STRING,
 
   /* SIS classification */
-  sisClassification: Sequelize.STRING,
   sisDate: Sequelize.DataTypes.DATE.toString(),
   sisSignature: Sequelize.STRING,
   sisGround: Sequelize.STRING,
-  sisSfety: Sequelize.BOOLEAN,
-  sisReliability: Sequelize.BOOLEAN,
-  sisEnvironmentRisk: Sequelize.BOOLEAN,
-  sisProjectManagement: Sequelize.BOOLEAN,
-  sisOperationRisk: Sequelize.BOOLEAN,
+  criticalSfety: Sequelize.BOOLEAN,
+  criticalReliability: Sequelize.BOOLEAN,
+  criticalEnvironmentRisk: Sequelize.BOOLEAN,
+  criticalProjectManagement: Sequelize.BOOLEAN,
+  criticalOperationRisk: Sequelize.BOOLEAN,
   /* PRA */
   praRequiring: Sequelize.BOOLEAN,
   praProject: Sequelize.BOOLEAN,

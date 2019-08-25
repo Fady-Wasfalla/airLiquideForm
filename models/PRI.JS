@@ -2,17 +2,16 @@ const Sequelize = require('sequelize')
 const db = require('../config/database')
 const Pri = db.define('Pri', {
   formId: Sequelize.INTEGER,
-  employeeName: Sequelize.STRING,
+  // employeeName: Sequelize.STRING,
   /* First part of PRI form */
-  businessUnit: Sequelize.STRING,
-  projectName: Sequelize.STRING,
-  projectLocation: Sequelize.STRING,
-  capitalInvestment: Sequelize.STRING,
-  deadlineSubmittingBid: Sequelize.DataTypes.DATE.toString(),
-  Date: Sequelize.DataTypes.DATE.toString(),
-  businessDeveloper: Sequelize.STRING,
-  projectManager: Sequelize.STRING,
-  ownerRepresentative: Sequelize.STRING,
+  // businessUnit: Sequelize.STRING,
+  // projectName: Sequelize.STRING,
+  // projectLocation: Sequelize.STRING,
+  // capitalInvestment: Sequelize.STRING,
+  // deadlineSubmittingBid: Sequelize.DataTypes.DATE.toString(),
+  // businessDeveloper: Sequelize.STRING,
+  // projectManager: Sequelize.STRING,
+  // ownerRepresentative: Sequelize.STRING,
   // iRMR: Sequelize.STRING, msh mwgod f script l akher
 
   // 1. Project description and general Cmts
@@ -105,8 +104,6 @@ const Pri = db.define('Pri', {
   strategicCustomer: Sequelize.BOOLEAN,
   customerCmts: Sequelize.BOOLEAN,
   financialSituationCmt: Sequelize.STRING,
-  durabilityOfCustomerActivitiesCmt: Sequelize.STRING,
-  newBusinessCustomerCmt: Sequelize.STRING,
   strategicCustomerCmt: Sequelize.STRING,
   customerCmtsCmt: Sequelize.STRING,
 
@@ -241,14 +238,14 @@ const Pri = db.define('Pri', {
   financialLoss: Sequelize.BOOLEAN,
   impactOnAL: Sequelize.BOOLEAN,
   contractualPenalties: Sequelize.BOOLEAN,
-  consequencesComments: Sequelize.BOOLEAN,
+  consequencesCmts: Sequelize.BOOLEAN,
   corporateImageCmt: Sequelize.STRING,
   impactOnCustomerCmt: Sequelize.STRING,
   impactOnStrategicCmt: Sequelize.STRING,
   financialLossCmt: Sequelize.STRING,
   impactOnALCmt: Sequelize.STRING,
   contractualPenaltiesCmt: Sequelize.STRING,
-  consequencesCommentsCmt: Sequelize.STRING,
+  consequencesCmtsCmt: Sequelize.STRING,
 
   /* 11. In case of acquisition (Project type acquisition) */
   technicalInspection: Sequelize.BOOLEAN,
@@ -258,7 +255,7 @@ const Pri = db.define('Pri', {
   obsoleteEquipment: Sequelize.BOOLEAN,
   potentialNonComplianceEnvironmental: Sequelize.BOOLEAN,
   facilityAge: Sequelize.BOOLEAN,
-  acquisitionComments: Sequelize.BOOLEAN,
+  acquisitionCmts: Sequelize.BOOLEAN,
 
   technicalInspectionCmt: Sequelize.STRING,
   potentialNonComplianceSafetyCmt: Sequelize.STRING,
@@ -267,7 +264,7 @@ const Pri = db.define('Pri', {
   obsoleteEquipmentCmt: Sequelize.STRING,
   potentialNonComplianceEnvironmentalCmt: Sequelize.STRING,
   facilityAgeCmt: Sequelize.STRING,
-  acquisitionCommentsCmt: Sequelize.STRING
+  acquisitionCmtsCmt: Sequelize.STRING
 },
 { timestamps: false,
   freezeTableName: true
