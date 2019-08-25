@@ -4,7 +4,8 @@ const Employee = db.define('Employee', {
   userName: Sequelize.STRING,
   email: Sequelize.STRING,
   activation: Sequelize.BOOLEAN,
-  name: Sequelize.STRING },
+  departement: Sequelize.STRING
+},
 { timestamps: false,
   freezeTableName: true
 }

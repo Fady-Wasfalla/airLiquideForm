@@ -1,76 +1,29 @@
-const Employee = require('../models/Employee')
-// show
+const Model = require('../models/Employee')
+const entityController = require('./main')
+
 exports.default = async (req, res) => {
-  try {
-    const entities = await Employee.findAll({ raw: true })
-    return res.json({
-      status: 'Success',
-      data: entities
-    })
-  } catch (error) {
-    return res.status(400).json({
-      status: 'Failed',
-      data: error.message
-    })
-  }
+  await entityController.default(res, Model)
 }
-// create
+// show
 exports.create = async (req, res) => {
-  if (Object.keys(req.body).length === 0) {
-    res.status(400).json({
-      status: 'Error',
-      message: `Nothing was not entered in body`
-    })
-  }
-  try {
-    const newEmployee = await Employee.create(req.body)
-    return res.json({
-      status: 'New emplyee was added',
-      data: newEmployee
-    })
-  } catch (error) {
-    return res.status(400).json({
-      status: 'Failed',
-      data: error.message
-    })
-  }
+  await entityController.create(req, res, Model)
 }
-// update
+
+exports.read = async (req, res) => {
+  await entityController.read(req, res, Model)
+}
+
 exports.update = async (req, res) => {
-  if (Object.keys(req.body).length === 0) {
-    res.status(400).json({
-      status: 'Error',
-      message: `Nothing was not entered in body`
-    })
-  }
-  try {
-    await Employee.update(
-      req.body,
-      { where: { id: req.params.id } }
-    )
-    return res.json({
-      status: 'updated successfully'
-    })
-  } catch (error) {
-    return res.status(400).json({
-      status: 'Failed',
-      data: error.message
-    })
-  }
+  await entityController.update(req, res, Model)
 }
-// delete
+
 exports.delete = async (req, res) => {
-  try {
-    await Employee.destroy(
-      { where: { id: req.params.id } }
-    )
-    return res.json({
-      status: 'Employee was deleted'
-    })
-  } catch (error) {
-    return res.status(400).json({
-      status: 'Failed',
-      data: error.message
-    })
-  }
+  await entityController.delete(req, res, Model)
+}
+/* sales man submit a form */
+exports.newForm = async (req, res) => {
+const cbi = req.body.cbi
+const lvf = req.body.lvf
+const cif = req.body.cif
+const pri = req.body.pri
 }
