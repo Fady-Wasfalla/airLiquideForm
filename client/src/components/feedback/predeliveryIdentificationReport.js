@@ -60,6 +60,7 @@ class predeliveryIdentificationReport extends Component {
         fireExtinguishers:false ,
         fireExtinguishersMP:"" ,
         fireExtinguishersCmt:"" ,
+        fireExtinguishersList:{},
         
         areaObstacles:false ,
         areaObstaclesMP:"" ,
@@ -76,8 +77,9 @@ class predeliveryIdentificationReport extends Component {
         inspector:"" ,
         approver:"" ,
         
-        decision:""  , /* disapprove   approve   approve with recommendation */
-        decisionComment:"",
+
+        fieldset:"",
+
     }
 
     handleChange = () =>{
@@ -92,7 +94,28 @@ class predeliveryIdentificationReport extends Component {
         console.log(vehicleType)
       };
 
+
+    sendData=()=>{
+        let sentData = Object.assign({},this.state)
+        delete sentData.vehicleTypeOptions
+        delete sentData.fieldset
+        this.props.ParentCallBack(sentData)
+    }
+
+    submitData=()=>{
+        this.sendData()
+        if (this.state.fieldset===""){
+            this.setState({fieldset:"disabled"})
+        }
+        else{
+            this.setState({fieldset:""})
+        }
+    }
       
+    fireExtinguishersCallBackFunction = (childData) => {
+        this.setState({fireExtinguishersList:childData})
+    }
+
       render() {
         return (
             <React.Fragment>
@@ -100,6 +123,7 @@ class predeliveryIdentificationReport extends Component {
                 <Card.Header as="h5" className="bg-dark text-white" >Pre-delivery Identification Report</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
+                <fieldset disabled={this.state.fieldset}>                
                     <Form>
 
                         <Row style={{height: .04*window.innerHeight + 'px'}}/>
@@ -500,7 +524,7 @@ class predeliveryIdentificationReport extends Component {
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
-                        <Col md={12}><FireExtinguishers/></Col>
+                        <Col md={12}><FireExtinguishers ParentCallBack={this.fireExtinguishersCallBackFunction}/></Col>
                         </Form.Row>
 
                         <Row style={{height: .04*window.innerHeight + 'px'}}/>
@@ -559,7 +583,19 @@ class predeliveryIdentificationReport extends Component {
                         </Form.Row>
 
                     </Form>
+                    </fieldset>
                 </Col>
+                <Card.Footer > 
+                <Row style={{height: .018*window.innerHeight + 'px'}}>
+                            <Col md={{offset:11}} >
+                            <Form.Check id="submitPDI"
+                            custom={true}
+                            inline={true}
+                            label="Submit"
+                            onChange={this.submitData}/>
+                </Col> 
+                </Row>
+                </Card.Footer>
                 </Card>
             </React.Fragment>
         )

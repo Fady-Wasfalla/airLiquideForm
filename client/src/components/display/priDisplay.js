@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card , FormControl , Button , Collapse} from "react-bootstrap";
 import Fluids from '../fluids'
+import Utilities from '../utilities'
 import "react-datepicker/dist/react-datepicker.css";
 
 class priDisplay extends Component {
@@ -414,6 +415,11 @@ class priDisplay extends Component {
                        <Form.Row>
                         <Col md={12}><Fluids/></Col>
                         </Form.Row>
+
+                        <Form.Row>
+                        <Col md={12}><Utilities/></Col>
+                        </Form.Row>
+
 
 
                        

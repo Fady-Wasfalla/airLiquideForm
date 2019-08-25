@@ -9,9 +9,18 @@ import ResponseCard from './responseCard'
 class distributionFeedback extends Component {
 
     state = {
-     
+        finalDecision:{},
       }
 
+    
+    
+    finalDecisionCallBackFunction = (childData) => {
+        this.setState({finalDecision:childData})
+    }
+
+    handleChange=()=>{
+      console.log(this.state)
+    }
      
       render() {
         return (
@@ -28,12 +37,12 @@ class distributionFeedback extends Component {
                 <Col md={{ span: 12, offset: 0 }}><FormDisplay /></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><ResponseCard /></Col>
+                <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>
                 <Row><br/></Row>
                 
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>
-                <Button className="bg-primary text-white"
+                <Button className="bg-primary text-white" type="submit"
                 onClick={this.handleChange}>Submit</Button></Col>
                 </Row>
 
@@ -44,6 +53,7 @@ class distributionFeedback extends Component {
                 <Row><br/></Row>
                 <Row><br/></Row>
                 </Col>
+                
             </React.Fragment>
         )
       }

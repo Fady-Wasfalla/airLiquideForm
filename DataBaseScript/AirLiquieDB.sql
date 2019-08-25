@@ -459,24 +459,25 @@ create table [dbo].[Irmr](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
 employeeName NVARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
+
 projectType NVARCHAR(300) ,
 
 /*IRMR classification */
-irmrClassification NVARCHAR(300) ,
 irmrDate Date	,
 irmrsignature NVARCHAR(300) ,
 irmrGround NVARCHAR(300) ,
 
+criticalSfety BIT ,
+criticalReliability BIT ,
+criticalEnvironmentRisk BIT ,
+criticalProjectManagement BIT ,
+criticalOperationRisk BIT ,
+
 /*SIS classification */
-sisClassification NVARCHAR(300) ,
 sisDate Date	,
 sisSignature NVARCHAR(300) ,
 sisGround NVARCHAR(300) ,
-sisSfety BIT ,
-sisReliability BIT ,
-sisEnvironmentRisk BIT ,
-sisProjectManagement BIT ,
-sisOperationRisk BIT ,
+
 /* PRA */
 praRequiring BIT ,
 praProject BIT ,
@@ -518,18 +519,8 @@ create table [dbo].[Distributions](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
 employeeName NVARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
-product NVARCHAR(100) ,
-purity NVARCHAR(100) ,
-customerConsumption NVARCHAR(100) ,
-regular float ,
-patchDay float ,
-patchAvgHrs float ,
-seasonalConsumption float  ,
+
 customerTank float ,
-customerDeadLevel float  ,
-usableCapacityAboveDeadLevel float ,
-peakConsumption float ,
-frequencyOfPeakConsumption float ,
 decision NVARCHAR(200)  , /* disapprove   approve   approve with recommendation */
 decisionComment NVARCHAR(100),
 )
@@ -554,18 +545,8 @@ create table [dbo].[Sourcings](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
 employeeName NVARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
-product NVARCHAR(100) ,
-purity NVARCHAR(100) ,
-customerConsumption NVARCHAR(100) ,
-regular float ,
-patchDay float ,
-patchAvgHrs float ,
-seasonalConsumption float  ,
+
 customerTank float ,
-customerDeadLevel float  ,
-usableCapacityAboveDeadLevel float ,
-peakConsumption float ,
-frequencyOfPeakConsumption float ,
 decision NVARCHAR(200)  , /* disapprove   approve   approve with recommendation */
 decisionComment NVARCHAR(100),
 )
@@ -592,42 +573,66 @@ formId int FOREIGN KEY REFERENCES Form(id) ,
 employeeName NVARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
 
 highwayEnterance BIT ,
+highwayEnteranceMP NVARCHAR(250) ,
+highwayEnteranceCmt NVARCHAR(250) ,
+
 areaFlat BIT ,
+areaFlatMP NVARCHAR(250) ,
+areaFlatCmt NVARCHAR(250) ,
+
 areaType BIT ,
+areaTypeMP NVARCHAR(250) ,
+areaTypeCmt NVARCHAR(250) ,
+
 dischargePoint BIT ,
-easliyAccessible BIT ,
+dischargePointMP NVARCHAR(250) ,
+dischargePointCmt NVARCHAR(250) ,
+
 carExit BIT ,
+carExitMP NVARCHAR(250) ,
+carExitCmt NVARCHAR(250) ,
+
+carGoBack BIT,
+carGoBackDistance float ,
+carGoBackSafetyProcedure NVARCHAR(250) ,
+
 tankCapacity BIT ,
+tankCapacityMP NVARCHAR(250) ,
+tankCapacityCmt NVARCHAR(250) ,
+tankCapacitySize float ,
+
 vaccumFlushing BIT ,
+vaccumFlushingMP NVARCHAR(250) ,
+vaccumFlushingCmt NVARCHAR(250) ,
+
 suitableElectricity BIT ,
+suitableElectricityMP NVARCHAR(250) ,
+suitableElectricityCmt NVARCHAR(250) ,
+
 adequateLight BIT ,
+adequateLightMP NVARCHAR(250) ,
+adequateLightCmt NVARCHAR(250) ,
+
 supplyTime NVARCHAR(250) , /* morning , night , all day */
 supplyTimeFrom time ,
 supplyTimeTo time ,
+supplyTimeCmt NVARCHAR(250),
+
 fireExtinguishers BIT ,
-areaObstacles BIT ,
-
-highwayEnteranceCmt NVARCHAR(250) ,
-areaFlatCmt NVARCHAR(250) ,
-areaTypeCmt NVARCHAR(250) ,
-dischargePointCmt NVARCHAR(250) ,
-easliyAccessibleCmt NVARCHAR(250) ,
-carExitCmt NVARCHAR(250) ,
-carExitdistance float ,
-carExitSafetyProcedure NVARCHAR(250) ,
-tankCapacityCmt NVARCHAR(250) ,
-tankCapacitySize float ,
-vaccumFlushingCmt NVARCHAR(250) ,
-suitableElectricityCmt NVARCHAR(250) ,
-adequateLightCmt NVARCHAR(250) ,
+fireExtinguishersMP NVARCHAR(250) ,
 fireExtinguishersCmt NVARCHAR(250) ,
-areaObstaclesCmt NVARCHAR(250) ,
-decision NVARCHAR(200)  , /* disapprove   approve   approve with recommendation */
-decisionComment NVARCHAR(100),
-vehicleType NVARCHAR(100) ,
-inspector NVARCHAR(100) ,
-approver NVARCHAR(100) ,
 
+areaObstacles BIT ,
+areaObstaclesMP NVARCHAR(250) ,
+areaObstaclesCmt NVARCHAR(250) ,
+
+vehicleType NVARCHAR(250),
+
+inspector NVARCHAR(250) ,
+approver NVARCHAR(250) ,
+
+decision NVARCHAR(250)  , /* disapprove   approve   approve with recommendation */
+decisionComment NVARCHAR(250),
 )
 go
 

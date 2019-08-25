@@ -49,29 +49,47 @@ class customerInstallationForm extends Component {
         repetitionPerDay:0  ,
 
         futureExpansionNotes:"",
+
+        fieldset:"",
         
       }
 
-      ProductHandleChange = product => {
-        this.setState({ product });
-        console.log(product)
+      ProductHandleChange = (product) => {
+        this.setState({ product:product.value });
       };
 
-      RequiredPhaseHandleChange = requiredPhase => {
-        this.setState({ requiredPhase });
-        console.log(requiredPhase)
+      RequiredPhaseHandleChange = (requiredPhase) => {
+        this.setState({ requiredPhase:requiredPhase.value });
       };
 
-      FlowUnitHandleChange = flowUnit => {
-        this.setState({ flowUnit });
-        console.log(flowUnit)
+      FlowUnitHandleChange = (flowUnit) => {
+        this.setState({ flowUnit:flowUnit.value });
       };
 
-      MaximumDurationUnitHandleChange = maximumDurationUnit => {
-        this.setState({ maximumDurationUnit });
-        console.log(maximumDurationUnit)
+      MaximumDurationUnitHandleChange = (maximumDurationUnit) => {
+        this.setState({ maximumDurationUnit:maximumDurationUnit.value });
       };
      
+      sendData =()=>{
+        let sentData = Object.assign({},this.state)
+        delete sentData.ProductTypeOptions
+        delete sentData.RequiredPhaseTypeOptions
+        delete sentData.FlowUnitTypeOptions
+        delete sentData.MaximumDurationUnitTypeOptions
+        delete sentData.fieldset
+        this.props.ParentCallBack(sentData)
+      }
+
+      submitData=()=>{
+        this.sendData()
+        if (this.state.fieldset===""){
+            this.setState({fieldset:"disabled"})
+        }
+        else{
+            this.setState({fieldset:""})
+          }
+      }
+
       render() {
         return (
             <React.Fragment>
@@ -79,13 +97,14 @@ class customerInstallationForm extends Component {
                 <Card.Header as="h5" className="bg-dark text-white" >Customer Installation Form</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
+                <fieldset disabled={this.state.fieldset}>
                     <Form>
 
                     <Form.Row >
                             <Form.Group as={Col} controlId="ProductType" >
                             <Form.Label>Product</Form.Label>
                             <Select
-                            value={this.state.product}
+                            value={this.state.product.value}
                             onChange={this.ProductHandleChange}
                             options={this.state.ProductTypeOptions}
                             />
@@ -105,7 +124,7 @@ class customerInstallationForm extends Component {
                             <Form.Group as={Col} controlId="RequiredPhase" >
                             <Form.Label>Required Phase</Form.Label>
                             <Select
-                            value={this.state.requiredPhase}
+                            value={this.state.requiredPhase.value}
                             onChange={this.RequiredPhaseHandleChange}
                             options={this.state.RequiredPhaseTypeOptions}
                             />
@@ -114,7 +133,7 @@ class customerInstallationForm extends Component {
                             <Form.Group as={Col} controlId="FlowUnit" >
                             <Form.Label>Flow Unit</Form.Label>
                             <Select
-                            value={this.state.flowUnit}
+                            value={this.state.flowUnit.value}
                             onChange={this.FlowUnitHandleChange}
                             options={this.state.FlowUnitTypeOptions}
                             />
@@ -167,7 +186,7 @@ class customerInstallationForm extends Component {
                         <Form.Group as={Col} controlId="MaximumDurationUnit" >
                             <Form.Label>Maximum Duration Unit</Form.Label>
                             <Select
-                            value={this.state.maximumDurationUnit}
+                            value={this.state.maximumDurationUnit.value}
                             onChange={this.MaximumDurationUnitHandleChange}
                             options={this.state.MaximumDurationUnitTypeOptions}
                             />
@@ -195,7 +214,19 @@ class customerInstallationForm extends Component {
                         
                         
                     </Form>
+                  </fieldset>
                 </Col>
+                <Card.Footer > 
+                <Row style={{height: .018*window.innerHeight + 'px'}}>
+                            <Col md={{offset:11}} >
+                            <Form.Check id="submitCIF"
+                            custom={true}
+                            inline={true}
+                            label="Submit"
+                            onChange={this.submitData}/>
+                            </Col> 
+                </Row>
+                </Card.Footer>
                 </Card>
             </React.Fragment>
         )

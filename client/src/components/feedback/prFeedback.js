@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
+import Irmr from './irmr'
 import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
 
@@ -7,19 +8,25 @@ import FormDisplay from '../display/formDisplay'
 
 
 
-class sourcingFeedback extends Component {
+class prFeedback extends Component {
 
     state = {
-      finalDecision:{},
+        finalDecision:{},
+        irmr:{},
+
+      }
+
+    finalDecisionCallBackFunction = (childData) => {
+        this.setState({finalDecision:childData})
     }
 
-      finalDecisionCallBackFunction = (childData) => {
-          this.setState({finalDecision:childData})
-      }
-      
-      handleChange=()=>{
-        console.log(this.state)
-      }
+    irmrCallBackFunction = (childData) => {
+      this.setState({irmr:childData})
+    }
+
+    handleChange=()=>{
+      console.log(this.state)
+    }
      
       render() {
         return (
@@ -27,7 +34,7 @@ class sourcingFeedback extends Component {
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>
                 <Card border="secondary">
-                <Card.Header as="h4" className="bg-primary text-white">Sourcing Feedback</Card.Header>                
+                <Card.Header as="h4" className="bg-primary text-white">PR Feedback</Card.Header>                
                 <Row><br/></Row>
                 <Col  md={{ span: 12, offset: 0 }}>
                 <Row><br/></Row>
@@ -36,9 +43,13 @@ class sourcingFeedback extends Component {
                 <Col md={{ span: 12, offset: 0 }}><FormDisplay /></Col>
                 <Row><br/></Row>
 
+                <Col md={{ span: 12, offset: 0 }}><Irmr ParentCallBack={this.irmrCallBackFunction} /></Col>
+                <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>
                 <Row><br/></Row>
+                
+                
                 
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>
@@ -60,4 +71,4 @@ class sourcingFeedback extends Component {
 }
 
 
-export default sourcingFeedback;
+export default prFeedback;

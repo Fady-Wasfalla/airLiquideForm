@@ -7,16 +7,15 @@ class responseCard extends Component {
     state = {
 
         decision:""  , /* disapprove   approve   approve with recommendation */
-        
-        decisionComment:"",
-        
+        decisionComment:"", 
         actionPlan:[""],
 
         actionPlanDisplay:"none",
         commentDisplay:"none",
+        fieldset:"",
       }
 
-      addFireExtinguishers(){
+      addAP(){
         this.setState({actionPlan:[... this.state.actionPlan,""]})
       }
 
@@ -25,11 +24,33 @@ class responseCard extends Component {
         this.setState({actionPlan:this.state.actionPlan})
       }
 
-      removeFireExtinguishers(index){
+      removeAP(index){
         this.state.actionPlan.splice(index,1)
         this.setState({actionPlan:this.state.actionPlan})
-        
+        this.props.ParentCallBack(this.state)
       }
+
+      commentHandleChange=()=>{
+        this.props.ParentCallBack(this.state)
+      }
+
+    sendData =()=>{
+        let sentData = Object.assign({},this.state)
+        delete sentData.actionPlanDisplay
+        delete sentData.commentDisplay
+        delete sentData.fieldset
+        this.props.ParentCallBack(sentData)
+    }
+
+    submitData=()=>{
+        this.sendData()
+        if (this.state.fieldset===""){
+            this.setState({fieldset:"disabled"})
+        }
+        else{
+            this.setState({fieldset:""})
+        }
+    }
 
       render() {
         return (
@@ -38,9 +59,8 @@ class responseCard extends Component {
                 <Card.Header as="h5" className="text-black" >Final Decision</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
+                <fieldset disabled={this.state.fieldset}>
                 <Form>
-
-
                     <Form.Row >
                             <Form.Group as={Col} >
                             <Col md={12}>
@@ -49,9 +69,10 @@ class responseCard extends Component {
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Approve" value={"Approve"}
                                 name="decision" id="decision0"
-                                onClick={(e) =>{this.setState({decision:e.target.value})
+                                onClick={(e) =>{
                                                 this.setState({actionPlanDisplay:"none"})
-                                                this.setState({commentDisplay:""})}} />  
+                                                this.setState({commentDisplay:""})
+                                                this.setState({decision:e.target.value})}} />  
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Disapprove" value={"Disapprove"}
                                 name="decision"id="decision1"
@@ -72,14 +93,15 @@ class responseCard extends Component {
                     <Form.Group style={{display:this.state.commentDisplay}}>
                             <Col md={{offset:1,span:10}}>
                             <Form.Label>Comment</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({decisionComment:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({decisionComment:e.target.value})
+                                                                            this.props.ParentCallBack(this.state)}} />
                             </Col>
                     </Form.Group>
 
                     <Form.Group style={{display:this.state.actionPlanDisplay}}>
                     <label>Action Plan</label>  
                     <Button variant="outline"  
-                    onClick={(e)=>this.addFireExtinguishers(e)}
+                    onClick={(e)=>this.addAP(e)}
                     >＋</Button>
                     <Row>
                     <Col md={9}>
@@ -94,7 +116,7 @@ class responseCard extends Component {
                                         onChange={(e)=>this.ApHandleChange(e , index)} value={actionPlan} />
                                         </Form.Group>
                                         <Button variant="outline" style={{height: .05*window.innerHeight + 'px'}}
-                                        onClick={()=>this.removeFireExtinguishers(index)}>✘</Button>
+                                        onClick={()=>this.removeAP(index)}>✘</Button>
                                     </Form.Row>
                                 </Form>
                             )
@@ -105,7 +127,20 @@ class responseCard extends Component {
                     </Form.Group>
               
             </Form>
+            </fieldset>
+            
             </Col>
+            <Card.Footer > 
+                <Row style={{height: .018*window.innerHeight + 'px'}}>
+                            <Col md={{offset:11}} >
+                            <Form.Check id="submitResponse" required={"required"}
+                            custom={true}
+                            inline={true}
+                            label="Submit"
+                            onChange={this.submitData}/>
+                            </Col> 
+                </Row>
+                </Card.Footer>
             </Card>
             </React.Fragment>
         )
