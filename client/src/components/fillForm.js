@@ -24,7 +24,6 @@ class fillForm extends Component {
         console.log("CIF",this.state.cif)
         console.log("PRI",this.state.pri)
 
-
       }
 
       cbiCallBackFunction = (childData) => {
