@@ -21,6 +21,9 @@ exports.delete = async (req, res) => {
   await entityController.delete(req, res, Model)
 }
 /* sales man submit a form */
-exports.submit = async (req, res) => {
-  
+exports.newForm = async (req, res) => {
+const cbi = req.body.cbi
+const lvf = req.body.lvf
+const cif = req.body.cif
+const pri = req.body.pri
 }
