@@ -29,11 +29,9 @@ class header extends Component {
 
 
         </Navbar>
-        </React.Fragment>
-        )
-      }
-
+      </React.Fragment>
+    )
+  }
 }
 
-
-export default header;
+export default header
