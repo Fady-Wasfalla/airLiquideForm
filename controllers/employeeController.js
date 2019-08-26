@@ -21,6 +21,8 @@ const PdiAP = require('../models/PdiAP')
 const FireExtinguishers = require('../models/FireExtinguishers')
 const os = require('os')
 const employeeName = os.userInfo().username
+const tzoffset = (new Date()).getTimezoneOffset() * 60000
+const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
 
 exports.default = async (req, res) => {
   await entityController.default(req, res, Model)
@@ -49,10 +51,6 @@ exports.newForm = async (req, res) => {
     delete cbiData.contactPerson
     const newForm = await Form.create({ ...cbi, employeeName })
     const formId = newForm.id
-
-    const tzoffset = (new Date()).getTimezoneOffset() * 60000
-    const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
-
     await History.create({ formId, formSubmition: localISOTime })
     // inserting the conatct perosns
     if (cbi.conrtactPerson) {
@@ -124,6 +122,14 @@ exports.distributionFB = async (req, res) => {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
     const fb = await Distributions.create({ formId: 1, ...finalDecisionData, employeeName })
+    await Form.update(
+      { distributionSubmition: true },
+      { where: { id: 1 } }
+    )
+    await History.update(
+      { distributionSubmition: localISOTime },
+      { where: { formId: 16 } }
+    )
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let distributionsAPData = {
@@ -151,6 +157,14 @@ exports.sourcingsFB = async (req, res) => {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
     const fb = await Sourcings.create({ formId: 1, ...finalDecisionData, employeeName })
+    await Form.update(
+      { sourcingSubmition: true },
+      { where: { id: 1 } }
+    )
+    await History.update(
+      { sourcingSubmition: localISOTime },
+      { where: { formId: 16 } }
+    )
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let sourcingsAPData = {
@@ -178,6 +192,14 @@ exports.ciFB = async (req, res) => {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
     const fb = await CifResponse.create({ formId: 1, ...finalDecisionData, employeeName })
+    await Form.update(
+      { ciSubmition: true },
+      { where: { id: 1 } }
+    )
+    await History.update(
+      { ciSubmition: localISOTime },
+      { where: { formId: 16 } }
+    )
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let sourcingsAPData = {
@@ -211,6 +233,14 @@ exports.prFB = async (req, res) => {
     let finalDecisionData = Object.assign({}, irmrFb)
     delete finalDecisionData.actionPlan
     const fb = await Irmr.create({ formId: 1, ...finalDecisionData, employeeName })
+    await Form.update(
+      { irmrSubmition: true },
+      { where: { id: 1 } }
+    )
+    await History.update(
+      { irmrSubmition: localISOTime },
+      { where: { formId: 16 } }
+    )
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < finalDecision.actionPlan.length; i++) {
         let irmrsAPData = {
@@ -246,6 +276,14 @@ exports.pdiFB = async (req, res) => {
       decisionComment: finalDecision.decisionComment }
     // console.log(irmrFb)
     const fb = await Pdi.create({ formId: 1, ...pdiFb, employeeName })
+    await Form.update(
+      { fleatSubmition: true },
+      { where: { id: 1 } }
+    )
+    await History.update(
+      { fleatSubmition: localISOTime },
+      { where: { formId: 16 } }
+    )
     const pdiId = fb.id
     if (pdiFb.decision === 'Approve with recommendation') {
       for (let i = 0; i < finalDecision.actionPlan.length; i++) {

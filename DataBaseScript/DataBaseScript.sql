@@ -30,7 +30,7 @@ Go
 /* Form */
 create table [dbo].[Form](
 id int IDENTITY(1,1) PRIMARY KEY,
-employeename varchar(500) ,
+employeename varchar(300) ,
 FOREIGN KEY(employeeName) REFERENCES Employee(userName),
 name VARCHAR(200),
 [date] date ,
