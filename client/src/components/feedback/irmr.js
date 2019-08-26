@@ -240,11 +240,11 @@ class irmr extends Component {
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Required" value={"Required"}
                                 name="praRequiring" id="praRequiring1"
-                                onClick={(e) =>{this.setState({praRequiring:e.target.value})}} /> 
+                                onClick={(e) =>{this.setState({praRequiring:true})}} /> 
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Not Required" value={"Not Required"}
                                 name="praRequiring"id="praRequiring0"
-                                onClick={(e) =>{this.setState({praRequiring:e.target.value})}} /> 
+                                onClick={(e) =>{this.setState({praRequiring:false})}} /> 
                             </Row>
                             </Col>
                             </Form.Group>
@@ -296,11 +296,11 @@ class irmr extends Component {
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Required" value={"Required"}
                                 name="phaRequiring" id="phaRequiring1"
-                                onClick={(e) =>{this.setState({phaRequiring:e.target.value})}} /> 
+                                onClick={(e) =>{this.setState({phaRequiring:true})}} /> 
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Not Required" value={"Not Required"}
                                 name="phaRequiring"id="phaRequiring0"
-                                onClick={(e) =>{this.setState({phaRequiring:e.target.value})}} /> 
+                                onClick={(e) =>{this.setState({phaRequiring:false})}} /> 
                             </Row>
                             </Col>
                             </Form.Group>
@@ -324,11 +324,11 @@ class irmr extends Component {
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Required" value={"Required"}
                                 name="quantitativeAssessmentRequiring" id="quantitativeAssessmentRequiring1"
-                                onClick={(e) =>{this.setState({quantitativeAssessmentRequiring:e.target.value})}} /> 
+                                onClick={(e) =>{this.setState({quantitativeAssessmentRequiring:true})}} /> 
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Not Required" value={"Not Required"}
                                 name="quantitativeAssessmentRequiring"id="quantitativeAssessmentRequiring0"
-                                onClick={(e) =>{this.setState({quantitativeAssessmentRequiring:e.target.value})}} /> 
+                                onClick={(e) =>{this.setState({quantitativeAssessmentRequiring:false})}} /> 
                             </Row>
                             </Col>
                             </Form.Group>
@@ -352,11 +352,11 @@ class irmr extends Component {
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Required" value={"Required"}
                                 name="eisRequiring" id="eisRequiring1"
-                                onClick={(e) =>{this.setState({eisRequiring:e.target.value})}} /> 
+                                onClick={(e) =>{this.setState({eisRequiring:true})}} /> 
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Not Required" value={"Not Required"}
                                 name="eisRequiring"id="eisRequiring0"
-                                onClick={(e) =>{this.setState({eisRequiring:e.target.value})}} /> 
+                                onClick={(e) =>{this.setState({eisRequiring:false})}} /> 
                             </Row>
                             </Col>
                             </Form.Group>

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../config/database')
 const Form = db.define('Form', {
-  employeeId: Sequelize.INTEGER,
+  employeeName: Sequelize.STRING,
   name: Sequelize.STRING,
   address: Sequelize.STRING,
   date: Sequelize.DataTypes.DATE.toString(),

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
-
+import axios from 'axios'
 
 
 
@@ -19,6 +19,10 @@ class sourcingFeedback extends Component {
       
       handleChange=()=>{
         console.log(this.state)
+        axios
+        .post('http://localhost:8000/api/employees/sourcingsFB',this.state)
+        .then(res => alert(res.data.message))
+        .catch(err => alert(err.message))
       }
      
       render() {
