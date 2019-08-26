@@ -56,7 +56,7 @@ class responseCard extends Component {
         return (
             <React.Fragment>
                 <Card border="secondary" >
-                <Card.Header as="h5" className="text-black" >Final Decision</Card.Header>
+                <Card.Header as="h5" className="text-white" style={{backgroundColor:"#d7001e"}}>Final Decision</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
                 <fieldset disabled={this.state.fieldset}>
@@ -72,12 +72,14 @@ class responseCard extends Component {
                                 onClick={(e) =>{
                                                 this.setState({actionPlanDisplay:"none"})
                                                 this.setState({commentDisplay:""})
+                                                this.setState({actionPlan:[""]})
                                                 this.setState({decision:e.target.value})}} />  
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Disapprove" value={"Disapprove"}
                                 name="decision"id="decision1"
                                 onClick={(e) =>{this.setState({decision:e.target.value})
                                                 this.setState({actionPlanDisplay:"none"})
+                                                this.setState({actionPlan:[""]})
                                                 this.setState({commentDisplay:""})}} /> 
                             <Col md={{span:1}}/>                            
                             <Form.Check type="radio" custom={true} label="Approve with recommendation" value={"Approve with recommendation"}

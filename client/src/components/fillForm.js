@@ -53,7 +53,7 @@ class fillForm extends Component {
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>
                 <Card border="secondary">
-                <Card.Header as="h4" className="bg-secondary text-white">Request for a job offer</Card.Header>                
+                <Card.Header as="h4" style={{backgroundColor:"#375f9b"}} className="text-white">Request for a job offer</Card.Header>                
                 <Row><br/></Row>
                 <Col  md={{ span: 12, offset: 0 }}>
                 <Row><br/></Row>
@@ -74,7 +74,7 @@ class fillForm extends Component {
                 
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>
-                <Button className="bg-secondary text-white"
+                <Button variant="danger" className="text-white" style={{backgroundColor:"#000000"}}
                 onClick={this.handleChange}>Submit</Button></Col>
                 </Row>
 

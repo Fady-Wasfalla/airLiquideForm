@@ -62,7 +62,7 @@ class logisticsValidationForm extends Component {
         peakConsumption:0,
         frequencyOfPeakConsumption:"",
         weightScale:0,
-        weightScale:0,
+        tankGuage:0,
         lvfComment:"",
 
         fieldset:"",
@@ -343,13 +343,13 @@ class logisticsValidationForm extends Component {
 
                         
                         <Form.Row>
-                        <Form.Group as={Col} controlId="weightScale" >
+                        <Form.Group as={Col}  >
                             <Form.Label>Weight Scale</Form.Label>
                             <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({weightScale:e.target.value})}} />
                             </Form.Group>
-                            <Form.Group as={Col} controlId="weightScale" >
+                            <Form.Group as={Col}  >
                             <Form.Label>Tank Guage</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({weightScale:e.target.value})}} />
+                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({tankGuage:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
 
