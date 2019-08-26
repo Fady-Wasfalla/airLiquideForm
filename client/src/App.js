@@ -12,10 +12,9 @@ import PrFeedback from './components/feedback/prFeedback'
 import Header from './components/header'
 
 
-
 function App () {
   return (
-
+    <div style = {{ width:"10000" }}>
     <Router>
       <link
         rel='stylesheet'
@@ -23,7 +22,6 @@ function App () {
         integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T'
         crossorigin='anonymous' />
       <Route component={Header} />
-
       <Switch>
         <Route exact path='/admin' component={Admin} />
         <Route exact path='/fillForm' component={FillForm} />
@@ -35,6 +33,7 @@ function App () {
       </Switch>
       <Route component={Footer} />
     </Router>
+    </div>
   )
 }
 

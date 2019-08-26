@@ -5,6 +5,7 @@ import CustomerBasicInfo from './customerBasicInfo'
 import LogisticsValidationForm from './logisticsValidationForm'
 import CustomerInstallationForm from './customerInstallationForm'
 import PriForm from './priForm'
+import axios from 'axios'
 
 
 
@@ -14,7 +15,7 @@ class fillForm extends Component {
       cbi:{},
       lvf:{},
       cif:{},
-      pri:{},
+      pri:{}
      
       }
 
@@ -23,7 +24,10 @@ class fillForm extends Component {
         console.log("LVF",this.state.lvf)
         console.log("CIF",this.state.cif)
         console.log("PRI",this.state.pri)
-
+      axios
+      .post('http://localhost:8000/api/employees/newForm',this.state)
+      .then(res => alert(res.data.message))
+      .catch(err => alert(err.message))
       }
 
       cbiCallBackFunction = (childData) => {
@@ -44,7 +48,8 @@ class fillForm extends Component {
 
       render() {
         return (
-            <React.Fragment>
+          <div style={{  'overflow-x':'hidden' }}>
+            <React.Fragment >
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>
                 <Card border="secondary">
@@ -54,7 +59,7 @@ class fillForm extends Component {
                 <Row><br/></Row>
                 </Col>
 
-                
+
                 <Col md={{ span: 12, offset: 0 }}><CustomerBasicInfo ParentCallBack={this.cbiCallBackFunction}/></Col>
                 <Row><br/></Row>
 
@@ -81,6 +86,7 @@ class fillForm extends Component {
                 <Row><br/></Row>
                 </Col>
             </React.Fragment>
+            </div>
         )
       }
 

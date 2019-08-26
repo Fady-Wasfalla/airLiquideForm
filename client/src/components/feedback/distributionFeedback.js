@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import FormDisplay from '../display/formDisplay'
 import ResponseCard from './responseCard'
-
+import axios from 'axios'
 
 
 
@@ -20,6 +20,10 @@ class distributionFeedback extends Component {
 
     handleChange=()=>{
       console.log(this.state)
+      axios
+      .post('http://localhost:8000/api/employees/distributionsFB',this.state)
+      .then(res => alert(res.data.message))
+      .catch(err => alert(err.message))
     }
      
       render() {
