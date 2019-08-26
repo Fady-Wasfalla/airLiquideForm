@@ -7,7 +7,7 @@ const entity = require('../../controllers/employeeController')
 router.get('/', entity.default)
 
 // read one
-router.get('/:id', entity.default)
+router.get('/:id', entity.read)
 
 // add one
 router.post('/', entity.create)

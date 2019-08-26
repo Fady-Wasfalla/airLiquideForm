@@ -52,7 +52,8 @@ exports.newForm = async (req, res) => {
 
     await History.create({ formId, formSubmition: localISOTime })
     // inserting the conatct perosns
-    if (cbi.conrtactPerson) {
+    if (cbi.contactPerson) {
+      console.log("HAHAHAHAA")
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
         let conrtactPersonData = {
           formId,

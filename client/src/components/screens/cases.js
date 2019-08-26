@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom'
 import { Form , Col , Row , Card, Button , Spinner } from "react-bootstrap";
 import axios from 'axios'
 
@@ -38,6 +39,11 @@ class cases extends Component {
         }
     }
 
+    reDirect=(id)=>{
+        let path = "/distributionFeedback/"+id;
+        this.props.history.push(path);
+    }
+
     
       render() {
           return (
@@ -46,7 +52,7 @@ class cases extends Component {
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>           
 
-                <Card.Header style={{fontWeight:"bold"}}>Cases</Card.Header>
+                <Card.Header style={{fontWeight:"bold"}} >Cases</Card.Header>
                 <Row><br/></Row>
                 
                 <Row>
@@ -54,11 +60,10 @@ class cases extends Component {
                     {
                         this.state.forms.map((form,index)=>{
                             return (
-                                
                                 <Col md={{offset:0,span:6}}>
-                                 <div >
-                                <Card border="primary" bg="light"  onClick={() => {alert("Hello from here")}}>
-                                <Card.Header as="h5" className="text-center"> {this.state.forms[index].name} </Card.Header>
+                                <div className="shadow-box-example hoverable">
+                                <Card border="primary" bg="light" onClick={(e)=>{this.reDirect(this.state.forms[index].id)}}>
+                                <Card.Header as="h5" className="text-center"  variant="link">{this.state.forms[index].name}</Card.Header>
                                 <Row><br/></Row>
                                 <Col md={12}>
                                 <Row>              
@@ -124,10 +129,13 @@ class cases extends Component {
                                 <Row><br/></Row>
                                 </Card>
                                 </div>
+                                
                                 <Row><br/></Row>
                                 </Col>
+                                
                             )
-                        })
+                        }
+                        )
                     }
                     
                     </Row>

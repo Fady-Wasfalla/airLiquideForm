@@ -26,7 +26,7 @@ function App () {
       <Switch>
         <Route exact path='/admin' component={Admin} />
         <Route exact path='/fillForm' component={FillForm} />
-        <Route exact path='/distributionFeedback' component={DistributionFeedback} />
+        <Route exact path='/distributionFeedback/:id' component={DistributionFeedback} />
         <Route exact path='/sourcingFeedback' component={SourcingFeedback} />
         <Route exact path='/fleatFeedback' component={FleatFeedback} />
         <Route exact path='/cifFeedback' component={CifFeedback} />

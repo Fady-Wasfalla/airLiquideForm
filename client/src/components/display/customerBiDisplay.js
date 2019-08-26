@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button , Collapse } from "react-bootstrap";
-import ContactPerson from '../contactPerson'
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 class customerBiDisplay extends Component {
@@ -13,16 +11,18 @@ class customerBiDisplay extends Component {
         zone:"",
         address:"",
 
-        open:false,
+        open:true,
     }
 
-    handleChange(date) {
-        console.log(date)
-        this.setState({date: date})
-    }
-      
+    
+    
+    
      
       render() {
+          let cpChange = this.props.CP
+          let newCP = Object.assign([{}],cpChange)
+          let x = ["a","b","c"]
+          let cbi = this.props.CBI
         return (
             <React.Fragment>
                 <Card border="secondary" >
@@ -41,52 +41,75 @@ class customerBiDisplay extends Component {
                     <Form>
 
                         <Form.Row>
-
-                            <Form.Group as={Col}  >
-                            <Form.Label>Form ID</Form.Label>
-                            <Form.Control as="textarea" rows="1" 
-                            onChange={(e)=>{this.setState({zone:e.target.value})}} />
+                            <Form.Group as={Col} >
+                                    <Form.Label style={{fontWeight:"bold"}}>Customer name</Form.Label>
+                                    <Card.Text>{cbi.name}</Card.Text>
                             </Form.Group>
-
-                        <Form.Group as={Col} >
-                            <Form.Label>Date</Form.Label>
-                            <br/>
-                            <DatePicker
-                                selected={this.state.date}
-                                onChange={this.handleChange.bind(this)}
-                                />
+                            <Form.Group as={Col} >
+                                    <Form.Label style={{fontWeight:"bold"}}>Form ID </Form.Label>
+                                    <Card.Text># {cbi.id}</Card.Text>
+                            </Form.Group>
+                            <Form.Group as={Col} >
+                                    <Form.Label style={{fontWeight:"bold"}}>Submission Date</Form.Label>
+                                    <Card.Text># {cbi.date}</Card.Text>
                             </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
-                            
-                            <Form.Group as={Col}  >
-                            <Form.Label>Customer Name</Form.Label>
-                            <Form.Control as="textarea" rows="1" 
-                            onChange={(e)=>{this.setState({name:e.target.value})}}/>
-                            </Form.Group>
-
-                            <Form.Group as={Col} controlId="formGridPassword">
-                            <Form.Label>Customer Zone</Form.Label>
-                            <Form.Control as="textarea" rows="1" 
-                            onChange={(e)=>{this.setState({zone:e.target.value})}} />
-                            </Form.Group>
-
+                            <Form.Group as={Col} >
+                                    <Form.Label style={{fontWeight:"bold"}}>Customer Full Address</Form.Label>
+                                    <Card.Text>{cbi.address}</Card.Text>
+                            </Form.Group>   
                         </Form.Row>
 
-
-
+                        <Row><br/></Row>
                         <Form.Row>
-                            <Form.Group as={Col} controlId="textarea">
-                            <Form.Label>Customer Full Address</Form.Label>
-                            <Form.Control as="textarea" rows="2" 
-                            onChange={(e)=>{this.setState({address:e.target.value})}}/>
-                            </Form.Group>
+                            <Form.Group as={Col} >
+                                    <Form.Label style={{fontWeight:"bold"}}>Contact Person</Form.Label>
+                            </Form.Group>   
+                        </Form.Row>
+                        <Form.Row>
+                            <Col md={3}>
+                                <Form.Label style={{textDecoration:"underline"}}>Name</Form.Label>                                
+                            </Col>
+
+                            <Col md={3}>
+                                <Form.Label style={{textDecoration:"underline"}}>Title</Form.Label>                                                                
+                            </Col>
+
+                            <Col md={3}>
+                                <Form.Label style={{textDecoration:"underline"}}>Phone</Form.Label>
+                            </Col>
+
+                            <Col md={3}>
+                                <Form.Label style={{textDecoration:"underline"}}>Email</Form.Label>
+                            </Col>
                         </Form.Row>
 
-                        <Form.Row>
-                        <Col md={12}><ContactPerson/></Col>
-                        </Form.Row>
+                        {newCP.map((e,index)=>{
+                            return(
+                                <Form>
+                                     <Form.Row>
+                                            <Col md={3}>
+                                                <Form.Label >{index+1}{" . "}{newCP[index].contactPersonName}</Form.Label>                                                                
+                                            </Col>
+
+                                            <Col md={3}>
+                                                <Form.Label >{newCP[index].phone}</Form.Label>                                                                
+                                            </Col>
+
+                                            <Col md={3}>
+                                                <Form.Label >{newCP[index].title}</Form.Label>
+                                            </Col>
+
+                                            <Col md={3}>
+                                                <Form.Label >{newCP[index].mail}</Form.Label>
+                                            </Col>
+                                        </Form.Row>
+                                </Form>
+                            )
+                        })}
+
                         
                     </Form>
                     </fieldset>

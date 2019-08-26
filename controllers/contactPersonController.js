@@ -13,6 +13,10 @@ exports.read = async (req, res) => {
   await entityController.read(req, res, Model)
 }
 
+exports.readByFormId = async (req, res) => {
+  await entityController.readByFormId(req, res, Model)
+}
+
 exports.update = async (req, res) => {
   await entityController.update(req, res, Model)
 }
