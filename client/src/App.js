@@ -9,12 +9,13 @@ import DistributionFeedback from './components/feedback/distributionFeedback'
 import SourcingFeedback from './components/feedback/sourcingFeedback'
 import CifFeedback from './components/feedback/cifFeedBack'
 import PrFeedback from './components/feedback/prFeedback'
+import Cases from './components/screens/cases'
 import Header from './components/header'
 
 
 function App () {
   return (
-    <div style = {{ width:"10000" }}>
+    <div style={{  'overflow-x':'hidden' }}>
     <Router>
       <link
         rel='stylesheet'
@@ -30,6 +31,7 @@ function App () {
         <Route exact path='/fleatFeedback' component={FleatFeedback} />
         <Route exact path='/cifFeedback' component={CifFeedback} />
         <Route exact path='/prFeedback' component={PrFeedback} />
+        <Route exact path='/cases' component={Cases} />
       </Switch>
       <Route component={Footer} />
     </Router>

@@ -10,7 +10,6 @@ class utilities extends Component {
       }
 
       addUtilities(){
-       
         this.setState({utility:[... this.state.utility,""]})
         this.setState({details:[... this.state.details,""]})
       }
