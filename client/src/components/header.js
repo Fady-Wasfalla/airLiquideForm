@@ -26,6 +26,7 @@ class header extends Component {
               <Nav.Link href="http://localhost:3000/fleatFeedback">Fleat</Nav.Link>
               <Nav.Link href="http://localhost:3000/cifFeedBack">CI</Nav.Link>
               <Nav.Link href="http://localhost:3000/prFeedback">PR Feedback</Nav.Link>
+              <Nav.Link href="http://localhost:3000/cases">Cases</Nav.Link>
 
 
         </Navbar>
