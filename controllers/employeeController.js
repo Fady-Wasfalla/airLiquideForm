@@ -109,6 +109,7 @@ exports.newForm = async (req, res) => {
       data: newForm
     })
   } catch (error) {
+    console.log(error)
     return res.json({
       status: 'Failed',
       message: error.message
