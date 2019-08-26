@@ -3,6 +3,7 @@ import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import PredeliveryIdentificationReport from './predeliveryIdentificationReport'
 import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
+import axios from 'axios'
 
 
 
@@ -24,6 +25,10 @@ class fleatFeedback extends Component {
     }
 
     handleChange=()=>{
+      axios
+      .post('http://localhost:8000/api/employees/pdiFB',this.state)
+      .then(res => alert(res.data.message))
+      .catch(err => alert(err.message))
       console.log(this.state)
     }
      
