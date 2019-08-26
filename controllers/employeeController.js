@@ -19,7 +19,9 @@ const IrmrAP = require('../models/IrmrAP')
 const Pdi = require('../models/Pdi')
 const PdiAP = require('../models/PdiAP')
 const FireExtinguishers = require('../models/FireExtinguishers')
+const FormFiles = require('../models/FormFiles')
 const os = require('os')
+
 const employeeName = os.userInfo().username
 const tzoffset = (new Date()).getTimezoneOffset() * 60000
 const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
@@ -46,14 +48,18 @@ exports.delete = async (req, res) => {
 /* sales man submit a form */
 exports.newForm = async (req, res) => {
   try {
+    const x = new Int16Array('1')
+    console.log(x)
+    console.log(req.file)
     const cbi = req.body.cbi
     let cbiData = Object.assign({}, cbi)
     delete cbiData.contactPerson
     const newForm = await Form.create({ ...cbi, employeeName })
     const formId = newForm.id
+    await FormFiles.create({ formId, name: req.body.fileName, path: req.file.path })
     await History.create({ formId, formSubmition: localISOTime })
     // inserting the conatct perosns
-    if (cbi.conrtactPerson) {
+    if (cbi && cbi.conrtactPerson) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
         let conrtactPersonData = {
           formId,
@@ -76,7 +82,7 @@ exports.newForm = async (req, res) => {
     delete priData.utilities
     const newPri = await Pri.create({ formId, ...priData })
     const priId = newPri.id
-    if (pri.fluids) {
+    if (pri && pri.fluids) {
       for (let i = 0; i < pri.fluids.characteristics.length; i++) {
         let fluidData = {
           priId,
@@ -94,7 +100,7 @@ exports.newForm = async (req, res) => {
         await Fluids.create(fluidData)
       }
     }
-    if (pri.utilities) {
+    if (pri && pri.utilities) {
       for (let i = 0; i < pri.utilities.utility.length; i++) {
         let fluidData = {
           priId,
