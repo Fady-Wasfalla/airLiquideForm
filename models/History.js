@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../config/database')
-const History = db.define('Employee', {
+const History = db.define('History', {
   formId: Sequelize.INTEGER,
   formSubmition: Sequelize.DataTypes.DATE.toString(),
   distributionSubmition: Sequelize.DataTypes.DATE.toString(),
@@ -10,7 +10,10 @@ const History = db.define('Employee', {
   ciSubmition: Sequelize.DataTypes.DATE.toString() },
 { timestamps: false,
   freezeTableName: true
+  // dialectOptions: { useUTC: false, dateStrings: true, typeCast: true },
+  // timezone: '+05:30'
 }
+
 )
 
 module.exports = History

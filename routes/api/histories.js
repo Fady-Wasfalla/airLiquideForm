@@ -1,14 +1,19 @@
 const express = require('express')
 const router = express.Router()
-const controller = require('../../controllers/historyController')
-// get all
-router.get('/', controller.default)
 
-// add permission
-router.post('/', controller.create)
+/* cif routes */
+const entity = require('../../controllers/historyController')
+// read all
+router.get('/', entity.default)
 
-// update permission
-router.put('/:id', controller.update)
-// delete permission
-router.delete('/:id', controller.delete)
+// read one
+router.get('/:id', entity.default)
+
+// add one
+router.post('/', entity.create)
+
+// update one
+router.put('/:id', entity.update)
+// delete
+router.delete('/:id', entity.delete)
 module.exports = router
