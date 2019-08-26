@@ -15,6 +15,12 @@ exports.default = async (req, res, model) => {
 }
 // show one
 exports.read = async (req, res, model) => {
+  if (Object.keys(req.body.cbi).length === 1) {
+    res.status(400).json({
+      status: 'Error',
+      message: `Nothing was not entered in body`
+    })
+  }
   try {
     const entitiy = await model.findOne({ where: { id: req.params.id } })
     return res.json({

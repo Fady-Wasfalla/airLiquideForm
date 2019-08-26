@@ -2,7 +2,7 @@ const Model = require('../models/Form')
 const entityController = require('./main')
 
 exports.default = async (req, res) => {
-  await entityController.default(res, Model)
+  await entityController.default(req, res, Model)
 }
 // show
 exports.create = async (req, res) => {

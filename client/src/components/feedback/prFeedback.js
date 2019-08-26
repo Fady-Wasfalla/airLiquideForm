@@ -3,7 +3,7 @@ import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import Irmr from './irmr'
 import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
-
+import axios from 'axios'
 
 
 
@@ -26,10 +26,15 @@ class prFeedback extends Component {
 
     handleChange=()=>{
       console.log(this.state)
+      axios
+      .post('http://localhost:8000/api/employees/prFB',this.state)
+      .then(res => alert(res.data.message))
+      .catch(err => alert(err.message))
     }
      
       render() {
         return (
+          <div style={{  'overflow-x':'hidden' }} >
             <React.Fragment>
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>
@@ -65,6 +70,7 @@ class prFeedback extends Component {
                 <Row><br/></Row>
                 </Col>
             </React.Fragment>
+            </div>
         )
       }
 

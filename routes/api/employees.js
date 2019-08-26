@@ -16,4 +16,14 @@ router.post('/', entity.create)
 router.put('/:id', entity.update)
 // delete
 router.delete('/:id', entity.delete)
+
+router.post('/newForm', entity.newForm)
+
+router.post('/distributionsFB', entity.distributionFB)
+
+router.post('/sourcingsFB', entity.sourcingsFB)
+
+router.post('/ciFB', entity.ciFB)
+
+router.post('/prFB', entity.prFB)
 module.exports = router

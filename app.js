@@ -1,5 +1,5 @@
 const express = require('express')
-// const cors = require('cors')
+const cors = require('cors')
 // const path = require('path')
 
 // Require Router Handlers
@@ -47,6 +47,13 @@ db
   .catch(err => {
     console.error('Unable to connect to the database:', err)
   })
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Credentials', 'true')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+  res.header('Access-Control-Allow-Headers', '*')
+  next()
+})
 // Direct routes to appropriate files
 app.use('/api/employees', emplyees)
 app.use('/api/screens', screens)
@@ -57,7 +64,7 @@ app.use('/api/formFiles', formFiles)
 app.use('/api/contactPersons', contactPersons)
 app.use('/api/lvfs', lvfs)
 app.use('/api/cifs', cifs)
-app.use('/api/cifRespones', cifResponses)
+app.use('/api/cifResponses', cifResponses)
 app.use('/api/cifAPs', cifAPs)
 app.use('/api/cifFiles', cifFiles)
 app.use('/api/pris', pris)

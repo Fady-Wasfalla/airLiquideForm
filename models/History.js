@@ -10,7 +10,10 @@ const History = db.define('History', {
   ciSubmition: Sequelize.DataTypes.DATE.toString() },
 { timestamps: false,
   freezeTableName: true
+  // dialectOptions: { useUTC: false, dateStrings: true, typeCast: true },
+  // timezone: '+05:30'
 }
+
 )
 
 module.exports = History
