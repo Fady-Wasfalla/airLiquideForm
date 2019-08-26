@@ -3,13 +3,13 @@ import './App.css'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Footer from './components/footer'
 import Admin from './components/admin/adminHome'
-import Adel from './components/adel'
 import FillForm from './components/fillForm'
 import FleatFeedback from './components/feedback/fleatFeedback'
 import DistributionFeedback from './components/feedback/distributionFeedback'
 import SourcingFeedback from './components/feedback/sourcingFeedback'
 import CifFeedback from './components/feedback/cifFeedBack'
 import PrFeedback from './components/feedback/prFeedback'
+import Header from './components/header'
 
 
 
@@ -26,7 +26,6 @@ function App () {
 
       <Switch>
         <Route exact path='/admin' component={Admin} />
-        <Route exact path='/adel' component={Adel} />
         <Route exact path='/fillForm' component={FillForm} />
         <Route exact path='/distributionFeedback' component={DistributionFeedback} />
         <Route exact path='/sourcingFeedback' component={SourcingFeedback} />

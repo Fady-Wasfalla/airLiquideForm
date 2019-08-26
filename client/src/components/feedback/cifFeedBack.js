@@ -26,7 +26,7 @@ class cifFeedBack extends Component {
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>
                 <Card border="secondary">
-                <Card.Header as="h4" className="bg-primary text-white">CI Feedback</Card.Header>                
+                <Card.Header as="h4" className="text-white" style={{backgroundColor:"#375f9b"}}>CI Feedback</Card.Header>                
                 <Row><br/></Row>
                 <Col  md={{ span: 12, offset: 0 }}>
                 <Row><br/></Row>
