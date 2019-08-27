@@ -28,7 +28,7 @@ router.put('/:id', entity.update)
 // delete
 router.delete('/:id', entity.delete)
 
-router.post('/newForm', upload.single('formDocuments'), entity.newForm)
+router.post('/newForm', upload.single('file'), entity.newForm)
 
 router.post('/distributionsFB', entity.distributionFB)
 

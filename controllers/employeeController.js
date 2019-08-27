@@ -48,15 +48,14 @@ exports.delete = async (req, res) => {
 /* sales man submit a form */
 exports.newForm = async (req, res) => {
   try {
-    const x = new Int16Array('1')
-    console.log(x)
-    console.log(req.file)
+    console.log(req.body.test)
+    console.log(JSON.parse(req.body.test))
     const cbi = req.body.cbi
-    let cbiData = Object.assign({}, cbi)
-    delete cbiData.contactPerson
-    const newForm = await Form.create({ ...cbi, employeeName })
+    // let cbiData = Object.assign({}, cbi)
+    // delete cbiData.contactPerson
+    const newForm = await Form.create({ name: req.body.name, employeeName })
     const formId = newForm.id
-    await FormFiles.create({ formId, name: req.body.fileName, path: req.file.path })
+    // await FormFiles.create({ formId, name: req.body.fileName, path: req.file.path })
     await History.create({ formId, formSubmition: localISOTime })
     // inserting the conatct perosns
     if (cbi && cbi.conrtactPerson) {

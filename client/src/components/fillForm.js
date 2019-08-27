@@ -16,18 +16,32 @@ class fillForm extends Component {
       cbi:{},
       lvf:{},
       cif:{},
-      pri:{},     
-      upload:{},
+      pri:{},
+      file:null
       }
 
       handleChange =() =>{
-        console.log("Customer Basics info",this.state.cbi)
-        console.log("LVF",this.state.lvf)
-        console.log("CIF",this.state.cif)
-        console.log("PRI",this.state.pri)
-        console.log("Upload",this.state.upload)
+       //  console.log("Customer Basics info",this.state.cbi)
+        // console.log("LVF",this.state.lvf)
+        // console.log("CIF",this.state.cif)
+        // console.log("PRI",this.state.pri)
+        // console.log("file",this.state.file)
+        // console.log("name",this.state.name)
+        // console.log("image",this.state.selectedFile)
+        // console.log(this.state.file)
+        // this.state.cbi.forEach(element => {
+          
+        // });
+        const fd = new FormData()
+        var x = JSON.stringify(this.state.cbi)
+        console.log(x)
+        const test = [this.state.cbi.toString(),this.state.cif.toString()]
+        fd.append('test',x)
+        // fd.append('file',this.state.file)
+        // here we will 
+        // console.log(fd)
       axios
-      .post('http://localhost:8000/api/employees/newForm',this.state)
+      .post('http://localhost:8000/api/employees/newForm',fd)
       .then(res => alert(res.data.message))
       .catch(err => alert(err.message))
       }
@@ -48,9 +62,31 @@ class fillForm extends Component {
          this.setState({pri:childData})
       }
 
-      uploadCallBackFunction = (childData) => {
-        this.setState({upload:childData})
+      nameUploadCallBackFunction = (childData) => {
+        this.setState({name:childData})
      }
+
+     fileUploadCallBackFunction = (childData) => {
+      this.setState({file:childData})
+    }
+
+    send = (childData) => {
+      this.setState({selectedFile:childData})
+    }
+
+    onChangeHandlerfile1=event=>{
+      // console.log(event.target.files[0])
+      // var temp = [event.target.files[0]]
+      // const temp2 = this.state.files.concat(temp)
+      // this.setState({files: temp2})
+      this.setState({file:event.target.files[0]})
+    }
+    // onChangeHandlerfile2=event=>{
+    //   // console.log(event.target.files[0])
+    //   var temp = [event.target.files[0]]
+    //   const temp2 = this.state.files.concat(temp)
+    //   this.setState({files: temp2})
+    // }
 
       render() {
         return (
@@ -76,9 +112,13 @@ class fillForm extends Component {
                 <Col md={{ span: 12, offset: 0 }}><PriForm ParentCallBack={this.priCallBackFunction}/></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><Upload ParentCallBack={this.uploadCallBackFunction}/></Col>
+                <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
+                                                          fileParentCallBack={this.fileUploadCallBackFunction}
+                                                          sendData={this.send}/></Col>
                 <Row><br/></Row>
-                
+
+                {/* <input type="file" name="file" onChange={this.onChangeHandlerfile1}/> */}
+                {/* <input type="file" name="file" onChange={this.onChangeHandlerfile2}/> */}
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>
                 <Button variant="danger" className="text-white" 
