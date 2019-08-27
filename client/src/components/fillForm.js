@@ -17,29 +17,27 @@ class fillForm extends Component {
       lvf:{},
       cif:{},
       pri:{},
-      file:null
+      file:null,
+      filesNames:[""]
       }
 
       handleChange =() =>{
-       //  console.log("Customer Basics info",this.state.cbi)
-        // console.log("LVF",this.state.lvf)
-        // console.log("CIF",this.state.cif)
-        // console.log("PRI",this.state.pri)
-        // console.log("file",this.state.file)
-        // console.log("name",this.state.name)
-        // console.log("image",this.state.selectedFile)
-        // console.log(this.state.file)
-        // this.state.cbi.forEach(element => {
-          
-        // });
         const fd = new FormData()
-        var x = JSON.stringify(this.state.cbi)
-        console.log(x)
-        const test = [this.state.cbi.toString(),this.state.cif.toString()]
-        fd.append('test',x)
-        // fd.append('file',this.state.file)
-        // here we will 
-        // console.log(fd)
+        var cbiAsString = JSON.stringify(this.state.cbi)
+        var lvfAsString = JSON.stringify(this.state.lvf)
+        var cifAsString = JSON.stringify(this.state.cif)
+        var priAsString = JSON.stringify(this.state.pri)
+        var filesNamesAsString = JSON.stringify(this.state.filesNames)
+        fd.append('cbi',cbiAsString)
+        fd.append('lvf',lvfAsString)
+        fd.append('cif',cifAsString)
+        fd.append('pri',priAsString)
+        fd.append('filesNames',filesNamesAsString)
+        if(this.state.file){
+          for(let i = 0 ; i<this.state.file.length; i++){
+            fd.append('file',this.state.file[i])
+          }
+        }
       axios
       .post('http://localhost:8000/api/employees/newForm',fd)
       .then(res => alert(res.data.message))
@@ -63,7 +61,7 @@ class fillForm extends Component {
       }
 
       nameUploadCallBackFunction = (childData) => {
-        this.setState({name:childData})
+        this.setState({filesNames:childData})
      }
 
      fileUploadCallBackFunction = (childData) => {
