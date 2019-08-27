@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
-import { Form , Col , Row , Card, Button , Spinner } from "react-bootstrap";
+import { Form , Col , Row , Card, Button , Spinner , Nav } from "react-bootstrap";
 import axios from 'axios'
 
 
@@ -8,16 +8,29 @@ import axios from 'axios'
 class cases extends Component {
 
     state = {
-        forms:[],
+        allForms:[],
         loading: true,
+        deptForms:[],
+        department:"",
+        screensNames:[],
       }
 
     componentDidMount(){
-    this.setState({ loading: true})
+    this.setState({loading: true})
+    this.setState({screensNames:this.props.screensNames})
+    
     axios
       .get('http://localhost:8000/api/forms')
-      .then(res => this.setState({forms:res.data.data , loading: false}))
+      .then(res => this.setState({allForms:res.data.data , loading: false}))
       .catch(err => alert(err.message))
+
+
+    axios
+      .get('http://localhost:8000/api/employees/getDeptForm/'+this.props.match.params.department)
+      .then(res => this.setState({allForms:res.data.data , loading: false}))
+      .catch(err => alert(err.message))
+      
+      
       
     }
 
@@ -52,18 +65,27 @@ class cases extends Component {
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>           
 
-                <Card.Header style={{fontWeight:"bold"}} >Cases</Card.Header>
+                <Card.Header>
+                    <Nav  variant="tabs" defaultActiveKey="">
+                        <Nav.Item>
+                        <Nav.Link onClick={console.log("!!")}>Active</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                        <Nav.Link href="#link">Link</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                </Card.Header>
                 <Row><br/></Row>
                 
                 <Row>
                     
                     {
-                        this.state.forms.map((form,index)=>{
+                        this.state.allForms.map((form,index)=>{
                             return (
                                 <Col md={{offset:0,span:6}}>
                                 <div className="shadow-box-example hoverable">
-                                <Card border="primary" bg="light" onClick={(e)=>{this.reDirect(this.state.forms[index].id)}}>
-                                <Card.Header as="h5" className="text-center"  variant="link">{this.state.forms[index].name}</Card.Header>
+                                <Card border="primary" bg="light" onClick={(e)=>{this.reDirect(this.state.allForms[index].id)}}>
+                                <Card.Header as="h5" className="text-center"  variant="link">{this.state.allForms[index].name}</Card.Header>
                                 <Row><br/></Row>
                                 <Col md={12}>
                                 <Row>              
@@ -72,22 +94,22 @@ class cases extends Component {
 
                                     <Form.Row>
                                         <Card.Text style={{fontWeight:"bold"}}>ID : </Card.Text>
-                                        <Card.Text># {this.state.forms[index].id} </Card.Text>
+                                        <Card.Text># {this.state.allForms[index].id} </Card.Text>
                                     </Form.Row>
 
                                     <Form.Row>
                                         <Card.Text style={{fontWeight:"bold"}}>Date : </Card.Text>
-                                        <Card.Text>{this.state.forms[index].date} </Card.Text>
+                                        <Card.Text>{this.state.allForms[index].date} </Card.Text>
                                     </Form.Row>
 
                                     <Form.Row>
                                         <Card.Text style={{fontWeight:"bold"}}>Zone : </Card.Text>
-                                        <Card.Text>{this.state.forms[index].zone} </Card.Text>
+                                        <Card.Text>{this.state.allForms[index].zone} </Card.Text>
                                     </Form.Row>
 
                                     <Form.Row>
                                         <Card.Text style={{fontWeight:"bold"}}>Full address : </Card.Text>
-                                        <Card.Text>{this.state.forms[index].address} </Card.Text>
+                                        <Card.Text>{this.state.allForms[index].address} </Card.Text>
                                     </Form.Row>
 
                                 </Form>
@@ -99,28 +121,28 @@ class cases extends Component {
                                     <Form.Row>
                                         <Col md={{span:1}}></Col>
                                         <Card.Text style={{fontWeight:"bold"}}>Distribution  :</Card.Text>
-                                        <Card.Text style={{color:this.submitionColor(this.state.forms[index].distributionSubmition)}}>
-                                        {this.submitionSympol(this.state.forms[index].distributionSubmition)}</Card.Text>
+                                        <Card.Text style={{color:this.submitionColor(this.state.allForms[index].distributionSubmition)}}>
+                                        {this.submitionSympol(this.state.allForms[index].distributionSubmition)}</Card.Text>
                                         <Col md={{span:1}}></Col>
                                         <Card.Text style={{fontWeight:"bold"}}>Sourcing :</Card.Text>
-                                        <Card.Text style={{color:this.submitionColor(this.state.forms[index].sourcingSubmition)}}>
-                                        {this.submitionSympol(this.state.forms[index].sourcingSubmition)}</Card.Text>
+                                        <Card.Text style={{color:this.submitionColor(this.state.allForms[index].sourcingSubmition)}}>
+                                        {this.submitionSympol(this.state.allForms[index].sourcingSubmition)}</Card.Text>
                                     </Form.Row>
                                     <Form.Row>
                                         <Col md={{span:1}}></Col>
                                         <Card.Text style={{fontWeight:"bold"}}>Fleat :</Card.Text>
-                                        <Card.Text style={{color:this.submitionColor(this.state.forms[index].fleatSubmition)}}>
-                                        {this.submitionSympol(this.state.forms[index].fleatSubmition)}</Card.Text>
+                                        <Card.Text style={{color:this.submitionColor(this.state.allForms[index].fleatSubmition)}}>
+                                        {this.submitionSympol(this.state.allForms[index].fleatSubmition)}</Card.Text>
                                         <Col md={{span:3}}></Col>
                                         <Card.Text style={{fontWeight:"bold"}}>Irmr :</Card.Text>
-                                        <Card.Text style={{color:this.submitionColor(this.state.forms[index].irmrSubmition)}}>
-                                        {this.submitionSympol(this.state.forms[index].irmrSubmition)}</Card.Text>
+                                        <Card.Text style={{color:this.submitionColor(this.state.allForms[index].irmrSubmition)}}>
+                                        {this.submitionSympol(this.state.allForms[index].irmrSubmition)}</Card.Text>
                                     </Form.Row>
                                     <Form.Row>
                                         <Col md={{span:1}}></Col>
                                         <Card.Text style={{fontWeight:"bold"}}>CI :</Card.Text>
-                                        <Card.Text style={{color:this.submitionColor(this.state.forms[index].ciSubmition)}}>
-                                        {this.submitionSympol(this.state.forms[index].ciSubmition)}</Card.Text>
+                                        <Card.Text style={{color:this.submitionColor(this.state.allForms[index].ciSubmition)}}>
+                                        {this.submitionSympol(this.state.allForms[index].ciSubmition)}</Card.Text>
                                     </Form.Row>
                                     </Card>
                                 </Col>

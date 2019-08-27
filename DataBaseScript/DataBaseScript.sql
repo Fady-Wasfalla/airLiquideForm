@@ -18,6 +18,7 @@ Go
 
 
 Create table [Permission](
+id int IDENTITY(1,1) PRIMARY KEY,
 employeeId int ,
 screenId int ,
 FOREIGN KEY(employeeId) REFERENCES Employee(id),

@@ -21,7 +21,6 @@ class customerBiDisplay extends Component {
       render() {
           let cpChange = this.props.CP
           let newCP = Object.assign([{}],cpChange)
-          let x = ["a","b","c"]
           let cbi = this.props.CBI
         return (
             <React.Fragment>

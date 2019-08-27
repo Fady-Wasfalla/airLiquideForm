@@ -1,4 +1,6 @@
 const Model = require('../models/Employee')
+const Permission = require('../models/Permission')
+const Screen = require('../models/Screen')
 const entityController = require('./main')
 const Form = require('../models/Form')
 const ConrtactPerson = require('../models/ContactPerson')
@@ -31,6 +33,10 @@ exports.read = async (req, res) => {
   await entityController.read(req, res, Model)
 }
 
+exports.readByUserName = async (req, res) => {
+  await entityController.readByUserName(req, res, Model)
+}
+
 exports.update = async (req, res) => {
   await entityController.update(req, res, Model)
 }
@@ -38,6 +44,9 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   await entityController.delete(req, res, Model)
 }
+
+
+
 /* sales man submit a form */
 exports.newForm = async (req, res) => {
   try {
@@ -53,7 +62,6 @@ exports.newForm = async (req, res) => {
     await History.create({ formId, formSubmition: localISOTime })
     // inserting the conatct perosns
     if (cbi.contactPerson) {
-      console.log("HAHAHAHAA")
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
         let conrtactPersonData = {
           formId,
@@ -110,7 +118,6 @@ exports.newForm = async (req, res) => {
       data: newForm
     })
   } catch (error) {
-    console.log(error)
     return res.json({
       status: 'Failed',
       message: error.message
@@ -206,7 +213,6 @@ exports.prFB = async (req, res) => {
     const irmrFb = { ...irmr,
       decision: finalDecision.decision,
       decisionComment: finalDecision.decisionComment }
-    // console.log(irmrFb)
     let finalDecisionData = Object.assign({}, irmrFb)
     delete finalDecisionData.actionPlan
     const fb = await Irmr.create({ formId: 1, ...finalDecisionData, employeeName })
@@ -231,3 +237,79 @@ exports.prFB = async (req, res) => {
     })
   }
 }
+
+exports.getStarted = async (req, res) => {
+ try{
+    const employee = await Model.findOne({ where: { userName: employeeName } })
+   
+    if (employee.activation===0){
+      return res.json({
+        status: 'Failed',
+        message: 'Your account is deactivated 🤦 , Contact IT departement '
+      })
+    }
+    const permissions = await Permission.findAll({where:{employeeId : employee.id}})
+    
+    if (permissions.length===0){
+      return res.json({
+        status: 'Failed',
+        message: 'You do not have any permissions 🙄 , Contact IT departement '
+      })
+    }
+
+    let screensIds = []
+    for (let i=0 ; i<permissions.length ; i++){
+      screensIds = screensIds.concat(permissions[i].screenId)
+    }
+    
+
+    let screensNames = []
+    for (let i=0 ; i<screensIds.length ; i++){
+      screenName = await Screen.findOne({where:{id : screensIds[i] }})
+      screensNames = screensNames.concat(screenName.name)
+    }
+
+    return res.json({
+      status: 'Success',
+      data: screensNames
+    })
+  }
+  catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+ 
+}
+
+//get the forms that are not submitted by the selected departement
+exports.getDeptForm = async (req, res) => {
+  try{
+    const dept = req.params.department
+    let forms = {}
+    switch(dept) {
+      case "Distribution" : forms = await Form.findAll({where:{distributionSubmition : 0 }}) ; break;
+      case "Sourcing" : forms = await Form.findAll({where:{sourcingSubmition : 0 }}) ; break;
+      case "Fleat" : forms = await Form.findAll({where:{fleatSubmition : 0 }}); break;
+      case "PR" : forms = await Form.findAll({where:{irmrSubmition : 0 }}) ; break;
+      case "CI" :  forms = await Form.findAll({where:{ciSubmition : 0 }}) ; break;
+      case "Sales" : forms = await Form.findAll({where:{
+        distributionSubmition : 0 , sourcingSubmition : 0,fleatSubmition : 0,irmrSubmition : 0, ciSubmition : 0 }}) ; break;        
+    }
+
+    return res.json({
+      status: 'Success',
+      data : forms
+    })
+
+     
+   }
+   catch (error) {
+     return res.json({
+       status: 'Failed',
+       message: error.message
+     })
+   }
+  
+ }

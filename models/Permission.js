@@ -4,7 +4,9 @@ const Permission = db.define('Permission', {
   employeeId: Sequelize.INTEGER,
   screenId: Sequelize.INTEGER
 },
-{ timestamps: false
+{ 
+  timestamps: false,
+  freezeTableName: true,
 }
 )
 

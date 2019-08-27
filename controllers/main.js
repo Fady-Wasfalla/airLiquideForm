@@ -1,4 +1,3 @@
-// show all
 exports.default = async (req, res, model) => {
   try {
     const entities = await model.findAll({ raw: true })
@@ -43,6 +42,11 @@ exports.readByFormId = async (req, res, model) => {
     })
   }
 }
+
+
+
+
+
 // create
 exports.create = async (req, res, model) => {
   if (Object.keys(req.body).length === 0) {
