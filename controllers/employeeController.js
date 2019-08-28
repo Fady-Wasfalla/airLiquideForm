@@ -284,20 +284,112 @@ exports.getStarted = async (req, res) => {
 }
 
 //get the forms that are not submitted by the selected departement
-exports.getDeptForm = async (req, res) => {
+exports.getFormsDisplay = async (req, res) => {
+  try{
+    const dept = req.params.department
+    forms = await Form.findAll()
+
+    let pendingForms=[]
+    let submittedForms=[]
+
+    console.log(forms[0].ciSubmition === true)
+
+    switch(dept) {
+      case "Distribution" :  
+                for (let i=0;i<forms.length ; i++){
+                  //get submitted forms by the dept
+                  if (forms[i].distributionSubmition){
+                    submittedForms = submittedForms.concat(forms[i])
+                  }else{
+                    pendingForms = pendingForms.concat(forms[i])                    
+                  }
+                }
+                  ;break;
+      case "Sourcing" : 
+                for (let i=0;i<forms.length ; i++){
+                  //get submitted forms by the dept
+                  if (forms[i].sourcingSubmition){
+                    submittedForms = submittedForms.concat(forms[i])
+                  }else{
+                    pendingForms = pendingForms.concat(forms[i])                    
+                  }
+                }
+                  ;break;
+      case "Fleat" : 
+                 for (let i=0;i<forms.length ; i++){
+                  //get submitted forms by the dept
+                  if (forms[i].fleatSubmition){
+                    submittedForms = submittedForms.concat(forms[i])
+                  }else{
+                    pendingForms = pendingForms.concat(forms[i])                    
+                  }
+                }
+                  ;break;
+      case "PR" : 
+                for (let i=0;i<forms.length ; i++){
+                  //get submitted forms by the dept
+                  if (forms[i].irmrSubmition){
+                    submittedForms = submittedForms.concat(forms[i])
+                  }else{
+                    pendingForms = pendingForms.concat(forms[i])                    
+                  }
+                }
+                  ;break;
+      case "CI" :  
+                for (let i=0;i<forms.length ; i++){
+                  //get submitted forms by the dept
+                  if (forms[i].ciSubmition){
+                    submittedForms = submittedForms.concat(forms[i])
+                  }else{
+                    pendingForms = pendingForms.concat(forms[i])                    
+                  }
+                }
+                  ;break;
+      case "Sales" :
+                for (let i=0;i<forms.length ; i++){
+                  //get submitted forms by the dept
+                  if (forms[i].distributionSubmition & forms[i].sourcingSubmition & 
+                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition ){
+                    submittedForms = submittedForms.concat(forms[i])
+                  }else{
+                    pendingForms = pendingForms.concat(forms[i])                    
+                  }
+                }
+                  ;break;
+    }
+   
+
+    return res.json({
+      status: 'Success',
+      allForms : forms,
+      pendingForms : pendingForms,
+      submittedForms : submittedForms
+    })
+
+     
+   }
+   catch (error) {
+     return res.json({
+       status: 'Failed',
+       message: error.message
+     })
+   }
+  
+ }
+
+ exports.getSubmittedFormByDept = async (req, res) => {
   try{
     const dept = req.params.department
     let forms = {}
     switch(dept) {
-      case "Distribution" : forms = await Form.findAll({where:{distributionSubmition : 0 }}) ; break;
-      case "Sourcing" : forms = await Form.findAll({where:{sourcingSubmition : 0 }}) ; break;
-      case "Fleat" : forms = await Form.findAll({where:{fleatSubmition : 0 }}); break;
-      case "PR" : forms = await Form.findAll({where:{irmrSubmition : 0 }}) ; break;
-      case "CI" :  forms = await Form.findAll({where:{ciSubmition : 0 }}) ; break;
+      case "Distribution" : forms = await Form.findAll({where:{distributionSubmition : 1 }}) ; break;
+      case "Sourcing" : forms = await Form.findAll({where:{sourcingSubmition : 1 }}) ; break;
+      case "Fleat" : forms = await Form.findAll({where:{fleatSubmition : 1 }}); break;
+      case "PR" : forms = await Form.findAll({where:{irmrSubmition : 1 }}) ; break;
+      case "CI" :  forms = await Form.findAll({where:{ciSubmition : 1 }}) ; break;
       case "Sales" : forms = await Form.findAll({where:{
-        distributionSubmition : 0 , sourcingSubmition : 0,fleatSubmition : 0,irmrSubmition : 0, ciSubmition : 0 }}) ; break;        
+        distributionSubmition : 1 , sourcingSubmition : 1 , fleatSubmition : 1 , irmrSubmition : 1 , ciSubmition : 1 }}) ; break;        
     }
-
     return res.json({
       status: 'Success',
       data : forms

@@ -6,7 +6,8 @@ const entity = require('../../controllers/employeeController')
 // read all
 router.get('/getStarted', entity.getStarted)
 
-router.get('/getDeptForm/:department', entity.getDeptForm)
+router.get('/getFormsDisplay/:department', entity.getFormsDisplay)
+router.get('/getSubmittedFormByDept/:department', entity.getSubmittedFormByDept)
 
 router.get('/', entity.default)
 

@@ -9,8 +9,8 @@ class cases extends Component {
 
     state = {
         allForms:[],
-        pindingForms:[],
-        sumittedForms:[],
+        pendingForms:[],
+        submittedForms:[],
         displayedForm:[],
         loading: true,
         department:"",
@@ -21,18 +21,15 @@ class cases extends Component {
     componentDidMount(){
     this.setState({loading: true})
     this.setState({screensNames:this.props.screensNames})
-    
-    axios
-      .get('http://localhost:8000/api/forms')
-      .then( res => {this.setState({allForms:res.data.data , loading: false})
-                    this.setState({displayedForm:res.data.data , loading: false})})
-      .catch(err => alert(err.message))
-
 
     axios
-      .get('http://localhost:8000/api/employees/getDeptForm/'+this.props.match.params.department)
-      .then(res => this.setState({pindingForms:res.data.data , loading: false}))
+      .get('http://localhost:8000/api/employees/getFormsDisplay/'+this.props.match.params.department)
+      .then(res => {this.setState({displayedForm:res.data.allForms , loading: false})
+                    this.setState({allForms:res.data.allForms , loading: false})
+                    this.setState({pendingForms:res.data.pendingForms , loading: false})
+                    this.setState({submittedForms:res.data.submittedForms , loading: false})})
       .catch(err => alert(err.message))
+
 
     }
 
@@ -59,13 +56,6 @@ class cases extends Component {
         this.props.history.push(path);
     }
 
-    changeForm=(e)=>{
-        switch(e){
-            case 1 :  this.setState({displayedForm:this.state.allForms}) ; break;
-            case 2 :  this.setState({displayedForm:this.state.pindingForms}) ; break;
-            case 3 :  this.setState({displayedForm:this.state.sumittedForms}) ; break;
-        }
-    }
 
     
       render() {
@@ -79,8 +69,8 @@ class cases extends Component {
                 <ButtonToolbar>
                     <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
                     <ToggleButton value={1} onClick={(e)=>this.setState({displayedForm:this.state.allForms})}>All</ToggleButton>
-                    <ToggleButton value={2} onClick={(e)=>this.setState({displayedForm:this.state.pindingForms})}>Pinding</ToggleButton>
-                    <ToggleButton value={3} onClick={(e)=>this.setState({displayedForm:this.state.sumittedForms})}>Finished</ToggleButton>
+                    <ToggleButton value={2} onClick={(e)=>this.setState({displayedForm:this.state.pendingForms})}>pending</ToggleButton>
+                    <ToggleButton value={3} onClick={(e)=>this.setState({displayedForm:this.state.submittedForms})}>Finished</ToggleButton>
                     </ToggleButtonGroup>
                 </ButtonToolbar>
                 </Card.Header>
