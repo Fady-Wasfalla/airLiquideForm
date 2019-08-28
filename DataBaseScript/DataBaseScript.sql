@@ -69,6 +69,7 @@ create table [dbo].[Question](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
 asker VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
+replier VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
 submitionDate datetime ,
 replayDate datetime ,
 question VARCHAR(200),

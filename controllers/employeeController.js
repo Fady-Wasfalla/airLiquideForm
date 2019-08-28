@@ -241,13 +241,13 @@ exports.prFB = async (req, res) => {
 exports.getStarted = async (req, res) => {
  try{
     const employee = await Model.findOne({ where: { userName: employeeName } })
-   
     if (employee.activation===0){
       return res.json({
         status: 'Failed',
         message: 'Your account is deactivated 🤦 , Contact IT departement '
       })
     }
+
     const permissions = await Permission.findAll({where:{employeeId : employee.id}})
     
     if (permissions.length===0){
@@ -265,13 +265,15 @@ exports.getStarted = async (req, res) => {
 
     let screensNames = []
     for (let i=0 ; i<screensIds.length ; i++){
-      screenName = await Screen.findOne({where:{id : screensIds[i] }})
+      const screenName = await Screen.findOne({where:{id : screensIds[i] }})
       screensNames = screensNames.concat(screenName.name)
     }
 
     return res.json({
       status: 'Success',
-      data: screensNames
+      data: screensNames,
+      employeeId:employee.id,
+      employeeName:employeeName
     })
   }
   catch (error) {
@@ -287,12 +289,10 @@ exports.getStarted = async (req, res) => {
 exports.getFormsDisplay = async (req, res) => {
   try{
     const dept = req.params.department
-    forms = await Form.findAll()
+    const forms = await Form.findAll()
 
     let pendingForms=[]
     let submittedForms=[]
-
-    console.log(forms[0].ciSubmition === true)
 
     switch(dept) {
       case "Distribution" :  
@@ -364,35 +364,6 @@ exports.getFormsDisplay = async (req, res) => {
       allForms : forms,
       pendingForms : pendingForms,
       submittedForms : submittedForms
-    })
-
-     
-   }
-   catch (error) {
-     return res.json({
-       status: 'Failed',
-       message: error.message
-     })
-   }
-  
- }
-
- exports.getSubmittedFormByDept = async (req, res) => {
-  try{
-    const dept = req.params.department
-    let forms = {}
-    switch(dept) {
-      case "Distribution" : forms = await Form.findAll({where:{distributionSubmition : 1 }}) ; break;
-      case "Sourcing" : forms = await Form.findAll({where:{sourcingSubmition : 1 }}) ; break;
-      case "Fleat" : forms = await Form.findAll({where:{fleatSubmition : 1 }}); break;
-      case "PR" : forms = await Form.findAll({where:{irmrSubmition : 1 }}) ; break;
-      case "CI" :  forms = await Form.findAll({where:{ciSubmition : 1 }}) ; break;
-      case "Sales" : forms = await Form.findAll({where:{
-        distributionSubmition : 1 , sourcingSubmition : 1 , fleatSubmition : 1 , irmrSubmition : 1 , ciSubmition : 1 }}) ; break;        
-    }
-    return res.json({
-      status: 'Success',
-      data : forms
     })
 
      

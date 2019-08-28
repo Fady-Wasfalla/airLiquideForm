@@ -21,16 +21,14 @@ class cases extends Component {
     componentDidMount(){
     this.setState({loading: true})
     this.setState({screensNames:this.props.screensNames})
-
     axios
-      .get('http://localhost:8000/api/employees/getFormsDisplay/'+this.props.match.params.department)
-      .then(res => {this.setState({displayedForm:res.data.allForms , loading: false})
-                    this.setState({allForms:res.data.allForms , loading: false})
-                    this.setState({pendingForms:res.data.pendingForms , loading: false})
-                    this.setState({submittedForms:res.data.submittedForms , loading: false})})
-      .catch(err => alert(err.message))
-
-
+    .get('http://localhost:8000/api/employees/getFormsDisplay/'+this.props.match.params.department)
+    .then(res => {this.setState({displayedForm:res.data.allForms , loading: false})
+    this.setState({allForms:res.data.allForms , loading: false})
+    this.setState({pendingForms:res.data.pendingForms , loading: false})
+    this.setState({submittedForms:res.data.submittedForms , loading: false})})
+    .catch(err => alert(err.message))
+    
     }
 
     submitionColor=(e)=>{
