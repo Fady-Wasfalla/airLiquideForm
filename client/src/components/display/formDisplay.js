@@ -66,7 +66,7 @@ class formDisplay extends Component {
                 <Row><br/></Row>
 
 
-                <Col md={{ span: 3, offset: 9 }}>       
+                <Col md={{ offset: 10 }}>       
                 <Popup trigger={<Button variant="outline-primary"> Ask Question ...? </Button>} modal><AskQuestion FormID={this.props.formId}/> </Popup>
                 </Col>
                 <Row><br/></Row>
