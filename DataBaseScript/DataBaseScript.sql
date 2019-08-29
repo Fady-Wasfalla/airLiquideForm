@@ -69,6 +69,7 @@ create table [dbo].[Question](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
 asker VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
+replier VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
 submitionDate datetime ,
 replayDate datetime ,
 question VARCHAR(200),
@@ -646,6 +647,33 @@ pdiId int FOREIGN KEY REFERENCES Pdi(id) ,
 name varchar(5000)
 )
 go
+
+/*Finance */
+create table [dbo].[Finance](
+id int IDENTITY(1,1) PRIMARY KEY,
+formId int FOREIGN KEY REFERENCES Form(id) ,
+employeeName VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
+decision VARCHAR(200)  , /* disapprove   approve   approve with recommendation */
+decisionComment VARCHAR(100),
+)
+go
+
+create table [dbo].[FinanceAP](
+id int IDENTITY(1,1) PRIMARY KEY,
+financeId int FOREIGN KEY REFERENCES Finance(id) ,
+actions VARCHAR(500),
+)
+go
+
+create table [dbo].[FinanceFiles](
+id int IDENTITY(1,1) PRIMARY KEY,
+financeId int FOREIGN KEY REFERENCES Finance(id) ,
+[path] varchar(5000),
+name varchar(5000)
+)
+go
+
+
 
 create table [dbo].[History](
 id int IDENTITY(1,1) PRIMARY KEY,

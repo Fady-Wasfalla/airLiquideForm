@@ -268,7 +268,9 @@ exports.getStarted = async (req, res) => {
 
     return res.json({
       status: 'Success',
-      data: screensNames
+      data: screensNames,
+      employeeId:employee.id,
+      employeeName:employeeName
     })
   } catch (error) {
     return res.json({

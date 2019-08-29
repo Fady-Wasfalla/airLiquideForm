@@ -20,13 +20,18 @@ class App extends Component {
 
   state = {
     screensNames:[],
+    employeeId:0
   }
 
   async componentDidMount(){
     await axios
     .get('http://localhost:8000/api/employees/getStarted')
-    .then( (res) => {this.setState({screensNames:res.data.data})})
+    .then( (res) => { this.setState({screensNames:res.data.data})
+                      sessionStorage.setItem('ID', res.data.employeeId)
+                      sessionStorage.setItem('employeeName', res.data.employeeName)
+                      this.setState({employeeId:res.data.employeeId})})
     .catch(err => alert(err.message))
+
   }
 
   
