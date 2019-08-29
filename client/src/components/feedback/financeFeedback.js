@@ -1,69 +1,54 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
-import Irmr from './irmr'
-import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
+import ResponseCard from './responseCard'
 import axios from 'axios'
 
 
 
-
-class prFeedback extends Component {
+class financeFeedback extends Component {
 
     state = {
         finalDecision:{},
-        irmr:{},
         formId:0,
-    }
-
+      }
     componentWillMount(){
       const formId  = this.props.match.params.id
       this.setState({formId:formId})
     }
-
     finalDecisionCallBackFunction = (childData) => {
         this.setState({finalDecision:childData})
-    }
-
-    irmrCallBackFunction = (childData) => {
-      this.setState({irmr:childData})
     }
 
     handleChange=()=>{
       console.log(this.state)
       axios
-      .post('http://localhost:8000/api/employees/prFB',this.state)
+      .post('http://localhost:8000/api/employees/financeFB',this.state)
       .then(res => alert(res.data.message))
       .catch(err => alert(err.message))
     }
      
       render() {
         return (
-          <div style={{  'overflow-x':'hidden' }} >
             <React.Fragment>
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>
                 <Card border="secondary">
-                <Card.Header as="h4" className="bg-primary text-white">PR Feedback</Card.Header>                
+                <Card.Header as="h4" className="text-white" style={{backgroundColor:"#375f9b"}}>Finance Feedback</Card.Header>                
                 <Row><br/></Row>
                 <Col  md={{ span: 12, offset: 0 }}>
                 <Row><br/></Row>
                 </Col>
 
-                <Col md={{ span: 12, offset: 0 }}><FormDisplay formId={this.state.formId}/></Col>
-                <Row><br/></Row>
-
-                <Col md={{ span: 12, offset: 0 }}><Irmr ParentCallBack={this.irmrCallBackFunction} /></Col>
+                <Col md={{ span: 12, offset: 0 }}><FormDisplay  formId={this.state.formId}/></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>
                 <Row><br/></Row>
                 
-                
-                
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>
-                <Button className="bg-primary text-white"
+                <Button className="bg-primary text-white" type="submit"
                 onClick={this.handleChange}>Submit</Button></Col>
                 </Row>
 
@@ -74,12 +59,12 @@ class prFeedback extends Component {
                 <Row><br/></Row>
                 <Row><br/></Row>
                 </Col>
+                
             </React.Fragment>
-            </div>
         )
       }
 
 }
 
 
-export default prFeedback;
+export default financeFeedback;

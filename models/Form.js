@@ -10,7 +10,8 @@ const Form = db.define('Form', {
   sourcingSubmition: Sequelize.BOOLEAN,
   fleatSubmition: Sequelize.BOOLEAN,
   irmrSubmition: Sequelize.BOOLEAN,
-  ciSubmition: Sequelize.BOOLEAN
+  ciSubmition: Sequelize.BOOLEAN,
+  financeSubmition: Sequelize.BOOLEAN,
 },
 { timestamps: false,
   freezeTableName: true

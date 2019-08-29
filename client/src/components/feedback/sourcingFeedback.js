@@ -11,21 +11,27 @@ class sourcingFeedback extends Component {
 
     state = {
       finalDecision:{},
+      formId:0,
     }
 
-      finalDecisionCallBackFunction = (childData) => {
+    componentWillMount(){
+      const formId  = this.props.match.params.id
+      this.setState({formId:formId})
+    }
+
+    finalDecisionCallBackFunction = (childData) => {
           this.setState({finalDecision:childData})
-      }
+     }
       
-      handleChange=()=>{
+    handleChange=()=>{
         console.log(this.state)
         axios
         .post('http://localhost:8000/api/employees/sourcingsFB',this.state)
         .then(res => alert(res.data.message))
         .catch(err => alert(err.message))
-      }
+    }
      
-      render() {
+    render() {
         return (
             <React.Fragment>
                 <Row><br/></Row>
@@ -37,7 +43,7 @@ class sourcingFeedback extends Component {
                 <Row><br/></Row>
                 </Col>
 
-                <Col md={{ span: 12, offset: 0 }}><FormDisplay /></Col>
+                <Col md={{ span: 12, offset: 0 }}><FormDisplay formId={this.state.formId}/></Col>
                 <Row><br/></Row>
 
 
