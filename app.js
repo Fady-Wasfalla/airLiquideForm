@@ -55,6 +55,7 @@ app.use((req, res, next) => {
   next()
 })
 // Direct routes to appropriate files
+app.use('/formFiles', express.static('formFiles'))
 app.use('/api/employees', emplyees)
 app.use('/api/screens', screens)
 app.use('/api/permissions', permissions)
