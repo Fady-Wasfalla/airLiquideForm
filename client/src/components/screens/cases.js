@@ -50,7 +50,7 @@ class cases extends Component {
     }
 
     reDirect=(id)=>{
-        let path = "/distributionFeedback/"+id;
+        let path = "/"+this.props.match.params.department+"Feedback/"+id;
         this.props.history.push(path);
     }
 
@@ -120,7 +120,7 @@ class cases extends Component {
                                         <Card.Text style={{fontWeight:"bold"}}>Distribution  :</Card.Text>
                                         <Card.Text style={{color:this.submitionColor(this.state.displayedForm[index].distributionSubmition)}}>
                                         {this.submitionSympol(this.state.displayedForm[index].distributionSubmition)}</Card.Text>
-                                        <Col md={{span:1}}></Col>
+                                        <Col md={{span:0}}></Col>
                                         <Card.Text style={{fontWeight:"bold"}}>Sourcing :</Card.Text>
                                         <Card.Text style={{color:this.submitionColor(this.state.displayedForm[index].sourcingSubmition)}}>
                                         {this.submitionSympol(this.state.displayedForm[index].sourcingSubmition)}</Card.Text>
@@ -140,6 +140,10 @@ class cases extends Component {
                                         <Card.Text style={{fontWeight:"bold"}}>CI :</Card.Text>
                                         <Card.Text style={{color:this.submitionColor(this.state.displayedForm[index].ciSubmition)}}>
                                         {this.submitionSympol(this.state.displayedForm[index].ciSubmition)}</Card.Text>
+                                        <Col md={{span:4}}></Col>
+                                        <Card.Text style={{fontWeight:"bold"}}>Finance :</Card.Text>
+                                        <Card.Text style={{color:this.submitionColor(this.state.displayedForm[index].financeSubmition)}}>
+                                        {this.submitionSympol(this.state.displayedForm[index].financeSubmition)}</Card.Text>
                                     </Form.Row>
                                     </Card>
                                 </Col>

@@ -42,6 +42,7 @@ sourcingSubmition bit DEFAULT 0 ,
 fleatSubmition bit DEFAULT 0,
 irmrSubmition bit DEFAULT 0,
 ciSubmition bit DEFAULT 0,
+financeSubmition bit DEFAULT 0,
 )
 go
 
