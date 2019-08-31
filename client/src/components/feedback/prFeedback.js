@@ -13,13 +13,8 @@ class prFeedback extends Component {
     state = {
         finalDecision:{},
         irmr:{},
-        formId:0,
-    }
 
-    componentWillMount(){
-      const formId  = this.props.match.params.id
-      this.setState({formId:formId})
-    }
+      }
 
     finalDecisionCallBackFunction = (childData) => {
         this.setState({finalDecision:childData})
@@ -50,7 +45,7 @@ class prFeedback extends Component {
                 <Row><br/></Row>
                 </Col>
 
-                <Col md={{ span: 12, offset: 0 }}><FormDisplay formId={this.state.formId}/></Col>
+                <Col md={{ span: 12, offset: 0 }}><FormDisplay /></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><Irmr ParentCallBack={this.irmrCallBackFunction} /></Col>

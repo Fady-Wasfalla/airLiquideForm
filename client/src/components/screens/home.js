@@ -20,7 +20,6 @@ class cases extends Component {
             case "Fleat" : path= "/cases/Fleat" ; break;
             case "PR" : path= "/cases/PR" ; break;
             case "CI" :  path= "/cases/CI" ; break;
-            case "Finance" : path= "/cases/Finance" ; break;
             case "Sales" : path= "/cases/Sales" ; break;
             default:
               

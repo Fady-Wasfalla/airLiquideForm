@@ -31,7 +31,7 @@ Go
 /* Form */
 create table [dbo].[Form](
 id int IDENTITY(1,1) PRIMARY KEY,
-employeename varchar(500) ,
+employeename varchar(300) ,
 FOREIGN KEY(employeeName) REFERENCES Employee(userName),
 name VARCHAR(200),
 [date] date ,
@@ -42,7 +42,6 @@ sourcingSubmition bit DEFAULT 0 ,
 fleatSubmition bit DEFAULT 0,
 irmrSubmition bit DEFAULT 0,
 ciSubmition bit DEFAULT 0,
-financeSubmition bit DEFAULT 0,
 )
 go
 
@@ -609,8 +608,8 @@ adequateLight BIT ,
 adequateLightMP VARCHAR(250) ,
 adequateLightCmt VARCHAR(250) ,
 supplyTime VARCHAR(250) , /* morning , night , all day */
-supplyTimeFrom time ,
-supplyTimeTo time ,
+supplyTimeFrom VARCHAR(100) ,
+supplyTimeTo VARCHAR(100) ,
 supplyTimeCmt VARCHAR(250),
 fireExtinguishers BIT ,
 fireExtinguishersMP VARCHAR(250) ,

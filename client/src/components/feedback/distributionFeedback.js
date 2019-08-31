@@ -9,6 +9,10 @@ import axios from 'axios'
 class distributionFeedback extends Component {
 
     state = {
+        cbi:{},
+        lvf:{},
+        cif:{},
+        pri:{},     
         finalDecision:{},
         formId:0,
       }
