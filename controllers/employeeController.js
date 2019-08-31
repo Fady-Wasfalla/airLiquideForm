@@ -12,8 +12,6 @@ const Fluids = require('../models/Fluids')
 const Utilities = require('../models/Utilities')
 const Distributions = require('../models/Distributions')
 const DistributionsAP = require('../models/DistributionsAP')
-const Finance = require('../models/Finance')
-const FinanceAP = require('../models/FinanceAP')
 const Sourcings = require('../models/Sourcings')
 const SourcingsAP = require('../models/SourcingsAP')
 const CifResponse = require('../models/CifResponse')
@@ -134,7 +132,7 @@ exports.distributionFB = async (req, res) => {
   try {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Distributions.create({ ...finalDecisionData , employeeName , formId:req.body.formId })
+    const fb = await Distributions.create({ formId: 1, ...finalDecisionData, employeeName })
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let distributionsAPData = {
@@ -156,40 +154,12 @@ exports.distributionFB = async (req, res) => {
     })
   }
 }
-
-// Finance feedback
-exports.financeFB = async (req, res) => {
-  try {
-    let finalDecisionData = Object.assign({}, req.body.finalDecision)
-    delete finalDecisionData.actionPlan
-    const fb = await Finance.create({ ...finalDecisionData , employeeName , formId:req.body.formId })    
-    if (finalDecisionData.decision === 'Approve with recommendation') {
-      for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
-        let financeAPData = {
-          financeId: fb.id,
-          actions: req.body.finalDecision.actionPlan[i]
-        }
-        await FinanceAP.create(financeAPData)
-      }
-    }
-    return res.status(200).json({
-      status: 'Success',
-      message: 'Finance Feedback sumbmitted ',
-      data: fb
-    })
-  } catch (error) {
-    return res.json({
-      status: 'Failed',
-      message: error.message
-    })
-  }
-}
 // sourcings feedback
 exports.sourcingsFB = async (req, res) => {
   try {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Sourcings.create({ ...finalDecisionData , employeeName , formId:req.body.formId })    
+    const fb = await Sourcings.create({ formId: 1, ...finalDecisionData, employeeName })
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let sourcingsAPData = {
@@ -216,7 +186,7 @@ exports.ciFB = async (req, res) => {
   try {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await CifResponse.create({ ...finalDecisionData , employeeName , formId:req.body.formId })    
+    const fb = await CifResponse.create({ formId: 1, ...finalDecisionData, employeeName })
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let sourcingsAPData = {
@@ -248,7 +218,7 @@ exports.prFB = async (req, res) => {
       decisionComment: finalDecision.decisionComment }
     let finalDecisionData = Object.assign({}, irmrFb)
     delete finalDecisionData.actionPlan
-    const fb = await Irmr.create({ ...finalDecisionData , employeeName , formId:req.body.formId })
+    const fb = await Irmr.create({ formId: 1, ...finalDecisionData, employeeName })
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < finalDecision.actionPlan.length; i++) {
         let irmrsAPData = {
@@ -422,16 +392,6 @@ exports.getFormsDisplay = async (req, res) => {
                   }
                 }
                   ;break;
-      case "Finance" :  
-                  for (let i=0;i<forms.length ; i++){
-                    //get submitted forms by the dept
-                    if (forms[i].financeSubmition){
-                      submittedForms = submittedForms.concat(forms[i])
-                    }else{
-                      pendingForms = pendingForms.concat(forms[i])                    
-                    }
-                  }
-                    ;break;
       case "Sales" :
                 for (let i=0;i<forms.length ; i++){
                   //get submitted forms by the dept

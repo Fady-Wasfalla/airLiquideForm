@@ -29,8 +29,6 @@ router.post('/newForm', entity.newForm)
 
 router.post('/distributionsFB', entity.distributionFB)
 
-router.post('/financeFB', entity.financeFB)
-
 router.post('/sourcingsFB', entity.sourcingsFB)
 
 router.post('/ciFB', entity.ciFB)
