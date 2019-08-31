@@ -6,8 +6,11 @@ const entity = require('../../controllers/permissionController')
 // read all
 router.get('/', entity.default)
 
+// get all permissions
+router.get('/allPermissions/:employeeId', entity.getAllPermissions)
+
 // read one
-router.get('/:id', entity.default)
+router.get('/:id', entity.read)
 
 // add one
 router.post('/', entity.create)

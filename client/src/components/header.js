@@ -12,7 +12,7 @@ class header extends Component {
         return (
           <React.Fragment>
             <Navbar bg="light" variant="dark" >
-             <Navbar.Brand href="#home">
+             <Navbar.Brand href="http://localhost:3000/home">
               <img
                 src={logo}
                 width="100"
@@ -20,6 +20,7 @@ class header extends Component {
                 className="d-inline-block align-top"
               />
             </Navbar.Brand>
+
               <Nav.Link href="http://localhost:3000/fillForm">Fill Form</Nav.Link>
               <Nav.Link href="http://localhost:3000/distributionFeedback">Distribution</Nav.Link>
               <Nav.Link href="http://localhost:3000/sourcingFeedback">Sourcing</Nav.Link>

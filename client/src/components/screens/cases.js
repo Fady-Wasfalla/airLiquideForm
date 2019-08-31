@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card, Button , Spinner } from "react-bootstrap";
+import { Redirect } from 'react-router-dom'
+import { Form , Col , Row , Card, Button , Spinner , ToggleButtonGroup ,ButtonToolbar,ToggleButton } from "react-bootstrap";
 import axios from 'axios'
 
 
@@ -7,17 +8,27 @@ import axios from 'axios'
 class cases extends Component {
 
     state = {
-        forms:[],
+        allForms:[],
+        pendingForms:[],
+        submittedForms:[],
+        displayedForm:[],
         loading: true,
+        department:"",
+        screensNames:[],
       }
 
+     
     componentDidMount(){
-    this.setState({ loading: true})
+    this.setState({loading: true})
+    this.setState({screensNames:this.props.screensNames})
     axios
-      .get('http://localhost:8000/api/forms')
-      .then(res => this.setState({forms:res.data.data , loading: false}))
-      .catch(err => alert(err.message))
-      
+    .get('http://localhost:8000/api/employees/getFormsDisplay/'+this.props.match.params.department)
+    .then(res => {this.setState({displayedForm:res.data.allForms , loading: false})
+    this.setState({allForms:res.data.allForms , loading: false})
+    this.setState({pendingForms:res.data.pendingForms , loading: false})
+    this.setState({submittedForms:res.data.submittedForms , loading: false})})
+    .catch(err => alert(err.message))
+    
     }
 
     submitionColor=(e)=>{
@@ -38,6 +49,12 @@ class cases extends Component {
         }
     }
 
+    reDirect=(id)=>{
+        let path = "/"+this.props.match.params.department+"Feedback/"+id;
+        this.props.history.push(path);
+    }
+
+
     
       render() {
           return (
@@ -46,19 +63,26 @@ class cases extends Component {
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>           
 
-                <Card.Header style={{fontWeight:"bold"}}>Cases</Card.Header>
+                <Card.Header>
+                <ButtonToolbar>
+                    <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+                    <ToggleButton value={1} onClick={(e)=>this.setState({displayedForm:this.state.allForms})}>All</ToggleButton>
+                    <ToggleButton value={2} onClick={(e)=>this.setState({displayedForm:this.state.pendingForms})}>pending</ToggleButton>
+                    <ToggleButton value={3} onClick={(e)=>this.setState({displayedForm:this.state.submittedForms})}>Finished</ToggleButton>
+                    </ToggleButtonGroup>
+                </ButtonToolbar>
+                </Card.Header>
                 <Row><br/></Row>
                 
                 <Row>
                     
                     {
-                        this.state.forms.map((form,index)=>{
+                        this.state.displayedForm.map((form,index)=>{
                             return (
-                                
                                 <Col md={{offset:0,span:6}}>
-                                 <div >
-                                <Card border="primary" bg="light"  onClick={() => {alert("Hello from here")}}>
-                                <Card.Header as="h5" className="text-center"> {this.state.forms[index].name} </Card.Header>
+                                <div className="shadow-box-example hoverable">
+                                <Card border="primary" bg="light" onClick={(e)=>{this.reDirect(this.state.displayedForm[index].id)}}>
+                                <Card.Header as="h5" className="text-center"  variant="link">{this.state.displayedForm[index].name}</Card.Header>
                                 <Row><br/></Row>
                                 <Col md={12}>
                                 <Row>              
@@ -67,22 +91,22 @@ class cases extends Component {
 
                                     <Form.Row>
                                         <Card.Text style={{fontWeight:"bold"}}>ID : </Card.Text>
-                                        <Card.Text># {this.state.forms[index].id} </Card.Text>
+                                        <Card.Text># {this.state.displayedForm[index].id} </Card.Text>
                                     </Form.Row>
 
                                     <Form.Row>
                                         <Card.Text style={{fontWeight:"bold"}}>Date : </Card.Text>
-                                        <Card.Text>{this.state.forms[index].date} </Card.Text>
+                                        <Card.Text>{this.state.displayedForm[index].date} </Card.Text>
                                     </Form.Row>
 
                                     <Form.Row>
                                         <Card.Text style={{fontWeight:"bold"}}>Zone : </Card.Text>
-                                        <Card.Text>{this.state.forms[index].zone} </Card.Text>
+                                        <Card.Text>{this.state.displayedForm[index].zone} </Card.Text>
                                     </Form.Row>
 
                                     <Form.Row>
                                         <Card.Text style={{fontWeight:"bold"}}>Full address : </Card.Text>
-                                        <Card.Text>{this.state.forms[index].address} </Card.Text>
+                                        <Card.Text>{this.state.displayedForm[index].address} </Card.Text>
                                     </Form.Row>
 
                                 </Form>
@@ -94,28 +118,32 @@ class cases extends Component {
                                     <Form.Row>
                                         <Col md={{span:1}}></Col>
                                         <Card.Text style={{fontWeight:"bold"}}>Distribution  :</Card.Text>
-                                        <Card.Text style={{color:this.submitionColor(this.state.forms[index].distributionSubmition)}}>
-                                        {this.submitionSympol(this.state.forms[index].distributionSubmition)}</Card.Text>
-                                        <Col md={{span:1}}></Col>
+                                        <Card.Text style={{color:this.submitionColor(this.state.displayedForm[index].distributionSubmition)}}>
+                                        {this.submitionSympol(this.state.displayedForm[index].distributionSubmition)}</Card.Text>
+                                        <Col md={{span:0}}></Col>
                                         <Card.Text style={{fontWeight:"bold"}}>Sourcing :</Card.Text>
-                                        <Card.Text style={{color:this.submitionColor(this.state.forms[index].sourcingSubmition)}}>
-                                        {this.submitionSympol(this.state.forms[index].sourcingSubmition)}</Card.Text>
+                                        <Card.Text style={{color:this.submitionColor(this.state.displayedForm[index].sourcingSubmition)}}>
+                                        {this.submitionSympol(this.state.displayedForm[index].sourcingSubmition)}</Card.Text>
                                     </Form.Row>
                                     <Form.Row>
                                         <Col md={{span:1}}></Col>
                                         <Card.Text style={{fontWeight:"bold"}}>Fleat :</Card.Text>
-                                        <Card.Text style={{color:this.submitionColor(this.state.forms[index].fleatSubmition)}}>
-                                        {this.submitionSympol(this.state.forms[index].fleatSubmition)}</Card.Text>
+                                        <Card.Text style={{color:this.submitionColor(this.state.displayedForm[index].fleatSubmition)}}>
+                                        {this.submitionSympol(this.state.displayedForm[index].fleatSubmition)}</Card.Text>
                                         <Col md={{span:3}}></Col>
                                         <Card.Text style={{fontWeight:"bold"}}>Irmr :</Card.Text>
-                                        <Card.Text style={{color:this.submitionColor(this.state.forms[index].irmrSubmition)}}>
-                                        {this.submitionSympol(this.state.forms[index].irmrSubmition)}</Card.Text>
+                                        <Card.Text style={{color:this.submitionColor(this.state.displayedForm[index].irmrSubmition)}}>
+                                        {this.submitionSympol(this.state.displayedForm[index].irmrSubmition)}</Card.Text>
                                     </Form.Row>
                                     <Form.Row>
                                         <Col md={{span:1}}></Col>
                                         <Card.Text style={{fontWeight:"bold"}}>CI :</Card.Text>
-                                        <Card.Text style={{color:this.submitionColor(this.state.forms[index].ciSubmition)}}>
-                                        {this.submitionSympol(this.state.forms[index].ciSubmition)}</Card.Text>
+                                        <Card.Text style={{color:this.submitionColor(this.state.displayedForm[index].ciSubmition)}}>
+                                        {this.submitionSympol(this.state.displayedForm[index].ciSubmition)}</Card.Text>
+                                        <Col md={{span:4}}></Col>
+                                        <Card.Text style={{fontWeight:"bold"}}>Finance :</Card.Text>
+                                        <Card.Text style={{color:this.submitionColor(this.state.displayedForm[index].financeSubmition)}}>
+                                        {this.submitionSympol(this.state.displayedForm[index].financeSubmition)}</Card.Text>
                                     </Form.Row>
                                     </Card>
                                 </Col>
@@ -124,10 +152,13 @@ class cases extends Component {
                                 <Row><br/></Row>
                                 </Card>
                                 </div>
+                                
                                 <Row><br/></Row>
                                 </Col>
+                                
                             )
-                        })
+                        }
+                        )
                     }
                     
                     </Row>

@@ -4,7 +4,10 @@ import PredeliveryIdentificationReport from './predeliveryIdentificationReport'
 import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
 import axios from 'axios'
+<<<<<<< HEAD
 
+=======
+>>>>>>> Fady
 
 
 
@@ -14,7 +17,14 @@ class fleatFeedback extends Component {
     state = {
       finalDecision:{},
       pdi:{}, 
-      }
+      formId:0,
+
+    }
+
+    componentWillMount(){
+      const formId  = this.props.match.params.id
+      this.setState({formId:formId})
+    }
 
     finalDecisionCallBackFunction = (childData) => {
         this.setState({finalDecision:childData})
@@ -44,7 +54,7 @@ class fleatFeedback extends Component {
                 <Row><br/></Row>
                 </Col>
 
-                <Col md={{ span: 12, offset: 0 }}><FormDisplay /></Col>
+                <Col md={{ span: 12, offset: 0 }}><FormDisplay formId={this.state.formId}/></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><PredeliveryIdentificationReport ParentCallBack={this.pdiCallBackFunction}/></Col>

@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize')
 const db = require('../config/database')
-const Screen = db.define('Screens', {
+const Screen = db.define('Screen', {
   name: Sequelize.STRING },
-{ timestamps: false }
+{ timestamps: false,
+  freezeTableName: true }
 )
 
 module.exports = Screen

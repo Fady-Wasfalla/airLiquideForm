@@ -7,7 +7,10 @@ const entity = require('../../controllers/contactPersonController')
 router.get('/', entity.default)
 
 // read one
-router.get('/:id', entity.default)
+router.get('/:id', entity.read)
+
+// read by formId
+router.get('/form/:id', entity.readByFormId)
 
 // add one
 router.post('/', entity.create)
