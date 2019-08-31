@@ -23,6 +23,8 @@ const IrmrAP = require('../models/IrmrAP')
 const os = require('os')
 const employeeName = os.userInfo().username
 
+const tzoffset = (new Date()).getTimezoneOffset() * 60000
+const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
 exports.default = async (req, res) => {
   await entityController.default(req, res, Model)
 }
