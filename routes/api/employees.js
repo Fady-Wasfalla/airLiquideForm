@@ -21,7 +21,7 @@ router.get('/getFormsDisplay/:department', entity.getFormsDisplay)
 
 router.get('/', entity.default)
 
-// get employee id 
+// get employee id
 
 // read one
 router.get('/:id', entity.read)
