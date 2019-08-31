@@ -32,10 +32,6 @@ class fleatFeedback extends Component {
 
     handleChange=()=>{
       console.log(this.state)
-      axios
-      .post('http://localhost:8000/api/employees/distributionsFB',this.state)
-      .then(res => alert(res.data.message))
-      .catch(err => alert(err.message))
     }
      
       render() {
