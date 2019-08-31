@@ -357,7 +357,12 @@ exports.pdiFB = async (req, res) => {
       data: fb
     })
   } catch (error) {
-
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
 exports.getStarted = async (req, res) => {
  try{
     const employee = await Model.findOne({ where: { userName: employeeName } })
@@ -403,9 +408,6 @@ exports.getStarted = async (req, res) => {
     })
   }
 }
- 
-}
-
 //get the forms that are not submitted by the selected departement
 exports.getFormsDisplay = async (req, res) => {
   try{
@@ -488,22 +490,16 @@ exports.getFormsDisplay = async (req, res) => {
                 }
                   ;break;
     }
-   
-
     return res.json({
       status: 'Success',
       allForms : forms,
       pendingForms : pendingForms,
       submittedForms : submittedForms
-    })
-
-     
-   }
-   catch (error) {
+    }) 
+   }catch (error) {
      return res.json({
        status: 'Failed',
        message: error.message
      })
    }
-  
- }
+  }
