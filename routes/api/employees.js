@@ -15,10 +15,18 @@ const formFilesUpload = multer({ storage: storage })
 /* cif routes */
 const entity = require('../../controllers/employeeController')
 // read all
+router.get('/getStarted', entity.getStarted)
+
+router.get('/getFormsDisplay/:department', entity.getFormsDisplay)
+
 router.get('/', entity.default)
 
+// get employee id 
+
 // read one
-router.get('/:id', entity.default)
+router.get('/:id', entity.read)
+
+
 
 // add one
 router.post('/', entity.create)
@@ -38,6 +46,9 @@ router.post('/ciFB', entity.ciFB)
 
 router.post('/prFB', entity.prFB)
 
+<<<<<<< HEAD
 router.post('/pdiFB', entity.pdiFB)
 
+=======
+>>>>>>> Fady
 module.exports = router

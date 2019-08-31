@@ -8,7 +8,7 @@ const Cif = require('../../controllers/cifController')
 router.get('/', Cif.default)
 
 // read one
-router.get('/:id', Cif.default)
+router.get('/:id', Cif.read)
 
 // add one
 router.post('/', Cif.create)

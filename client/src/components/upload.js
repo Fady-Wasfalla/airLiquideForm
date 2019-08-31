@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card, Button  } from "react-bootstrap";
+import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import 'mdbreact/dist/css/mdb.css'
 
 class upload extends Component {
@@ -67,8 +67,13 @@ class upload extends Component {
                                 <Form.Row>
                                     <Col md={4}>
                                     <Row style={{height: .05*window.innerHeight + 'px'}}/>                             
-                                        <input type="file" name="file" onChange={(e)=>this.fileHandleChange(e,index)} />
+                                        <input type="file" name="file" onChange={(e)=>this.fileHandleChange(e,index)}/>
                                     </Col>
+                                        <Col>
+                                        <Row style={{height: .04*window.innerHeight + 'px'}}/>                             
+                                        <Button variant="outline" style={{height: .05*window.innerHeight + 'px'}}
+                                            onClick={()=>this.removeFile(index)}>✘</Button>
+                                        </Col>
                                 </Form.Row>
                             </Form>
                         )
