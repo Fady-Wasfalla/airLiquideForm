@@ -6,8 +6,9 @@ import Admin from './components/admin/adminHome'
 import FillForm from './components/fillForm'
 import FleatFeedback from './components/feedback/fleatFeedback'
 import DistributionFeedback from './components/feedback/distributionFeedback'
+import FinanceFeedback from './components/feedback/financeFeedback'
 import SourcingFeedback from './components/feedback/sourcingFeedback'
-import CifFeedback from './components/feedback/cifFeedBack'
+import CiFeedback from './components/feedback/cifFeedBack'
 import PrFeedback from './components/feedback/prFeedback'
 import Cases from './components/screens/cases'
 import Header from './components/header'
@@ -54,10 +55,11 @@ class App extends Component {
         <Route exact path='/admin' component={Admin} />
         <Route exact path='/fillForm' component={FillForm} />
         <Route exact path='/distributionFeedback/:id' component={DistributionFeedback} />
-        <Route exact path='/sourcingFeedback' component={SourcingFeedback} />
-        <Route exact path='/fleatFeedback' component={FleatFeedback} />
-        <Route exact path='/cifFeedback' component={CifFeedback} />
-        <Route exact path='/prFeedback' component={PrFeedback} />
+        <Route exact path='/financeFeedback/:id' component={FinanceFeedback} />
+        <Route exact path='/sourcingFeedback/:id' component={SourcingFeedback} />
+        <Route exact path='/fleatFeedback/:id' component={FleatFeedback} />
+        <Route exact path='/ciFeedback/:id' component={CiFeedback} />
+        <Route exact path='/prFeedback/:id' component={PrFeedback} />
         <Route exact path='/cases/:department'
         render={(props) => <Cases {...props} screensNames={this.state.screensNames} />}/>
       </Switch>

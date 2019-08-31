@@ -12,21 +12,16 @@ const Fluids = require('../models/Fluids')
 const Utilities = require('../models/Utilities')
 const Distributions = require('../models/Distributions')
 const DistributionsAP = require('../models/DistributionsAP')
+const Finance = require('../models/Finance')
+const FinanceAP = require('../models/FinanceAP')
 const Sourcings = require('../models/Sourcings')
 const SourcingsAP = require('../models/SourcingsAP')
 const CifResponse = require('../models/CifResponse')
 const cifAPs = require('../models/CifAP')
 const Irmr = require('../models/Irmr')
 const IrmrAP = require('../models/IrmrAP')
-const Pdi = require('../models/Pdi')
-const PdiAP = require('../models/PdiAP')
-const FireExtinguishers = require('../models/FireExtinguishers')
-const FormFiles = require('../models/FormFiles')
 const os = require('os')
-
 const employeeName = os.userInfo().username
-const tzoffset = (new Date()).getTimezoneOffset() * 60000
-const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
 
 exports.default = async (req, res) => {
   await entityController.default(req, res, Model)
@@ -57,24 +52,16 @@ exports.delete = async (req, res) => {
 /* sales man submit a form */
 exports.newForm = async (req, res) => {
   try {
-    // console.log(req.files)
-    const cbi = JSON.parse(req.body.cbi)
-    const lvf = JSON.parse(req.body.lvf)
-    const cif = JSON.parse(req.body.cif)
-    const pri = JSON.parse(req.body.pri)
-    const filesNames = JSON.parse(req.body.filesNames)
-    const files = req.files
-    // console.log(58)
-    // console.log(files[0].path)
-    // console.log()
+    const cbi = req.body.cbi
+    let cbiData = Object.assign({}, cbi)
+    delete cbiData.contactPerson
     const newForm = await Form.create({ ...cbi, employeeName })
     const formId = newForm.id
-    // history of the form
+
+    const tzoffset = (new Date()).getTimezoneOffset() * 60000
+    const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
+
     await History.create({ formId, formSubmition: localISOTime })
-    // uploading the files with the name
-    for (let i = 0; i < filesNames.length; i++) {
-      await FormFiles.create({ formId, name: filesNames[i], path: files[i].path })
-    }
     // inserting the conatct perosns
     if (cbi.contactPerson) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
@@ -89,13 +76,17 @@ exports.newForm = async (req, res) => {
       }
     }
     // creating the lvf of the form
-    await Lvf.create({ formId, ...lvf })
+    await Lvf.create({ formId, ...req.body.lvf })
     // creating the cif of the form
-    await Cif.create({ formId, ...cif })
+    await Cif.create({ formId, ...req.body.cif })
     // creating the pri of the form
-    const newPri = await Pri.create({ formId, ...pri })
+    const pri = req.body.pri
+    let priData = Object.assign({}, pri)
+    delete priData.fluids
+    delete priData.utilities
+    const newPri = await Pri.create({ formId, ...priData })
     const priId = newPri.id
-    if (pri && pri.fluids) {
+    if (pri.fluids) {
       for (let i = 0; i < pri.fluids.characteristics.length; i++) {
         let fluidData = {
           priId,
@@ -113,7 +104,7 @@ exports.newForm = async (req, res) => {
         await Fluids.create(fluidData)
       }
     }
-    if (pri && pri.utilities) {
+    if (pri.utilities) {
       for (let i = 0; i < pri.utilities.utility.length; i++) {
         let fluidData = {
           priId,
@@ -140,15 +131,7 @@ exports.distributionFB = async (req, res) => {
   try {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Distributions.create({ formId: 1, ...finalDecisionData, employeeName })
-    await Form.update(
-      { distributionSubmition: true },
-      { where: { id: 1 } }
-    )
-    await History.update(
-      { distributionSubmition: localISOTime },
-      { where: { formId: 16 } }
-    )
+    const fb = await Distributions.create({ ...finalDecisionData , employeeName , formId:req.body.formId })
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let distributionsAPData = {
@@ -170,20 +153,40 @@ exports.distributionFB = async (req, res) => {
     })
   }
 }
+
+// Finance feedback
+exports.financeFB = async (req, res) => {
+  try {
+    let finalDecisionData = Object.assign({}, req.body.finalDecision)
+    delete finalDecisionData.actionPlan
+    const fb = await Finance.create({ ...finalDecisionData , employeeName , formId:req.body.formId })    
+    if (finalDecisionData.decision === 'Approve with recommendation') {
+      for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
+        let financeAPData = {
+          financeId: fb.id,
+          actions: req.body.finalDecision.actionPlan[i]
+        }
+        await FinanceAP.create(financeAPData)
+      }
+    }
+    return res.status(200).json({
+      status: 'Success',
+      message: 'Finance Feedback sumbmitted ',
+      data: fb
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
 // sourcings feedback
 exports.sourcingsFB = async (req, res) => {
   try {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Sourcings.create({ formId: 1, ...finalDecisionData, employeeName })
-    await Form.update(
-      { sourcingSubmition: true },
-      { where: { id: 1 } }
-    )
-    await History.update(
-      { sourcingSubmition: localISOTime },
-      { where: { formId: 16 } }
-    )
+    const fb = await Sourcings.create({ ...finalDecisionData , employeeName , formId:req.body.formId })    
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let sourcingsAPData = {
@@ -210,15 +213,7 @@ exports.ciFB = async (req, res) => {
   try {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await CifResponse.create({ formId: 1, ...finalDecisionData, employeeName })
-    await Form.update(
-      { ciSubmition: true },
-      { where: { id: 1 } }
-    )
-    await History.update(
-      { ciSubmition: localISOTime },
-      { where: { formId: 16 } }
-    )
+    const fb = await CifResponse.create({ ...finalDecisionData , employeeName , formId:req.body.formId })    
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let sourcingsAPData = {
@@ -250,15 +245,7 @@ exports.prFB = async (req, res) => {
       decisionComment: finalDecision.decisionComment }
     let finalDecisionData = Object.assign({}, irmrFb)
     delete finalDecisionData.actionPlan
-    const fb = await Irmr.create({ formId: 1, ...finalDecisionData, employeeName })
-    await Form.update(
-      { irmrSubmition: true },
-      { where: { id: 1 } }
-    )
-    await History.update(
-      { irmrSubmition: localISOTime },
-      { where: { formId: 16 } }
-    )
+    const fb = await Irmr.create({ ...finalDecisionData , employeeName , formId:req.body.formId })
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < finalDecision.actionPlan.length; i++) {
         let irmrsAPData = {
@@ -271,59 +258,6 @@ exports.prFB = async (req, res) => {
     return res.status(200).json({
       status: 'Success',
       message: 'PR Feedback sumbmitted',
-      data: fb
-    })
-  } catch (error) {
-    return res.json({
-      status: 'Failed',
-      message: error.message
-    })
-  }
-}
-// pdi feedback
-exports.pdiFB = async (req, res) => {
-  try {
-    const pdi = req.body.pdi
-    const fireExt = pdi.fireExtinguishersList
-    console.log(fireExt)
-    const finalDecision = req.body.finalDecision
-    let pdiData = Object.assign({}, pdi)
-    delete pdiData.fireExtinguishersList
-    const pdiFb = { ...pdiData,
-      decision: finalDecision.decision,
-      decisionComment: finalDecision.decisionComment }
-    // console.log(irmrFb)
-    const fb = await Pdi.create({ formId: 1, ...pdiFb, employeeName })
-    await Form.update(
-      { fleatSubmition: true },
-      { where: { id: 1 } }
-    )
-    await History.update(
-      { fleatSubmition: localISOTime },
-      { where: { formId: 16 } }
-    )
-    const pdiId = fb.id
-    if (pdiFb.decision === 'Approve with recommendation') {
-      for (let i = 0; i < finalDecision.actionPlan.length; i++) {
-        let irmrsAPData = {
-          pdiId: fb.id,
-          actions: finalDecision.actionPlan[i]
-        }
-        await PdiAP.create(irmrsAPData)
-      }
-    }
-    if (fireExt) {
-      console.log(260)
-      for (let i = 0; i < fireExt.number.length; i++) {
-        let fireExtData = {
-          pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
-        }
-        await FireExtinguishers.create(fireExtData)
-      }
-    }
-    return res.status(200).json({
-      status: 'Success',
-      message: 'Fleat Feedback sumbmitted',
       data: fb
     })
   } catch (error) {
@@ -378,6 +312,7 @@ exports.getStarted = async (req, res) => {
       message: error.message
     })
   }
+ 
 }
 
 //get the forms that are not submitted by the selected departement
@@ -440,6 +375,16 @@ exports.getFormsDisplay = async (req, res) => {
                   }
                 }
                   ;break;
+      case "Finance" :  
+                  for (let i=0;i<forms.length ; i++){
+                    //get submitted forms by the dept
+                    if (forms[i].financeSubmition){
+                      submittedForms = submittedForms.concat(forms[i])
+                    }else{
+                      pendingForms = pendingForms.concat(forms[i])                    
+                    }
+                  }
+                    ;break;
       case "Sales" :
                 for (let i=0;i<forms.length ; i++){
                   //get submitted forms by the dept
@@ -469,4 +414,5 @@ exports.getFormsDisplay = async (req, res) => {
        message: error.message
      })
    }
+  
  }

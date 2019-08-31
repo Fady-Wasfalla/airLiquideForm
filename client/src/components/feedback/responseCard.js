@@ -15,6 +15,8 @@ class responseCard extends Component {
         fieldset:"",
       }
 
+      
+
       addAP(){
         this.setState({actionPlan:[... this.state.actionPlan,""]})
       }

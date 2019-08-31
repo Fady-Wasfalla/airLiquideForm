@@ -35,8 +35,8 @@ const Pdi = db.define('Pdi', {
   adequateLightMP: Sequelize.STRING,
   adequateLightCmt: Sequelize.STRING,
   supplyTime: Sequelize.STRING, /* morning , night , all day */
-  supplyTimeFrom: Sequelize.STRING,
-  supplyTimeTo: Sequelize.STRING,
+  supplyTimeFrom: Sequelize.TIME,
+  supplyTimeTo: Sequelize.TIME,
   supplyTimeCmt: Sequelize.STRING,
   fireExtinguishers: Sequelize.BOOLEAN,
   fireExtinguishersMP: Sequelize.STRING,
