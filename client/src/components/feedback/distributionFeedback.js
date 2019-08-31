@@ -10,10 +10,12 @@ class distributionFeedback extends Component {
 
     state = {
         finalDecision:{},
+        formId:0,
       }
-
-    
-    
+    componentWillMount(){
+      const formId  = this.props.match.params.id
+      this.setState({formId:formId})
+    }
     finalDecisionCallBackFunction = (childData) => {
         this.setState({finalDecision:childData})
     }
@@ -38,7 +40,7 @@ class distributionFeedback extends Component {
                 <Row><br/></Row>
                 </Col>
 
-                <Col md={{ span: 12, offset: 0 }}><FormDisplay /></Col>
+                <Col md={{ span: 12, offset: 0 }}><FormDisplay  formId={this.state.formId}/></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>

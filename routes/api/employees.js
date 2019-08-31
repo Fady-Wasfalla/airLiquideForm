@@ -15,10 +15,18 @@ const formFilesUpload = multer({ storage: storage })
 /* cif routes */
 const entity = require('../../controllers/employeeController')
 // read all
+router.get('/getStarted', entity.getStarted)
+
+router.get('/getFormsDisplay/:department', entity.getFormsDisplay)
+
 router.get('/', entity.default)
 
+// get employee id 
+
 // read one
-router.get('/:id', entity.default)
+router.get('/:id', entity.read)
+
+
 
 // add one
 router.post('/', entity.create)
@@ -31,6 +39,8 @@ router.delete('/:id', entity.delete)
 router.post('/newForm', formFilesUpload.array('file', 20), entity.newForm)
 
 router.post('/distributionsFB', entity.distributionFB)
+
+router.post('/financeFB', entity.financeFB)
 
 router.post('/sourcingsFB', entity.sourcingsFB)
 
