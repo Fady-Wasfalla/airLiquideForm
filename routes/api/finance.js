@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 /* cif routes */
-const entity = require('../../controllers/priController')
+const entity = require('../../controllers/financeController')
 // read all
 router.get('/', entity.default)
 

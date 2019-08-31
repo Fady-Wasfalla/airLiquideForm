@@ -1,4 +1,6 @@
 const Model = require('../models/Employee')
+const Permission = require('../models/Permission')
+const Screen = require('../models/Screen')
 const entityController = require('./main')
 const Form = require('../models/Form')
 const ConrtactPerson = require('../models/ContactPerson')
@@ -10,6 +12,8 @@ const Fluids = require('../models/Fluids')
 const Utilities = require('../models/Utilities')
 const Distributions = require('../models/Distributions')
 const DistributionsAP = require('../models/DistributionsAP')
+const Finance = require('../models/Finance')
+const FinanceAP = require('../models/FinanceAP')
 const Sourcings = require('../models/Sourcings')
 const SourcingsAP = require('../models/SourcingsAP')
 const CifResponse = require('../models/CifResponse')
@@ -21,11 +25,10 @@ const PdiAP = require('../models/PdiAP')
 const FireExtinguishers = require('../models/FireExtinguishers')
 const FormFiles = require('../models/FormFiles')
 const os = require('os')
-
 const employeeName = os.userInfo().username
+
 const tzoffset = (new Date()).getTimezoneOffset() * 60000
 const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
-
 exports.default = async (req, res) => {
   await entityController.default(req, res, Model)
 }
@@ -38,6 +41,10 @@ exports.read = async (req, res) => {
   await entityController.read(req, res, Model)
 }
 
+exports.readByUserName = async (req, res) => {
+  await entityController.readByUserName(req, res, Model)
+}
+
 exports.update = async (req, res) => {
   await entityController.update(req, res, Model)
 }
@@ -45,6 +52,7 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   await entityController.delete(req, res, Model)
 }
+
 /* sales man submit a form */
 exports.newForm = async (req, res) => {
   try {
@@ -120,7 +128,6 @@ exports.newForm = async (req, res) => {
       data: newForm
     })
   } catch (error) {
-    console.log(error)
     return res.json({
       status: 'Failed',
       message: error.message
@@ -153,6 +160,34 @@ exports.distributionFB = async (req, res) => {
     return res.status(200).json({
       status: 'Success',
       message: 'Distribution Feedback sumbmitted ',
+      data: fb
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
+
+// Finance feedback
+exports.financeFB = async (req, res) => {
+  try {
+    let finalDecisionData = Object.assign({}, req.body.finalDecision)
+    delete finalDecisionData.actionPlan
+    const fb = await Finance.create({ ...finalDecisionData, employeeName, formId: req.body.formId })
+    if (finalDecisionData.decision === 'Approve with recommendation') {
+      for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
+        let financeAPData = {
+          financeId: fb.id,
+          actions: req.body.finalDecision.actionPlan[i]
+        }
+        await FinanceAP.create(financeAPData)
+      }
+    }
+    return res.status(200).json({
+      status: 'Success',
+      message: 'Finance Feedback sumbmitted ',
       data: fb
     })
   } catch (error) {
@@ -240,7 +275,6 @@ exports.prFB = async (req, res) => {
     const irmrFb = { ...irmr,
       decision: finalDecision.decision,
       decisionComment: finalDecision.decisionComment }
-    // console.log(irmrFb)
     let finalDecisionData = Object.assign({}, irmrFb)
     delete finalDecisionData.actionPlan
     const fb = await Irmr.create({ formId: 1, ...finalDecisionData, employeeName })
@@ -318,6 +352,209 @@ exports.pdiFB = async (req, res) => {
       status: 'Success',
       message: 'Fleat Feedback sumbmitted',
       data: fb
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
+exports.getStarted = async (req, res) => {
+  try {
+    const employee = await Model.findOne({ where: { userName: employeeName } })
+
+    if (employee.activation === 0) {
+      return res.json({
+        status: 'Failed',
+        message: 'Your account is deactivated 🤦 , Contact IT departement '
+      })
+    }
+    const permissions = await Permission.findAll({ where: { employeeId: employee.id } })
+
+    if (permissions.length === 0) {
+      return res.json({
+        status: 'Failed',
+        message: 'You do not have any permissions 🙄 , Contact IT departement '
+      })
+    }
+
+    let screensIds = []
+    for (let i = 0; i < permissions.length; i++) {
+      screensIds = screensIds.concat(permissions[i].screenId)
+    }
+
+    let screensNames = []
+    for (let i = 0; i < screensIds.length; i++) {
+      const screenName = await Screen.findOne({ where: { id: screensIds[i] } })
+      screensNames = screensNames.concat(screenName.name)
+    }
+
+    return res.json({
+      status: 'Success',
+      data: screensNames,
+      employeeId: employee.id,
+      employeeName: employeeName
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
+// get the forms that are not submitted by the selected departement
+exports.getFormsDisplay = async (req, res) => {
+  try {
+    const dept = req.params.department
+    const forms = await Form.findAll()
+
+    let pendingForms = []
+    let submittedForms = []
+
+    console.log(forms[0].ciSubmition === true)
+    switch (dept) {
+      case 'Distribution' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].distributionSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Sourcing' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].sourcingSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Fleat' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].fleatSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'PR' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].irmrSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'CI' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].ciSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Finance' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].financeSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Sales' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].distributionSubmition & forms[i].sourcingSubmition &
+                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+    }
+
+    switch (dept) {
+      case 'Distribution' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].distributionSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Sourcing' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].sourcingSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Fleat' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].fleatSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'PR' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].irmrSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'CI' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].ciSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Sales' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].distributionSubmition & forms[i].sourcingSubmition &
+                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+    }
+    return res.json({
+      status: 'Success',
+      allForms: forms,
+      pendingForms: pendingForms,
+      submittedForms: submittedForms
     })
   } catch (error) {
     return res.json({

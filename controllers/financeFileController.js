@@ -1,4 +1,4 @@
-const Model = require('../models/ContactPerson')
+const Model = require('../models/FinanceFiles')
 const entityController = require('./main')
 
 exports.default = async (req, res) => {
@@ -11,10 +11,6 @@ exports.create = async (req, res) => {
 
 exports.read = async (req, res) => {
   await entityController.read(req, res, Model)
-}
-
-exports.readByFormId = async (req, res) => {
-  await entityController.readByFormId(req, res, Model)
 }
 
 exports.update = async (req, res) => {

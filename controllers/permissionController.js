@@ -13,6 +13,11 @@ exports.read = async (req, res) => {
   await entityController.read(req, res, Model)
 }
 
+
+exports.getAllPermissions = async (req, res) => {
+  await entityController.getAllPermissions(req, res, Model)
+}
+
 exports.update = async (req, res) => {
   await entityController.update(req, res, Model)
 }

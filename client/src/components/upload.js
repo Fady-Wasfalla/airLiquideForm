@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card, Button  } from "react-bootstrap";
+import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import 'mdbreact/dist/css/mdb.css'
 
 class upload extends Component {

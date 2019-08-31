@@ -18,6 +18,7 @@ Go
 
 
 Create table [Permission](
+id int IDENTITY(1,1) PRIMARY KEY,
 employeeId int ,
 screenId int ,
 FOREIGN KEY(employeeId) REFERENCES Employee(id),
@@ -30,7 +31,7 @@ Go
 /* Form */
 create table [dbo].[Form](
 id int IDENTITY(1,1) PRIMARY KEY,
-employeename varchar(300) ,
+employeename varchar(500) ,
 FOREIGN KEY(employeeName) REFERENCES Employee(userName),
 name VARCHAR(200),
 [date] date ,
@@ -41,6 +42,7 @@ sourcingSubmition bit DEFAULT 0 ,
 fleatSubmition bit DEFAULT 0,
 irmrSubmition bit DEFAULT 0,
 ciSubmition bit DEFAULT 0,
+financeSubmition bit DEFAULT 0,
 )
 go
 
@@ -68,6 +70,7 @@ create table [dbo].[Question](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
 asker VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
+replier VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
 submitionDate datetime ,
 replayDate datetime ,
 question VARCHAR(200),
@@ -606,8 +609,8 @@ adequateLight BIT ,
 adequateLightMP VARCHAR(250) ,
 adequateLightCmt VARCHAR(250) ,
 supplyTime VARCHAR(250) , /* morning , night , all day */
-supplyTimeFrom VARCHAR(100) ,
-supplyTimeTo VARCHAR(100) ,
+supplyTimeFrom time ,
+supplyTimeTo time ,
 supplyTimeCmt VARCHAR(250),
 fireExtinguishers BIT ,
 fireExtinguishersMP VARCHAR(250) ,
@@ -645,6 +648,33 @@ pdiId int FOREIGN KEY REFERENCES Pdi(id) ,
 name varchar(5000)
 )
 go
+
+/*Finance */
+create table [dbo].[Finance](
+id int IDENTITY(1,1) PRIMARY KEY,
+formId int FOREIGN KEY REFERENCES Form(id) ,
+employeeName VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
+decision VARCHAR(200)  , /* disapprove   approve   approve with recommendation */
+decisionComment VARCHAR(100),
+)
+go
+
+create table [dbo].[FinanceAP](
+id int IDENTITY(1,1) PRIMARY KEY,
+financeId int FOREIGN KEY REFERENCES Finance(id) ,
+actions VARCHAR(500),
+)
+go
+
+create table [dbo].[FinanceFiles](
+id int IDENTITY(1,1) PRIMARY KEY,
+financeId int FOREIGN KEY REFERENCES Finance(id) ,
+[path] varchar(5000),
+name varchar(5000)
+)
+go
+
+
 
 create table [dbo].[History](
 id int IDENTITY(1,1) PRIMARY KEY,

@@ -8,13 +8,19 @@ import axios from 'axios'
 
 
 
-
 class fleatFeedback extends Component {
 
     state = {
       finalDecision:{},
       pdi:{}, 
-      }
+      formId:0,
+
+    }
+
+    componentWillMount(){
+      const formId  = this.props.match.params.id
+      this.setState({formId:formId})
+    }
 
     finalDecisionCallBackFunction = (childData) => {
         this.setState({finalDecision:childData})
@@ -25,11 +31,11 @@ class fleatFeedback extends Component {
     }
 
     handleChange=()=>{
+      console.log(this.state)
       axios
-      .post('http://localhost:8000/api/employees/pdiFB',this.state)
+      .post('http://localhost:8000/api/employees/distributionsFB',this.state)
       .then(res => alert(res.data.message))
       .catch(err => alert(err.message))
-      console.log(this.state)
     }
      
       render() {
@@ -44,7 +50,7 @@ class fleatFeedback extends Component {
                 <Row><br/></Row>
                 </Col>
 
-                <Col md={{ span: 12, offset: 0 }}><FormDisplay /></Col>
+                <Col md={{ span: 12, offset: 0 }}><FormDisplay formId={this.state.formId}/></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><PredeliveryIdentificationReport ParentCallBack={this.pdiCallBackFunction}/></Col>
