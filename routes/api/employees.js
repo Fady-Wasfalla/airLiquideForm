@@ -46,9 +46,6 @@ router.post('/ciFB', entity.ciFB)
 
 router.post('/prFB', entity.prFB)
 
-<<<<<<< HEAD
 router.post('/pdiFB', entity.pdiFB)
 
-=======
->>>>>>> Fady
 module.exports = router
