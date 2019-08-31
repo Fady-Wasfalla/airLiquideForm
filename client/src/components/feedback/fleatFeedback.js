@@ -4,10 +4,6 @@ import PredeliveryIdentificationReport from './predeliveryIdentificationReport'
 import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
 import axios from 'axios'
-<<<<<<< HEAD
-
-=======
->>>>>>> Fady
 
 
 
