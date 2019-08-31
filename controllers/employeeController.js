@@ -47,8 +47,6 @@ exports.delete = async (req, res) => {
   await entityController.delete(req, res, Model)
 }
 
-
-
 /* sales man submit a form */
 exports.newForm = async (req, res) => {
   try {
@@ -269,18 +267,18 @@ exports.prFB = async (req, res) => {
 }
 
 exports.getStarted = async (req, res) => {
- try{
+  try {
     const employee = await Model.findOne({ where: { userName: employeeName } })
-    if (employee.activation===0){
+
+    if (employee.activation === 0) {
       return res.json({
         status: 'Failed',
         message: 'Your account is deactivated 🤦 , Contact IT departement '
       })
     }
+    const permissions = await Permission.findAll({ where: { employeeId: employee.id } })
 
-    const permissions = await Permission.findAll({where:{employeeId : employee.id}})
-    
-    if (permissions.length===0){
+    if (permissions.length === 0) {
       return res.json({
         status: 'Failed',
         message: 'You do not have any permissions 🙄 , Contact IT departement '
@@ -288,14 +286,13 @@ exports.getStarted = async (req, res) => {
     }
 
     let screensIds = []
-    for (let i=0 ; i<permissions.length ; i++){
+    for (let i = 0; i < permissions.length; i++) {
       screensIds = screensIds.concat(permissions[i].screenId)
     }
-    
 
     let screensNames = []
-    for (let i=0 ; i<screensIds.length ; i++){
-      const screenName = await Screen.findOne({where:{id : screensIds[i] }})
+    for (let i = 0; i < screensIds.length; i++) {
+      const screenName = await Screen.findOne({ where: { id: screensIds[i] } })
       screensNames = screensNames.concat(screenName.name)
     }
 
@@ -305,25 +302,24 @@ exports.getStarted = async (req, res) => {
       employeeId:employee.id,
       employeeName:employeeName
     })
-  }
-  catch (error) {
+  } catch (error) {
     return res.json({
       status: 'Failed',
       message: error.message
     })
   }
- 
 }
 
-//get the forms that are not submitted by the selected departement
+// get the forms that are not submitted by the selected departement
 exports.getFormsDisplay = async (req, res) => {
-  try{
+  try {
     const dept = req.params.department
     const forms = await Form.findAll()
 
-    let pendingForms=[]
-    let submittedForms=[]
+    let pendingForms = []
+    let submittedForms = []
 
+    console.log(forms[0].ciSubmition === true)
     switch(dept) {
       case "Distribution" :  
                 for (let i=0;i<forms.length ; i++){
@@ -399,20 +395,104 @@ exports.getFormsDisplay = async (req, res) => {
     }
    
 
+    switch (dept) {
+      case 'Distribution' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].distributionSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Sourcing' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].sourcingSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Fleat' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].fleatSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'PR' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].irmrSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'CI' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].ciSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Sales' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].distributionSubmition & forms[i].sourcingSubmition &
+                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+    }
     return res.json({
       status: 'Success',
-      allForms : forms,
-      pendingForms : pendingForms,
-      submittedForms : submittedForms
+      allForms: forms,
+      pendingForms: pendingForms,
+      submittedForms: submittedForms
     })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
 
-     
-   }
-   catch (error) {
-     return res.json({
-       status: 'Failed',
-       message: error.message
-     })
-   }
-  
- }
+exports.getSubmittedFormByDept = async (req, res) => {
+  try {
+    const dept = req.params.department
+    let forms = {}
+    switch (dept) {
+      case 'Distribution' : forms = await Form.findAll({ where: { distributionSubmition: 1 } }); break
+      case 'Sourcing' : forms = await Form.findAll({ where: { sourcingSubmition: 1 } }); break
+      case 'Fleat' : forms = await Form.findAll({ where: { fleatSubmition: 1 } }); break
+      case 'PR' : forms = await Form.findAll({ where: { irmrSubmition: 1 } }); break
+      case 'CI' : forms = await Form.findAll({ where: { ciSubmition: 1 } }); break
+      case 'Sales' : forms = await Form.findAll({ where: {
+        distributionSubmition: 1, sourcingSubmition: 1, fleatSubmition: 1, irmrSubmition: 1, ciSubmition: 1 } }); break
+    }
+    return res.json({
+      status: 'Success',
+      data: forms
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
