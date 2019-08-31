@@ -17,13 +17,13 @@ class upload extends Component {
       nameHandleChange(e,index){
         this.state.name[index] = e.target.value
         this.setState({name:this.state.name})
-        this.props.nameParentCallBack(this.state.name)
+        this.props.ParentCallBack(this.state)
       }
 
       fileHandleChange(event,index){
         this.state.file[index] = event.target.files[0]
         this.setState({file:this.state.file})
-        this.props.fileParentCallBack(this.state.file)
+        this.props.ParentCallBack(this.state)
       }
 
       removeFile(index){
@@ -75,8 +75,11 @@ class upload extends Component {
                     })
                 }
                 </Col>
-                </Row>
+
                 
+                
+                </Row>
+              
                 
             </React.Fragment>
         )
