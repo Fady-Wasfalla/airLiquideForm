@@ -270,7 +270,6 @@ exports.prFB = async (req, res) => {
     })
   }
 }
-<<<<<<< HEAD
 // pdi feedback
 exports.pdiFB = async (req, res) => {
   try {
@@ -310,7 +309,12 @@ exports.pdiFB = async (req, res) => {
       data: fb
     })
   } catch (error) {
-=======
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
 
 exports.getStarted = async (req, res) => {
  try{
@@ -351,16 +355,11 @@ exports.getStarted = async (req, res) => {
     })
   }
   catch (error) {
->>>>>>> Fady
     return res.json({
       status: 'Failed',
       message: error.message
     })
   }
-<<<<<<< HEAD
-}
-=======
- 
 }
 
 //get the forms that are not submitted by the selected departement
@@ -462,6 +461,4 @@ exports.getFormsDisplay = async (req, res) => {
        message: error.message
      })
    }
-  
  }
->>>>>>> Fady
