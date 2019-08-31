@@ -15,8 +15,6 @@ router.get('/', entity.default)
 // read one
 router.get('/:id', entity.read)
 
-
-
 // add one
 router.post('/', entity.create)
 
