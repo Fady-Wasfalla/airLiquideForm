@@ -563,28 +563,3 @@ exports.getFormsDisplay = async (req, res) => {
     })
   }
 }
-
-exports.getSubmittedFormByDept = async (req, res) => {
-  try {
-    const dept = req.params.department
-    let forms = {}
-    switch (dept) {
-      case 'Distribution' : forms = await Form.findAll({ where: { distributionSubmition: 1 } }); break
-      case 'Sourcing' : forms = await Form.findAll({ where: { sourcingSubmition: 1 } }); break
-      case 'Fleat' : forms = await Form.findAll({ where: { fleatSubmition: 1 } }); break
-      case 'PR' : forms = await Form.findAll({ where: { irmrSubmition: 1 } }); break
-      case 'CI' : forms = await Form.findAll({ where: { ciSubmition: 1 } }); break
-      case 'Sales' : forms = await Form.findAll({ where: {
-        distributionSubmition: 1, sourcingSubmition: 1, fleatSubmition: 1, irmrSubmition: 1, ciSubmition: 1 } }); break
-    }
-    return res.json({
-      status: 'Success',
-      data: forms
-    })
-  } catch (error) {
-    return res.json({
-      status: 'Failed',
-      message: error.message
-    })
-  }
-}
