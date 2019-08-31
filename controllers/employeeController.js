@@ -20,6 +20,10 @@ const CifResponse = require('../models/CifResponse')
 const cifAPs = require('../models/CifAP')
 const Irmr = require('../models/Irmr')
 const IrmrAP = require('../models/IrmrAP')
+const Pdi = require('../models/Pdi')
+const PdiAP = require('../models/PdiAP')
+const FireExtinguishers = require('../models/FireExtinguishers')
+const FormFiles = require('../models/FormFiles')
 const os = require('os')
 const employeeName = os.userInfo().username
 
