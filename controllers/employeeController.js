@@ -299,7 +299,59 @@ exports.prFB = async (req, res) => {
     })
   }
 }
-
+// pdi feedback
+exports.pdiFB = async (req, res) => {
+  try {
+    const pdi = req.body.pdi
+    const fireExt = pdi.fireExtinguishersList
+    console.log(fireExt)
+    const finalDecision = req.body.finalDecision
+    let pdiData = Object.assign({}, pdi)
+    delete pdiData.fireExtinguishersList
+    const pdiFb = { ...pdiData,
+      decision: finalDecision.decision,
+      decisionComment: finalDecision.decisionComment }
+    // console.log(irmrFb)
+    const fb = await Pdi.create({ formId: 1, ...pdiFb, employeeName })
+    await Form.update(
+      { fleatSubmition: true },
+      { where: { id: 1 } }
+    )
+    await History.update(
+      { fleatSubmition: localISOTime },
+      { where: { formId: 16 } }
+    )
+    const pdiId = fb.id
+    if (pdiFb.decision === 'Approve with recommendation') {
+      for (let i = 0; i < finalDecision.actionPlan.length; i++) {
+        let irmrsAPData = {
+          pdiId: fb.id,
+          actions: finalDecision.actionPlan[i]
+        }
+        await PdiAP.create(irmrsAPData)
+      }
+    }
+    if (fireExt) {
+      console.log(260)
+      for (let i = 0; i < fireExt.number.length; i++) {
+        let fireExtData = {
+          pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
+        }
+        await FireExtinguishers.create(fireExtData)
+      }
+    }
+    return res.status(200).json({
+      status: 'Success',
+      message: 'Fleat Feedback sumbmitted',
+      data: fb
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
 exports.getStarted = async (req, res) => {
  try{
     const employee = await Model.findOne({ where: { userName: employeeName } })
@@ -344,9 +396,7 @@ exports.getStarted = async (req, res) => {
       message: error.message
     })
   }
- 
 }
-
 //get the forms that are not submitted by the selected departement
 exports.getFormsDisplay = async (req, res) => {
   try{
@@ -429,22 +479,16 @@ exports.getFormsDisplay = async (req, res) => {
                 }
                   ;break;
     }
-   
-
     return res.json({
       status: 'Success',
       allForms : forms,
       pendingForms : pendingForms,
       submittedForms : submittedForms
-    })
-
-     
-   }
-   catch (error) {
+    }) 
+   }catch (error) {
      return res.json({
        status: 'Failed',
        message: error.message
      })
    }
-  
- }
+  }

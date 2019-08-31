@@ -37,4 +37,6 @@ router.post('/ciFB', entity.ciFB)
 
 router.post('/prFB', entity.prFB)
 
+router.post('/pdiFB', entity.pdiFB)
+
 module.exports = router

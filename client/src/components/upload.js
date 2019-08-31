@@ -66,7 +66,7 @@ class upload extends Component {
                             <Form>
                                 <Form.Row>
                                     <Col md={4}>
-                                    <Row style={{height: .05*window.innerHeight + 'px'}}/>
+                                    <Row style={{height: .05*window.innerHeight + 'px'}}/>                             
                                         <input type="file" name="file" onChange={(e)=>this.fileHandleChange(e,index)} />
                                     </Col>
                                 </Form.Row>

@@ -42,11 +42,6 @@ exports.readByFormId = async (req, res, model) => {
     })
   }
 }
-
-
-
-
-
 // create
 exports.create = async (req, res, model) => {
   if (Object.keys(req.body).length === 0) {
