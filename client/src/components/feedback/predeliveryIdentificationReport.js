@@ -90,7 +90,7 @@ class predeliveryIdentificationReport extends Component {
     supplyTimeToHandleChange = supplyTimeTo => this.setState({ supplyTimeTo })
 
     vehicleTypeHandleChange = vehicleType => {
-        this.setState({ vehicleType: vehicleType.value });
+        this.setState({ vehicleType });
         console.log(vehicleType)
       };
 
@@ -563,7 +563,7 @@ class predeliveryIdentificationReport extends Component {
                             <Col md={6}>
                             <Form.Label style={{fontWeight:"bold"}}>Type of vehicle suitable for service</Form.Label>
                             <Select
-                            value={this.state.vehicleType.value}
+                            value={this.state.vehicleType}
                             onChange={this.vehicleTypeHandleChange}
                             options={this.state.vehicleTypeOptions}
                             />

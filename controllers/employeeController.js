@@ -129,7 +129,7 @@ exports.distributionFB = async (req, res) => {
   try {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Distributions.create({ ...finalDecisionData , employeeName , formId:req.body.formId })
+    const fb = await Distributions.create({ ...finalDecisionData, employeeName, formId: req.body.formId })
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let distributionsAPData = {
@@ -157,7 +157,7 @@ exports.financeFB = async (req, res) => {
   try {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Finance.create({ ...finalDecisionData , employeeName , formId:req.body.formId })    
+    const fb = await Finance.create({ ...finalDecisionData, employeeName, formId: req.body.formId })
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let financeAPData = {
@@ -184,7 +184,7 @@ exports.sourcingsFB = async (req, res) => {
   try {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Sourcings.create({ ...finalDecisionData , employeeName , formId:req.body.formId })    
+    const fb = await Sourcings.create({ ...finalDecisionData, employeeName, formId: req.body.formId })
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let sourcingsAPData = {
@@ -211,7 +211,7 @@ exports.ciFB = async (req, res) => {
   try {
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await CifResponse.create({ ...finalDecisionData , employeeName , formId:req.body.formId })    
+    const fb = await CifResponse.create({ ...finalDecisionData, employeeName, formId: req.body.formId })
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let sourcingsAPData = {
@@ -243,7 +243,7 @@ exports.prFB = async (req, res) => {
       decisionComment: finalDecision.decisionComment }
     let finalDecisionData = Object.assign({}, irmrFb)
     delete finalDecisionData.actionPlan
-    const fb = await Irmr.create({ ...finalDecisionData , employeeName , formId:req.body.formId })
+    const fb = await Irmr.create({ ...finalDecisionData, employeeName, formId: req.body.formId })
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < finalDecision.actionPlan.length; i++) {
         let irmrsAPData = {
@@ -256,51 +256,6 @@ exports.prFB = async (req, res) => {
     return res.status(200).json({
       status: 'Success',
       message: 'PR Feedback sumbmitted',
-      data: fb
-    })
-  } catch (error) {
-    return res.json({
-      status: 'Failed',
-      message: error.message
-    })
-  }
-}
-// pdi feedback
-exports.pdiFB = async (req, res) => {
-  try {
-    const pdi = req.body.pdi
-    const fireExt = pdi.fireExtinguishersList
-    console.log(fireExt)
-    const finalDecision = req.body.finalDecision
-    let pdiData = Object.assign({}, pdi)
-    delete pdiData.fireExtinguishersList
-    const pdiFb = { ...pdiData,
-      decision: finalDecision.decision,
-      decisionComment: finalDecision.decisionComment }
-    // console.log(irmrFb)
-    const fb = await Pdi.create({ formId: 1, ...pdiFb, employeeName })
-    const pdiId = fb.id
-    if (pdiFb.decision === 'Approve with recommendation') {
-      for (let i = 0; i < finalDecision.actionPlan.length; i++) {
-        let irmrsAPData = {
-          pdiId: fb.id,
-          actions: finalDecision.actionPlan[i]
-        }
-        await PdiAP.create(irmrsAPData)
-      }
-    }
-    if (fireExt) {
-      console.log(260)
-      for (let i = 0; i < fireExt.number.length; i++) {
-        let fireExtData = {
-          pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
-        }
-        await FireExtinguishers.create(fireExtData)
-      }
-    }
-    return res.status(200).json({
-      status: 'Success',
-      message: 'Fleat Feedback sumbmitted',
       data: fb
     })
   } catch (error) {
@@ -344,11 +299,10 @@ exports.getStarted = async (req, res) => {
     return res.json({
       status: 'Success',
       data: screensNames,
-      employeeId:employee.id,
-      employeeName:employeeName
+      employeeId: employee.id,
+      employeeName: employeeName
     })
-  }
-  catch (error) {
+  } catch (error) {
     return res.json({
       status: 'Failed',
       message: error.message
@@ -366,80 +320,79 @@ exports.getFormsDisplay = async (req, res) => {
     let submittedForms = []
 
     console.log(forms[0].ciSubmition === true)
-    switch(dept) {
-      case "Distribution" :  
-                for (let i=0;i<forms.length ; i++){
-                  //get submitted forms by the dept
-                  if (forms[i].distributionSubmition){
-                    submittedForms = submittedForms.concat(forms[i])
-                  }else{
-                    pendingForms = pendingForms.concat(forms[i])                    
-                  }
-                }
-                  ;break;
-      case "Sourcing" : 
-                for (let i=0;i<forms.length ; i++){
-                  //get submitted forms by the dept
-                  if (forms[i].sourcingSubmition){
-                    submittedForms = submittedForms.concat(forms[i])
-                  }else{
-                    pendingForms = pendingForms.concat(forms[i])                    
-                  }
-                }
-                  ;break;
-      case "Fleat" : 
-                 for (let i=0;i<forms.length ; i++){
-                  //get submitted forms by the dept
-                  if (forms[i].fleatSubmition){
-                    submittedForms = submittedForms.concat(forms[i])
-                  }else{
-                    pendingForms = pendingForms.concat(forms[i])                    
-                  }
-                }
-                  ;break;
-      case "PR" : 
-                for (let i=0;i<forms.length ; i++){
-                  //get submitted forms by the dept
-                  if (forms[i].irmrSubmition){
-                    submittedForms = submittedForms.concat(forms[i])
-                  }else{
-                    pendingForms = pendingForms.concat(forms[i])                    
-                  }
-                }
-                  ;break;
-      case "CI" :  
-                for (let i=0;i<forms.length ; i++){
-                  //get submitted forms by the dept
-                  if (forms[i].ciSubmition){
-                    submittedForms = submittedForms.concat(forms[i])
-                  }else{
-                    pendingForms = pendingForms.concat(forms[i])                    
-                  }
-                }
-                  ;break;
-      case "Finance" :  
-                  for (let i=0;i<forms.length ; i++){
-                    //get submitted forms by the dept
-                    if (forms[i].financeSubmition){
-                      submittedForms = submittedForms.concat(forms[i])
-                    }else{
-                      pendingForms = pendingForms.concat(forms[i])                    
-                    }
-                  }
-                    ;break;
-      case "Sales" :
-                for (let i=0;i<forms.length ; i++){
-                  //get submitted forms by the dept
-                  if (forms[i].distributionSubmition & forms[i].sourcingSubmition & 
-                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition ){
-                    submittedForms = submittedForms.concat(forms[i])
-                  }else{
-                    pendingForms = pendingForms.concat(forms[i])                    
-                  }
-                }
-                  ;break;
+    switch (dept) {
+      case 'Distribution' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].distributionSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Sourcing' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].sourcingSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Fleat' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].fleatSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'PR' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].irmrSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'CI' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].ciSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Finance' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].financeSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
+      case 'Sales' :
+        for (let i = 0; i < forms.length; i++) {
+          // get submitted forms by the dept
+          if (forms[i].distributionSubmition & forms[i].sourcingSubmition &
+                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition) {
+            submittedForms = submittedForms.concat(forms[i])
+          } else {
+            pendingForms = pendingForms.concat(forms[i])
+          }
+        }
+        ;break
     }
-   
 
     switch (dept) {
       case 'Distribution' :
@@ -542,5 +495,3 @@ exports.getSubmittedFormByDept = async (req, res) => {
     })
   }
 }
-     
-  
