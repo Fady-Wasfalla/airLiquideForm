@@ -20,9 +20,6 @@ const CifResponse = require('../models/CifResponse')
 const cifAPs = require('../models/CifAP')
 const Irmr = require('../models/Irmr')
 const IrmrAP = require('../models/IrmrAP')
-const Pdi = require('../models/Pdi')
-const PdiAP = require('../models/PdiAP')
-const FireExtinguishers = require('../models/FireExtinguishers')
 const os = require('os')
 const employeeName = os.userInfo().username
 
@@ -270,47 +267,6 @@ exports.prFB = async (req, res) => {
     })
   }
 }
-<<<<<<< HEAD
-// pdi feedback
-exports.pdiFB = async (req, res) => {
-  try {
-    const pdi = req.body.pdi
-    const fireExt = pdi.fireExtinguishersList
-    console.log(fireExt)
-    const finalDecision = req.body.finalDecision
-    let pdiData = Object.assign({}, pdi)
-    delete pdiData.fireExtinguishersList
-    const pdiFb = { ...pdiData,
-      decision: finalDecision.decision,
-      decisionComment: finalDecision.decisionComment }
-    // console.log(irmrFb)
-    const fb = await Pdi.create({ formId: 1, ...pdiFb, employeeName })
-    const pdiId = fb.id
-    if (pdiFb.decision === 'Approve with recommendation') {
-      for (let i = 0; i < finalDecision.actionPlan.length; i++) {
-        let irmrsAPData = {
-          pdiId: fb.id,
-          actions: finalDecision.actionPlan[i]
-        }
-        await PdiAP.create(irmrsAPData)
-      }
-    }
-    if (fireExt) {
-      console.log(260)
-      for (let i = 0; i < fireExt.number.length; i++) {
-        let fireExtData = {
-          pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
-        }
-        await FireExtinguishers.create(fireExtData)
-      }
-    }
-    return res.status(200).json({
-      status: 'Success',
-      message: 'Fleat Feedback sumbmitted',
-      data: fb
-    })
-  } catch (error) {
-=======
 
 exports.getStarted = async (req, res) => {
  try{
@@ -351,15 +307,11 @@ exports.getStarted = async (req, res) => {
     })
   }
   catch (error) {
->>>>>>> Fady
     return res.json({
       status: 'Failed',
       message: error.message
     })
   }
-<<<<<<< HEAD
-}
-=======
  
 }
 
@@ -464,4 +416,3 @@ exports.getFormsDisplay = async (req, res) => {
    }
   
  }
->>>>>>> Fady
