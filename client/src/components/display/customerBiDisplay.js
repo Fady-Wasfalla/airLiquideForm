@@ -11,7 +11,7 @@ class customerBiDisplay extends Component {
         zone:"",
         address:"",
 
-        open:true,
+        open:false,
     }
 
     

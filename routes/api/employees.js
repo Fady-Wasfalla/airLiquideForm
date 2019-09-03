@@ -19,6 +19,8 @@ router.get('/getStarted', entity.getStarted)
 
 router.get('/getFormsDisplay/:department', entity.getFormsDisplay)
 
+router.get('/getQuestions/:userName', entity.getQuestions)
+
 router.get('/', entity.default)
 
 // get employee id

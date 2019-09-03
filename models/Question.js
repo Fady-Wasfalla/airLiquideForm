@@ -12,5 +12,4 @@ const Question = db.define('Question', {
   freezeTableName: true
 }
 )
-
 module.exports = Question

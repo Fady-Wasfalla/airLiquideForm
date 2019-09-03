@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import FormDisplay from '../display/formDisplay'
-import ResponseCard from './responseCard'
 import Upload from '../upload'
 import axios from 'axios'
 
 
 
-class distributionFeedback extends Component {
+class viewQuestion extends Component {
 
     state = {
         finalDecision:{},
@@ -43,21 +42,16 @@ class distributionFeedback extends Component {
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>
                 <Card border="secondary">
-                <Card.Header as="h4" className="text-white" style={{backgroundColor:"#375f9b"}}>Distribution Feedback</Card.Header>                
+                <Card.Header as="h4" className="text-white" style={{backgroundColor:"#375f9b"}}>Answer Question</Card.Header>                
                 <Row><br/></Row>
                 <Col  md={{ span: 12, offset: 0 }}>
                 <Row><br/></Row>
                 </Col>
 
-                <Col md={{ span: 12, offset: 0 }}><FormDisplay  formId={this.state.formId}/></Col>
+                <Col md={{ span: 12, offset: 0 }}><FormDisplay ShowAsk={"none"}  formId={this.state.formId}/></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
-                                                          fileParentCallBack={this.fileUploadCallBackFunction}/></Col>
-                <Row><br/></Row>
-
-                <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>
-                <Row><br/></Row>
+                
                 
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>
@@ -80,4 +74,4 @@ class distributionFeedback extends Component {
 }
 
 
-export default distributionFeedback;
+export default viewQuestion;

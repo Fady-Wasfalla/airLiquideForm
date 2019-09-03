@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import FormDisplay from '../display/formDisplay'
 import ResponseCard from './responseCard'
+import Upload from '../upload'
 import axios from 'axios'
 
 
@@ -27,6 +28,14 @@ class financeFeedback extends Component {
       .then(res => alert(res.data.message))
       .catch(err => alert(err.message))
     }
+
+    nameUploadCallBackFunction = (childData) => {
+      this.setState({filesNames:childData})
+    }
+
+    fileUploadCallBackFunction = (childData) => {
+      this.setState({file:childData})
+    }
      
       render() {
         return (
@@ -41,6 +50,10 @@ class financeFeedback extends Component {
                 </Col>
 
                 <Col md={{ span: 12, offset: 0 }}><FormDisplay  formId={this.state.formId}/></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
+                                                          fileParentCallBack={this.fileUploadCallBackFunction}/></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>

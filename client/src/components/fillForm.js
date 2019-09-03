@@ -60,7 +60,7 @@ class fillForm extends Component {
          this.setState({pri:childData})
       }
 
-      nameUploadCallBackFunction = (childData) => {
+    nameUploadCallBackFunction = (childData) => {
         this.setState({filesNames:childData})
      }
 
@@ -111,12 +111,9 @@ class fillForm extends Component {
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
-                                                          fileParentCallBack={this.fileUploadCallBackFunction}
-                                                          sendData={this.send}/></Col>
+                                                          fileParentCallBack={this.fileUploadCallBackFunction}/></Col>
                 <Row><br/></Row>
 
-                {/* <input type="file" name="file" onChange={this.onChangeHandlerfile1}/> */}
-                {/* <input type="file" name="file" onChange={this.onChangeHandlerfile2}/> */}
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>
                 <Button variant="danger" className="text-white" 

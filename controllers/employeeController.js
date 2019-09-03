@@ -24,6 +24,7 @@ const Pdi = require('../models/Pdi')
 const PdiAP = require('../models/PdiAP')
 const FireExtinguishers = require('../models/FireExtinguishers')
 const FormFiles = require('../models/FormFiles')
+const Questions = require('../models/Question')
 const os = require('os')
 const employeeName = os.userInfo().username
 
@@ -562,4 +563,43 @@ exports.getFormsDisplay = async (req, res) => {
       message: error.message
     })
   }
+}
+
+exports.getQuestions = async (req, res) => {
+try {
+
+  let pendingQuestions = []
+  let submittedQuestions = []
+  Form.hasMany(Questions, {foreignKey: 'id'})
+  Questions.belongsTo(Form, {foreignKey: 'formId'})
+  const userName = req.params.userName
+  const questions = await Questions.findAll({
+                                            include: [{
+                                              model: Form,
+                                              required: true,
+                                              where: {employeename: userName}
+                                            }]
+                                          }) 
+  for (let i =0 ; i<questions.length ; i++){
+    if (questions[i].answer){
+      submittedQuestions = submittedQuestions.concat(questions[i])
+    }else{
+      pendingQuestions = pendingQuestions.concat(questions[i])
+    }
+  }
+  
+  return res.json({
+      status: 'Success',
+      allQuestions: questions ,
+      pendingQuestions: pendingQuestions ,
+      submittedQuestions: submittedQuestions ,
+    })
+} catch (error) {
+  return res.json({
+    status: 'Failed',
+    message: error.message
+  })
+}
+
+
 }
