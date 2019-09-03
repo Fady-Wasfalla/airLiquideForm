@@ -12,22 +12,19 @@ const storage = multer.diskStorage({
 })
 const formFilesUpload = multer({ storage: storage })
 
-/* cif routes */
+
 const entity = require('../../controllers/employeeController')
-// read all
+
 router.get('/getStarted', entity.getStarted)
 
 router.get('/getFormsDisplay/:department', entity.getFormsDisplay)
-
+// read all
 router.get('/', entity.default)
 
-// get employee id 
+// get employee id
 
 // read one
 router.get('/:id', entity.read)
-
-
-
 // add one
 router.post('/', entity.create)
 
@@ -38,16 +35,16 @@ router.delete('/:id', entity.delete)
 
 router.post('/newForm', formFilesUpload.array('file', 20), entity.newForm)
 
-router.post('/distributionsFB', entity.distributionFB)
+router.post('/distributionsFB/:id', entity.distributionFB)
 
-router.post('/financeFB', entity.financeFB)
+router.post('/financeFB/:id', entity.financeFB)
 
-router.post('/sourcingsFB', entity.sourcingsFB)
+router.post('/sourcingsFB/:id', entity.sourcingsFB)
 
-router.post('/ciFB', entity.ciFB)
+router.post('/ciFB/:id', entity.ciFB)
 
-router.post('/prFB', entity.prFB)
+router.post('/prFB/:id', entity.prFB)
 
-router.post('/pdiFB', entity.pdiFB)
+router.post('/pdiFB/:id', entity.pdiFB)
 
 module.exports = router

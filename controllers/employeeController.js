@@ -313,7 +313,6 @@ exports.pdiFB = async (req, res) => {
   try {
     const pdi = req.body.pdi
     const fireExt = pdi.fireExtinguishersList
-    console.log(fireExt)
     const finalDecision = req.body.finalDecision
     let pdiData = Object.assign({}, pdi)
     delete pdiData.fireExtinguishersList
@@ -341,7 +340,6 @@ exports.pdiFB = async (req, res) => {
       }
     }
     if (fireExt) {
-      console.log(260)
       for (let i = 0; i < fireExt.number.length; i++) {
         let fireExtData = {
           pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
