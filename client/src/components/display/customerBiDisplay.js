@@ -13,11 +13,10 @@ class customerBiDisplay extends Component {
 
         open:true,
     }
-
-    
-    
-    
-     
+    componentWillMount(){
+        console.log(17)
+        console.log(this.props)
+    } 
       render() {
           let cpChange = this.props.CP
           let newCP = Object.assign([{}],cpChange)
@@ -30,7 +29,7 @@ class customerBiDisplay extends Component {
                 <Col>Customer Basics Info</Col>
                 <Button variant="outline-light" size="sm"
                  onClick={(e)=>{this.setState({open:!this.state.open})
-                                }}>☰</Button>
+                                 }}>☰</Button>
                  </Row>
                 </Card.Header>
                 <Row><br/></Row>

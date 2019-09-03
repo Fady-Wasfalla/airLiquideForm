@@ -30,7 +30,7 @@ const PdiFiles = require('../models/PdiFiles')
 const PdiAP = require('../models/PdiAP')
 const FireExtinguishers = require('../models/FireExtinguishers')
 const FormFiles = require('../models/FormFiles')
-const Question = require('../models/Question') 
+const Question = require('../models/Question')
 const os = require('os')
 const employeeName = os.userInfo().username
 const tzoffset = (new Date()).getTimezoneOffset() * 60000
@@ -376,7 +376,7 @@ exports.getStarted = async (req, res) => {
       })
     }
     const permissions = await Permission.findAll({ where: { employeeId: employee.id } })
-    console.log(permissions)
+
     if (permissions.length === 0) {
       return res.json({
         status: 'Failed',
@@ -397,6 +397,7 @@ exports.getStarted = async (req, res) => {
 
     return res.json({
       status: 'Success',
+      message: 'you can work now',
       data: screensNames,
       employeeId: employee.id,
       employeeName: employeeName
@@ -570,6 +571,7 @@ exports.getFormsDisplay = async (req, res) => {
 }
 exports.showFormData = async (req, res) => {
   try {
+    console.log(574)
     const formId = req.params.id
     var form = await Form.findOne({ where: { id: formId } })
     if (!form) {
@@ -582,7 +584,7 @@ exports.showFormData = async (req, res) => {
     const contactPerson = await ConrtactPerson.findAll({ where: { formId: formId } })
     const history = await History.findAll({ where: { formId: formId } })
     const questions = await Question.findAll({ where: { formId: formId } })
-    const fromData = { form, contactPerson, formFiles, history,questions }
+    const fromData = { form, contactPerson, formFiles, history, questions }
     const lvf = await Lvf.findOne({ where: { formId: formId } })
     const cif = await Cif.findOne({ where: { formId: formId } })
     /* ------------------------------------------------------PRI-------------------------------------------------------- */
@@ -661,7 +663,7 @@ exports.showFormData = async (req, res) => {
       const sourcingsId = sourcings.id
       const sourcingsAP = await SourcingsAP.findAll({ where: { sourcingsId: sourcingsId } })
       const sourcingsFiles = await SourcingsFiles.findAll({ where: { sourcingsId: sourcingsId } })
-      irmrData = {
+      sourcingsData = {
         sourcings,
         sourcingsAP,
         sourcingsFiles
@@ -670,15 +672,15 @@ exports.showFormData = async (req, res) => {
     /* -----------------------------------------------------SOURCINGS-------------------------------------------------------- */
     return res.json({
       status: 'Success',
-      fromData,
+      fromData, /* { form, contactPerson, formFiles, history, questions } */
       lvf,
       cif,
-      priData,
-      cifResponseData,
-      distributionsResponseData,
-      irmrData,
-      pdiData,
-      sourcingsData
+      priData, /* { pri, fulids, utilities } */
+      cifResponseData, /* { cifResponse,cifAP, cifFiles} */
+      distributionsResponseData, /* {distributions,distributionsAP,distributionsFiles} */
+      irmrData, /* {irmr,irmrAP, irmrFiles } */
+      pdiData, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdiTemp, fireExtinguishers } */
+      sourcingsData /* { sourcings,sourcingsAP, sourcingsFile} */
     })
   } catch (error) {
     return res.json({

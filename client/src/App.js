@@ -31,7 +31,7 @@ class App extends Component {
                       sessionStorage.setItem('ID', res.data.employeeId)
                       sessionStorage.setItem('employeeName', res.data.employeeName)
                       this.setState({employeeId:res.data.employeeId})
-                      alert(res.data.message)})
+  })
     .catch(err => alert(err.message))
 
   }
