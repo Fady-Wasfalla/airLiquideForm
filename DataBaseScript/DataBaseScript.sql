@@ -23,7 +23,6 @@ employeeId int ,
 screenId int ,
 FOREIGN KEY(employeeId) REFERENCES Employee(id),
 FOREIGN KEY(screenId) REFERENCES Screen(id),
-CONSTRAINT PK_Permission PRIMARY KEY (employeeId,screenId)
 )
 Go
 

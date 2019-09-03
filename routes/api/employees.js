@@ -47,4 +47,6 @@ router.post('/prFB/:id', entity.prFB)
 
 router.post('/pdiFB/:id', entity.pdiFB)
 
+router.get('/showFormData/:id', entity.showFormData)
+
 module.exports = router
