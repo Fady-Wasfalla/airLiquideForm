@@ -62,7 +62,7 @@ class App extends Component {
         <Route exact path='/ciFeedback/:id' component={CiFeedback} />
         <Route exact path='/prFeedback/:id' component={PrFeedback} />
         <Route exact path='/getMyQuestions/:userName' component={Questions} />
-        <Route exact path='/viewQuestion/:id' component={viewQuestion} />
+        <Route exact path='/viewQuestion/:formId/:questionId' component={viewQuestion} />
         <Route exact path='/cases/:department'
         render={(props) => <Cases {...props} screensNames={this.state.screensNames} />}/>
       </Switch>

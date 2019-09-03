@@ -11,21 +11,31 @@ class viewQuestion extends Component {
     state = {
         finalDecision:{},
         formId:0,
+        question:{},
+        answer:"",
+        replayDate : new Date(),
+
+
       }
     componentWillMount(){
-      const formId  = this.props.match.params.id
+      const formId  = this.props.match.params.formId
       this.setState({formId:formId})
-    }
-    finalDecisionCallBackFunction = (childData) => {
-        this.setState({finalDecision:childData})
+        axios
+        .get('http://localhost:8000/api/questions/'+this.props.match.params.questionId)
+        .then(res => { this.setState({question:res.data.data}) })
+        .catch(err => alert(err.message))
     }
 
     handleChange=()=>{
-      console.log(this.state)
-      axios
-      .post('http://localhost:8000/api/employees/distributionsFB',this.state)
-      .then(res => alert(res.data.message))
-      .catch(err => alert(err.message))
+        console.log(this.state)
+        let sentData = Object.assign({},this.state)
+        delete sentData.finalDecision
+        delete sentData.formId
+        delete sentData.question
+        axios
+        .put('http://localhost:8000/api/questions/'+this.props.match.params.questionId,sentData)
+        .then(res => alert(res.data.message))
+        .catch(err => alert(err.message))
     }
 
     nameUploadCallBackFunction = (childData) => {
@@ -51,7 +61,21 @@ class viewQuestion extends Component {
                 <Col md={{ span: 12, offset: 0 }}><FormDisplay ShowAsk={"none"}  formId={this.state.formId}/></Col>
                 <Row><br/></Row>
 
-                
+                <Col md={{ span: 11, offset: 1 }}>
+                <Form.Row>
+                            <Form.Group as={Col} >
+                                    <Form.Label style={{fontWeight:"bold"}}>{this.state.question.question}</Form.Label>
+                                    <Card.Text></Card.Text>
+                            </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                            <Form.Group as={Col} md={10}>
+                                <Form.Label>Answer</Form.Label>
+                                <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({answer:e.target.value})}} />
+                            </Form.Group>
+                </Form.Row>
+
+                </Col>
                 
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>

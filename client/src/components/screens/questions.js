@@ -48,8 +48,8 @@ class questions extends Component {
         }
     }
 
-    reDirect=(id)=>{
-        let path = "/viewQuestion/"+id;
+    reDirect=(formId,QuestionId)=>{
+        let path = "/viewQuestion/"+formId+"/"+QuestionId;
         this.props.history.push(path);
     }
 
@@ -80,7 +80,8 @@ class questions extends Component {
                             return (
                                 <Col md={{offset:0,span:4}}>
                                 <div className="shadow-box-example hoverable">
-                                <Card border="primary" bg="light" onClick={(e)=>{this.reDirect(this.state.displayedQuestion[index].formId)}}>
+                                <Card border="primary" bg="light" onClick={(e)=>{this.reDirect(this.state.displayedQuestion[index].formId,
+                                                                                                this.state.displayedQuestion[index].id)}}>
                                 <Card.Header as="h5" className="text-center"  variant="link">{this.state.displayedQuestion[index].Form.name}</Card.Header>
                                 <Row><br/></Row>
                                 <Col md={12}>
