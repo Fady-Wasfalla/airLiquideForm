@@ -623,7 +623,7 @@ exports.showFormData = async (req, res) => {
     const contactPerson = await ConrtactPerson.findAll({ where: { formId: formId } })
     const history = await History.findAll({ where: { formId: formId } })
     const questions = await Question.findAll({ where: { formId: formId } })
-    const fromData = { form, contactPerson, formFiles, history, questions }
+    const formData = { form, contactPerson, formFiles, history, questions }
     const lvf = await Lvf.findOne({ where: { formId: formId } })
     const cif = await Cif.findOne({ where: { formId: formId } })
     /* ------------------------------------------------------PRI-------------------------------------------------------- */
@@ -711,7 +711,7 @@ exports.showFormData = async (req, res) => {
     /* -----------------------------------------------------SOURCINGS-------------------------------------------------------- */
     return res.json({
       status: 'Success',
-      fromData, /* { form, contactPerson, formFiles, history, questions } */
+      formData, /* { form, contactPerson, formFiles, history, questions } */
       lvf,
       cif,
       priData, /* { pri, fulids, utilities } */

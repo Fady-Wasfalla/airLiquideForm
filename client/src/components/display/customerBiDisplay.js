@@ -18,9 +18,10 @@ class customerBiDisplay extends Component {
         console.log(this.props)
     } 
       render() {
+          let cbiChange = this.props.CBI
+          let cbi = Object.assign([{}],cbiChange)
           let cpChange = this.props.CP
           let newCP = Object.assign([{}],cpChange)
-          let cbi = this.props.CBI
         return (
             <React.Fragment>
                 <Card border="secondary" >
