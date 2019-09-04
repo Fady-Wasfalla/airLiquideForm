@@ -75,6 +75,11 @@ class cifDisplay extends Component {
       };
      
       render() {
+        let cif
+        if (this.props.CIF === null)
+          cif = {}
+        else 
+          cif = this.props.CIF
         return (
             <React.Fragment>
                 <Card border="secondary" >
@@ -92,18 +97,16 @@ class cifDisplay extends Component {
                     <Form>
 
                     <Form.Row >
-                            <Form.Group as={Col} controlId="ProductType" >
+                            <Form.Group as={Col} style={{fontWeight:"bold"}}  controlId="ProductType" >
                             <Form.Label>Product</Form.Label>
-                            <Select
-                            value={this.state.product}
-                            onChange={this.ProductHandleChange}
-                            options={this.state.ProductTypeOptions}
-                            />
+                            <Card.Text>{cif.product}</Card.Text>
+
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="applicationProduct">
-                            <Form.Label>Application Product</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({applicationProduct:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Application Product</Form.Label>
+                            <Card.Text>{cif.applicationProduct}</Card.Text>
+
                             </Form.Group>
                         
 
@@ -113,21 +116,15 @@ class cifDisplay extends Component {
                     <Form.Row>
 
                             <Form.Group as={Col} controlId="RequiredPhase" >
-                            <Form.Label>Required Phase</Form.Label>
-                            <Select
-                            value={this.state.requiredPhase}
-                            onChange={this.RequiredPhaseHandleChange}
-                            options={this.state.RequiredPhaseTypeOptions}
-                            />
+                            <Form.Label style={{fontWeight:"bold"}}>Required Phase</Form.Label>
+                            <Card.Text>{cif.requiredPhase}</Card.Text>
+
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="FlowUnit" >
-                            <Form.Label>Flow Unit</Form.Label>
-                            <Select
-                            value={this.state.flowUnit}
-                            onChange={this.FlowUnitHandleChange}
-                            options={this.state.FlowUnitTypeOptions}
-                            />
+                            <Form.Label style={{fontWeight:"bold"}} >Flow Unit</Form.Label>
+                            <Card.Text>{cif.flowUnit}</Card.Text>
+
                             </Form.Group>
 
                     </Form.Row>
@@ -135,23 +132,19 @@ class cifDisplay extends Component {
                     <Form.Row>
                         
                          <Form.Group as={Col} controlId="averageFlowRateValue">
-                            <Form.Label>Average Flow Rate Value</Form.Label>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({averageFlowRateValue:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Average Flow Rate Value</Form.Label>
+                            <Card.Text>{cif.averageFlowRateValue}</Card.Text>
                         </Form.Group>
 
                          <Form.Group as={Col} controlId="averagePressure">
-                            <Form.Label>Average Pressure</Form.Label>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({averagePressure:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}} >Average Pressure</Form.Label>
+                            <Card.Text>{cif.averagePressure}</Card.Text>
                         </Form.Group>
 
                             <Form.Group as={Col} controlId="averageDuration" >
-                            <Form.Label>Average Duration</Form.Label>
-                            <InputGroup >
-                            <InputGroup.Append>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({averageDuration:e.target.value})}} />
-                            <InputGroup.Text id="basic-addon2">Hrs/Day</InputGroup.Text>
-                                </InputGroup.Append>
-                            </InputGroup>
+                            <Form.Label style={{fontWeight:"bold"}} >Average Duration</Form.Label>
+                            <Card.Text>{cif.averageDuration}</Card.Text>
+
                             </Form.Group>
 
                             
@@ -161,13 +154,13 @@ class cifDisplay extends Component {
                     <Form.Row>
 
                          <Form.Group as={Col} controlId="maximumFlowRrateValue">
-                            <Form.Label>Maximum Flow Rrate Value</Form.Label>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({maximumFlowRrateValue:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}} >Maximum Flow Rrate Value</Form.Label>
+                            <Card.Text>{cif.maximumFlowRrateValue}</Card.Text>
                         </Form.Group>
 
                          <Form.Group as={Col} controlId="maximumPressure">
-                            <Form.Label>Maximum Pressure</Form.Label>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({maximumPressure:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Maximum Pressure</Form.Label>
+                            <Card.Text>{cif.maximumPressure}</Card.Text>
                         </Form.Group>
 
                     </Form.Row>
@@ -175,22 +168,19 @@ class cifDisplay extends Component {
                     <Form.Row>
 
                         <Form.Group as={Col} controlId="MaximumDurationUnit" >
-                            <Form.Label>Maximum Duration Unit</Form.Label>
-                            <Select
-                            value={this.state.maximumDurationUnit}
-                            onChange={this.MaximumDurationUnitHandleChange}
-                            options={this.state.MaximumDurationUnitTypeOptions}
-                            />
+                            <Form.Label style={{fontWeight:"bold"}}>Maximum Duration Unit</Form.Label>
+                            <Card.Text>{cif.maximumDurationUnit}</Card.Text>
+
                         </Form.Group>
                 
                         <Form.Group as={Col} controlId="maximumDurationValue">
-                            <Form.Label>Maximum Duration Value</Form.Label>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({maximumDurationValue:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Maximum Duration Value</Form.Label>
+                            <Card.Text>{cif.maximumDurationValue}</Card.Text>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="repetitionPerDay">
-                            <Form.Label>Repetition/Day</Form.Label>
-                            <FormControl type={"number"}  onChange={(e)=>{this.setState({repetitionPerDay:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Repetition/Day</Form.Label>
+                            <Card.Text>{cif.repetitionPerDay}</Card.Text>
                         </Form.Group>
                         
 
@@ -198,8 +188,8 @@ class cifDisplay extends Component {
 
                     <Form.Row>
                         <Form.Group as={Col} controlId="futureExpansionNotes">
-                            <Form.Label>Future Expansion Notes</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({futureExpansionNotes:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Future Expansion Notes</Form.Label>
+                            <Card.Text>{cif.futureExpansionNotes}</Card.Text>
                         </Form.Group>
                     </Form.Row>
                         

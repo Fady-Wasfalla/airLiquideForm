@@ -130,7 +130,11 @@ class lvfDisplay extends Component {
       
 
       render() {
-        let lvf = this.props.LVF
+        let lvf
+        if (this.props.LVF === null)
+         lvf = {}
+        else 
+         lvf = this.props.LVF        
         return (
           
             <React.Fragment>
@@ -201,51 +205,30 @@ class lvfDisplay extends Component {
                         </Form.Row>
 
                         <Form.Row>
-                          <Col md={4}>
+                          
                             <Form.Group as={Col} controlId="CustomerConsumtionType" >
                                 <Form.Label style={{fontWeight:"bold"}} >Customer Consumption Type</Form.Label>
                                 <Card.Text>{lvf.customerConsumption}</Card.Text>
-
                             <Form.Check type="checkbox" label="Product Availablity" 
                             />
                             </Form.Group>
-                          </Col>
+                          
 
 
-                            <Form.Group as={Col} controlId="regularMonths"
-                             style={{display:this.state.CustomerConsumtionregularShow}} >
-                            <Form.Label  >Customer Consumption Rate Per Months</Form.Label>
-                            <InputGroup >
-                            <InputGroup.Append>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({regularMonths:e.target.value})}} />
-                                <InputGroup.Text id="basic-addon2">/ Months</InputGroup.Text>
-                                </InputGroup.Append>
-                            </InputGroup>
-                            <Card.Text>mohamed adel</Card.Text>
+                            <Form.Group as={Col} controlId="regularMonths">
+                            <Form.Label  style={{fontWeight:"bold"}}  >Customer Consumption Rate Per Months</Form.Label>
                             <Card.Text>{lvf.regularMonths}</Card.Text>
+                            </Form.Group>
+
+                            <Form.Group as={Col} controlId="patchDay">
+                            <Form.Label style={{fontWeight:"bold"}} >Customer Consumption Days</Form.Label>
+                            <Card.Text>{lvf.patchDay}</Card.Text>
 
                             </Form.Group>
 
-                            <Form.Group as={Col} controlId="patchDay"
-                            style={{display:this.state.CustomerConsumtionPatchShow}} >
-                            <Form.Label>Customer Consumption Days</Form.Label>
-                            <InputGroup >
-                            <InputGroup.Append>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({patchDay:e.target.value})}} />
-                            <InputGroup.Text id="basic-addon2">Days</InputGroup.Text>
-                                </InputGroup.Append>
-                            </InputGroup>
-                            </Form.Group>
-
-                            <Form.Group as={Col} controlId="patchAvgHrs"
-                            style={{display:this.state.CustomerConsumtionPatchShow}} >
-                            <Form.Label>Customer Consumption Rate Per Hr</Form.Label>
-                            <InputGroup>
-                            <InputGroup.Append>
-                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({patchAvgHrs:e.target.value})}} />
-                            <InputGroup.Text id="basic-addon2">Avg./Hr</InputGroup.Text>
-                                </InputGroup.Append>
-                            </InputGroup>
+                            <Form.Group as={Col} controlId="patchAvgHrs">
+                            <Form.Label style={{fontWeight:"bold"}} >Customer Consumption Rate Per Hr</Form.Label>
+                            <Card.Text>{lvf.patchAvgHrs}</Card.Text>
                             </Form.Group>
                         </Form.Row>
 
@@ -253,91 +236,83 @@ class lvfDisplay extends Component {
 
                         <Form.Row>
                         <Form.Group as={Col} controlId="seasonalConsumption" >
-                            <Form.Label>Seasonal Consumption</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({seasonalConsumption:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Seasonal Consumption</Form.Label>
+                            <Card.Text>{lvf.seasonalConsumption}</Card.Text>
                             </Form.Group>
                             <Form.Group as={Col} controlId="seasonPeriod" >
-                            <Form.Label>Season Period</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({seasonPeriod:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Season Period</Form.Label>
+                            <Card.Text>{lvf.seasonPeriod}</Card.Text>
                             </Form.Group>
                             <Form.Group as={Col} controlId="customerTank" >
-                            <Form.Label>Customer Tank</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({customerTank:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Customer Tank</Form.Label>
+                            <Card.Text>{lvf.customerTank}</Card.Text>
                             </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
                         <Form.Group as={Col} controlId="customerDeadLevel" >
-                            <Form.Label>Customer Dead Level</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({customerDeadLevel:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Customer Dead Level</Form.Label>
+                            <Card.Text>{lvf.customerDeadLevel}</Card.Text>
                             </Form.Group>
                             <Form.Group as={Col} controlId="usableCapacityAboveDeadLevel" >
-                            <Form.Label>Usable Capacity Above Dead Level</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({usableCapacityAboveDeadLevel:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Usable Capacity Above Dead Level</Form.Label>
+                            <Card.Text>{lvf.usableCapacityAboveDeadLevel}</Card.Text>
                             </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
 
                             <Form.Group as={Col} controlId="peakConsumption" >
-                            <Form.Label>Peak Consumption</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({peakConsumption:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}} >Peak Consumption</Form.Label>
+                            <Card.Text>{lvf.peakConsumption}</Card.Text>
+
                             </Form.Group>
                             <Form.Group as={Col} controlId="frequencyOfPeakConsumption">
-                              <Form.Label>Frequency Of Peak Consumption</Form.Label>
-                              <Form.Control as="textarea" rows="1" placeHolder="times/period" />
+                              <Form.Label style={{fontWeight:"bold"}} >Frequency Of Peak Consumption</Form.Label>
+                              <Card.Text>{lvf.frequencyOfPeakConsumption}</Card.Text>
                               </Form.Group>
                         </Form.Row>
 
                         <Form.Row >
-                         <Col md={6}>
+                         
                             <Form.Group as={Col} controlId="availableDelivery" >
-                            <Form.Label>Deilvery Type</Form.Label>
-                            <Select
-                            value={this.state.availableDelivery}
-                            onChange={this.availableDeliveryHandleChange}
-                            options={[{value:'24 Hours',label:'24 Hours'},{value:'Other',label:'Other'}]}
-                            />
+                            <Form.Label style={{fontWeight:"bold"}}>Deilvery Type</Form.Label>
+                            <Card.Text>{lvf.availableDelivery}</Card.Text>
                             </Form.Group>
-                            </Col>
+                        
 
-                            <Form.Group as={Col} controlId="startDeliveryTime"
-                             style={{display:this.state.availableDeliveryShow}}>
-                                <Form.Label>Start Delivery Time</Form.Label>
+                            <Form.Group as={Col} controlId="startDeliveryTime">
+                                <Form.Label style={{fontWeight:"bold"}}>Start Delivery Time</Form.Label>
                                 <br/>
-                                <TimePicker
-                                    onChange={this.startDeliveryTimeHandleChange}
-                                    value={this.state.startDeliveryTime}
-                                    />
+                                <Card.Text>{lvf.startDeliveryTime}</Card.Text>
+
                             </Form.Group>
 
-                            <Form.Group as={Col} controlId="endDeliveryTime"
-                             style={{display:this.state.availableDeliveryShow}}>
-                                <Form.Label>End Delivery Time</Form.Label>
+                            <Form.Group as={Col} controlId="endDeliveryTime">
+                                <Form.Label style={{fontWeight:"bold"}}>End Delivery Time</Form.Label>
                                 <br/>
-                                <TimePicker
-                                    onChange={this.endDeliveryTimeHandleChange}
-                                    value={this.state.endDeliveryTime}
-                                    />
+                                <Card.Text>{lvf.endDeliveryTime}</Card.Text>
+
                             </Form.Group>
                         </Form.Row>
 
                         
                         <Form.Row>
                         <Form.Group as={Col} controlId="weightScale" >
-                            <Form.Label>Weight Scale</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({weightScale:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Weight Scale</Form.Label>
+                            <Card.Text>{lvf.weightScale}</Card.Text>
+
                             </Form.Group>
-                            <Form.Group as={Col} controlId="weightScale" >
-                            <Form.Label>Tank Guage</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({weightScale:e.target.value})}} />
+                            <Form.Group as={Col} controlId="tankGuage" >
+                            <Form.Label style={{fontWeight:"bold"}}>Tank Guage</Form.Label>
+                            <Card.Text>{lvf.tankGuage}</Card.Text>
                             </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
                             <Form.Group as={Col} controlId="lvfComment">
-                            <Form.Label>Lvf Comment</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({lvfComment:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Lvf Comment</Form.Label>
+                            <Card.Text>{lvf.lvfComment}</Card.Text>
                             </Form.Group>
                         </Form.Row>
 
