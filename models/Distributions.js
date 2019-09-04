@@ -4,7 +4,8 @@ const Distributions = db.define('Distributions', {
   formId: Sequelize.INTEGER,
   employeeName: Sequelize.STRING,
   decision: Sequelize.STRING, /* disapprove   approve   approve with recommendation */
-  decisionComment: Sequelize.STRING
+  decisionComment: Sequelize.STRING,
+  customerTank: Sequelize.FLOAT
 },
 { timestamps: false,
   freezeTableName: true

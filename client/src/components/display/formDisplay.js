@@ -17,24 +17,37 @@ import Popup from "reactjs-popup";
 class formDisplay extends Component {
 
     state = {
-      cbi:{},
-      cp:[],
+      fromData:{}, /* { form, contactPerson, formFiles, history, questions } */
       lvf:{},
+      cp:[],
       cif:{},
-      pri:{},
-      
-      showAsk:""
+      showAsk:"",
+      priData:{}, /* { pri, fulids, utilities } */
+      cifResponseData:{}, /* { cifResponse,cifAP, cifFiles} */
+      distributionsResponseData:{}, /* {distributions,distributionsAP,distributionsFiles} */
+      irmrData:{}, /* {irmr,irmrAP, irmrFiles } */
+      pdiData:{}, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdiTemp, fireExtinguishers } */
+      sourcingsData:{} /* { sourcings,sourcingsAP, sourcingsFile} */
     }
 
-    componentWillMount(){
-      this.setState({showAsk:this.props.ShowAsk})
-      //Customer Basics Info
-      //cbi
-      axios
-      .get('http://localhost:8000/api/forms/'+this.props.formId)
-      .then(res => this.setState({cbi:res.data.data}))
+    async componentWillMount(){
+      await axios
+      .get('http://localhost:8000/api/employees/showFormData/'+this.props.formId)
+      .then(res => {this.setState({
+        fromData:res.data.fromData,
+        cp:res.data.fromData.contactPerson,
+        lvf:res.data.lvf,
+        cif:res.data.cif,
+        priData:res.data.priData, 
+        cifResponseData:res.data.cifResponseData, 
+        distributionsResponseData:res.data.distributionsResponseData, 
+        irmrData:res.data.irmrData, 
+        pdiData:res.data.pdiData, 
+        sourcingsData:res.data.sourcingsData })
+        console.log(res.data)})
       .catch(err => alert(err.message))
-     
+      
+      
       
     }
       
@@ -54,12 +67,12 @@ class formDisplay extends Component {
                 <Row><br/></Row>
 
                 <Collapse in={this.state.open}>
-                <Col md={12}>
-                <Col md={{ span: 12, offset: 0 }}><CustomerBiDisplay CBI={this.state.cbi} CP={this.state.cp}/></Col>
+                <Col md={12}>                
+                <Col md={{ span: 12, offset: 0 }}><CustomerBiDisplay CBI={this.state.fromData} CP={this.state.fromData.contactPerson}/></Col>
                 <Row><br/></Row>
 
 
-                <Col md={{ span: 12, offset: 0 }}><LvfDisplay/></Col>
+                <Col md={{ span: 12, offset: 0 }}><LvfDisplay LVF={this.state.lvf} /></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><CifDisplay/></Col>

@@ -32,8 +32,8 @@ class cases extends Component {
     
       render() {
           let screensNames = this.props.screensNames
-          console.log ("##",screensNames)
-          console.log(this.props.screensNames)
+            // console.log ("##",screensNames)
+          //  console.log(this.props.screensNames)
           return (
             this.state.loading ? <div className='App'><Spinner animation='border' variant='primary' /></div> :
             <React.Fragment>

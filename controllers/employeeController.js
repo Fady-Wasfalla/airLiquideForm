@@ -8,23 +8,29 @@ const History = require('../models/History')
 const Pri = require('../models/Pri')
 const Lvf = require('../models/Lvf')
 const Cif = require('../models/Cif')
+const CifAP = require('../models/CifAP')
+const CifFiles = require('../models/CifFiles')
 const Fluids = require('../models/Fluids')
 const Utilities = require('../models/Utilities')
 const Distributions = require('../models/Distributions')
 const DistributionsAP = require('../models/DistributionsAP')
+const DistributionsFiles = require('../models/DistributionsFiles')
 const Finance = require('../models/Finance')
 const FinanceAP = require('../models/FinanceAP')
 const Sourcings = require('../models/Sourcings')
+const SourcingsFiles = require('../models/SourcingsFiles')
 const SourcingsAP = require('../models/SourcingsAP')
 const CifResponse = require('../models/CifResponse')
 const cifAPs = require('../models/CifAP')
 const Irmr = require('../models/Irmr')
+const IrmrFiles = require('../models/IrmrFiles')
 const IrmrAP = require('../models/IrmrAP')
 const Pdi = require('../models/Pdi')
+const PdiFiles = require('../models/PdiFiles')
 const PdiAP = require('../models/PdiAP')
 const FireExtinguishers = require('../models/FireExtinguishers')
 const FormFiles = require('../models/FormFiles')
-const Questions = require('../models/Question')
+const Question = require('../models/Question')
 const os = require('os')
 const employeeName = os.userInfo().username
 
@@ -313,7 +319,6 @@ exports.pdiFB = async (req, res) => {
   try {
     const pdi = req.body.pdi
     const fireExt = pdi.fireExtinguishersList
-    console.log(fireExt)
     const finalDecision = req.body.finalDecision
     let pdiData = Object.assign({}, pdi)
     delete pdiData.fireExtinguishersList
@@ -341,7 +346,6 @@ exports.pdiFB = async (req, res) => {
       }
     }
     if (fireExt) {
-      console.log(260)
       for (let i = 0; i < fireExt.number.length; i++) {
         let fireExtData = {
           pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
@@ -364,8 +368,8 @@ exports.pdiFB = async (req, res) => {
 exports.getStarted = async (req, res) => {
   try {
     const employee = await Model.findOne({ where: { userName: employeeName } })
-
-    if (employee.activation === 0) {
+    // console.log(employee)
+    if (employee.activation === false) {
       return res.json({
         status: 'Failed',
         message: 'Your account is deactivated 🤦 , Contact IT departement '
@@ -393,6 +397,7 @@ exports.getStarted = async (req, res) => {
 
     return res.json({
       status: 'Success',
+      message: 'you can work now',
       data: screensNames,
       employeeId: employee.id,
       employeeName: employeeName
@@ -413,7 +418,7 @@ exports.getFormsDisplay = async (req, res) => {
     let pendingForms = []
     let submittedForms = []
 
-    console.log(forms[0].ciSubmition === true)
+    // console.log(forms[0].ciSubmition === true)
     switch (dept) {
       case 'Distribution' :
         for (let i = 0; i < forms.length; i++) {
@@ -570,10 +575,10 @@ try {
 
   let pendingQuestions = []
   let submittedQuestions = []
-  Form.hasMany(Questions, {foreignKey: 'id'})
-  Questions.belongsTo(Form, {foreignKey: 'formId'})
+  Form.hasMany(Question, {foreignKey: 'id'})
+  Question.belongsTo(Form, {foreignKey: 'formId'})
   const userName = req.params.userName
-  const questions = await Questions.findAll({
+  const questions = await Question.findAll({
                                             include: [{
                                               model: Form,
                                               required: true,
@@ -600,6 +605,126 @@ try {
     message: error.message
   })
 }
+}
 
 
+exports.showFormData = async (req, res) => {
+  try {
+    console.log(574)
+    const formId = req.params.id
+    var form = await Form.findOne({ where: { id: formId } })
+    if (!form) {
+      return res.json({
+        status: 'Failed',
+        message: `There is no form with id ${formId}`
+      })
+    }
+    const formFiles = await FormFiles.findAll({ where: { formId: formId } })
+    const contactPerson = await ConrtactPerson.findAll({ where: { formId: formId } })
+    const history = await History.findAll({ where: { formId: formId } })
+    const questions = await Question.findAll({ where: { formId: formId } })
+    const fromData = { form, contactPerson, formFiles, history, questions }
+    const lvf = await Lvf.findOne({ where: { formId: formId } })
+    const cif = await Cif.findOne({ where: { formId: formId } })
+    /* ------------------------------------------------------PRI-------------------------------------------------------- */
+    const pri = await Pri.findOne({ where: { formId: formId } })
+    var priData = {}
+    if (pri) {
+      const priId = pri.id
+      const fulids = await Fluids.findAll({ where: { priId: priId } })
+      const utilities = await Utilities.findAll({ where: { priId: priId } })
+      priData = { pri, fulids, utilities }
+    }
+    /* ------------------------------------------------------PRI-------------------------------------------------------- */
+    /* -------------------------------------------DISTRIBUTIONS-------------------------------------------------------- */
+    const distributions = await Distributions.findOne({ where: { formId: formId } })
+    var distributionsResponseData = {}
+    if (distributions) {
+      const distributionsId = distributions.id
+      const distributionsAP = await DistributionsAP.findAll({ where: { distributionsId: distributionsId } })
+      const distributionsFiles = await DistributionsFiles.findAll({ where: { distributionsId: distributionsId } })
+      distributionsResponseData = {
+        distributions,
+        distributionsAP,
+        distributionsFiles
+      }
+    }
+    /* -------------------------------------------DISTRIBUTIONS-------------------------------------------------------- */
+    /* ----------------------------------------------------CIF-------------------------------------------------------- */
+    const cifResponse = await CifResponse.findOne({ where: { formId: formId } })
+    var cifResponseData = {}
+    if (cif) {
+      const cifId = cif.id
+      const cifAP = await CifAP.findAll({ where: { CifResponseId: cifId } })
+      const cifFiles = await CifFiles.findAll({ where: { CifResponseId: cifId } })
+      cifResponseData = {
+        cifResponse,
+        cifAP,
+        cifFiles
+      }
+    }
+    /* -----------------------------------------------------CIF-------------------------------------------------------- */
+    /* ----------------------------------------------------IRMR-------------------------------------------------------- */
+    const irmr = await Irmr.findOne({ where: { formId: formId } })
+    var irmrData = {}
+    if (irmr) {
+      const irmrId = irmr.id
+      const irmrAP = await IrmrAP.findAll({ where: { irmrId: irmrId } })
+      const irmrFiles = await IrmrFiles.findAll({ where: { irmrId: irmrId } })
+      irmrData = {
+        irmr,
+        irmrAP,
+        irmrFiles
+      }
+    }
+    /* -----------------------------------------------------IRMR-------------------------------------------------------- */
+    /* ------------------------------------------------------PDI-------------------------------------------------------- */
+    const pdiTemp = await Pdi.findOne({ where: { formId: formId } })
+    var pdi = {}
+    var pdiData = {}
+    if (pdiTemp) {
+      const pdiId = pdiTemp.id
+      const pdiAP = await PdiAP.findAll({ where: { pdiId: pdiId } })
+      const pdiFiles = await PdiFiles.findAll({ where: { pdiId: pdiId } })
+      const fireExtinguishers = await FireExtinguishers.findAll({ where: { pdiId: pdiId } })
+      pdi = { pdiTemp, fireExtinguishers }
+      pdiData = {
+        pdi,
+        pdiAP,
+        pdiFiles
+      }
+    }
+    /* -----------------------------------------------------PDI-------------------------------------------------------- */
+    /* ----------------------------------------------------SOURCINGS-------------------------------------------------------- */
+    const sourcings = await Sourcings.findOne({ where: { formId: formId } })
+    var sourcingsData = {}
+    if (sourcings) {
+      const sourcingsId = sourcings.id
+      const sourcingsAP = await SourcingsAP.findAll({ where: { sourcingsId: sourcingsId } })
+      const sourcingsFiles = await SourcingsFiles.findAll({ where: { sourcingsId: sourcingsId } })
+      sourcingsData = {
+        sourcings,
+        sourcingsAP,
+        sourcingsFiles
+      }
+    }
+    /* -----------------------------------------------------SOURCINGS-------------------------------------------------------- */
+    return res.json({
+      status: 'Success',
+      fromData, /* { form, contactPerson, formFiles, history, questions } */
+      lvf,
+      cif,
+      priData, /* { pri, fulids, utilities } */
+      cifResponseData, /* { cifResponse,cifAP, cifFiles} */
+      distributionsResponseData, /* {distributions,distributionsAP,distributionsFiles} */
+      irmrData, /* {irmr,irmrAP, irmrFiles } */
+      pdiData, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdiTemp, fireExtinguishers } */
+      sourcingsData /* { sourcings,sourcingsAP, sourcingsFile} */
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
 }

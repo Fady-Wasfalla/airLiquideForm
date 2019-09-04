@@ -31,7 +31,8 @@ class App extends Component {
     .then( (res) => { this.setState({screensNames:res.data.data})
                       sessionStorage.setItem('ID', res.data.employeeId)
                       sessionStorage.setItem('employeeName', res.data.employeeName)
-                      this.setState({employeeId:res.data.employeeId})})
+                      this.setState({employeeId:res.data.employeeId})
+  })
     .catch(err => alert(err.message))
 
   }
