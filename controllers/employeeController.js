@@ -70,16 +70,16 @@ exports.newForm = async (req, res) => {
     const pri = JSON.parse(req.body.pri)
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
-    // console.log(58)
-    // console.log(files[0].path)
-    // console.log()
+    console.log(files)
     const newForm = await Form.create({ ...cbi, employeeName })
     const formId = newForm.id
     // history of the form
     await History.create({ formId, formSubmition: localISOTime })
     // uploading the files with the name
-    for (let i = 0; i < filesNames.length; i++) {
-      await FormFiles.create({ formId, name: filesNames[i], path: files[i].path })
+    if (files.length > 0) {
+      for (let i = 0; i < filesNames.length; i++) {
+        await FormFiles.create({ formId, name: filesNames[i], path: files[i].path })
+      }
     }
     // inserting the conatct perosns
     if (cbi && cbi.contactPerson) {
