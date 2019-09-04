@@ -13,15 +13,18 @@ import axios from 'axios'
 class fillForm extends Component {
 
     state = {
-      cbi:{},
-      lvf:{},
-      cif:{},
-      pri:{},
+      cbi:{dodo:false},
+      lvf:{dodo:false},
+      cif:{dodo:false},
+      pri:{dodo:false},
       file:null,
       filesNames:[""]
       }
 
       handleChange =() =>{
+        if (this.state.cbi.dodo===false){
+          return alert("please check the box in customer basics info part")
+        }
         const fd = new FormData()
         var cbiAsString = JSON.stringify(this.state.cbi)
         var lvfAsString = JSON.stringify(this.state.lvf)

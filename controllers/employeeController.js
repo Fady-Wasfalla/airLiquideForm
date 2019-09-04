@@ -84,6 +84,7 @@ exports.newForm = async (req, res) => {
     // inserting the conatct perosns
     if (cbi && cbi.contactPerson) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
+        if (cbi.contactPerson.contactPersonName[i]!==""){
         let conrtactPersonData = {
           formId,
           contactPersonName: cbi.contactPerson.contactPersonName[i],
@@ -93,6 +94,7 @@ exports.newForm = async (req, res) => {
         }
         await ConrtactPerson.create(conrtactPersonData)
       }
+    }
     }
     // creating the lvf of the form
     await Lvf.create({ formId, ...lvf })
