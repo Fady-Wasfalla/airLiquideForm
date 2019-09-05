@@ -12,6 +12,8 @@ class cifFeedBack extends Component {
     state = {
       finalDecision:{},
       formId:0,
+      file:null,
+      filesNames:[""],
       displayDecision:"none",
       data:{},
       }
@@ -46,9 +48,19 @@ class cifFeedBack extends Component {
 
     
     handleChange=()=>{
-      console.log(this.state)
+      const fd = new FormData()
+      let finalDecisionAsString = JSON.stringify(this.state.finalDecision)
+      let filesNamesAsString = JSON.stringify(this.state.filesNames)
+      fd.append('finalDecision', finalDecisionAsString)
+      fd.append('formId',this.state.formId)
+      fd.append('filesNames',filesNamesAsString)
+      if(this.state.file){
+        for(let i = 0 ; i<this.state.file.length; i++){
+          fd.append('file',this.state.file[i])
+        }
+      }
       axios
-      .post('http://localhost:8000/api/employees/ciFB',this.state)
+      .post('http://localhost:8000/api/employees/ciFB',fd)
       .then(res => alert(res.data.message))
       .catch(err => alert(err.message))
     }

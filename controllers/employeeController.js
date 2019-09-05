@@ -70,7 +70,6 @@ exports.newForm = async (req, res) => {
     const pri = JSON.parse(req.body.pri)
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
-    console.log(files)
     const newForm = await Form.create({ ...cbi, employeeName })
     const formId = newForm.id
     // history of the form
@@ -147,9 +146,11 @@ exports.newForm = async (req, res) => {
 exports.distributionFB = async (req, res) => {
   try {
     const formId = req.body.formId
-    let finalDecisionData = Object.assign({}, req.body.finalDecision)
-    delete finalDecisionData.actionPlan
-    const fb = await Distributions.create({ formId: formId, ...finalDecisionData, employeeName })
+    let finalDecision = JSON.parse(req.body.finalDecision)
+    let actionPlan = finalDecision.actionPlan
+    const filesNames = JSON.parse(req.body.filesNames)
+    const files = req.files
+    const fb = await Distributions.create({ formId: formId, ...finalDecision, employeeName })
     await Form.update(
       { distributionSubmition: true },
       { where: { id: formId } }
@@ -158,11 +159,16 @@ exports.distributionFB = async (req, res) => {
       { distributionSubmition: localISOTime },
       { where: { formId: formId } }
     )
-    if (finalDecisionData.decision === 'Approve with recommendation') {
-      for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
+    if (files.length > 0) {
+      for (let i = 0; i < filesNames.length; i++) {
+        await DistributionsFiles.create({ distributionsId: fb.id, name: filesNames[i], path: files[i].path })
+      }
+    }
+    if (finalDecision.decision === 'Approve with recommendation') {
+      for (let i = 0; i < actionPlan.length; i++) {
         let distributionsAPData = {
           distributionsId: fb.id,
-          actions: req.body.finalDecision.actionPlan[i]
+          actions: actionPlan[i]
         }
         await DistributionsAP.create(distributionsAPData)
       }
@@ -220,9 +226,11 @@ exports.financeFB = async (req, res) => {
 exports.sourcingsFB = async (req, res) => {
   try {
     const formId = req.body.formId
-    let finalDecisionData = Object.assign({}, req.body.finalDecision)
-    delete finalDecisionData.actionPlan
-    const fb = await Sourcings.create({ formId: formId, ...finalDecisionData, employeeName })
+    let finalDecision = JSON.parse(req.body.finalDecision)
+    let actionPlan = finalDecision.actionPlan
+    const filesNames = JSON.parse(req.body.filesNames)
+    const files = req.files
+    const fb = await Sourcings.create({ formId: formId, ...finalDecision, employeeName })
     await Form.update(
       { sourcingSubmition: true },
       { where: { id: formId } }
@@ -231,11 +239,16 @@ exports.sourcingsFB = async (req, res) => {
       { sourcingSubmition: localISOTime },
       { where: { formId: formId } }
     )
-    if (finalDecisionData.decision === 'Approve with recommendation') {
-      for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
+    if (files.length > 0) {
+      for (let i = 0; i < filesNames.length; i++) {
+        await SourcingsFiles.create({ sourcingsId: fb.id, name: filesNames[i], path: files[i].path })
+      }
+    }
+    if (finalDecision.decision === 'Approve with recommendation') {
+      for (let i = 0; i < actionPlan.length; i++) {
         let sourcingsAPData = {
           sourcingsId: fb.id,
-          actions: req.body.finalDecision.actionPlan[i]
+          actions: actionPlan[i]
         }
         await SourcingsAP.create(sourcingsAPData)
       }
@@ -256,9 +269,11 @@ exports.sourcingsFB = async (req, res) => {
 exports.ciFB = async (req, res) => {
   try {
     const formId = req.body.formId
-    let finalDecisionData = Object.assign({}, req.body.finalDecision)
-    delete finalDecisionData.actionPlan
-    const fb = await CifResponse.create({ formId: formId, ...finalDecisionData, employeeName })
+    let finalDecision = JSON.parse(req.body.finalDecision)
+    let actionPlan = finalDecision.actionPlan
+    const filesNames = JSON.parse(req.body.filesNames)
+    const files = req.files
+    const fb = await CifResponse.create({ formId: formId, ...finalDecision, employeeName })
     await Form.update(
       { ciSubmition: true },
       { where: { id: formId } }
@@ -267,11 +282,16 @@ exports.ciFB = async (req, res) => {
       { ciSubmition: localISOTime },
       { where: { formId: formId } }
     )
-    if (finalDecisionData.decision === 'Approve with recommendation') {
-      for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
+    if (files.length > 0) {
+      for (let i = 0; i < filesNames.length; i++) {
+        await CifFiles.create({ CifResponseId: fb.id, name: filesNames[i], path: files[i].path })
+      }
+    }
+    if (finalDecision.decision === 'Approve with recommendation') {
+      for (let i = 0; i < actionPlan.length; i++) {
         let sourcingsAPData = {
           CifResponseId: fb.id,
-          actions: req.body.finalDecision.actionPlan[i]
+          actions: actionPlan[i]
         }
         await cifAPs.create(sourcingsAPData)
       }

@@ -33,6 +33,10 @@ class formDisplay extends Component {
     componentWillMount(){
      axios
       .get('http://localhost:8000/api/employees/showFormData/'+this.props.formId)
+      // .then(res=>{if(res.data.status==='Failed'){
+       
+      //   alert(res.data.message)}
+      // })
       .then(res => {this.setState({
         formData:res.data.formData,
         cp:res.data.formData.contactPerson,
