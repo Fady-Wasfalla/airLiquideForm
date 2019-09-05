@@ -48,6 +48,7 @@ class formDisplay extends Component {
         irmrData:res.data.irmrData, 
         pdiData:res.data.pdiData, 
         sourcingsData:res.data.sourcingsData })
+        console.log(res.data.formData)
         })
       .catch(err => alert(err.message))
       

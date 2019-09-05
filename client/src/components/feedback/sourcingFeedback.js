@@ -27,7 +27,7 @@ class sourcingFeedback extends Component {
       .then(res => {this.setState({ data : res.data.data })
         console.log(res.data)})
       .catch(err => alert(err.message))
-      if (this.state.data.distributionSubmition){
+      if (this.state.data.sourcingSubmition){
           this.setState({displayDecision:"none"})
       }else{
           this.setState({displayDecision:""})
