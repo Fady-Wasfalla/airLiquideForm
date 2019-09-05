@@ -103,9 +103,7 @@ exports.newForm = async (req, res) => {
     // creating the pri of the form
     const newPri = await Pri.create({ formId, ...pri })
     const priId = newPri.id
-    console.log(pri.fluids)
     if (pri && pri.fluids.length>0) {
-    console.log(107)
       for (let i = 0; i < pri.fluids.characteristics.length; i++) {
         let fluidData = {
           priId,
