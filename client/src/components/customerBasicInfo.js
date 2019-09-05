@@ -12,7 +12,7 @@ class customerBasicInfo extends Component {
         address:"",
         zone:"",
         address:"",
-        contactPerson:{contactPersonName:[]},
+        contactPerson:{},
         fieldset:"",
         done:"✘",
         dodo:true

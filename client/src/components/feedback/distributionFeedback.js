@@ -13,11 +13,25 @@ class distributionFeedback extends Component {
         finalDecision:{},
         formId:0,
         file:null,
-        filesNames:[""]
+        filesNames:[""],
+        displayDecision:"none",
+        data:{},
+
       }
-    componentWillMount(){
+    async componentWillMount(){
       const formId  = this.props.match.params.id
       this.setState({formId:formId})
+      await axios
+      .get('http://localhost:8000/api/forms/'+this.props.match.params.id)
+      .then(res => {this.setState({ data : res.data.data })
+        console.log(res.data)})
+      .catch(err => alert(err.message))
+      if (this.state.data.distributionSubmition){
+          this.setState({displayDecision:"none"})
+      }else{
+          this.setState({displayDecision:""})
+      }
+
     }
     finalDecisionCallBackFunction = (childData) => {
         this.setState({finalDecision:childData})
@@ -64,7 +78,7 @@ class distributionFeedback extends Component {
 
                 <Col md={{ span: 12, offset: 0 }}><FormDisplay  formId={this.state.formId}/></Col>
                 <Row><br/></Row>
-
+                <Form.Group style={{display:this.state.displayDecision}}>
                 <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
                                                           fileParentCallBack={this.fileUploadCallBackFunction}/></Col>
                 <Row><br/></Row>
@@ -77,6 +91,7 @@ class distributionFeedback extends Component {
                 <Button className="bg-primary text-white" type="submit"
                 onClick={this.handleChange}>Submit</Button></Col>
                 </Row>
+                </Form.Group>
 
                 <Row><br/></Row>
                 
