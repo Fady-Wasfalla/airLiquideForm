@@ -12,6 +12,8 @@ class distributionFeedback extends Component {
     state = {
         finalDecision:{},
         formId:0,
+        file:null,
+        filesNames:[""]
       }
     componentWillMount(){
       const formId  = this.props.match.params.id
@@ -22,7 +24,18 @@ class distributionFeedback extends Component {
     }
 
     handleChange=()=>{
-      console.log(this.state)
+      const fd = new FormData()
+      let finalDecisionAsString = JSON.stringify(this.state.finalDecision)
+      let formIdAsString = JSON.stringify(this.state.formId)
+      var filesNamesAsString = JSON.stringify(this.state.filesNames)
+      fd.append(finalDecisionAsString)
+      fd.append(formIdAsString)
+      fd.append(filesNamesAsString)
+      if(this.state.file){
+        for(let i = 0 ; i<this.state.file.length; i++){
+          fd.append('file',this.state.file[i])
+        }
+      }
       axios
       .post('http://localhost:8000/api/employees/distributionsFB',this.state)
       .then(res => alert(res.data.message))
