@@ -637,7 +637,7 @@ exports.showFormData = async (req, res) => {
     const history = await History.findAll({ where: { formId: formId } })
     const questions = await Question.findAll({ where: { formId: formId } })
 
-    const fromData = { form, contactPerson, formFiles, history, questions }
+    const formData = { form, contactPerson, formFiles, history, questions }
     let lvf = await Lvf.findOne({ where: { formId: formId } })
     let cif = await Cif.findOne({ where: { formId: formId } })
     if (lvf === null) lvf = {}
