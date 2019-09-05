@@ -43,6 +43,11 @@ app.use('/distributionFiles', express.static('distributionFiles'))
 app.use('/formFiles', express.static('formFiles'))
 app.use('/cifFiles', express.static('cifFiles'))
 app.use('/sourcingFiles', express.static('sourcingFiles'))
+app.use('/pdiFiles', express.static('pdiFiles'))
+app.use('/prFiles', express.static('prFiles'))
+app.use('/financeFiles', express.static('financeFiles'))
+
+
 
 // DB authenticate
 const db = require('./config/database')

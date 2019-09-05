@@ -37,7 +37,6 @@ const formStorage = multer.diskStorage({
 const formFilesUpload = multer({ storage: formStorage })
 router.post('/newForm', formFilesUpload.array('file', 50), entity.newForm)
 /* ------------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------------- */
 const distributionStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './distributionFiles')
@@ -48,9 +47,6 @@ const distributionStorage = multer.diskStorage({
 })
 const distributionFilesUpload = multer({ storage: distributionStorage })
 router.post('/distributionsFB', distributionFilesUpload.array('file', 50), entity.distributionFB)
-/* ------------------------------------------------------------------------------------------------------------------- */
-
-router.post('/financeFB', entity.financeFB)
 /* ------------------------------------------------------------------------------------------------------------------- */
 const sourcingStorage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -63,8 +59,6 @@ const sourcingStorage = multer.diskStorage({
 const sourcingFilesUpload = multer({ storage: sourcingStorage })
 router.post('/sourcingsFB', sourcingFilesUpload.array('file', 50), entity.sourcingsFB)
 /* ------------------------------------------------------------------------------------------------------------------- */
-
-/* ------------------------------------------------------------------------------------------------------------------- */
 const cifStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './cifFiles')
@@ -76,10 +70,39 @@ const cifStorage = multer.diskStorage({
 const cifFilesUpload = multer({ storage: cifStorage })
 router.post('/ciFB', cifFilesUpload.array('file', 50), entity.ciFB)
 /* ------------------------------------------------------------------------------------------------------------------- */
-router.post('/prFB', entity.prFB)
-
-router.post('/pdiFB', entity.pdiFB)
-
+const prStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './prFiles')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname)
+  }
+})
+const prFilesUpload = multer({ storage: prStorage })
+router.post('/prFB', prFilesUpload.array('file', 50), entity.prFB)
+/* ------------------------------------------------------------------------------------------------------------------- */
+const pdiStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './pdiFiles')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname)
+  }
+})
+const pdiFilesUpload = multer({ storage: pdiStorage })
+router.post('/pdiFB', pdiFilesUpload.array('file', 50), entity.pdiFB)
+/* ------------------------------------------------------------------------------------------------------------------- */
+const financeStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './financeFiles')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname)
+  }
+})
+const financeFilesUpload = multer({ storage: financeStorage })
+router.post('/financeFB', financeFilesUpload.array('file', 50), entity.financeFB)
+/* ------------------------------------------------------------------------------------------------------------------- */
 router.get('/showFormData/:id', entity.showFormData)
 
 module.exports = router
