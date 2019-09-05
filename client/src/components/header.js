@@ -37,21 +37,26 @@ class header extends Component {
               />
             </Navbar.Brand>
 
-              <Nav.Link href="http://localhost:3000/fillForm">Fill Form</Nav.Link>
+              <Nav.Link href="http://localhost:3000/home">🏠</Nav.Link>
 
             
               <NavDropdown title="Departements" id="nav-dropdown">
               {
                 this.props.screensNames.map((form,index)=>{
-                  let href = 'http://localhost:3000/cases/' + this.props.screensNames[index]
                   if ( this.props.screensNames[index]==='Sales'){
-                    return(
-                      <NavDropdown.Item  disabled>{this.props.screensNames[index]}
-                      
-                      </NavDropdown.Item>
+                  let newRequest = 'http://localhost:3000/fillForm'
+                  let getMyQuestions = 'http://localhost:3000/getMyQuestions/'+sessionStorage.getItem('employeeName')
+                  let href = 'http://localhost:3000/cases/' + this.props.screensNames[index]
+                  return(
+                        <NavDropdown title="Sales" id="nav-dropdown" drop={"right"}>
+                        <NavDropdown.Item href={newRequest}>New Request</NavDropdown.Item>
+                        <NavDropdown.Item href={getMyQuestions}>Answer Questions</NavDropdown.Item>
+                        <NavDropdown.Item href={href}>Show Requests</NavDropdown.Item>
+                        </NavDropdown> 
                     )
                   }
                   else{
+                    let href = 'http://localhost:3000/cases/' + this.props.screensNames[index]
                   return (
                     <NavDropdown.Item href={href}>{this.props.screensNames[index]}</NavDropdown.Item>
                   )

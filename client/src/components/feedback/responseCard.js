@@ -87,6 +87,7 @@ class responseCard extends Component {
                             <Form.Check type="radio" custom={true} label="Approve with recommendation" value={"Approve with recommendation"}
                                 name="decision"id="decision2"
                                 onClick={(e) =>{this.setState({decision:e.target.value})
+                                                this.setState({decisionComment:""})
                                                 this.setState({actionPlanDisplay:""})
                                                 this.setState({commentDisplay:"none"})}} /> 
                             </Row>

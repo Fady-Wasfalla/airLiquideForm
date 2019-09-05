@@ -50,6 +50,7 @@ class sourcingFeedback extends Component {
         .post('http://localhost:8000/api/employees/sourcingsFB',this.state)
         .then(res => alert(res.data.message))
         .catch(err => alert(err.message))
+        window.location.assign('http://localhost:3000/cases/Sourcing')
     }
      
     render() {
@@ -85,6 +86,8 @@ class sourcingFeedback extends Component {
                 <Row><br/></Row>
                 
                 </Card>
+
+                
 
                 <Row><br/></Row>
                 <Row><br/></Row>

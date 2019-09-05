@@ -41,6 +41,8 @@ class distributionFeedback extends Component {
       .post('http://localhost:8000/api/employees/distributionsFB',this.state)
       .then(res => alert(res.data.message))
       .catch(err => alert(err.message))
+      window.location.assign('http://localhost:3000/cases/Distribution')
+
     }
 
     nameUploadCallBackFunction = (childData) => {
