@@ -149,7 +149,7 @@ exports.distributionFB = async (req, res) => {
     const formId = req.body.formId
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Distributions.create({ formId: 1, ...finalDecisionData, employeeName })
+    const fb = await Distributions.create({ formId: formId, ...finalDecisionData, employeeName })
     await Form.update(
       { distributionSubmition: true },
       { where: { id: formId } }
@@ -186,7 +186,7 @@ exports.financeFB = async (req, res) => {
     const formId = req.body.formId
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Finance.create({ ...finalDecisionData, employeeName, formId: req.body.formId })
+    const fb = await Finance.create({ ...finalDecisionData, employeeName, formId: formId })
     await Form.update(
       { financeSubmition: true },
       { where: { id: formId } }
@@ -222,7 +222,7 @@ exports.sourcingsFB = async (req, res) => {
     const formId = req.body.formId
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Sourcings.create({ formId: 1, ...finalDecisionData, employeeName })
+    const fb = await Sourcings.create({ formId: formId, ...finalDecisionData, employeeName })
     await Form.update(
       { sourcingSubmition: true },
       { where: { id: formId } }
@@ -258,7 +258,7 @@ exports.ciFB = async (req, res) => {
     const formId = req.body.formId
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await CifResponse.create({ formId: 1, ...finalDecisionData, employeeName })
+    const fb = await CifResponse.create({ formId: formId, ...finalDecisionData, employeeName })
     await Form.update(
       { ciSubmition: true },
       { where: { id: formId } }
@@ -299,7 +299,7 @@ exports.prFB = async (req, res) => {
       decisionComment: finalDecision.decisionComment }
     let finalDecisionData = Object.assign({}, irmrFb)
     delete finalDecisionData.actionPlan
-    const fb = await Irmr.create({ formId: 1, ...finalDecisionData, employeeName })
+    const fb = await Irmr.create({ formId: formId, ...finalDecisionData, employeeName })
     await Form.update(
       { irmrSubmition: true },
       { where: { id: formId } }
@@ -342,7 +342,7 @@ exports.pdiFB = async (req, res) => {
       decision: finalDecision.decision,
       decisionComment: finalDecision.decisionComment }
     // console.log(irmrFb)
-    const fb = await Pdi.create({ formId: 1, ...pdiFb, employeeName })
+    const fb = await Pdi.create({ formId: formId, ...pdiFb, employeeName })
     await Form.update(
       { fleatSubmition: true },
       { where: { id: formId } }
