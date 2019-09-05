@@ -23,7 +23,16 @@ class fillForm extends Component {
 
       handleChange =() =>{
         if (this.state.cbi.dodo===false){
-          return alert("please check the box in customer basics info part")
+          return alert("please check the box in Customer Basics Info part")
+        }
+        if (this.state.lvf.dodo===false){
+          return alert("please check the box in Logistics Validation Form part")
+        }
+        if (this.state.cif.dodo===false){
+          return alert("please check the box in Customer Installation Form part")
+        }
+        if (this.state.pri.dodo===false){
+          return alert("please check the box in PRI Form part")
         }
         const fd = new FormData()
         var cbiAsString = JSON.stringify(this.state.cbi)

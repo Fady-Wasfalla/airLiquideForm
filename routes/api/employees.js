@@ -38,17 +38,17 @@ router.delete('/:id', entity.delete)
 
 router.post('/newForm', formFilesUpload.array('file', 20), entity.newForm)
 
-router.post('/distributionsFB/:id', entity.distributionFB)
+router.post('/distributionsFB', entity.distributionFB)
 
-router.post('/financeFB/:id', entity.financeFB)
+router.post('/financeFB', entity.financeFB)
 
-router.post('/sourcingsFB/:id', entity.sourcingsFB)
+router.post('/sourcingsFB', entity.sourcingsFB)
 
-router.post('/ciFB/:id', entity.ciFB)
+router.post('/ciFB', entity.ciFB)
 
-router.post('/prFB/:id', entity.prFB)
+router.post('/prFB', entity.prFB)
 
-router.post('/pdiFB/:id', entity.pdiFB)
+router.post('/pdiFB', entity.pdiFB)
 
 router.get('/showFormData/:id', entity.showFormData)
 

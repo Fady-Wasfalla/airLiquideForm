@@ -264,7 +264,8 @@ class priForm extends Component {
         acquisitionCmtsCmt:"" ,
 
         fieldset:"",
-        
+        done:"✘",
+        dodo:true,
       }
 
     sendData =()=>{
@@ -273,14 +274,26 @@ class priForm extends Component {
         this.props.ParentCallBack(sentData)
       }
 
-    submitData=()=>{
+    submitData=(event)=>{
+        this.setState({dodo:!this.state.dodo})
+        event.preventDefault();
         this.sendData()
         if (this.state.fieldset===""){
-            this.setState({fieldset:"disabled"})
+            this.setState({fieldset:"disabled",
+                           done:"✔" })
         }
         else{
-            this.setState({fieldset:""})
-          }
+            this.setState({fieldset:"",
+                           done:"✘" })
+        }
+    }
+
+    submissionColor=(e)=>{
+        if (e==="✔"){
+            return "green"
+        }else{
+            return "red"
+        }
     }
 
     fluidsCallBackFunction = (childData) => {
@@ -296,6 +309,7 @@ class priForm extends Component {
         return (
             <React.Fragment>
                 <Card border="secondary" >
+                <Form onSubmit={this.submitData}>
                 <Card.Header as="h5" className="bg-dark text-white" >PRI Form</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
@@ -1858,16 +1872,12 @@ class priForm extends Component {
                 </fieldset>
                 </Col>
                 <Card.Footer > 
-                <Row style={{height: .018*window.innerHeight + 'px'}}>
-                            <Col md={{offset:11}} >
-                            <Form.Check id="submitPRI"
-                            custom={true}
-                            inline={true}
-                            label="Submit"
-                            onChange={this.submitData}/>
+                            <Col md={{offset:5}} >
+                            <Button type="submit" variant="outline" style={{color:this.submissionColor(this.state.done)}}>Check if done {this.state.done}</Button>
                             </Col> 
-                </Row>
+                            
                 </Card.Footer>
+                </Form>
                 </Card>
             </React.Fragment>
         )

@@ -82,6 +82,7 @@ class customerInstallationForm extends Component {
       }
 
       submitData=(event)=>{
+        this.setState({dodo:!this.state.dodo})
         event.preventDefault();
         this.sendData()
         if (this.state.fieldset===""){
