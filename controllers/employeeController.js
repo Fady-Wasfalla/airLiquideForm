@@ -225,11 +225,13 @@ exports.financeFB = async (req, res) => {
 // sourcings feedback
 exports.sourcingsFB = async (req, res) => {
   try {
+    console.log(228)
     const formId = req.body.formId
     let finalDecision = JSON.parse(req.body.finalDecision)
     let actionPlan = finalDecision.actionPlan
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
+    console.log(files)
     const fb = await Sourcings.create({ formId: formId, ...finalDecision, employeeName })
     await Form.update(
       { sourcingSubmition: true },

@@ -51,8 +51,19 @@ router.post('/distributionsFB', distributionFilesUpload.array('file', 50), entit
 /* ------------------------------------------------------------------------------------------------------------------- */
 
 router.post('/financeFB', entity.financeFB)
+/* ------------------------------------------------------------------------------------------------------------------- */
+const sourcingStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './sourcingFiles')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname)
+  }
+})
+const sourcingFilesUpload = multer({ storage: sourcingStorage })
+router.post('/sourcingsFB', sourcingFilesUpload.array('file', 50), entity.sourcingsFB)
+/* ------------------------------------------------------------------------------------------------------------------- */
 
-router.post('/sourcingsFB', entity.sourcingsFB)
 /* ------------------------------------------------------------------------------------------------------------------- */
 const cifStorage = multer.diskStorage({
   destination: function (req, file, cb) {
