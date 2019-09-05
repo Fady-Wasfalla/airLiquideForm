@@ -121,7 +121,6 @@ exports.newForm = async (req, res) => {
         await Fluids.create(fluidData)
       }
     }
-    console.log('a7aaa')
     if (pri && pri.utilities.length > 0) {
       for (let i = 0; i < pri.utilities.utility.length; i++) {
         let fluidData = {
@@ -147,16 +146,17 @@ exports.newForm = async (req, res) => {
 // distribution feedback
 exports.distributionFB = async (req, res) => {
   try {
+    const formId = req.body.formId
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Distributions.create({ formId: 1, ...finalDecisionData, employeeName })
+    const fb = await Distributions.create({ formId: formId, ...finalDecisionData, employeeName })
     await Form.update(
       { distributionSubmition: true },
-      { where: { id: 1 } }
+      { where: { id: formId } }
     )
     await History.update(
       { distributionSubmition: localISOTime },
-      { where: { formId: 16 } }
+      { where: { formId: formId } }
     )
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
@@ -183,9 +183,18 @@ exports.distributionFB = async (req, res) => {
 // Finance feedback
 exports.financeFB = async (req, res) => {
   try {
+    const formId = req.body.formId
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Finance.create({ ...finalDecisionData, employeeName, formId: req.body.formId })
+    const fb = await Finance.create({ ...finalDecisionData, employeeName, formId: formId })
+    await Form.update(
+      { financeSubmition: true },
+      { where: { id: formId } }
+    )
+    await History.update(
+      { distributionSubmition: localISOTime },
+      { where: { formId: formId } }
+    )
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
         let financeAPData = {
@@ -210,16 +219,17 @@ exports.financeFB = async (req, res) => {
 // sourcings feedback
 exports.sourcingsFB = async (req, res) => {
   try {
+    const formId = req.body.formId
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await Sourcings.create({ formId: 1, ...finalDecisionData, employeeName })
+    const fb = await Sourcings.create({ formId: formId, ...finalDecisionData, employeeName })
     await Form.update(
       { sourcingSubmition: true },
-      { where: { id: 1 } }
+      { where: { id: formId } }
     )
     await History.update(
       { sourcingSubmition: localISOTime },
-      { where: { formId: 16 } }
+      { where: { formId: formId } }
     )
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
@@ -245,16 +255,17 @@ exports.sourcingsFB = async (req, res) => {
 // ci feedback
 exports.ciFB = async (req, res) => {
   try {
+    const formId = req.body.formId
     let finalDecisionData = Object.assign({}, req.body.finalDecision)
     delete finalDecisionData.actionPlan
-    const fb = await CifResponse.create({ formId: 1, ...finalDecisionData, employeeName })
+    const fb = await CifResponse.create({ formId: formId, ...finalDecisionData, employeeName })
     await Form.update(
       { ciSubmition: true },
-      { where: { id: 1 } }
+      { where: { id: formId } }
     )
     await History.update(
       { ciSubmition: localISOTime },
-      { where: { formId: 16 } }
+      { where: { formId: formId } }
     )
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < req.body.finalDecision.actionPlan.length; i++) {
@@ -280,6 +291,7 @@ exports.ciFB = async (req, res) => {
 
 exports.prFB = async (req, res) => {
   try {
+    const formId = req.body.formId
     const irmr = req.body.irmr
     const finalDecision = req.body.finalDecision
     const irmrFb = { ...irmr,
@@ -287,14 +299,14 @@ exports.prFB = async (req, res) => {
       decisionComment: finalDecision.decisionComment }
     let finalDecisionData = Object.assign({}, irmrFb)
     delete finalDecisionData.actionPlan
-    const fb = await Irmr.create({ formId: 1, ...finalDecisionData, employeeName })
+    const fb = await Irmr.create({ formId: formId, ...finalDecisionData, employeeName })
     await Form.update(
       { irmrSubmition: true },
-      { where: { id: 1 } }
+      { where: { id: formId } }
     )
     await History.update(
       { irmrSubmition: localISOTime },
-      { where: { formId: 16 } }
+      { where: { formId: formId } }
     )
     if (finalDecisionData.decision === 'Approve with recommendation') {
       for (let i = 0; i < finalDecision.actionPlan.length; i++) {
@@ -320,6 +332,7 @@ exports.prFB = async (req, res) => {
 // pdi feedback
 exports.pdiFB = async (req, res) => {
   try {
+    const formId = req.body.formId
     const pdi = req.body.pdi
     const fireExt = pdi.fireExtinguishersList
     const finalDecision = req.body.finalDecision
@@ -329,14 +342,14 @@ exports.pdiFB = async (req, res) => {
       decision: finalDecision.decision,
       decisionComment: finalDecision.decisionComment }
     // console.log(irmrFb)
-    const fb = await Pdi.create({ formId: 1, ...pdiFb, employeeName })
+    const fb = await Pdi.create({ formId: formId, ...pdiFb, employeeName })
     await Form.update(
       { fleatSubmition: true },
-      { where: { id: 1 } }
+      { where: { id: formId } }
     )
     await History.update(
       { fleatSubmition: localISOTime },
-      { where: { formId: 16 } }
+      { where: { formId: formId } }
     )
     const pdiId = fb.id
     if (pdiFb.decision === 'Approve with recommendation') {
@@ -590,7 +603,7 @@ exports.getQuestions = async (req, res) => {
     for (let i = 0; i < questions.length; i++) {
       if (questions[i].answer) {
         submittedQuestions = submittedQuestions.concat(questions[i])
-      }else {
+      } else {
         pendingQuestions = pendingQuestions.concat(questions[i])
       }
     }
@@ -624,7 +637,7 @@ exports.showFormData = async (req, res) => {
     const history = await History.findAll({ where: { formId: formId } })
     const questions = await Question.findAll({ where: { formId: formId } })
 
-    const fromData = { form, contactPerson, formFiles, history, questions }
+    const formData = { form, contactPerson, formFiles, history, questions }
     let lvf = await Lvf.findOne({ where: { formId: formId } })
     let cif = await Cif.findOne({ where: { formId: formId } })
     if (lvf === null) lvf = {}
