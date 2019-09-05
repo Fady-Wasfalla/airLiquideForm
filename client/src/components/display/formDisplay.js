@@ -44,7 +44,7 @@ class formDisplay extends Component {
         irmrData:res.data.irmrData, 
         pdiData:res.data.pdiData, 
         sourcingsData:res.data.sourcingsData })
-        console.log(res.data)})
+        })
       .catch(err => alert(err.message))
       
     }
@@ -73,7 +73,7 @@ class formDisplay extends Component {
                 <Col md={{ span: 12, offset: 0 }}><LvfDisplay LVF={this.state.lvf} /></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><CifDisplay/></Col>
+                <Col md={{ span: 12, offset: 0 }}><CifDisplay CIF={this.state.cif} /></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><PriDisplay /></Col>

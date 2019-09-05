@@ -125,9 +125,7 @@ maximumPressure float ,
 maximumDurationUnit VARCHAR(7000) ,
 maximumDurationValue float ,
 repetitionPerDay float  ,
-futureExpansionNotes VARCHAR(7000) ,
-customerSiteLayout BIT , 
-
+futureExpansionNotes VARCHAR(7000) , 
 )
 go
 
