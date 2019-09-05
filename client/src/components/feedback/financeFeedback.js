@@ -40,6 +40,7 @@ class financeFeedback extends Component {
       .post('http://localhost:8000/api/employees/financeFB',this.state)
       .then(res => alert(res.data.message))
       .catch(err => alert(err.message))
+      window.location.assign('http://localhost:3000/cases/Finance')
     }
 
     nameUploadCallBackFunction = (childData) => {
