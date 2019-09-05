@@ -39,6 +39,15 @@ const app = express()
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use('/distributionFiles', express.static('distributionFiles'))
+app.use('/formFiles', express.static('formFiles'))
+app.use('/cifFiles', express.static('cifFiles'))
+app.use('/sourcingFiles', express.static('sourcingFiles'))
+app.use('/pdiFiles', express.static('pdiFiles'))
+app.use('/prFiles', express.static('prFiles'))
+app.use('/financeFiles', express.static('financeFiles'))
+
+
 
 // DB authenticate
 const db = require('./config/database')
@@ -79,9 +88,9 @@ app.use('/api/irmrFiles', irmrFiles)
 app.use('/api/distributions', distributions)
 app.use('/api/distributionsAPs', distributionAPs)
 app.use('/api/distributionsFiles', distributionFiles)
-app.use('/api/finance',finance)
-app.use('/api/financeAps',financeAPs)
-app.use('/api/financeFiles',financeFiles)
+app.use('/api/finance', finance)
+app.use('/api/financeAps', financeAPs)
+app.use('/api/financeFiles', financeFiles)
 app.use('/api/sourcings', sourcings)
 app.use('/api/sourcingAPs', sourcingAPs)
 app.use('/api/sourcingFiles', sourcingFiles)
