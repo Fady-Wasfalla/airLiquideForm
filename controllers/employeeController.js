@@ -33,9 +33,9 @@ const FormFiles = require('../models/FormFiles')
 const Question = require('../models/Question')
 const os = require('os')
 const employeeName = os.userInfo().username
+
 const tzoffset = (new Date()).getTimezoneOffset() * 60000
 const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
-
 exports.default = async (req, res) => {
   await entityController.default(req, res, Model)
 }
@@ -84,6 +84,7 @@ exports.newForm = async (req, res) => {
     // inserting the conatct perosns
     if (cbi && cbi.contactPerson) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
+        if (cbi.contactPerson.contactPersonName[i]!==""){
         let conrtactPersonData = {
           formId,
           contactPersonName: cbi.contactPerson.contactPersonName[i],
@@ -93,6 +94,7 @@ exports.newForm = async (req, res) => {
         }
         await ConrtactPerson.create(conrtactPersonData)
       }
+    }
     }
     // creating the lvf of the form
     await Lvf.create({ formId, ...lvf })
@@ -569,6 +571,45 @@ exports.getFormsDisplay = async (req, res) => {
     })
   }
 }
+
+exports.getQuestions = async (req, res) => {
+try {
+
+  let pendingQuestions = []
+  let submittedQuestions = []
+  Form.hasMany(Question, {foreignKey: 'id'})
+  Question.belongsTo(Form, {foreignKey: 'formId'})
+  const userName = req.params.userName
+  const questions = await Question.findAll({
+                                            include: [{
+                                              model: Form,
+                                              required: true,
+                                              where: {employeename: userName}
+                                            }]
+                                          }) 
+  for (let i =0 ; i<questions.length ; i++){
+    if (questions[i].answer){
+      submittedQuestions = submittedQuestions.concat(questions[i])
+    }else{
+      pendingQuestions = pendingQuestions.concat(questions[i])
+    }
+  }
+  
+  return res.json({
+      status: 'Success',
+      allQuestions: questions ,
+      pendingQuestions: pendingQuestions ,
+      submittedQuestions: submittedQuestions ,
+    })
+} catch (error) {
+  return res.json({
+    status: 'Failed',
+    message: error.message
+  })
+}
+}
+
+
 exports.showFormData = async (req, res) => {
   try {
     const formId = req.params.id
@@ -583,11 +624,12 @@ exports.showFormData = async (req, res) => {
     const contactPerson = await ConrtactPerson.findAll({ where: { formId: formId } })
     const history = await History.findAll({ where: { formId: formId } })
     const questions = await Question.findAll({ where: { formId: formId } })
+
     const fromData = { form, contactPerson, formFiles, history, questions }
     let lvf = await Lvf.findOne({ where: { formId: formId } })
     let cif = await Cif.findOne({ where: { formId: formId } })
-    console.log(cif)
     if (lvf === null) lvf = {}  
+
     /* ------------------------------------------------------PRI-------------------------------------------------------- */
     const pri = await Pri.findOne({ where: { formId: formId } })
     var priData = {}
@@ -674,7 +716,7 @@ exports.showFormData = async (req, res) => {
     /* -----------------------------------------------------SOURCINGS-------------------------------------------------------- */
     return res.json({
       status: 'Success',
-      fromData, /* { form, contactPerson, formFiles, history, questions } */
+      formData, /* { form, contactPerson, formFiles, history, questions } */
       lvf,
       cif,
       priData, /* { pri, fulids, utilities } */

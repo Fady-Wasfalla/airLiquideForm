@@ -12,8 +12,10 @@ class customerBasicInfo extends Component {
         address:"",
         zone:"",
         address:"",
-        contactPerson:{},
+        contactPerson:{contactPersonName:[]},
         fieldset:"",
+        done:"✘",
+        dodo:true
     }
 
     handleChange(date) {
@@ -28,18 +30,30 @@ class customerBasicInfo extends Component {
         this.props.ParentCallBack(sentData)
     }
 
-    submitData=()=>{
+    submitData=(event)=>{
+        this.setState({dodo:!this.state.dodo})
+        event.preventDefault();
         this.sendData()
         if (this.state.fieldset===""){
-            this.setState({fieldset:"disabled"})
+            this.setState({fieldset:"disabled",
+                           done:"✔" })
         }
         else{
-            this.setState({fieldset:""})
+            this.setState({fieldset:"",
+                           done:"✘" })
         }
     }
 
     contactPersonCallBackFunction = (childData) => {
         this.setState({contactPerson:childData})
+    }
+
+    submissionColor=(e)=>{
+        if (e==="✔"){
+            return "green"
+        }else{
+            return "red"
+        }
     }
       
      
@@ -47,17 +61,18 @@ class customerBasicInfo extends Component {
         return (
             <React.Fragment>
                 <Card border="secondary" >
+                <Form onSubmit={this.submitData}>
                 <Card.Header as="h5" className="bg-dark text-white" > Customer Basics Info</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
                 <fieldset disabled={this.state.fieldset}>
-                    <Form>
                         <Form.Row>
                             
                             <Form.Group as={Col} controlId="customerName">
                             <Form.Label>Customer Name</Form.Label>
-                            <Form.Control as="textarea" rows="1" 
+                            <Form.Control as="textarea" rows="1" required
                             onChange={(e)=>{this.setState({name:e.target.value})}}/>
+                            
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridPassword">
@@ -92,20 +107,15 @@ class customerBasicInfo extends Component {
                         <Col md={12}><ContactPerson ParentCallBack={this.contactPersonCallBackFunction}/></Col>
                         </Form.Row>
                         
-                    </Form>
                 </fieldset>
                 </Col>
                 <Card.Footer > 
-                <Row style={{height: .018*window.innerHeight + 'px'}}>
-                            <Col md={{offset:11}} >
-                            <Form.Check id="submitCBI"
-                            custom={true}
-                            inline={true}
-                            label="Submit"
-                            onChange={this.submitData}/>
+                            <Col md={{offset:5}} >
+                            <Button type="submit" variant="outline" style={{color:this.submissionColor(this.state.done)}}>Check if done {this.state.done}</Button>
                             </Col> 
-                </Row>
+                            
                 </Card.Footer>
+                </Form>
                 </Card>
             </React.Fragment>
         )

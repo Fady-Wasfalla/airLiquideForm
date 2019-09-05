@@ -11,10 +11,11 @@ import SourcingFeedback from './components/feedback/sourcingFeedback'
 import CiFeedback from './components/feedback/cifFeedBack'
 import PrFeedback from './components/feedback/prFeedback'
 import Cases from './components/screens/cases'
+import Questions from './components/screens/questions'
+import viewQuestion from './components/screens/viewQuestion'
 import Header from './components/header'
 import Home from './components/screens/home'
 import axios from "axios"
-
 
 
 class App extends Component {
@@ -61,6 +62,8 @@ class App extends Component {
         <Route exact path='/fleatFeedback/:id' component={FleatFeedback} />
         <Route exact path='/ciFeedback/:id' component={CiFeedback} />
         <Route exact path='/prFeedback/:id' component={PrFeedback} />
+        <Route exact path='/getMyQuestions/:userName' component={Questions} />
+        <Route exact path='/viewQuestion/:formId/:questionId' component={viewQuestion} />
         <Route exact path='/cases/:department'
         render={(props) => <Cases {...props} screensNames={this.state.screensNames} />}/>
       </Switch>

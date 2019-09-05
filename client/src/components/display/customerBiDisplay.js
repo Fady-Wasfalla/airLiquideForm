@@ -11,16 +11,17 @@ class customerBiDisplay extends Component {
         zone:"",
         address:"",
 
-        open:true,
+        open:false,
     }
     componentWillMount(){
         console.log(17)
         console.log(this.props)
     } 
       render() {
+          let cbiChange = this.props.CBI
+          let cbi = Object.assign([{}],cbiChange)
           let cpChange = this.props.CP
           let newCP = Object.assign([{}],cpChange)
-          let cbi = this.props.CBI
         return (
             <React.Fragment>
                 <Card border="secondary" >

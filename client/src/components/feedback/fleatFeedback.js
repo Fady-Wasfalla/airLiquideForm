@@ -3,8 +3,8 @@ import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import PredeliveryIdentificationReport from './predeliveryIdentificationReport'
 import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
+import Upload from '../upload'
 import axios from 'axios'
-
 
 
 
@@ -32,15 +32,18 @@ class fleatFeedback extends Component {
     }
 
     handleChange=()=>{
-      axios
-      .post('http://localhost:8000/api/employees/pdiFB',this.state)
-      .then(res => alert(res.data.message))
-      .catch(err => alert(err.message))
       console.log(this.state)
       axios
       .post('http://localhost:8000/api/employees/distributionsFB',this.state)
       .then(res => alert(res.data.message))
       .catch(err => alert(err.message))
+    }
+    nameUploadCallBackFunction = (childData) => {
+      this.setState({filesNames:childData})
+    }
+
+    fileUploadCallBackFunction = (childData) => {
+      this.setState({file:childData})
     }
      
       render() {
@@ -59,6 +62,10 @@ class fleatFeedback extends Component {
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><PredeliveryIdentificationReport ParentCallBack={this.pdiCallBackFunction}/></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
+                                                          fileParentCallBack={this.fileUploadCallBackFunction}/></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card, Button , Alert } from "react-bootstrap";
+import { Form , Col , Row , Card, Button , Collapse } from "react-bootstrap";
 
 import CustomerBiDisplay from './customerBiDisplay'
 import LvfDisplay from './lvfDisplay'
@@ -17,10 +17,11 @@ import Popup from "reactjs-popup";
 class formDisplay extends Component {
 
     state = {
-      fromData:{}, /* { form, contactPerson, formFiles, history, questions } */
+      formData:{}, /* { form, contactPerson, formFiles, history, questions } */
       lvf:{},
       cp:[],
       cif:{},
+      showAsk:"",
       priData:{}, /* { pri, fulids, utilities } */
       cifResponseData:{}, /* { cifResponse,cifAP, cifFiles} */
       distributionsResponseData:{}, /* {distributions,distributionsAP,distributionsFiles} */
@@ -29,12 +30,12 @@ class formDisplay extends Component {
       sourcingsData:{} /* { sourcings,sourcingsAP, sourcingsFile} */
     }
 
-    async componentWillMount(){
-      await axios
+    componentWillMount(){
+     axios
       .get('http://localhost:8000/api/employees/showFormData/'+this.props.formId)
       .then(res => {this.setState({
-        fromData:res.data.fromData,
-        cp:res.data.fromData.contactPerson,
+        formData:res.data.formData,
+        cp:res.data.formData.contactPerson,
         lvf:res.data.lvf,
         cif:res.data.cif,
         priData:res.data.priData, 
@@ -46,8 +47,6 @@ class formDisplay extends Component {
         })
       .catch(err => alert(err.message))
       
-      
-      
     }
       
       render() {
@@ -56,11 +55,18 @@ class formDisplay extends Component {
                 <Row><br/></Row>
                 
                 <Card border="secondary">
-                <Card.Header as="h4" className="bg-light text-black">Form</Card.Header>                
+                <Card.Header as="h4" className="bg-light text-black">
+                <Row style={{height: .04*window.innerHeight + 'px'}}>
+                <Col>Form</Col>
+                <Button variant="outline-dark" size="sm"
+                 onClick={(e)=>{this.setState({open:!this.state.open})}}>☰</Button>
+                 </Row>
+                </Card.Header>                
                 <Row><br/></Row>
 
-                
-                <Col md={{ span: 12, offset: 0 }}><CustomerBiDisplay CBI={this.state.fromData} CP={this.state.fromData.contactPerson}/></Col>
+                <Collapse in={this.state.open}>
+                <Col md={12}>                
+                <Col md={{ span: 12, offset: 0 }}><CustomerBiDisplay CBI={this.state.formData.form} CP={this.state.cp}/></Col>
                 <Row><br/></Row>
 
 
@@ -75,9 +81,10 @@ class formDisplay extends Component {
 
                 <Col md={{ span: 12, offset: 0 }}><PreviousQuestions /></Col>
                 <Row><br/></Row>
+                </Col>
+                </Collapse>
 
-
-                <Col md={{ offset: 10 }}>       
+                <Col md={{ offset: 10 }} style={{display:this.state.showAsk}} >       
                 <Popup trigger={<Button variant="outline-primary"> Ask Question ...? </Button>} modal><AskQuestion FormID={this.props.formId}/> </Popup>
                 </Col>
                 <Row><br/></Row>

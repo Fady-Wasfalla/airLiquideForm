@@ -3,6 +3,7 @@ import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import Irmr from './irmr'
 import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
+import Upload from '../upload'
 import axios from 'axios'
 
 
@@ -27,6 +28,14 @@ class prFeedback extends Component {
 
     irmrCallBackFunction = (childData) => {
       this.setState({irmr:childData})
+    }
+
+    nameUploadCallBackFunction = (childData) => {
+      this.setState({filesNames:childData})
+    }
+
+    fileUploadCallBackFunction = (childData) => {
+      this.setState({file:childData})
     }
 
     handleChange=()=>{
@@ -54,6 +63,10 @@ class prFeedback extends Component {
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><Irmr ParentCallBack={this.irmrCallBackFunction} /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
+                                                          fileParentCallBack={this.fileUploadCallBackFunction}/></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>

@@ -41,6 +41,10 @@ class upload extends Component {
                 <Button variant="outline"  
                 onClick={(e)=>this.addFile(e)}
                 >＋</Button>
+                {/* <Button variant="outline"  
+                onClick={(e)=>{this.setState({name:[]})
+                                this.setState({file:[]})}}
+                                >Clear All</Button> */}
                 <Row>
                 <Col md={3}>
                 {
@@ -48,27 +52,17 @@ class upload extends Component {
                         return (
                             <Form>
                                 <Form.Row>
+                                    <Row>
                                     <Form.Group as={Col} >
                                     <Form.Label>Name</Form.Label>
                                     <Form.Control as="textarea" rows="1"
                                     onChange={(e)=>this.nameHandleChange(e , index)} value={name} />
                                     </Form.Group>
-                                </Form.Row>
-                            </Form>
-                        )
-                    })
-                }
-                </Col>
-                <Col md={6}>
-                {
-                    this.state.file.map((file,index)=>{
-                        return (
-                            <Form>
-                                <Form.Row>
-                                    <Col md={4}>
-                                    <Row style={{height: .05*window.innerHeight + 'px'}}/>                             
-                                        <input type="file" name="file" onChange={(e)=>this.fileHandleChange(e,index)} />
-                                    </Col>
+
+                                    <Form.Group as={Col}>
+                                     <input type="file" name="file" onChange={(e)=>this.fileHandleChange(e,index)} />
+                                    </Form.Group>
+                                    </Row>
                                 </Form.Row>
                             </Form>
                         )

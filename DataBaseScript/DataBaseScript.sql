@@ -3,16 +3,16 @@ go
 
 Create table Employee (
 id int IDENTITY(1,1) PRIMARY KEY,
-userName VARCHAR(300) not null unique , /* make them unique and not null*/ 
-email VARCHAR(300) not null unique , /* make them unique and not null*/
-departement VARCHAR(300) , /* make them unique and not null*/
+userName VARCHAR(7000) not null unique , /* make them unique and not null*/ 
+email VARCHAR(7000) not null unique , /* make them unique and not null*/
+departement VARCHAR(7000) , /* make them unique and not null*/
 [activation] BIT DEFAULT 1 not null ,
 )
 Go
 
 Create table Screen (
 id int IDENTITY(1,1) PRIMARY KEY,
-name VARCHAR(300) not null unique ,
+name VARCHAR(7000) not null unique ,
 )
 Go 
 
@@ -30,12 +30,12 @@ Go
 /* Form */
 create table [dbo].[Form](
 id int IDENTITY(1,1) PRIMARY KEY,
-employeename varchar(300) ,
+employeename VARCHAR(7000) ,
 FOREIGN KEY(employeeName) REFERENCES Employee(userName),
-name VARCHAR(200),
+name VARCHAR(7000),
 [date] date ,
-[address] VARCHAR(200),
-[zone] VARCHAR(100),
+[address] VARCHAR(7000),
+[zone] VARCHAR(7000),
 distributionSubmition bit DEFAULT 0,
 sourcingSubmition bit DEFAULT 0 ,
 fleatSubmition bit DEFAULT 0,
@@ -49,18 +49,18 @@ go
 create table [dbo].[FormFiles] (
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id),
-name VARCHAR(5000),
-[path] varchar(5000)
+name VARCHAR(7000),
+[path] VARCHAR(7000)
 )
 go
 
 create table [dbo].[ContactPerson](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-contactPersonName VARCHAR(500),
-title VARCHAR(500) ,
-phone VARCHAR(500) ,
-mail VARCHAR(500) ,
+contactPersonName VARCHAR(7000),
+title VARCHAR(7000) ,
+phone VARCHAR(7000) ,
+mail VARCHAR(7000) ,
 )
 go
 
@@ -68,12 +68,11 @@ go
 create table [dbo].[Question](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-asker VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
-replier VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
+asker VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
 submitionDate datetime ,
 replayDate datetime ,
-question VARCHAR(200),
-answer VARCHAR(200),
+question VARCHAR(7000),
+answer VARCHAR(7000),
 
 )
 
@@ -83,13 +82,13 @@ answer VARCHAR(200),
 create table [dbo].[Lvf](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-customerType VARCHAR(100)  ,
-businessType VARCHAR(100) ,
+customerType VARCHAR(7000)  ,
+businessType VARCHAR(7000) ,
 startDeliveryDate date  ,
 forecastDeliveryEnd date  ,
-product VARCHAR(100) ,
-purity VARCHAR(100) ,
-customerConsumption VARCHAR(100) ,
+product VARCHAR(7000) ,
+purity VARCHAR(7000) ,
+customerConsumption VARCHAR(7000) ,
 regularMonths float ,
 patchDay float ,
 patchAvgHrs float ,
@@ -100,13 +99,13 @@ customerTank float ,
 customerDeadLevel float  ,
 usableCapacityAboveDeadLevel float ,
 peakConsumption float ,
-frequencyOfPeakConsumption VARCHAR(300) ,
-availableDelivery VARCHAR(300) ,
-startDeliveryTime varchar(50) ,
-endDeliveryTime varchar(50) ,
+frequencyOfPeakConsumption VARCHAR(7000) ,
+availableDelivery VARCHAR(7000) ,
+startDeliveryTime varchar(7000) ,
+endDeliveryTime varchar(7000) ,
 weightScale float ,
 tankGuage float ,
-lvfComment VARCHAR(300) ,
+lvfComment VARCHAR(7000) ,
 )
 go
 
@@ -114,44 +113,43 @@ go
 create table [dbo].[Cif](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-product VARCHAR(200) ,
-applicationProduct VARCHAR(300) ,
-requiredPhase VARCHAR(200) ,
-flowUnit VARCHAR(200) ,
+product VARCHAR(7000) ,
+applicationProduct VARCHAR(7000) ,
+requiredPhase VARCHAR(7000) ,
+flowUnit VARCHAR(7000) ,
 averageFlowRateValue float ,
 averagePressure float ,
 averageDuration float ,
 maximumFlowRrateValue float ,
 maximumPressure float ,
-maximumDurationUnit VARCHAR(200) ,
+maximumDurationUnit VARCHAR(7000) ,
 maximumDurationValue float ,
 repetitionPerDay float  ,
-futureExpansionNotes VARCHAR(300) , 
-
+futureExpansionNotes VARCHAR(7000) , 
 )
 go
 
 create table [dbo].[CifResponse](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
-decision VARCHAR(200)  , /* disapprove   approve   approve with recommendation */
-decisionComment VARCHAR(100),
+employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
+decision VARCHAR(7000)  , /* disapprove   approve   approve with recommendation */
+decisionComment VARCHAR(7000),
 )
 go
 
 create table [dbo].[CifAP](
 id int IDENTITY(1,1) PRIMARY KEY,
 CifResponseId int FOREIGN KEY REFERENCES CifResponse(id) ,
-actions VARCHAR(500)
+actions VARCHAR(7000)
 )
 go
 
 create table [dbo].[CifFiles](
 id int IDENTITY(1,1) PRIMARY KEY,
 CifResponseId int FOREIGN KEY REFERENCES CifResponse(id) ,
-[path] varchar(5000),
-name varchar(5000)
+[path] VARCHAR(7000),
+name VARCHAR(7000)
 )
 go
 
@@ -163,33 +161,33 @@ id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
 
 /* First part of PRI form */
-/*businessUnit VARCHAR(100) ,
-projectName VARCHAR(100) ,
-projectLocation VARCHAR(100) ,
-capitalInvestment VARCHAR(100) ,
+/*businessUnit VARCHAR(7000) ,
+projectName VARCHAR(7000) ,
+projectLocation VARCHAR(7000) ,
+capitalInvestment VARCHAR(7000) ,
 deadlineSubmittingBid date ,
-businessDeveloper VARCHAR(100) ,
-projectManager VARCHAR(100) ,
-ownerRepresentative VARCHAR(100) ,*/
+businessDeveloper VARCHAR(7000) ,
+projectManager VARCHAR(7000) ,
+ownerRepresentative VARCHAR(7000) ,*/
 
 /* 1. Project description and general Cmts*/
-descriptionAndGeneralCmts VARCHAR(2000) ,
+descriptionAndGeneralCmts VARCHAR(7000) ,
 
 /* 2. Facility or Equipment*/
-facilityOrEquipment VARCHAR(100),
-facilityOrEquipmentRemarks VARCHAR(200),
-applicationType VARCHAR(100) ,
-applicationTypeRemarks VARCHAR(200) ,
-projectType VARCHAR(100) ,
-projectTypeRemarks VARCHAR(200) ,
-facilityOrEquipmentSupply VARCHAR(200) ,
-facilityOrEquipmentCmts VARCHAR(200) ,
+facilityOrEquipment VARCHAR(7000),
+facilityOrEquipmentRemarks VARCHAR(7000),
+applicationType VARCHAR(7000) ,
+applicationTypeRemarks VARCHAR(7000) ,
+projectType VARCHAR(7000) ,
+projectTypeRemarks VARCHAR(7000) ,
+facilityOrEquipmentSupply VARCHAR(7000) ,
+facilityOrEquipmentCmts VARCHAR(7000) ,
 fixedStandardBulk BIT ,
 fixedBulkTankOnly BIT ,
 onlySupplyOfProduct BIT ,
 mobile BIT ,
 onBoardEquipment BIT ,
-onBoardEquipmentType VARCHAR(100),
+onBoardEquipmentType VARCHAR(7000),
 
 
 /* 4. Site information
@@ -204,13 +202,13 @@ createPotentialEnvironmental BIT ,
 pollutionRemediation BIT ,
 operationsConditionsPotentially BIT  ,
 naturalCmts BIT ,
-earthquakeCmt VARCHAR(500) ,
-operationAffectedRegulatedAreaCmt VARCHAR(500) ,
-weatherCmt VARCHAR(500) ,
-createPotentialEnvironmentalCmt VARCHAR(500) ,
-pollutionRemediationCmt VARCHAR(500) ,
-operationsConditionsPotentiallyCmt VARCHAR(500)  ,
-naturalCmtsCmt VARCHAR(500) ,
+earthquakeCmt VARCHAR(7000) ,
+operationAffectedRegulatedAreaCmt VARCHAR(7000) ,
+weatherCmt VARCHAR(7000) ,
+createPotentialEnvironmentalCmt VARCHAR(7000) ,
+pollutionRemediationCmt VARCHAR(7000) ,
+operationsConditionsPotentiallyCmt VARCHAR(7000)  ,
+naturalCmtsCmt VARCHAR(7000) ,
 
 /* 4.2 Industrial */
 pollution BIT ,
@@ -226,19 +224,19 @@ properDrainage BIT ,
 sittingInSafetyZone BIT ,
 customerEquipmentNotFullyCompatible BIT ,
 industrialCmts BIT  , 
-pollutionCmt VARCHAR(250) ,
+pollutionCmt VARCHAR(7000) ,
 highVoltageLinesCapacity float,
 highVoltageLinesDistanceToTank float ,
-limitedSpacingCmt VARCHAR(250) ,
-hazardousMaterialStorageCmt VARCHAR(250),
-confinementCmt VARCHAR(250) ,
-potentialExistingSitePollutionCmt VARCHAR(250)  ,
-proximityToHighRiskCmt VARCHAR(250) ,
-proximityOfCombustibleMaterialCmt VARCHAR(250) ,
+limitedSpacingCmt VARCHAR(7000) ,
+hazardousMaterialStorageCmt VARCHAR(7000),
+confinementCmt VARCHAR(7000) ,
+potentialExistingSitePollutionCmt VARCHAR(7000)  ,
+proximityToHighRiskCmt VARCHAR(7000) ,
+proximityOfCombustibleMaterialCmt VARCHAR(7000) ,
 undergroundNetworkDepth float,
-sittingInSafetyZoneCmt VARCHAR(250) ,
-customerEquipmentNotFullyCompatibleCmt VARCHAR(250) ,
-industrialCmtsCmt VARCHAR(250)  , 
+sittingInSafetyZoneCmt VARCHAR(7000) ,
+customerEquipmentNotFullyCompatibleCmt VARCHAR(7000) ,
+industrialCmtsCmt VARCHAR(7000)  , 
 
 /* 4.3 Population/Site location */
 residentialArea BIT ,
@@ -248,13 +246,13 @@ isolatedArea BIT ,
 siteAccessibility BIT ,
 highSecurityRisk BIT ,
 populationCmts BIT ,
-residentialAreaCmt VARCHAR(250) ,
-publicBuildingCmt VARCHAR(250) ,
-transportationCorridorCmt VARCHAR(250) ,
-isolatedAreaCmt VARCHAR(250),
-siteAccessibilityCmt VARCHAR(250) ,
-highSecurityRiskCmt VARCHAR(250) ,
-populationCmtsCmt VARCHAR(250) ,
+residentialAreaCmt VARCHAR(7000) ,
+publicBuildingCmt VARCHAR(7000) ,
+transportationCorridorCmt VARCHAR(7000) ,
+isolatedAreaCmt VARCHAR(7000),
+siteAccessibilityCmt VARCHAR(7000) ,
+highSecurityRiskCmt VARCHAR(7000) ,
+populationCmtsCmt VARCHAR(7000) ,
 
 /* 4.4. Customer */
 financialSituation BIT  ,
@@ -262,9 +260,9 @@ durabilityOfCustomerActivities BIT ,
 newBusinessCustomer BIT ,
 strategicCustomer BIT ,
 customerCmts BIT ,
-financialSituationCmt VARCHAR(250)  ,
-strategicCustomerCmt VARCHAR(250) ,
-customerCmtsCmt VARCHAR(250) ,
+financialSituationCmt VARCHAR(7000)  ,
+strategicCustomerCmt VARCHAR(7000) ,
+customerCmtsCmt VARCHAR(7000) ,
 
 /* 5. Project Organisation */
 jointProjectThirdParties BIT ,
@@ -276,15 +274,15 @@ projectSubmittedToThirdParty BIT ,
 difficultyAccessExpertise BIT ,
 issueOfResource BIT ,
 projectOrganisationCmts BIT ,
-jointProjectThirdPartiesCmt VARCHAR(250) ,
-jointProjectInvolvingAirLiquideCmt VARCHAR(250) ,
-equipmentSuppliedByCustomerCmt VARCHAR(250) ,
-useStandBbyAssetsCmt VARCHAR(250) ,
-necessaryDesignAuthoritiesCmt VARCHAR(250) ,
-projectSubmittedToThirdPartyCmt VARCHAR(250) ,
-difficultyAccessExpertiseCmt VARCHAR(250) ,
-issueOfResourceCmt VARCHAR(250) ,
-projectOrganisationCmtsCmt VARCHAR(250) ,
+jointProjectThirdPartiesCmt VARCHAR(7000) ,
+jointProjectInvolvingAirLiquideCmt VARCHAR(7000) ,
+equipmentSuppliedByCustomerCmt VARCHAR(7000) ,
+useStandBbyAssetsCmt VARCHAR(7000) ,
+necessaryDesignAuthoritiesCmt VARCHAR(7000) ,
+projectSubmittedToThirdPartyCmt VARCHAR(7000) ,
+difficultyAccessExpertiseCmt VARCHAR(7000) ,
+issueOfResourceCmt VARCHAR(7000) ,
+projectOrganisationCmtsCmt VARCHAR(7000) ,
 
 /* 6. Processes, Products, Technology (PPT), Equipment */
 equipmentTechnologySupplier BIT ,
@@ -303,22 +301,22 @@ operationHaveNegativeImpact BIT ,
 riskAnalysisProject BIT ,
 previousRiskAnalysis BIT,
 processesProductsCmts BIT ,
-equipmentTechnologySupplierCmt VARCHAR(250) ,
-qualifiedValidatedEquipmentCmt VARCHAR(250)  ,
-newImposedAssociatesCmt VARCHAR(250)  ,
-innovationNewlyDevelopedCmt VARCHAR(250) ,
-projectUsingInnovativePptCmt VARCHAR(250)  ,
-intellectualPropertyWatchCmt VARCHAR(250)  ,
-lackMainEquipmentsCmt VARCHAR(250) ,
-lackSimilarProcessCmt VARCHAR(250) ,
-majorProblemEncounteredCmt VARCHAR(250) ,
-requirementsUtilitiesSpecificationCmt VARCHAR(250) ,
-installatioProductRequireHazardousCmt VARCHAR(250) ,
-productsRawMaterialsCmt VARCHAR(250) ,
-operationHaveNegativeImpactCmt VARCHAR(250) ,
-riskAnalysisProjectCmt VARCHAR(250) ,
-previousRiskAnalysisCmt VARCHAR(250),
-processesProductsCmtsCmt VARCHAR(250) ,
+equipmentTechnologySupplierCmt VARCHAR(7000) ,
+qualifiedValidatedEquipmentCmt VARCHAR(7000)  ,
+newImposedAssociatesCmt VARCHAR(7000)  ,
+innovationNewlyDevelopedCmt VARCHAR(7000) ,
+projectUsingInnovativePptCmt VARCHAR(7000)  ,
+intellectualPropertyWatchCmt VARCHAR(7000)  ,
+lackMainEquipmentsCmt VARCHAR(7000) ,
+lackSimilarProcessCmt VARCHAR(7000) ,
+majorProblemEncounteredCmt VARCHAR(7000) ,
+requirementsUtilitiesSpecificationCmt VARCHAR(7000) ,
+installatioProductRequireHazardousCmt VARCHAR(7000) ,
+productsRawMaterialsCmt VARCHAR(7000) ,
+operationHaveNegativeImpactCmt VARCHAR(7000) ,
+riskAnalysisProjectCmt VARCHAR(7000) ,
+previousRiskAnalysisCmt VARCHAR(7000),
+processesProductsCmtsCmt VARCHAR(7000) ,
 
 /* 7. Operation Conditions */
 customizedPlant BIT ,
@@ -332,17 +330,17 @@ specialTraining BIT ,
 unattendedFacility BIT ,
 remoteFillingLines BIT ,
 operationCmts BIT ,
-customizedPlantCmt VARCHAR(250)  ,
-newServiceBySubsidiaryCmt VARCHAR(250) ,
-includeTransportationActivitiesCmt VARCHAR(250) ,
-operationDoneByCustomerCmt VARCHAR(250) ,
-operatingWithoutDesignCmt VARCHAR(250) ,
-noOperatingExperienceSimilarProcessCmt VARCHAR(250) ,
-potentialBackflowCmt VARCHAR(250) ,
-specialTrainingCmt VARCHAR(250) ,
-unattendedFacilityCmt VARCHAR(250) ,
-remoteFillingLinesCmt VARCHAR(250) ,
-operationCmtsCmt VARCHAR(250)  ,
+customizedPlantCmt VARCHAR(7000)  ,
+newServiceBySubsidiaryCmt VARCHAR(7000) ,
+includeTransportationActivitiesCmt VARCHAR(7000) ,
+operationDoneByCustomerCmt VARCHAR(7000) ,
+operatingWithoutDesignCmt VARCHAR(7000) ,
+noOperatingExperienceSimilarProcessCmt VARCHAR(7000) ,
+potentialBackflowCmt VARCHAR(7000) ,
+specialTrainingCmt VARCHAR(7000) ,
+unattendedFacilityCmt VARCHAR(7000) ,
+remoteFillingLinesCmt VARCHAR(7000) ,
+operationCmtsCmt VARCHAR(7000)  ,
 
 /* 8. Customer Requirements */
 notFullyDefined BIT ,
@@ -355,16 +353,16 @@ specificInsurance BIT ,
 requiredStudies BIT ,
 peakFlowRequirement BIT ,
 customerRequirementCmts BIT ,
-notFullyDefinedCmt VARCHAR(250) ,
-technicalIssuesCmt VARCHAR(250) ,
-contractualTargetsCmt VARCHAR(250) ,
-requiredStudiesReliabilityCmt VARCHAR(250) ,
-safetyIntegrityLevelCmt VARCHAR(250) ,
-mandatoryCustomerStandardsCmt VARCHAR(250) ,
-specificInsuranceCmt VARCHAR(250) ,
-requiredStudiesCmt VARCHAR(250) ,
-peakFlowRequirementCmt VARCHAR(250) ,
-customerRequirementCmtsCmt VARCHAR(250) ,
+notFullyDefinedCmt VARCHAR(7000) ,
+technicalIssuesCmt VARCHAR(7000) ,
+contractualTargetsCmt VARCHAR(7000) ,
+requiredStudiesReliabilityCmt VARCHAR(7000) ,
+safetyIntegrityLevelCmt VARCHAR(7000) ,
+mandatoryCustomerStandardsCmt VARCHAR(7000) ,
+specificInsuranceCmt VARCHAR(7000) ,
+requiredStudiesCmt VARCHAR(7000) ,
+peakFlowRequirementCmt VARCHAR(7000) ,
+customerRequirementCmtsCmt VARCHAR(7000) ,
 
 /* 9. Regulatory Obligations / Environmental */
 regulatoryInformation BIT ,
@@ -381,14 +379,14 @@ electricalEquipmentEegulation BIT ,
 otherRegulation BIT ,
 otherApplicablePermits BIT ,
 softwareProcessControl BIT ,
-regulatoryInformationCmt VARCHAR(250)  ,
-lackOfKnowledgeCmt VARCHAR(250) ,
-pressureVesselRegulationCmt VARCHAR(250)  ,
-transportationRegulationCmt VARCHAR(250) , 
-electricalEquipmentEegulationCmt VARCHAR(250)  ,
-otherRegulationCmt VARCHAR(250) ,
-otherApplicablePermitsCmt VARCHAR(250) ,
-softwareProcessControlCmt VARCHAR(250) ,
+regulatoryInformationCmt VARCHAR(7000)  ,
+lackOfKnowledgeCmt VARCHAR(7000) ,
+pressureVesselRegulationCmt VARCHAR(7000)  ,
+transportationRegulationCmt VARCHAR(7000) , 
+electricalEquipmentEegulationCmt VARCHAR(7000)  ,
+otherRegulationCmt VARCHAR(7000) ,
+otherApplicablePermitsCmt VARCHAR(7000) ,
+softwareProcessControlCmt VARCHAR(7000) ,
 
 /* 10. Consequences of supply or delivery loss (flow interruption) */
 corporateImage BIT ,
@@ -398,13 +396,13 @@ financialLoss BIT ,
 impactOnAL BIT ,
 contractualPenalties BIT ,
 consequencesCmts BIT ,
-corporateImageCmt VARCHAR(250)  ,
-impactOnCustomerCmt VARCHAR(250)  ,
-impactOnStrategicCmt VARCHAR(250) ,
-financialLossCmt VARCHAR(250)  ,
-impactOnALCmt VARCHAR(250) ,
-contractualPenaltiesCmt VARCHAR(250)  ,
-consequencesCmtsCmt VARCHAR(250)  ,
+corporateImageCmt VARCHAR(7000)  ,
+impactOnCustomerCmt VARCHAR(7000)  ,
+impactOnStrategicCmt VARCHAR(7000) ,
+financialLossCmt VARCHAR(7000)  ,
+impactOnALCmt VARCHAR(7000) ,
+contractualPenaltiesCmt VARCHAR(7000)  ,
+consequencesCmtsCmt VARCHAR(7000)  ,
 
 /* 11. In case of acquisition (Project type acquisition) */
 technicalInspection BIT ,
@@ -415,14 +413,14 @@ obsoleteEquipment BIT ,
 potentialNonComplianceEnvironmental BIT ,
 facilityAge BIT ,
 acquisitionCmts BIT ,
-technicalInspectionCmt VARCHAR(250) ,
-potentialNonComplianceSafetyCmt VARCHAR(250)  ,
-significantDiscrepanciesALCmt VARCHAR(250)  ,
-potentialIssueCompetenciesCmt VARCHAR(250)  ,
-obsoleteEquipmentCmt VARCHAR(250)  ,
-potentialNonComplianceEnvironmentalCmt VARCHAR(250)  ,
-facilityAgeCmt VARCHAR(250) ,
-acquisitionCmtsCmt VARCHAR(250) ,
+technicalInspectionCmt VARCHAR(7000) ,
+potentialNonComplianceSafetyCmt VARCHAR(7000)  ,
+significantDiscrepanciesALCmt VARCHAR(7000)  ,
+potentialIssueCompetenciesCmt VARCHAR(7000)  ,
+obsoleteEquipmentCmt VARCHAR(7000)  ,
+potentialNonComplianceEnvironmentalCmt VARCHAR(7000)  ,
+facilityAgeCmt VARCHAR(7000) ,
+acquisitionCmtsCmt VARCHAR(7000) ,
 
 
 
@@ -434,16 +432,16 @@ go
 create table [dbo].[Fluids](
 id int IDENTITY(1,1) PRIMARY KEY,
 priId int FOREIGN KEY REFERENCES PRI(id) ,
-fluidOrProduct VARCHAR(100) ,
+fluidOrProduct VARCHAR(7000) ,
 extremePressure float,
 extremeTemperature float,
 maximumFlow float ,
 volumeStored float ,
 characteristics float ,
-nature1 VARCHAR(200),
-nature2 VARCHAR(200),
-nature3 VARCHAR(200),
-natureOther  VARCHAR(200),
+nature1 VARCHAR(7000),
+nature2 VARCHAR(7000),
+nature3 VARCHAR(7000),
+natureOther  VARCHAR(7000),
 )
 go
 
@@ -452,8 +450,8 @@ go
 create table [dbo].[Utilities](
 id int IDENTITY(1,1) PRIMARY KEY,
 priId int FOREIGN KEY REFERENCES PRI(id) ,
-utility VARCHAR(250) ,
-details VARCHAR(500) ,
+utility VARCHAR(7000) ,
+details VARCHAR(7000) ,
 )
 go
 
@@ -463,41 +461,42 @@ go
 create table [dbo].[Irmr](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
-projectType VARCHAR(300) ,
+employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
+projectType VARCHAR(7000) ,
 
 /*IRMR classification */
-irmrClassification VARCHAR(300) ,
+irmrClassification VARCHAR(7000) ,
 irmrDate Date	,
-irmrsignature VARCHAR(300) ,
-irmrGround VARCHAR(300) ,
+irmrsignature VARCHAR(7000) ,
+irmrGround VARCHAR(7000) ,
 
 /*SIS classification */
 sisDate Date	,
-sisSignature VARCHAR(300) ,
-sisGround VARCHAR(300) ,
-sisSfety BIT ,
-sisEnvironmentRisk BIT ,
-sisProjectManagement BIT ,
-sisOperationRisk BIT ,
+sisSignature VARCHAR(7000) ,
+sisGround VARCHAR(7000) ,
+criticalSfety BIT,
+criticalReliability BIT,
+criticalEnvironmentRisk BIT,
+criticalProjectManagement BIT,
+criticalOperationRisk BIT,
 /* PRA */
 praRequiring BIT ,
 praProject BIT ,
 praSfety BIT ,
 praReliability BIT ,
-praCmt VARCHAR(300) ,
+praCmt VARCHAR(7000) ,
 /* PHA  */
 phaRequiring BIT ,
-phaCmt VARCHAR(300) ,
+phaCmt VARCHAR(7000) ,
 /* Specific quantitative assessment study */
 quantitativeAssessmentRequiring BIT ,
-quantitativeAssessmentCmt VARCHAR(300) ,
+quantitativeAssessmentCmt VARCHAR(7000) ,
 /* EIS  */
 eisRequiring BIT ,
-eisCmt VARCHAR(300) ,
+eisCmt VARCHAR(7000) ,
 
-decision VARCHAR(200)  , /* disapprove   approve   approve with recommendation */
-decisionComment VARCHAR(100),
+decision VARCHAR(7000)  , /* disapprove   approve   approve with recommendation */
+decisionComment VARCHAR(7000),
 
 )
 go
@@ -505,15 +504,15 @@ go
 create table [dbo].[IrmrAP](
 id int IDENTITY(1,1) PRIMARY KEY,
 IrmrId int FOREIGN KEY REFERENCES IRMR(id) ,
-actions VARCHAR(500),
+actions VARCHAR(7000),
 )
 go
 
 create table [dbo].[IrmrFiles](
 id int IDENTITY(1,1) PRIMARY KEY,
 IrmrId int FOREIGN KEY REFERENCES IRMR(id) ,
-[path] varchar(5000),
-name varchar(5000)
+[path] VARCHAR(7000),
+name VARCHAR(7000)
 )
 go
 
@@ -521,24 +520,24 @@ go
 create table [dbo].[Distributions](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
+employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
 customerTank float ,
-decision VARCHAR(200)  , /* disapprove   approve   approve with recommendation */
-decisionComment VARCHAR(100),
+decision VARCHAR(7000)  , /* disapprove   approve   approve with recommendation */
+decisionComment VARCHAR(7000),
 )
 go
 create table [dbo].[DistributionsAP](
 id int IDENTITY(1,1) PRIMARY KEY,
 distributionsId int FOREIGN KEY REFERENCES Distributions(id) ,
-actions VARCHAR(500),
+actions VARCHAR(7000),
 )
 go
 
 create table [dbo].[DistributionsFiles](
 id int IDENTITY(1,1) PRIMARY KEY,
 distributionsId int FOREIGN KEY REFERENCES Distributions(id) ,
-[path] varchar(5000),
-name varchar(5000)
+[path] VARCHAR(7000),
+name VARCHAR(7000)
 )
 go
 
@@ -547,24 +546,24 @@ go
 create table [dbo].[Sourcings](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
+employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
 customerTank float ,
-decision VARCHAR(200)  , /* disapprove   approve   approve with recommendation */
-decisionComment VARCHAR(100),
+decision VARCHAR(7000)  , /* disapprove   approve   approve with recommendation */
+decisionComment VARCHAR(7000),
 )
 go
 create table [dbo].[SourcingsAP](
 id int IDENTITY(1,1) PRIMARY KEY,
 sourcingsId int FOREIGN KEY REFERENCES Sourcings(id) ,
-actions VARCHAR(500)
+actions VARCHAR(7000)
 )
 go
 
 create table [dbo].[SourcingsFiles](
 id int IDENTITY(1,1) PRIMARY KEY,
 sourcingsId int FOREIGN KEY REFERENCES Sourcings(id) ,
-[path] varchar(5000),
-name varchar(5000)
+[path] VARCHAR(7000),
+name VARCHAR(7000)
 )
 go
 
@@ -573,54 +572,54 @@ go
 create table [dbo].[Pdi](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
+employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
 
 highwayEnterance BIT ,
-highwayEnteranceMP VARCHAR(250) ,
-highwayEnteranceCmt VARCHAR(250) ,
+highwayEnteranceMP VARCHAR(7000) ,
+highwayEnteranceCmt VARCHAR(7000) ,
 areaFlat BIT ,
-areaFlatMP VARCHAR(250) ,
-areaFlatCmt VARCHAR(250) ,
+areaFlatMP VARCHAR(7000) ,
+areaFlatCmt VARCHAR(7000) ,
 areaType BIT ,
-areaTypeMP VARCHAR(250) ,
-areaTypeCmt VARCHAR(250) ,
+areaTypeMP VARCHAR(7000) ,
+areaTypeCmt VARCHAR(7000) ,
 dischargePoint BIT ,
-dischargePointMP VARCHAR(250) ,
-dischargePointCmt VARCHAR(250) ,
+dischargePointMP VARCHAR(7000) ,
+dischargePointCmt VARCHAR(7000) ,
 carExit BIT ,
-carExitMP VARCHAR(250) ,
-carExitCmt VARCHAR(250) ,
+carExitMP VARCHAR(7000) ,
+carExitCmt VARCHAR(7000) ,
 carGoBack BIT,
 carGoBackDistance float ,
-carGoBackSafetyProcedure VARCHAR(250) ,
+carGoBackSafetyProcedure VARCHAR(7000) ,
 tankCapacity BIT ,
-tankCapacityMP VARCHAR(250) ,
-tankCapacityCmt VARCHAR(250) ,
+tankCapacityMP VARCHAR(7000) ,
+tankCapacityCmt VARCHAR(7000) ,
 tankCapacitySize float ,
 vaccumFlushing BIT ,
-vaccumFlushingMP VARCHAR(250) ,
-vaccumFlushingCmt VARCHAR(250) ,
+vaccumFlushingMP VARCHAR(7000) ,
+vaccumFlushingCmt VARCHAR(7000) ,
 suitableElectricity BIT ,
-suitableElectricityMP VARCHAR(250) ,
-suitableElectricityCmt VARCHAR(250) ,
+suitableElectricityMP VARCHAR(7000) ,
+suitableElectricityCmt VARCHAR(7000) ,
 adequateLight BIT ,
-adequateLightMP VARCHAR(250) ,
-adequateLightCmt VARCHAR(250) ,
-supplyTime VARCHAR(250) , /* morning , night , all day */
-supplyTimeFrom VARCHAR(100) ,
-supplyTimeTo VARCHAR(100) ,
-supplyTimeCmt VARCHAR(250),
+adequateLightMP VARCHAR(7000) ,
+adequateLightCmt VARCHAR(7000) ,
+supplyTime VARCHAR(7000) , /* morning , night , all day */
+supplyTimeFrom time ,
+supplyTimeTo time ,
+supplyTimeCmt VARCHAR(7000),
 fireExtinguishers BIT ,
-fireExtinguishersMP VARCHAR(250) ,
-fireExtinguishersCmt VARCHAR(250) ,
+fireExtinguishersMP VARCHAR(7000) ,
+fireExtinguishersCmt VARCHAR(7000) ,
 areaObstacles BIT ,
-areaObstaclesMP VARCHAR(250) ,
-areaObstaclesCmt VARCHAR(250) ,
-vehicleType VARCHAR(250),
-inspector VARCHAR(250) ,
-approver VARCHAR(250) ,
-decision VARCHAR(250)  , /* disapprove   approve   approve with recommendation */
-decisionComment VARCHAR(250),
+areaObstaclesMP VARCHAR(7000) ,
+areaObstaclesCmt VARCHAR(7000) ,
+vehicleType VARCHAR(7000),
+inspector VARCHAR(7000) ,
+approver VARCHAR(7000) ,
+decision VARCHAR(7000)  , /* disapprove   approve   approve with recommendation */
+decisionComment VARCHAR(7000),
 )
 go
 
@@ -635,15 +634,15 @@ go
 create table [dbo].[PdiAP](
 id int IDENTITY(1,1) PRIMARY KEY,
 pdiId int FOREIGN KEY REFERENCES Pdi(id) ,
-actions VARCHAR(500),
+actions VARCHAR(7000),
 )
 go
 
 create table [dbo].[PdiFiles](
 id int IDENTITY(1,1) PRIMARY KEY,
 pdiId int FOREIGN KEY REFERENCES Pdi(id) ,
-[path] varchar(5000),
-name varchar(5000)
+[path] VARCHAR(7000),
+name VARCHAR(7000)
 )
 go
 
@@ -651,24 +650,24 @@ go
 create table [dbo].[Finance](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(300) FOREIGN KEY REFERENCES Employee(userName) ,
-decision VARCHAR(200)  , /* disapprove   approve   approve with recommendation */
-decisionComment VARCHAR(100),
+employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
+decision VARCHAR(7000)  , /* disapprove   approve   approve with recommendation */
+decisionComment VARCHAR(7000),
 )
 go
 
 create table [dbo].[FinanceAP](
 id int IDENTITY(1,1) PRIMARY KEY,
 financeId int FOREIGN KEY REFERENCES Finance(id) ,
-actions VARCHAR(500),
+actions VARCHAR(7000),
 )
 go
 
 create table [dbo].[FinanceFiles](
 id int IDENTITY(1,1) PRIMARY KEY,
 financeId int FOREIGN KEY REFERENCES Finance(id) ,
-[path] varchar(5000),
-name varchar(5000)
+[path] VARCHAR(7000),
+name VARCHAR(7000)
 )
 go
 
