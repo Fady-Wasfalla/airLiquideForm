@@ -82,19 +82,19 @@ exports.newForm = async (req, res) => {
       }
     }
     // inserting the conatct perosns
-    if (cbi && cbi.contactPerson.length>0) {
+    if (cbi && cbi.contactPerson.length > 0) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
-        if (cbi.contactPerson.contactPersonName[i]!==""){
-        let conrtactPersonData = {
-          formId,
-          contactPersonName: cbi.contactPerson.contactPersonName[i],
-          title: cbi.contactPerson.title[i],
-          phone: cbi.contactPerson.phone[i],
-          mail: cbi.contactPerson.mail[i]
+        if (cbi.contactPerson.contactPersonName[i] !== '') {
+          let conrtactPersonData = {
+            formId,
+            contactPersonName: cbi.contactPerson.contactPersonName[i],
+            title: cbi.contactPerson.title[i],
+            phone: cbi.contactPerson.phone[i],
+            mail: cbi.contactPerson.mail[i]
+          }
+          await ConrtactPerson.create(conrtactPersonData)
         }
-        await ConrtactPerson.create(conrtactPersonData)
       }
-    }
     }
     // creating the lvf of the form
     await Lvf.create({ formId, ...lvf })
@@ -103,7 +103,7 @@ exports.newForm = async (req, res) => {
     // creating the pri of the form
     const newPri = await Pri.create({ formId, ...pri })
     const priId = newPri.id
-    if (pri && pri.fluids.length>0) {
+    if (pri && pri.fluids.length > 0) {
       for (let i = 0; i < pri.fluids.characteristics.length; i++) {
         let fluidData = {
           priId,
@@ -122,7 +122,7 @@ exports.newForm = async (req, res) => {
       }
     }
     console.log('a7aaa')
-    if (pri && pri.utilities.length>0) {
+    if (pri && pri.utilities.length > 0) {
       for (let i = 0; i < pri.utilities.utility.length; i++) {
         let fluidData = {
           priId,
@@ -574,42 +574,40 @@ exports.getFormsDisplay = async (req, res) => {
 }
 
 exports.getQuestions = async (req, res) => {
-try {
-
-  let pendingQuestions = []
-  let submittedQuestions = []
-  Form.hasMany(Question, {foreignKey: 'id'})
-  Question.belongsTo(Form, {foreignKey: 'formId'})
-  const userName = req.params.userName
-  const questions = await Question.findAll({
-                                            include: [{
-                                              model: Form,
-                                              required: true,
-                                              where: {employeename: userName}
-                                            }]
-                                          }) 
-  for (let i =0 ; i<questions.length ; i++){
-    if (questions[i].answer){
-      submittedQuestions = submittedQuestions.concat(questions[i])
-    }else{
-      pendingQuestions = pendingQuestions.concat(questions[i])
-    }
-  }
-  
-  return res.json({
-      status: 'Success',
-      allQuestions: questions ,
-      pendingQuestions: pendingQuestions ,
-      submittedQuestions: submittedQuestions ,
+  try {
+    let pendingQuestions = []
+    let submittedQuestions = []
+    Form.hasMany(Question, { foreignKey: 'id' })
+    Question.belongsTo(Form, { foreignKey: 'formId' })
+    const userName = req.params.userName
+    const questions = await Question.findAll({
+      include: [{
+        model: Form,
+        required: true,
+        where: { employeename: userName }
+      }]
     })
-} catch (error) {
-  return res.json({
-    status: 'Failed',
-    message: error.message
-  })
-}
-}
+    for (let i = 0; i < questions.length; i++) {
+      if (questions[i].answer) {
+        submittedQuestions = submittedQuestions.concat(questions[i])
+      }else {
+        pendingQuestions = pendingQuestions.concat(questions[i])
+      }
+    }
 
+    return res.json({
+      status: 'Success',
+      allQuestions: questions,
+      pendingQuestions: pendingQuestions,
+      submittedQuestions: submittedQuestions
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
 
 exports.showFormData = async (req, res) => {
   try {
@@ -629,7 +627,7 @@ exports.showFormData = async (req, res) => {
     const fromData = { form, contactPerson, formFiles, history, questions }
     let lvf = await Lvf.findOne({ where: { formId: formId } })
     let cif = await Cif.findOne({ where: { formId: formId } })
-    if (lvf === null) lvf = {}  
+    if (lvf === null) lvf = {}
 
     /* ------------------------------------------------------PRI-------------------------------------------------------- */
     const pri = await Pri.findOne({ where: { formId: formId } })

@@ -7,7 +7,8 @@ const History = db.define('History', {
   sourcingSubmition: Sequelize.DataTypes.DATE.toString(),
   fleatSubmition: Sequelize.DataTypes.DATE.toString(),
   irmrSubmition: Sequelize.DataTypes.DATE.toString(),
-  ciSubmition: Sequelize.DataTypes.DATE.toString() },
+  ciSubmition: Sequelize.DataTypes.DATE.toString(),
+  financeSubmition: Sequelize.DataTypes.DATE.toString() },
 { timestamps: false,
   freezeTableName: true
   // dialectOptions: { useUTC: false, dateStrings: true, typeCast: true },
