@@ -130,11 +130,7 @@ class lvfDisplay extends Component {
       
 
       render() {
-        let lvf
-        if (this.props.LVF === null)
-         lvf = {}
-        else 
-         lvf = this.props.LVF        
+        let lvf = this.props.LVF        
         return (
           
             <React.Fragment>

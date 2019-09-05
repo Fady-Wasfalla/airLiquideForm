@@ -7,79 +7,12 @@ import Select from 'react-select';
 class cifDisplay extends Component {
 
     state = {
-        //Product Type Options dropdown list ... you have to change both value and label with the same name
-        ProductTypeOptions : [
-            { value: 'Product 1', label: 'Product 1' },
-            { value: 'Product 2', label: 'Product 2' },
-            { value: 'Product 3', label: 'Product 3' },
-          ],
-        product : "",
-
-        applicationProduct:"",
-
-        //Required Phase Type Options dropdown list ... you have to change both value and label with the same name
-        RequiredPhaseTypeOptions : [
-            { value: 'RequiredPhase 1', label: 'RequiredPhase 1' },
-            { value: 'RequiredPhase 2', label: 'RequiredPhase 2' },
-            { value: 'RequiredPhase 3', label: 'RequiredPhase 3' },
-          ],
-          requiredPhase : "", 
-
-        //Flow Unit Type Options dropdown list ... you have to change both value and label with the same name
-        FlowUnitTypeOptions : [
-            { value: 'FlowUnit 1', label: 'FlowUnit 1' },
-            { value: 'FlowUnit 2', label: 'FlowUnit 2' },
-            { value: 'FlowUnit 3', label: 'FlowUnit 3' },
-          ],
-        flowUnit : "",
-
-        averageFlowRateValue:0,
-        averagePressure:0,
-        averageDuration:0,
-
-        maximumFlowRrateValue:0 ,
-        maximumPressure:0,
-
-        MaximumDurationUnitTypeOptions : [
-            { value: 'Minutes', label: 'Minutes' },
-            { value: 'Hours', label: 'Hours' },
-          ],
-        maximumDurationUnit : "",
-        maximumDurationValue:0 ,
-        repetitionPerDay:0  ,
-
-        futureExpansionNotes:"",
-
         open:false,
-        
       }
 
-      ProductHandleChange = product => {
-        this.setState({ product });
-        console.log(product)
-      };
-
-      RequiredPhaseHandleChange = requiredPhase => {
-        this.setState({ requiredPhase });
-        console.log(requiredPhase)
-      };
-
-      FlowUnitHandleChange = flowUnit => {
-        this.setState({ flowUnit });
-        console.log(flowUnit)
-      };
-
-      MaximumDurationUnitHandleChange = maximumDurationUnit => {
-        this.setState({ maximumDurationUnit });
-        console.log(maximumDurationUnit)
-      };
-     
+      
       render() {
-        let cif
-        if (this.props.CIF === null)
-          cif = {}
-        else 
-          cif = this.props.CIF
+        let cif = this.props.CIF
         return (
             <React.Fragment>
                 <Card border="secondary" >
@@ -97,8 +30,8 @@ class cifDisplay extends Component {
                     <Form>
 
                     <Form.Row >
-                            <Form.Group as={Col} style={{fontWeight:"bold"}}  controlId="ProductType" >
-                            <Form.Label>Product</Form.Label>
+                            <Form.Group as={Col}   controlId="ProductType" >
+                            <Form.Label style={{fontWeight:"bold"}} >Product</Form.Label>
                             <Card.Text>{cif.product}</Card.Text>
 
                             </Form.Group>

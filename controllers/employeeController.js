@@ -571,7 +571,6 @@ exports.getFormsDisplay = async (req, res) => {
 }
 exports.showFormData = async (req, res) => {
   try {
-    console.log(574)
     const formId = req.params.id
     var form = await Form.findOne({ where: { id: formId } })
     if (!form) {
@@ -585,8 +584,10 @@ exports.showFormData = async (req, res) => {
     const history = await History.findAll({ where: { formId: formId } })
     const questions = await Question.findAll({ where: { formId: formId } })
     const fromData = { form, contactPerson, formFiles, history, questions }
-    const lvf = await Lvf.findOne({ where: { formId: formId } })
-    const cif = await Cif.findOne({ where: { formId: formId } })
+    let lvf = await Lvf.findOne({ where: { formId: formId } })
+    let cif = await Cif.findOne({ where: { formId: formId } })
+    console.log(cif)
+    if (lvf === null) lvf = {}  
     /* ------------------------------------------------------PRI-------------------------------------------------------- */
     const pri = await Pri.findOne({ where: { formId: formId } })
     var priData = {}
@@ -612,8 +613,8 @@ exports.showFormData = async (req, res) => {
     }
     /* -------------------------------------------DISTRIBUTIONS-------------------------------------------------------- */
     /* ----------------------------------------------------CIF-------------------------------------------------------- */
-    const cifResponse = await CifResponse.findOne({ where: { formId: formId } })
-    var cifResponseData = {}
+    let cifResponse = await CifResponse.findOne({ where: { formId: formId } })
+    let cifResponseData = {}
     if (cif) {
       const cifId = cif.id
       const cifAP = await CifAP.findAll({ where: { CifResponseId: cifId } })
@@ -624,9 +625,10 @@ exports.showFormData = async (req, res) => {
         cifFiles
       }
     }
+    if (!cif) cif = {}
     /* -----------------------------------------------------CIF-------------------------------------------------------- */
     /* ----------------------------------------------------IRMR-------------------------------------------------------- */
-    const irmr = await Irmr.findOne({ where: { formId: formId } })
+    let irmr = await Irmr.findOne({ where: { formId: formId } })
     var irmrData = {}
     if (irmr) {
       const irmrId = irmr.id
@@ -641,8 +643,8 @@ exports.showFormData = async (req, res) => {
     /* -----------------------------------------------------IRMR-------------------------------------------------------- */
     /* ------------------------------------------------------PDI-------------------------------------------------------- */
     const pdiTemp = await Pdi.findOne({ where: { formId: formId } })
-    var pdi = {}
-    var pdiData = {}
+    let pdi = {}
+    let pdiData = {}
     if (pdiTemp) {
       const pdiId = pdiTemp.id
       const pdiAP = await PdiAP.findAll({ where: { pdiId: pdiId } })
@@ -657,8 +659,8 @@ exports.showFormData = async (req, res) => {
     }
     /* -----------------------------------------------------PDI-------------------------------------------------------- */
     /* ----------------------------------------------------SOURCINGS-------------------------------------------------------- */
-    const sourcings = await Sourcings.findOne({ where: { formId: formId } })
-    var sourcingsData = {}
+    let sourcings = await Sourcings.findOne({ where: { formId: formId } })
+    let sourcingsData = {}
     if (sourcings) {
       const sourcingsId = sourcings.id
       const sourcingsAP = await SourcingsAP.findAll({ where: { sourcingsId: sourcingsId } })
