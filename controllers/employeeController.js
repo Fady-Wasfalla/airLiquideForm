@@ -624,6 +624,7 @@ exports.getQuestions = async (req, res) => {
 
 exports.showFormData = async (req, res) => {
   try {
+    console.log(627)
     const formId = req.params.id
     var form = await Form.findOne({ where: { id: formId } })
     if (!form) {
@@ -638,6 +639,8 @@ exports.showFormData = async (req, res) => {
     const questions = await Question.findAll({ where: { formId: formId } })
 
     const formData = { form, contactPerson, formFiles, history, questions }
+    console.log(644)
+    console.log(formData)
     let lvf = await Lvf.findOne({ where: { formId: formId } })
     let cif = await Cif.findOne({ where: { formId: formId } })
     if (lvf === null) lvf = {}
