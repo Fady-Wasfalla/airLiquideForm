@@ -10,7 +10,7 @@ import axios from 'axios'
 class financeFeedback extends Component {
 
     state = {
-        finalDecision:{},
+        finalDecision:{dodo:false},
         formId:0,
         file:null,
         filesNames:[""],
@@ -37,6 +37,9 @@ class financeFeedback extends Component {
     }
 
     handleChange=()=>{
+      if (this.state.finalDecision.dodo===false){
+        return alert("please check the box in Final Decision part")
+      }
       const fd = new FormData()
       let finalDecisionAsString = JSON.stringify(this.state.finalDecision)
       let filesNamesAsString = JSON.stringify(this.state.filesNames)

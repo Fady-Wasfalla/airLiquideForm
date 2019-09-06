@@ -3,7 +3,7 @@ const Permission = require('../models/Permission')
 const Screen = require('../models/Screen')
 const entityController = require('./main')
 const Form = require('../models/Form')
-const ConrtactPerson = require('../models/ContactPerson')
+const ContactPerson = require('../models/ContactPerson')
 const History = require('../models/History')
 const Pri = require('../models/Pri')
 const Lvf = require('../models/Lvf')
@@ -85,14 +85,14 @@ exports.newForm = async (req, res) => {
     if (cbi && cbi.contactPerson.length > 0) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
         if (cbi.contactPerson.contactPersonName[i] !== '') {
-          let conrtactPersonData = {
+          let ContactPersonData = {
             formId,
             contactPersonName: cbi.contactPerson.contactPersonName[i],
             title: cbi.contactPerson.title[i],
             phone: cbi.contactPerson.phone[i],
             mail: cbi.contactPerson.mail[i]
           }
-          await ConrtactPerson.create(conrtactPersonData)
+          await ContactPerson.create(ContactPersonData)
         }
       }
     }
@@ -579,70 +579,6 @@ exports.getFormsDisplay = async (req, res) => {
         }
         ;break
     }
-
-    switch (dept) {
-      case 'Distribution' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].distributionSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-      case 'Sourcing' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].sourcingSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-      case 'Fleat' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].fleatSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-      case 'PR' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].irmrSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-      case 'CI' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].ciSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-      case 'Sales' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].distributionSubmition & forms[i].sourcingSubmition &
-                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-    }
     return res.json({
       status: 'Success',
       allForms: forms,
@@ -704,13 +640,13 @@ exports.showFormData = async (req, res) => {
         message: `There is no form with id ${formId}`
       })
     }
-    const formFiles = await FormFiles.findAll({ where: { formId: formId } })
-    const contactPerson = await ConrtactPerson.findAll({ where: { formId: formId } })
+    const formFiles = await FormFiles.findAll({ where: { formId: formId } }) 
+    const contactPerson = await ContactPerson.findAll({ where: { formId: formId } })
     const history = await History.findAll({ where: { formId: formId } })
     const questions = await Question.findAll({ where: { formId: formId } })
 
     const formData = { form, contactPerson, formFiles, history, questions }
-    console.log(644)
+    console.log(649)
     console.log(formData)
     let lvf = await Lvf.findOne({ where: { formId: formId } })
     let cif = await Cif.findOne({ where: { formId: formId } })

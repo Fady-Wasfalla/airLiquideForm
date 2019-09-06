@@ -12,8 +12,8 @@ import axios from 'axios'
 class prFeedback extends Component {
 
     state = {
-        finalDecision:{},
-        irmr:{},
+        finalDecision:{dodo:false},
+        irmr:{dodo:false},
         formId:0,
         displayDecision:"none",
         data:{},
@@ -51,6 +51,12 @@ class prFeedback extends Component {
     }
 
     handleChange=()=>{
+      if (this.state.irmr.dodo===false){
+        return alert("please check the box in IRMR part")
+      }
+      if (this.state.finalDecision.dodo===false){
+        return alert("please check the box in Final Decision part")
+      }
       console.log(this.state)
       axios
       .post('http://localhost:8000/api/employees/prFB',this.state)

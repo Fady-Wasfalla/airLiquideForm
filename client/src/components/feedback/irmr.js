@@ -48,6 +48,8 @@ class irmr extends Component {
 
         criticalSectionDisplay:"none",
         fieldset:"",
+        done:"✘",
+        dodo:true
     }
 
 
@@ -66,14 +68,32 @@ class irmr extends Component {
         this.props.ParentCallBack(this.state)
     }
 
-    submitData=()=>{
+    submitData=(event)=>{
+        this.setState({dodo:!this.state.dodo})
+        event.preventDefault();
         this.sendData()
         if (this.state.fieldset===""){
-            this.setState({fieldset:"disabled"})
+            this.setState({fieldset:"disabled",
+                           done:"✔" })
         }
         else{
-            this.setState({fieldset:""})
+            this.setState({fieldset:"",
+                           done:"✘" })
         }
+    }
+    submissionColor=(e)=>{
+        if (e==="✔"){
+            return "green"
+        }else{
+            return "red"
+        }
+    }
+
+    show=(e)=>{
+        if (e==="none"){
+            return false
+        }
+        return true 
     }
 
     
@@ -83,11 +103,11 @@ class irmr extends Component {
         return (
             <React.Fragment>
                 <Card border="secondary" >
+                <Form onSubmit={this.submitData}>                
                 <Card.Header as="h5" className="bg-dark text-white" >Project Categorization</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
                 <fieldset disabled={this.state.fieldset}>            
-                    <Form>
                         <Form.Row>
                             <Form.Group as={Col} >
                                 <Form.Label style={{ color:"black" , fontSize:"20px" , fontWeight:"bold" , textDecoration:"underline" }}>
@@ -101,7 +121,7 @@ class irmr extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}>Project Type : </Form.Label>
                             <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Standard" value={"Standard"}
+                            <Form.Check type="radio" custom={true} label="Standard" value={"Standard"} required
                                 name="projectType" id="projectType1"
                                 onClick={(e) =>{this.setState({projectType:e.target.value})
                                                 this.setState({criticalSectionDisplay:"none"})}} /> 
@@ -122,7 +142,7 @@ class irmr extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col} md={2} >
-                            <Form.Check id="criticalSfety"
+                            <Form.Check id="criticalSfety" required={this.show(this.state.criticalSectionDisplay)}
                             custom={true}
                             inline={true}
                             label="Safety"
@@ -372,20 +392,15 @@ class irmr extends Component {
                        </Form.Row>
 
 
-                    </Form>
                     </fieldset>
                 </Col>
                 <Card.Footer > 
-                <Row style={{height: .018*window.innerHeight + 'px'}}>
-                            <Col md={{offset:11}} >
-                            <Form.Check id="submitIrmr"
-                            custom={true}
-                            inline={true}
-                            label="Submit"
-                            onChange={this.submitData}/>
+                            <Col md={{offset:5}} >
+                            <Button type="submit" variant="outline" style={{color:this.submissionColor(this.state.done)}}>Check if done {this.state.done}</Button>
                             </Col> 
-                </Row>
+                            
                 </Card.Footer>
+                </Form>
                 </Card>
             </React.Fragment>
         )
