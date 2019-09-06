@@ -85,7 +85,7 @@ class customerBiDisplay extends Component {
                             </Col>
                         </Form.Row>
 
-                        {newCP.map((e,index)=>{
+                        { newCP.map((e,index)=>{
                             return(
                                 <Form>
                                      <Form.Row>

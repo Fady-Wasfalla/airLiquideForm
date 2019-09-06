@@ -30,8 +30,9 @@ class formDisplay extends Component {
       sourcingsData:{} /* { sourcings,sourcingsAP, sourcingsFile} */
     }
 
-    componentWillMount(){
-     axios
+    componentWillMount(){ 
+    this.setState({showAsk:this.props.ShowAsk})
+    axios
       .get('http://localhost:8000/api/employees/showFormData/'+this.props.formId)
       // .then(res=>{if(res.data.status==='Failed'){
        
@@ -48,10 +49,10 @@ class formDisplay extends Component {
         irmrData:res.data.irmrData, 
         pdiData:res.data.pdiData, 
         sourcingsData:res.data.sourcingsData })
-        console.log(res.data.formData)
+        console.log(res.data)
         })
       .catch(err => alert(err.message))
-      
+     
     }
       
       render() {
@@ -71,7 +72,7 @@ class formDisplay extends Component {
 
                 <Collapse in={this.state.open}>
                 <Col md={12}>                
-                <Col md={{ span: 12, offset: 0 }}><CustomerBiDisplay CBI={this.state.formData.form} CP={this.state.cp}/></Col>
+                <Col md={{ span: 12, offset: 0 }}><CustomerBiDisplay CBI={this.state.formData.form} CP={this.state.formData.contactPerson}/></Col>
                 <Row><br/></Row>
 
 
@@ -88,6 +89,7 @@ class formDisplay extends Component {
                 <Row><br/></Row>
                 </Col>
                 </Collapse>
+
 
                 <Col md={{ offset: 10 }} style={{display:this.state.showAsk}} >       
                 <Popup trigger={<Button variant="outline-primary"> Ask Question ...? </Button>} modal><AskQuestion FormID={this.props.formId}/> </Popup>

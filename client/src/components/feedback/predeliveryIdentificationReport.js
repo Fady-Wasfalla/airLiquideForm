@@ -79,6 +79,8 @@ class predeliveryIdentificationReport extends Component {
         
 
         fieldset:"",
+        done:"✘",
+        dodo:true
 
     }
 
@@ -102,13 +104,25 @@ class predeliveryIdentificationReport extends Component {
         this.props.ParentCallBack(sentData)
     }
 
-    submitData=()=>{
+    submitData=(event)=>{
+        this.setState({dodo:!this.state.dodo})
+        event.preventDefault();
         this.sendData()
         if (this.state.fieldset===""){
-            this.setState({fieldset:"disabled"})
+            this.setState({fieldset:"disabled",
+                           done:"✔" })
         }
         else{
-            this.setState({fieldset:""})
+            this.setState({fieldset:"",
+                           done:"✘" })
+        }
+    }
+
+    submissionColor=(e)=>{
+        if (e==="✔"){
+            return "green"
+        }else{
+            return "red"
         }
     }
       
@@ -120,11 +134,12 @@ class predeliveryIdentificationReport extends Component {
         return (
             <React.Fragment>
                 <Card border="secondary" >
+                <Form onSubmit={this.submitData}>
                 <Card.Header as="h5" className="bg-dark text-white" >Pre-delivery Identification Report</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
                 <fieldset disabled={this.state.fieldset}>                
-                    <Form>
+                    
 
                         <Row style={{height: .04*window.innerHeight + 'px'}}/>
                         <Form.Row >
@@ -133,7 +148,7 @@ class predeliveryIdentificationReport extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}>Is the entrance from the highway to the site safe ?</Form.Label>
                             <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Accepted" value={true}
+                            <Form.Check type="radio" custom={true} label="Accepted" value={true} required
                                 name="highwayEnterance" id="highwayEnterance1"
                                 onClick={(e) =>{this.setState({highwayEnterance:e.target.value})}} /> 
                             <Col md={{span:1}}/>
@@ -572,9 +587,11 @@ class predeliveryIdentificationReport extends Component {
 
                         <Row style={{height: .015*window.innerHeight + 'px'}}/>
                         <Form.Row>
-                        <Form.Group as={Col} >
+                        <Form.Group as={Col} controlId="inspector">
                             <Form.Label style={{fontWeight:"bold"}}> Inspector </Form.Label>
-                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({inspector:e.target.value})}} />
+                            <Form.Control as="textarea" rows="1" required
+                            onChange={(e)=>{this.setState({inspector:e.target.value})}} />
+                            
                         </Form.Group>
                         <Form.Group as={Col} >
                             <Form.Label style={{fontWeight:"bold"}}> Approver </Form.Label>
@@ -582,20 +599,16 @@ class predeliveryIdentificationReport extends Component {
                         </Form.Group>
                         </Form.Row>
 
-                    </Form>
+                    
                     </fieldset>
                 </Col>
                 <Card.Footer > 
-                <Row style={{height: .018*window.innerHeight + 'px'}}>
-                            <Col md={{offset:11}} >
-                            <Form.Check id="submitPDI"
-                            custom={true}
-                            inline={true}
-                            label="Submit"
-                            onChange={this.submitData}/>
-                </Col> 
-                </Row>
+                            <Col md={{offset:5}} >
+                            <Button type="submit" variant="outline" style={{color:this.submissionColor(this.state.done)}}>Check if done {this.state.done}</Button>
+                            </Col> 
+                            
                 </Card.Footer>
+                </Form>
                 </Card>
             </React.Fragment>
         )
