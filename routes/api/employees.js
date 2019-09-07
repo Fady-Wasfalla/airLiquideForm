@@ -28,7 +28,7 @@ router.delete('/:id', entity.delete)
 /* ------------------------------------------------------------------------------------------------------------------- */
 const formStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './formFiles')
+    cb(null, './files/formFiles')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname)
@@ -39,7 +39,7 @@ router.post('/newForm', formFilesUpload.array('file', 50), entity.newForm)
 /* ------------------------------------------------------------------------------------------------------------------- */
 const distributionStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './distributionFiles')
+    cb(null, './files/distributionFiles')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname)
@@ -50,7 +50,7 @@ router.post('/distributionsFB', distributionFilesUpload.array('file', 50), entit
 /* ------------------------------------------------------------------------------------------------------------------- */
 const sourcingStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './sourcingFiles')
+    cb(null, './files/sourcingFiles')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname)
@@ -61,7 +61,7 @@ router.post('/sourcingsFB', sourcingFilesUpload.array('file', 50), entity.sourci
 /* ------------------------------------------------------------------------------------------------------------------- */
 const cifStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './cifFiles')
+    cb(null, './files/cifFiles')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname)
@@ -72,7 +72,7 @@ router.post('/ciFB', cifFilesUpload.array('file', 50), entity.ciFB)
 /* ------------------------------------------------------------------------------------------------------------------- */
 const prStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './prFiles')
+    cb(null, './files/prFiles')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname)
@@ -83,7 +83,7 @@ router.post('/prFB', prFilesUpload.array('file', 50), entity.prFB)
 /* ------------------------------------------------------------------------------------------------------------------- */
 const pdiStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './pdiFiles')
+    cb(null, './files/pdiFiles')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname)
@@ -94,7 +94,7 @@ router.post('/pdiFB', pdiFilesUpload.array('file', 50), entity.pdiFB)
 /* ------------------------------------------------------------------------------------------------------------------- */
 const financeStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './financeFiles')
+    cb(null, './files/financeFiles')
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname)
