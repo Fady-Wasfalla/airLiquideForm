@@ -11,6 +11,7 @@ import PreviousQuestions from './previousQuestionsDisplay'
 import DistributionDisplay from './feedbackDisplay/distributionDisplay'
 import SourcingDisplay from './feedbackDisplay/sourcingDisplay'
 import FinanceDisplay from './feedbackDisplay/financeDisplay'
+import CiDisplay from './feedbackDisplay/ciDisplay'
 
 
 
@@ -124,6 +125,9 @@ class formDisplay extends Component {
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><FinanceDisplay  FinanceData={this.state.financeData}  /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><CiDisplay  CifResponseData={this.state.cifResponseData}  /></Col>
                 <Row><br/></Row>
 
                 </Col>

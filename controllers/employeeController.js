@@ -64,7 +64,6 @@ exports.delete = async (req, res) => {
 /* sales man submit a form */
 exports.newForm = async (req, res) => {
   try {
-    // console.log(req.files)
     const cbi = JSON.parse(req.body.cbi)
     const lvf = JSON.parse(req.body.lvf)
     const cif = JSON.parse(req.body.cif)
@@ -210,7 +209,6 @@ exports.financeFB = async (req, res) => {
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
     const fb = await Finance.create({ ...finalDecision, employeeName, formId: formId })
-    console.log(fb.id)
     await Form.update(
       { financeSubmition: true },
       { where: { id: formId } }
@@ -326,11 +324,11 @@ exports.ciFB = async (req, res) => {
     }
     if (finalDecision.decision === 'Approve with recommendation') {
       for (let i = 0; i < actionPlan.length; i++) {
-        let sourcingsAPData = {
+        let cifAPData = {
           CifResponseId: fb.id,
           actions: actionPlan[i]
         }
-        await cifAPs.create(sourcingsAPData)
+        await cifAPs.create(cifAPData)
       }
     }
     return res.status(200).json({
@@ -412,7 +410,6 @@ exports.pdiFB = async (req, res) => {
     const pdiFb = { ...pdiData,
       decision: finalDecision.decision,
       decisionComment: finalDecision.decisionComment }
-    // console.log(irmrFb)
     const fb = await Pdi.create({ formId: formId, ...pdiFb, employeeName })
     await Form.update(
       { fleatSubmition: true },
@@ -455,7 +452,6 @@ exports.pdiFB = async (req, res) => {
 exports.getStarted = async (req, res) => {
   try {
     const employee = await Model.findOne({ where: { userName: employeeName } })
-    // console.log(employee)
     if (employee.activation === false) {
       return res.json({
         status: 'Failed',
@@ -505,7 +501,6 @@ exports.getFormsDisplay = async (req, res) => {
     let pendingForms = []
     let submittedForms = []
 
-    // console.log(forms[0].ciSubmition === true)
     switch (dept) {
       case 'Distribution' :
         for (let i = 0; i < forms.length; i++) {
@@ -631,7 +626,6 @@ exports.getQuestions = async (req, res) => {
 
 exports.showFormData = async (req, res) => {
   try {
-    console.log(627)
     const formId = req.params.id
     var form = await Form.findOne({ where: { id: formId } })
     if (!form) {
@@ -646,8 +640,6 @@ exports.showFormData = async (req, res) => {
     const questions = await Question.findAll({ where: { formId: formId } })
 
     const formData = { form, contactPerson, formFiles, history, questions }
-    console.log(649)
-    console.log(formData)
     let lvf = await Lvf.findOne({ where: { formId: formId } })
     let cif = await Cif.findOne({ where: { formId: formId } })
     if (lvf === null) lvf = {}
@@ -679,8 +671,8 @@ exports.showFormData = async (req, res) => {
     /* ----------------------------------------------------CIF-------------------------------------------------------- */
     let cifResponse = await CifResponse.findOne({ where: { formId: formId } })
     let cifResponseData = {}
-    if (cif) {
-      const cifId = cif.id
+    if (cifResponse) {
+      const cifId = cifResponse.id
       const cifAP = await CifAP.findAll({ where: { CifResponseId: cifId } })
       const cifFiles = await CifFiles.findAll({ where: { CifResponseId: cifId } })
       cifResponseData = {
