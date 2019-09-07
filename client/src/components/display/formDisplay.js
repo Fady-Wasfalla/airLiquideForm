@@ -1,15 +1,14 @@
 import React, { Component } from "react";
+import axios from 'axios'
+import Popup from "reactjs-popup";
 import { Form , Col , Row , Card, Button , Collapse } from "react-bootstrap";
-
+import DistributionDisplay from './feedbackDisplay/distributionDisplay'
 import CustomerBiDisplay from './customerBiDisplay'
 import LvfDisplay from './lvfDisplay'
 import CifDisplay from './cifDisplay'
 import PriDisplay from './priDisplay'
 import AskQuestion from './askQuestion'
 import PreviousQuestions from './previousQuestionsDisplay'
-import axios from 'axios'
-import Popup from "reactjs-popup";
-
 
 
 
@@ -27,7 +26,9 @@ class formDisplay extends Component {
       distributionsResponseData:{}, /* {distributions,distributionsAP,distributionsFiles} */
       irmrData:{}, /* {irmr,irmrAP, irmrFiles } */
       pdiData:{}, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdiTemp, fireExtinguishers } */
-      sourcingsData:{} /* { sourcings,sourcingsAP, sourcingsFile} */
+      sourcingsData:{}, /* { sourcings,sourcingsAP, sourcingsFile} */
+      openFeedback:true,
+      open:false,
     }
 
     componentWillMount(){ 
@@ -95,9 +96,32 @@ class formDisplay extends Component {
                 <Popup trigger={<Button variant="outline-primary"> Ask Question ...? </Button>} modal><AskQuestion FormID={this.props.formId}/> </Popup>
                 </Col>
                 <Row><br/></Row>
+                </Card>
+                <Row><br/></Row>
 
 
+                {/*Feedback Part*/}
+                <Card border="secondary">
+                <Card.Header as="h4" className="bg-light text-black">
+                <Row style={{height: .04*window.innerHeight + 'px'}}>
+                <Col>Feedbacks</Col>
+                <Button variant="outline-dark" size="sm"
+                 onClick={(e)=>{this.setState({openFeedback:!this.state.openFeedback})}}>☰</Button>
+                 </Row>
+                </Card.Header>                
+                <Row><br/></Row>
 
+                <Collapse in={this.state.openFeedback}>
+                <Col md={12}>                
+                <Col md={{ span: 12, offset: 0 }}><DistributionDisplay  DistributionsResponseData={this.state.distributionsResponseData}  /></Col>
+                <Row><br/></Row>
+
+                </Col>
+                </Collapse>
+
+
+               
+                <Row><br/></Row>
                 </Card>
 
                 <Row><br/></Row>
