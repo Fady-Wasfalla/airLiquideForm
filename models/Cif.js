@@ -14,8 +14,7 @@ const Cif = db.define('Cif', {
   maximumDurationUnit: Sequelize.STRING,
   maximumDurationValue: Sequelize.FLOAT,
   repetitionPerDay: Sequelize.FLOAT,
-  futureExpansionNotes: Sequelize.STRING,
-  customerSiteLayout: Sequelize.BOOLEAN
+  futureExpansionNotes: Sequelize.STRING
 },
 { timestamps: false,
   freezeTableName: true

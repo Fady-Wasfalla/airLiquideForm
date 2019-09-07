@@ -3,6 +3,7 @@ import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import Irmr from './irmr'
 import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
+import Upload from '../upload'
 import axios from 'axios'
 
 
@@ -11,14 +12,26 @@ import axios from 'axios'
 class prFeedback extends Component {
 
     state = {
-        finalDecision:{},
-        irmr:{},
+        finalDecision:{dodo:false},
+        irmr:{dodo:false},
         formId:0,
+        displayDecision:"none",
+        data:{},
     }
 
-    componentWillMount(){
+    async componentWillMount(){
       const formId  = this.props.match.params.id
       this.setState({formId:formId})
+      await axios
+      .get('http://localhost:8000/api/forms/'+this.props.match.params.id)
+      .then(res => {this.setState({ data : res.data.data })
+        console.log(res.data)})
+      .catch(err => alert(err.message))
+      if (this.state.data.irmrSubmition){
+          this.setState({displayDecision:"none"})
+      }else{
+          this.setState({displayDecision:""})
+      }
     }
 
     finalDecisionCallBackFunction = (childData) => {
@@ -29,12 +42,27 @@ class prFeedback extends Component {
       this.setState({irmr:childData})
     }
 
+    nameUploadCallBackFunction = (childData) => {
+      this.setState({filesNames:childData})
+    }
+
+    fileUploadCallBackFunction = (childData) => {
+      this.setState({file:childData})
+    }
+
     handleChange=()=>{
+      if (this.state.irmr.dodo===false){
+        return alert("please check the box in IRMR part")
+      }
+      if (this.state.finalDecision.dodo===false){
+        return alert("please check the box in Final Decision part")
+      }
       console.log(this.state)
       axios
       .post('http://localhost:8000/api/employees/prFB',this.state)
       .then(res => alert(res.data.message))
       .catch(err => alert(err.message))
+      window.location.assign('http://localhost:3000/cases/PR')
     }
      
       render() {
@@ -53,7 +81,12 @@ class prFeedback extends Component {
                 <Col md={{ span: 12, offset: 0 }}><FormDisplay formId={this.state.formId}/></Col>
                 <Row><br/></Row>
 
+                <Form.Group style={{display:this.state.displayDecision}}>
                 <Col md={{ span: 12, offset: 0 }}><Irmr ParentCallBack={this.irmrCallBackFunction} /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
+                                                          fileParentCallBack={this.fileUploadCallBackFunction}/></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>
@@ -66,7 +99,7 @@ class prFeedback extends Component {
                 <Button className="bg-primary text-white"
                 onClick={this.handleChange}>Submit</Button></Col>
                 </Row>
-
+                </Form.Group>
                 <Row><br/></Row>
                 
                 </Card>

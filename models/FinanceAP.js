@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../config/database')
 const FinanceAP = db.define('FinanceAP', {
-  distributionsId: Sequelize.INTEGER,
+  financeId: Sequelize.INTEGER,
   actions: Sequelize.STRING
 },
 { timestamps: false,

@@ -3,6 +3,7 @@ import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import PredeliveryIdentificationReport from './predeliveryIdentificationReport'
 import ResponseCard from './responseCard'
 import FormDisplay from '../display/formDisplay'
+import Upload from '../upload'
 import axios from 'axios'
 
 
@@ -11,15 +12,27 @@ import axios from 'axios'
 class fleatFeedback extends Component {
 
     state = {
-      finalDecision:{},
-      pdi:{}, 
+      finalDecision:{dodo:false},
+      pdi:{dodo:false},
       formId:0,
+      displayDecision:"none",
+      data:{},
 
     }
 
-    componentWillMount(){
+    async componentWillMount(){
       const formId  = this.props.match.params.id
       this.setState({formId:formId})
+      await axios
+      .get('http://localhost:8000/api/forms/'+this.props.match.params.id)
+      .then(res => {this.setState({ data : res.data.data })
+        console.log(res.data)})
+      .catch(err => alert(err.message))
+      if (this.state.data.fleatSubmition){
+          this.setState({displayDecision:"none"})
+      }else{
+          this.setState({displayDecision:""})
+      }
     }
 
     finalDecisionCallBackFunction = (childData) => {
@@ -31,11 +44,25 @@ class fleatFeedback extends Component {
     }
 
     handleChange=()=>{
+      if (this.state.pdi.dodo===false){
+        return alert("please check the box in Predelivery Identification Report part")
+      }
+      if (this.state.finalDecision.dodo===false){
+        return alert("please check the box in Final Decision part")
+      }
       console.log(this.state)
       axios
-      .post('http://localhost:8000/api/employees/distributionsFB',this.state)
+      .post('http://localhost:8000/api/employees/pdiFB',this.state)
       .then(res => alert(res.data.message))
       .catch(err => alert(err.message))
+      window.location.assign('http://localhost:3000/cases/Fleat')
+    }
+    nameUploadCallBackFunction = (childData) => {
+      this.setState({filesNames:childData})
+    }
+
+    fileUploadCallBackFunction = (childData) => {
+      this.setState({file:childData})
     }
      
       render() {
@@ -53,7 +80,12 @@ class fleatFeedback extends Component {
                 <Col md={{ span: 12, offset: 0 }}><FormDisplay formId={this.state.formId}/></Col>
                 <Row><br/></Row>
 
+                <Form.Group style={{display:this.state.displayDecision}}>
                 <Col md={{ span: 12, offset: 0 }}><PredeliveryIdentificationReport ParentCallBack={this.pdiCallBackFunction}/></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
+                                                          fileParentCallBack={this.fileUploadCallBackFunction}/></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>
@@ -66,6 +98,7 @@ class fleatFeedback extends Component {
                 <Button className="bg-primary text-white"
                 onClick={this.handleChange}>Submit</Button></Col>
                 </Row>
+                </Form.Group>
 
                 <Row><br/></Row>
                 

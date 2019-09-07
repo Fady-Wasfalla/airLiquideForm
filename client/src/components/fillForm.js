@@ -13,15 +13,27 @@ import axios from 'axios'
 class fillForm extends Component {
 
     state = {
-      cbi:{},
-      lvf:{},
-      cif:{},
-      pri:{},
+      cbi:{dodo:false},
+      lvf:{dodo:false},
+      cif:{dodo:false},
+      pri:{dodo:false},
       file:null,
       filesNames:[""]
       }
 
       handleChange =() =>{
+        if (this.state.cbi.dodo===false){
+          return alert("please check the box in Customer Basics Info part")
+        }
+        if (this.state.lvf.dodo===false){
+          return alert("please check the box in Logistics Validation Form part")
+        }
+        if (this.state.cif.dodo===false){
+          return alert("please check the box in Customer Installation Form part")
+        }
+        if (this.state.pri.dodo===false){
+          return alert("please check the box in PRI Form part")
+        }
         const fd = new FormData()
         var cbiAsString = JSON.stringify(this.state.cbi)
         var lvfAsString = JSON.stringify(this.state.lvf)
@@ -60,7 +72,7 @@ class fillForm extends Component {
          this.setState({pri:childData})
       }
 
-      nameUploadCallBackFunction = (childData) => {
+    nameUploadCallBackFunction = (childData) => {
         this.setState({filesNames:childData})
      }
 
@@ -111,12 +123,9 @@ class fillForm extends Component {
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
-                                                          fileParentCallBack={this.fileUploadCallBackFunction}
-                                                          sendData={this.send}/></Col>
+                                                          fileParentCallBack={this.fileUploadCallBackFunction}/></Col>
                 <Row><br/></Row>
 
-                {/* <input type="file" name="file" onChange={this.onChangeHandlerfile1}/> */}
-                {/* <input type="file" name="file" onChange={this.onChangeHandlerfile2}/> */}
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>
                 <Button variant="danger" className="text-white" 

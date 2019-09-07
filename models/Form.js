@@ -11,11 +11,12 @@ const Form = db.define('Form', {
   fleatSubmition: Sequelize.BOOLEAN,
   irmrSubmition: Sequelize.BOOLEAN,
   ciSubmition: Sequelize.BOOLEAN,
-  financeSubmition: Sequelize.BOOLEAN,
+  financeSubmition: Sequelize.BOOLEAN
 },
 { timestamps: false,
   freezeTableName: true
 }
 )
+
 
 module.exports = Form

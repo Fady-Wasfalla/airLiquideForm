@@ -13,6 +13,9 @@ class responseCard extends Component {
         actionPlanDisplay:"none",
         commentDisplay:"none",
         fieldset:"",
+        decisionTaken:false,
+        done:"✘",
+        dodo:true
       }
 
       
@@ -44,13 +47,29 @@ class responseCard extends Component {
         this.props.ParentCallBack(sentData)
     }
 
-    submitData=()=>{
+    submitData=(event)=>{
+        if (this.state.decisionTaken===false){
+            event.preventDefault();
+            return alert("please take your final decision")
+        }
+        this.setState({dodo:!this.state.dodo})
+        event.preventDefault();
         this.sendData()
         if (this.state.fieldset===""){
-            this.setState({fieldset:"disabled"})
+            this.setState({fieldset:"disabled",
+                           done:"✔" })
         }
         else{
-            this.setState({fieldset:""})
+            this.setState({fieldset:"",
+                           done:"✘" })
+        }
+    }
+
+    submissionColor=(e)=>{
+        if (e==="✔"){
+            return "green"
+        }else{
+            return "red"
         }
     }
 
@@ -58,11 +77,11 @@ class responseCard extends Component {
         return (
             <React.Fragment>
                 <Card border="secondary" >
+                <Form onSubmit={this.submitData}>
                 <Card.Header as="h5" className="text-white" style={{backgroundColor:"#d7001e"}}>Final Decision</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
                 <fieldset disabled={this.state.fieldset}>
-                <Form>
                     <Form.Row >
                             <Form.Group as={Col} >
                             <Col md={12}>
@@ -75,20 +94,24 @@ class responseCard extends Component {
                                                 this.setState({actionPlanDisplay:"none"})
                                                 this.setState({commentDisplay:""})
                                                 this.setState({actionPlan:[""]})
-                                                this.setState({decision:e.target.value})}} />  
+                                                this.setState({decision:e.target.value})
+                                                this.setState({decisionTaken:true})}} />  
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Disapprove" value={"Disapprove"}
                                 name="decision"id="decision1"
                                 onClick={(e) =>{this.setState({decision:e.target.value})
                                                 this.setState({actionPlanDisplay:"none"})
                                                 this.setState({actionPlan:[""]})
-                                                this.setState({commentDisplay:""})}} /> 
+                                                this.setState({commentDisplay:""})
+                                                this.setState({decisionTaken:true})}} /> 
                             <Col md={{span:1}}/>                            
                             <Form.Check type="radio" custom={true} label="Approve with recommendation" value={"Approve with recommendation"}
                                 name="decision"id="decision2"
                                 onClick={(e) =>{this.setState({decision:e.target.value})
+                                                this.setState({decisionComment:""})
                                                 this.setState({actionPlanDisplay:""})
-                                                this.setState({commentDisplay:"none"})}} /> 
+                                                this.setState({commentDisplay:"none"})
+                                                this.setState({decisionTaken:true})}} /> 
                             </Row>
                             </Col>
                             </Form.Group>
@@ -130,21 +153,16 @@ class responseCard extends Component {
                     </Row>
                     </Form.Group>
               
-            </Form>
             </fieldset>
             
             </Col>
             <Card.Footer > 
-                <Row style={{height: .018*window.innerHeight + 'px'}}>
-                            <Col md={{offset:11}} >
-                            <Form.Check id="submitResponse" required={"required"}
-                            custom={true}
-                            inline={true}
-                            label="Submit"
-                            onChange={this.submitData}/>
+                            <Col md={{offset:5}} >
+                            <Button type="submit" variant="outline" style={{color:this.submissionColor(this.state.done)}}>Check if done {this.state.done}</Button>
                             </Col> 
-                </Row>
-                </Card.Footer>
+                            
+            </Card.Footer>
+            </Form>
             </Card>
             </React.Fragment>
         )

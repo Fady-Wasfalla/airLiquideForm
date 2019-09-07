@@ -11,17 +11,17 @@ class customerBiDisplay extends Component {
         zone:"",
         address:"",
 
-        open:true,
+        open:false,
     }
-
-    
-    
-    
-     
+    componentWillMount(){
+        console.log(17)
+        console.log(this.props)
+    } 
       render() {
+          let cbiChange = this.props.CBI
+          let cbi = Object.assign([{}],cbiChange)
           let cpChange = this.props.CP
           let newCP = Object.assign([{}],cpChange)
-          let cbi = this.props.CBI
         return (
             <React.Fragment>
                 <Card border="secondary" >
@@ -30,7 +30,7 @@ class customerBiDisplay extends Component {
                 <Col>Customer Basics Info</Col>
                 <Button variant="outline-light" size="sm"
                  onClick={(e)=>{this.setState({open:!this.state.open})
-                                }}>☰</Button>
+                                 }}>☰</Button>
                  </Row>
                 </Card.Header>
                 <Row><br/></Row>
@@ -85,7 +85,7 @@ class customerBiDisplay extends Component {
                             </Col>
                         </Form.Row>
 
-                        {newCP.map((e,index)=>{
+                        { newCP.map((e,index)=>{
                             return(
                                 <Form>
                                      <Form.Row>
