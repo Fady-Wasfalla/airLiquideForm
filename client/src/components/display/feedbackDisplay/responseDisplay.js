@@ -79,7 +79,7 @@ class responseDisplay extends Component {
                                         return(
                                             <Form>
                                                 <Form.Row>
-                                                        <Col md={3}>
+                                                        <Col md={10}>
                                                             <Form.Label >{index+1}{" . "}{ap[index].actions}</Form.Label>                                                                
                                                         </Col>
                                                     </Form.Row>
