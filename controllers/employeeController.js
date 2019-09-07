@@ -736,6 +736,20 @@ exports.showFormData = async (req, res) => {
       }
     }
     /* -----------------------------------------------------SOURCINGS-------------------------------------------------------- */
+    /* ----------------------------------------------------FINANCE-------------------------------------------------------- */
+    let finance = await Finance.findOne({ where: { formId: formId } })
+    let financeData = {}
+    if (finance) {
+      const financeId = finance.id
+      const financeAP = await FinanceAP.findAll({ where: { financeId: financeId } })
+      const financeFiles = await FinanceFiles.findAll({ where: { financeId: financeId } })
+      financeData = {
+        finance,
+        financeAP,
+        financeFiles
+      }
+    }
+    /* -----------------------------------------------------FINANCE-------------------------------------------------------- */
     return res.json({
       status: 'Success',
       formData, /* { form, contactPerson, formFiles, history, questions } */
@@ -746,7 +760,8 @@ exports.showFormData = async (req, res) => {
       distributionsResponseData, /* {distributions,distributionsAP,distributionsFiles} */
       irmrData, /* {irmr,irmrAP, irmrFiles } */
       pdiData, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdiTemp, fireExtinguishers } */
-      sourcingsData /* { sourcings,sourcingsAP, sourcingsFile} */
+      sourcingsData, /* { sourcings,sourcingsAP, sourcingsFile} */
+      financeData
     })
   } catch (error) {
     return res.json({

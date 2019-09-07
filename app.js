@@ -39,13 +39,14 @@ const app = express()
 // Init middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use('/distributionFiles', express.static('distributionFiles'))
-app.use('/formFiles', express.static('formFiles'))
-app.use('/cifFiles', express.static('cifFiles'))
-app.use('/sourcingFiles', express.static('sourcingFiles'))
-app.use('/pdiFiles', express.static('pdiFiles'))
-app.use('/prFiles', express.static('prFiles'))
-app.use('/financeFiles', express.static('financeFiles'))
+app.use('/files', express.static('files'))
+app.use('/files/distributionFiles', express.static('distributionFiles'))
+app.use('/files/formFiles', express.static('formFiles'))
+app.use('/files/cifFiles', express.static('cifFiles'))
+app.use('/files/sourcingFiles', express.static('sourcingFiles'))
+app.use('/files/pdiFiles', express.static('pdiFiles'))
+app.use('/files/prFiles', express.static('prFiles'))
+app.use('/files/financeFiles', express.static('financeFiles'))
 
 
 

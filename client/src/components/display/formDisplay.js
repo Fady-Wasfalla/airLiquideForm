@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import axios from 'axios'
 import Popup from "reactjs-popup";
 import { Form , Col , Row , Card, Button , Collapse } from "react-bootstrap";
-import DistributionDisplay from './feedbackDisplay/distributionDisplay'
 import CustomerBiDisplay from './customerBiDisplay'
 import LvfDisplay from './lvfDisplay'
 import CifDisplay from './cifDisplay'
 import PriDisplay from './priDisplay'
 import AskQuestion from './askQuestion'
 import PreviousQuestions from './previousQuestionsDisplay'
+import DistributionDisplay from './feedbackDisplay/distributionDisplay'
+import SourcingDisplay from './feedbackDisplay/sourcingDisplay'
+import FinanceDisplay from './feedbackDisplay/financeDisplay'
 
 
 
@@ -49,7 +51,8 @@ class formDisplay extends Component {
         distributionsResponseData:res.data.distributionsResponseData, 
         irmrData:res.data.irmrData, 
         pdiData:res.data.pdiData, 
-        sourcingsData:res.data.sourcingsData })
+        sourcingsData:res.data.sourcingsData,
+        financeData:res.data.financeData })
         console.log(res.data)
         })
       .catch(err => alert(err.message))
@@ -112,8 +115,15 @@ class formDisplay extends Component {
                 <Row><br/></Row>
 
                 <Collapse in={this.state.openFeedback}>
-                <Col md={12}>                
+                <Col md={12}>     
+
                 <Col md={{ span: 12, offset: 0 }}><DistributionDisplay  DistributionsResponseData={this.state.distributionsResponseData}  /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><SourcingDisplay  SourcingsData={this.state.sourcingsData}  /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><FinanceDisplay  FinanceData={this.state.financeData}  /></Col>
                 <Row><br/></Row>
 
                 </Col>
