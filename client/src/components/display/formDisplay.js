@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import axios from 'axios'
 import Popup from "reactjs-popup";
 import { Form , Col , Row , Card, Button , Collapse } from "react-bootstrap";
-import DistributionDisplay from './feedbackDisplay/distributionDisplay'
 import CustomerBiDisplay from './customerBiDisplay'
 import LvfDisplay from './lvfDisplay'
 import CifDisplay from './cifDisplay'
 import PriDisplay from './priDisplay'
 import AskQuestion from './askQuestion'
 import PreviousQuestions from './previousQuestionsDisplay'
+import DistributionDisplay from './feedbackDisplay/distributionDisplay'
+import SourcingDisplay from './feedbackDisplay/sourcingDisplay'
 
 
 
@@ -114,6 +115,9 @@ class formDisplay extends Component {
                 <Collapse in={this.state.openFeedback}>
                 <Col md={12}>                
                 <Col md={{ span: 12, offset: 0 }}><DistributionDisplay  DistributionsResponseData={this.state.distributionsResponseData}  /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><SourcingDisplay  SourcingsData={this.state.sourcingsData}  /></Col>
                 <Row><br/></Row>
 
                 </Col>
