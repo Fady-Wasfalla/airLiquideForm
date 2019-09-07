@@ -20,6 +20,9 @@ import axios from "axios"
 import salesFeedback from "./components/feedback/salesFeedback";
 
 
+import DistributionDisplay from './components/display/feedbackDisplay/distributionDisplay'
+
+
 class App extends Component {
 
   state = {
