@@ -10,7 +10,7 @@ class fleatDisplay extends Component {
 
     state = {
         data:{},
-        open:false,
+        open:true,
       }
     async componentWillMount(){
       this.setState({data:this.props.PdiData})
