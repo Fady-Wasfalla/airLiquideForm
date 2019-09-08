@@ -354,14 +354,15 @@ exports.prFB = async (req, res) => {
         message: 'this form is aleady reviewed'
       })
     }
-    const irmr = req.body.irmr
-    const finalDecision = req.body.finalDecision
+    let finalDecision = JSON.parse(req.body.finalDecision)
+    let actionPlan = finalDecision.actionPlan
+    const filesNames = JSON.parse(req.body.filesNames)
+    const irmr = JSON.parse(req.body.irmr)
     const irmrFb = { ...irmr,
       decision: finalDecision.decision,
       decisionComment: finalDecision.decisionComment }
-    let finalDecisionData = Object.assign({}, irmrFb)
-    delete finalDecisionData.actionPlan
-    const fb = await Irmr.create({ formId: formId, ...finalDecisionData, employeeName })
+    const files = req.files
+    const fb = await Irmr.create({ formId: formId, ...irmrFb, employeeName })
     await Form.update(
       { irmrSubmition: true },
       { where: { id: formId } }
@@ -370,11 +371,16 @@ exports.prFB = async (req, res) => {
       { irmrSubmition: localISOTime },
       { where: { formId: formId } }
     )
-    if (finalDecisionData.decision === 'Approve with recommendation') {
-      for (let i = 0; i < finalDecision.actionPlan.length; i++) {
+    if (files.length > 0) {
+      for (let i = 0; i < filesNames.length; i++) {
+        await IrmrFiles.create({ IrmrId: fb.id, name: filesNames[i], path: files[i].path })
+      }
+    }
+    if (finalDecision.decision === 'Approve with recommendation') {
+      for (let i = 0; i < actionPlan.length; i++) {
         let irmrsAPData = {
           IrmrId: fb.id,
-          actions: finalDecision.actionPlan[i]
+          actions: actionPlan[i]
         }
         await IrmrAP.create(irmrsAPData)
       }
@@ -402,9 +408,12 @@ exports.pdiFB = async (req, res) => {
         message: 'this form is aleady reviewed'
       })
     }
-    const pdi = req.body.pdi
+    const files = req.files
+    let finalDecision = JSON.parse(req.body.finalDecision)
+    let actionPlan = finalDecision.actionPlan
+    const filesNames = JSON.parse(req.body.filesNames)
+    const pdi = JSON.parse(req.body.pdi)
     const fireExt = pdi.fireExtinguishersList
-    const finalDecision = req.body.finalDecision
     let pdiData = Object.assign({}, pdi)
     delete pdiData.fireExtinguishersList
     const pdiFb = { ...pdiData,
@@ -419,17 +428,22 @@ exports.pdiFB = async (req, res) => {
       { fleatSubmition: localISOTime },
       { where: { formId: formId } }
     )
+    if (files.length > 0) {
+      for (let i = 0; i < filesNames.length; i++) {
+        await PdiFiles.create({ pdiId: fb.id, name: filesNames[i], path: files[i].path })
+      }
+    }
     const pdiId = fb.id
     if (pdiFb.decision === 'Approve with recommendation') {
-      for (let i = 0; i < finalDecision.actionPlan.length; i++) {
+      for (let i = 0; i < actionPlan.length; i++) {
         let irmrsAPData = {
           pdiId: fb.id,
-          actions: finalDecision.actionPlan[i]
+          actions: actionPlan[i]
         }
         await PdiAP.create(irmrsAPData)
       }
     }
-    if (fireExt) {
+    if (fireExt.length > 0) {
       for (let i = 0; i < fireExt.number.length; i++) {
         let fireExtData = {
           pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]

@@ -17,7 +17,7 @@ class cases extends Component {
       type : 'donut',
       onclick: function (d, i) { },
       onmouseover: function (d, i) {  },
-      onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+      onmouseout: function (d, i) { console.log("onmouseout", d, i) }
       }
     }
 
