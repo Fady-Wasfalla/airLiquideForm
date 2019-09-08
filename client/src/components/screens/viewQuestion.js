@@ -27,7 +27,6 @@ class viewQuestion extends Component {
     }
 
     handleChange=()=>{
-        console.log(this.state)
         let sentData = Object.assign({},this.state)
         delete sentData.finalDecision
         delete sentData.formId

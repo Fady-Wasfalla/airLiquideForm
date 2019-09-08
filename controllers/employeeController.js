@@ -698,17 +698,16 @@ exports.showFormData = async (req, res) => {
     }
     /* -----------------------------------------------------IRMR-------------------------------------------------------- */
     /* ------------------------------------------------------PDI-------------------------------------------------------- */
-    const pdiTemp = await Pdi.findOne({ where: { formId: formId } })
-    let pdi = {}
+    let pdi = await Pdi.findOne({ where: { formId: formId } })
     let pdiData = {}
-    if (pdiTemp) {
-      const pdiId = pdiTemp.id
+    if (pdi) {
+      const pdiId = pdi.id
       const pdiAP = await PdiAP.findAll({ where: { pdiId: pdiId } })
       const pdiFiles = await PdiFiles.findAll({ where: { pdiId: pdiId } })
       const fireExtinguishers = await FireExtinguishers.findAll({ where: { pdiId: pdiId } })
-      pdi = { pdiTemp, fireExtinguishers }
       pdiData = {
         pdi,
+        fireExtinguishers,
         pdiAP,
         pdiFiles
       }
@@ -751,7 +750,7 @@ exports.showFormData = async (req, res) => {
       cifResponseData, /* { cifResponse,cifAP, cifFiles} */
       distributionsResponseData, /* {distributions,distributionsAP,distributionsFiles} */
       irmrData, /* {irmr,irmrAP, irmrFiles } */
-      pdiData, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdiTemp, fireExtinguishers } */
+      pdiData, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdi, fireExtinguishers } */
       sourcingsData, /* { sourcings,sourcingsAP, sourcingsFile} */
       financeData
     })

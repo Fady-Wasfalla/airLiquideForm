@@ -29,7 +29,6 @@ class ciDisplay extends Component {
       render() {
         let newResponseData = this.props.CifResponseData
         let ResponseData = Object.assign([{}],newResponseData)
-        console.log(32,ResponseData)
         return (
             <React.Fragment>
                 <Col md={{ span: 12, offset: 0 }}>

@@ -36,7 +36,6 @@ class responseDisplay extends Component {
     }
 
     displayFiles=(e)=>{
-        console.log("###",e.length)
         if (e.length>0){
             return ""
         }else{

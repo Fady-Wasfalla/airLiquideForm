@@ -85,14 +85,12 @@ class fillForm extends Component {
     }
 
     onChangeHandlerfile1=event=>{
-      // console.log(event.target.files[0])
       // var temp = [event.target.files[0]]
       // const temp2 = this.state.files.concat(temp)
       // this.setState({files: temp2})
       this.setState({file:event.target.files[0]})
     }
     // onChangeHandlerfile2=event=>{
-    //   // console.log(event.target.files[0])
     //   var temp = [event.target.files[0]]
     //   const temp2 = this.state.files.concat(temp)
     //   this.setState({files: temp2})
