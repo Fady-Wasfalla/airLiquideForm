@@ -71,41 +71,33 @@ class lvfDisplay extends Component {
 
       CustomerTypeHandleChange = customerType => {
         this.setState({ customerType });
-        console.log(customerType)
       };
 
       BuissnesTypeHandleChange = businessType => {
         this.setState({ businessType });
-        console.log(businessType)
       };
 
       startDeliveryDateHandleChange(date) {
-        console.log(date)
         this.setState({startDeliveryDate: date})
       }
 
       forecastDeliveryEndHandleChange(date) {
-        console.log(date)
         this.setState({forecastDeliveryEnd: date})
       }
 
       ProductHandleChange = product => {
         this.setState({ product });
-        console.log(product)
       };
       
       CustomerConsumtionHandleChange  = customerConsumption => {
         this.setState({ customerConsumption });
-        console.log(customerConsumption)
 
         if (customerConsumption.value === 'regular') {
           this.setState({CustomerConsumtionregularShow:""})
-          console.log("regular none")
           this.setState({CustomerConsumtionPatchShow:"none"})
         }
         else{
           this.setState({CustomerConsumtionregularShow:"none"})
-          console.log("patch none")
           this.setState({CustomerConsumtionPatchShow:""})
         }
       };
@@ -113,7 +105,6 @@ class lvfDisplay extends Component {
 
       availableDeliveryHandleChange = availableDelivery => {
         this.setState({ availableDelivery });
-        console.log(availableDelivery)
         if (availableDelivery.value === 'Other') {
           this.setState({availableDeliveryShow:""})
         }

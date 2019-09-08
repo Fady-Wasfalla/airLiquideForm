@@ -27,15 +27,16 @@ class viewQuestion extends Component {
     }
 
     handleChange=()=>{
-        console.log(this.state)
         let sentData = Object.assign({},this.state)
         delete sentData.finalDecision
         delete sentData.formId
         delete sentData.question
         axios
         .put('http://localhost:8000/api/questions/'+this.props.match.params.questionId,sentData)
-        .then(res => alert(res.data.message))
+        .then(res => alert("Submitted Successfully"))
         .catch(err => alert(err.message))
+      let href = "http://localhost:3000/getMyQuestions/" + sessionStorage.getItem("employeeName")
+      window.location.assign(href)
     }
 
     nameUploadCallBackFunction = (childData) => {

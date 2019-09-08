@@ -19,7 +19,6 @@ class customerBasicInfo extends Component {
     }
 
     handleChange(date) {
-        console.log(date)
         this.setState({date: date})
       }
     

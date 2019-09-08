@@ -12,8 +12,8 @@ import axios from 'axios'
 class prFeedback extends Component {
 
     state = {
-        finalDecision:{},
-        irmr:{},
+        finalDecision:{dodo:false},
+        irmr:{dodo:false},
         formId:0,
         displayDecision:"none",
         data:{},
@@ -24,8 +24,7 @@ class prFeedback extends Component {
       this.setState({formId:formId})
       await axios
       .get('http://localhost:8000/api/forms/'+this.props.match.params.id)
-      .then(res => {this.setState({ data : res.data.data })
-        console.log(res.data)})
+      .then(res => {this.setState({ data : res.data.data })})
       .catch(err => alert(err.message))
       if (this.state.data.irmrSubmition){
           this.setState({displayDecision:"none"})
@@ -51,7 +50,12 @@ class prFeedback extends Component {
     }
 
     handleChange=()=>{
-      console.log(this.state)
+      if (this.state.irmr.dodo===false){
+        return alert("please check the box in IRMR part")
+      }
+      if (this.state.finalDecision.dodo===false){
+        return alert("please check the box in Final Decision part")
+      }
       axios
       .post('http://localhost:8000/api/employees/prFB',this.state)
       .then(res => alert(res.data.message))

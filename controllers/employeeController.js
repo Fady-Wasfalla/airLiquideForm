@@ -3,7 +3,7 @@ const Permission = require('../models/Permission')
 const Screen = require('../models/Screen')
 const entityController = require('./main')
 const Form = require('../models/Form')
-const ConrtactPerson = require('../models/ContactPerson')
+const ContactPerson = require('../models/ContactPerson')
 const History = require('../models/History')
 const Pri = require('../models/Pri')
 const Lvf = require('../models/Lvf')
@@ -64,7 +64,6 @@ exports.delete = async (req, res) => {
 /* sales man submit a form */
 exports.newForm = async (req, res) => {
   try {
-    // console.log(req.files)
     const cbi = JSON.parse(req.body.cbi)
     const lvf = JSON.parse(req.body.lvf)
     const cif = JSON.parse(req.body.cif)
@@ -85,14 +84,14 @@ exports.newForm = async (req, res) => {
     if (cbi && cbi.contactPerson.length > 0) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
         if (cbi.contactPerson.contactPersonName[i] !== '') {
-          let conrtactPersonData = {
+          let ContactPersonData = {
             formId,
             contactPersonName: cbi.contactPerson.contactPersonName[i],
             title: cbi.contactPerson.title[i],
             phone: cbi.contactPerson.phone[i],
             mail: cbi.contactPerson.mail[i]
           }
-          await ConrtactPerson.create(conrtactPersonData)
+          await ContactPerson.create(ContactPersonData)
         }
       }
     }
@@ -210,7 +209,6 @@ exports.financeFB = async (req, res) => {
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
     const fb = await Finance.create({ ...finalDecision, employeeName, formId: formId })
-    console.log(fb.id)
     await Form.update(
       { financeSubmition: true },
       { where: { id: formId } }
@@ -326,11 +324,11 @@ exports.ciFB = async (req, res) => {
     }
     if (finalDecision.decision === 'Approve with recommendation') {
       for (let i = 0; i < actionPlan.length; i++) {
-        let sourcingsAPData = {
+        let cifAPData = {
           CifResponseId: fb.id,
           actions: actionPlan[i]
         }
-        await cifAPs.create(sourcingsAPData)
+        await cifAPs.create(cifAPData)
       }
     }
     return res.status(200).json({
@@ -412,7 +410,6 @@ exports.pdiFB = async (req, res) => {
     const pdiFb = { ...pdiData,
       decision: finalDecision.decision,
       decisionComment: finalDecision.decisionComment }
-    // console.log(irmrFb)
     const fb = await Pdi.create({ formId: formId, ...pdiFb, employeeName })
     await Form.update(
       { fleatSubmition: true },
@@ -455,7 +452,6 @@ exports.pdiFB = async (req, res) => {
 exports.getStarted = async (req, res) => {
   try {
     const employee = await Model.findOne({ where: { userName: employeeName } })
-    // console.log(employee)
     if (employee.activation === false) {
       return res.json({
         status: 'Failed',
@@ -505,7 +501,6 @@ exports.getFormsDisplay = async (req, res) => {
     let pendingForms = []
     let submittedForms = []
 
-    // console.log(forms[0].ciSubmition === true)
     switch (dept) {
       case 'Distribution' :
         for (let i = 0; i < forms.length; i++) {
@@ -579,70 +574,6 @@ exports.getFormsDisplay = async (req, res) => {
         }
         ;break
     }
-
-    switch (dept) {
-      case 'Distribution' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].distributionSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-      case 'Sourcing' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].sourcingSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-      case 'Fleat' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].fleatSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-      case 'PR' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].irmrSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-      case 'CI' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].ciSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-      case 'Sales' :
-        for (let i = 0; i < forms.length; i++) {
-          // get submitted forms by the dept
-          if (forms[i].distributionSubmition & forms[i].sourcingSubmition &
-                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition) {
-            submittedForms = submittedForms.concat(forms[i])
-          } else {
-            pendingForms = pendingForms.concat(forms[i])
-          }
-        }
-        ;break
-    }
     return res.json({
       status: 'Success',
       allForms: forms,
@@ -695,7 +626,6 @@ exports.getQuestions = async (req, res) => {
 
 exports.showFormData = async (req, res) => {
   try {
-    console.log(627)
     const formId = req.params.id
     var form = await Form.findOne({ where: { id: formId } })
     if (!form) {
@@ -704,14 +634,12 @@ exports.showFormData = async (req, res) => {
         message: `There is no form with id ${formId}`
       })
     }
-    const formFiles = await FormFiles.findAll({ where: { formId: formId } })
-    const contactPerson = await ConrtactPerson.findAll({ where: { formId: formId } })
+    const formFiles = await FormFiles.findAll({ where: { formId: formId } }) 
+    const contactPerson = await ContactPerson.findAll({ where: { formId: formId } })
     const history = await History.findAll({ where: { formId: formId } })
     const questions = await Question.findAll({ where: { formId: formId } })
 
     const formData = { form, contactPerson, formFiles, history, questions }
-    console.log(644)
-    console.log(formData)
     let lvf = await Lvf.findOne({ where: { formId: formId } })
     let cif = await Cif.findOne({ where: { formId: formId } })
     if (lvf === null) lvf = {}
@@ -743,8 +671,8 @@ exports.showFormData = async (req, res) => {
     /* ----------------------------------------------------CIF-------------------------------------------------------- */
     let cifResponse = await CifResponse.findOne({ where: { formId: formId } })
     let cifResponseData = {}
-    if (cif) {
-      const cifId = cif.id
+    if (cifResponse) {
+      const cifId = cifResponse.id
       const cifAP = await CifAP.findAll({ where: { CifResponseId: cifId } })
       const cifFiles = await CifFiles.findAll({ where: { CifResponseId: cifId } })
       cifResponseData = {
@@ -770,17 +698,16 @@ exports.showFormData = async (req, res) => {
     }
     /* -----------------------------------------------------IRMR-------------------------------------------------------- */
     /* ------------------------------------------------------PDI-------------------------------------------------------- */
-    const pdiTemp = await Pdi.findOne({ where: { formId: formId } })
-    let pdi = {}
+    let pdi = await Pdi.findOne({ where: { formId: formId } })
     let pdiData = {}
-    if (pdiTemp) {
-      const pdiId = pdiTemp.id
+    if (pdi) {
+      const pdiId = pdi.id
       const pdiAP = await PdiAP.findAll({ where: { pdiId: pdiId } })
       const pdiFiles = await PdiFiles.findAll({ where: { pdiId: pdiId } })
       const fireExtinguishers = await FireExtinguishers.findAll({ where: { pdiId: pdiId } })
-      pdi = { pdiTemp, fireExtinguishers }
       pdiData = {
         pdi,
+        fireExtinguishers,
         pdiAP,
         pdiFiles
       }
@@ -800,6 +727,20 @@ exports.showFormData = async (req, res) => {
       }
     }
     /* -----------------------------------------------------SOURCINGS-------------------------------------------------------- */
+    /* ----------------------------------------------------FINANCE-------------------------------------------------------- */
+    let finance = await Finance.findOne({ where: { formId: formId } })
+    let financeData = {}
+    if (finance) {
+      const financeId = finance.id
+      const financeAP = await FinanceAP.findAll({ where: { financeId: financeId } })
+      const financeFiles = await FinanceFiles.findAll({ where: { financeId: financeId } })
+      financeData = {
+        finance,
+        financeAP,
+        financeFiles
+      }
+    }
+    /* -----------------------------------------------------FINANCE-------------------------------------------------------- */
     return res.json({
       status: 'Success',
       formData, /* { form, contactPerson, formFiles, history, questions } */
@@ -809,8 +750,9 @@ exports.showFormData = async (req, res) => {
       cifResponseData, /* { cifResponse,cifAP, cifFiles} */
       distributionsResponseData, /* {distributions,distributionsAP,distributionsFiles} */
       irmrData, /* {irmr,irmrAP, irmrFiles } */
-      pdiData, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdiTemp, fireExtinguishers } */
-      sourcingsData /* { sourcings,sourcingsAP, sourcingsFile} */
+      pdiData, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdi, fireExtinguishers } */
+      sourcingsData, /* { sourcings,sourcingsAP, sourcingsFile} */
+      financeData
     })
   } catch (error) {
     return res.json({

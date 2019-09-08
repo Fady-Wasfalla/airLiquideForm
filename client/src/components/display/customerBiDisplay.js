@@ -14,8 +14,6 @@ class customerBiDisplay extends Component {
         open:false,
     }
     componentWillMount(){
-        console.log(17)
-        console.log(this.props)
     } 
       render() {
           let cbiChange = this.props.CBI
@@ -85,7 +83,7 @@ class customerBiDisplay extends Component {
                             </Col>
                         </Form.Row>
 
-                        {newCP.map((e,index)=>{
+                        { newCP.map((e,index)=>{
                             return(
                                 <Form>
                                      <Form.Row>

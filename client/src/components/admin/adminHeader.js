@@ -4,7 +4,6 @@ import logo from '../../images/air-liquide-creative-oxygen.svg'
 
 class adminHeader extends Component {
   test =()=> {
-    console.log(12)
   }
   render () {
     return (

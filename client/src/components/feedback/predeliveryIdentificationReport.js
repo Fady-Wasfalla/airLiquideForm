@@ -79,19 +79,19 @@ class predeliveryIdentificationReport extends Component {
         
 
         fieldset:"",
+        done:"✘",
+        dodo:true
 
     }
 
     handleChange = () =>{
-        console.log(this.state.highwayEnterance)
     }
 
     supplyTimeFromHandleChange = supplyTimeFrom => this.setState({ supplyTimeFrom })
     supplyTimeToHandleChange = supplyTimeTo => this.setState({ supplyTimeTo })
 
-    vehicleTypeHandleChange = vehicleType => {
-        this.setState({ vehicleType });
-        console.log(vehicleType)
+    vehicleTypeHandleChange = (vehicleType) => {
+        this.setState({ vehicleType:vehicleType.value });
       };
 
 
@@ -102,13 +102,25 @@ class predeliveryIdentificationReport extends Component {
         this.props.ParentCallBack(sentData)
     }
 
-    submitData=()=>{
+    submitData=(event)=>{
+        this.setState({dodo:!this.state.dodo})
+        event.preventDefault();
         this.sendData()
         if (this.state.fieldset===""){
-            this.setState({fieldset:"disabled"})
+            this.setState({fieldset:"disabled",
+                           done:"✔" })
         }
         else{
-            this.setState({fieldset:""})
+            this.setState({fieldset:"",
+                           done:"✘" })
+        }
+    }
+
+    submissionColor=(e)=>{
+        if (e==="✔"){
+            return "green"
+        }else{
+            return "red"
         }
     }
       
@@ -120,11 +132,12 @@ class predeliveryIdentificationReport extends Component {
         return (
             <React.Fragment>
                 <Card border="secondary" >
+                <Form onSubmit={this.submitData}>
                 <Card.Header as="h5" className="bg-dark text-white" >Pre-delivery Identification Report</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
                 <fieldset disabled={this.state.fieldset}>                
-                    <Form>
+                    
 
                         <Row style={{height: .04*window.innerHeight + 'px'}}/>
                         <Form.Row >
@@ -133,7 +146,7 @@ class predeliveryIdentificationReport extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}>Is the entrance from the highway to the site safe ?</Form.Label>
                             <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Accepted" value={true}
+                            <Form.Check type="radio" custom={true} label="Accepted" value={true} required
                                 name="highwayEnterance" id="highwayEnterance1"
                                 onClick={(e) =>{this.setState({highwayEnterance:e.target.value})}} /> 
                             <Col md={{span:1}}/>
@@ -498,7 +511,7 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}> Are there any fire extinguishers around the tank </Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}> Are there any fire extinguishers around the tank ?</Form.Label>
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Accepted" value={true}
                                 name="fireExtinguishers" id="fireExtinguishers1"
@@ -561,41 +574,40 @@ class predeliveryIdentificationReport extends Component {
                         <Row style={{height: .01*window.innerHeight + 'px'}}/>
                         <Form.Row >
                             <Col md={6}>
-                            <Form.Label style={{fontWeight:"bold"}}>Type of vehicle suitable for service</Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}>Type of vehicle suitable for service :</Form.Label>
                             <Select
-                            value={this.state.vehicleType}
+                            value={this.state.vehicleType.value}
                             onChange={this.vehicleTypeHandleChange}
                             options={this.state.vehicleTypeOptions}
+                            defaultValue={this.state.vehicleTypeOptions[0]}
                             />
                             </Col>
                         </Form.Row>
 
                         <Row style={{height: .015*window.innerHeight + 'px'}}/>
                         <Form.Row>
-                        <Form.Group as={Col} >
-                            <Form.Label style={{fontWeight:"bold"}}> Inspector </Form.Label>
-                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({inspector:e.target.value})}} />
+                        <Form.Group as={Col} controlId="inspector">
+                            <Form.Label style={{fontWeight:"bold"}}> Inspector :</Form.Label>
+                            <Form.Control as="textarea" rows="1" required
+                            onChange={(e)=>{this.setState({inspector:e.target.value})}} />
+                            
                         </Form.Group>
                         <Form.Group as={Col} >
-                            <Form.Label style={{fontWeight:"bold"}}> Approver </Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}> Approver : </Form.Label>
                             <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({approver:e.target.value})}} />
                         </Form.Group>
                         </Form.Row>
 
-                    </Form>
+                    
                     </fieldset>
                 </Col>
                 <Card.Footer > 
-                <Row style={{height: .018*window.innerHeight + 'px'}}>
-                            <Col md={{offset:11}} >
-                            <Form.Check id="submitPDI"
-                            custom={true}
-                            inline={true}
-                            label="Submit"
-                            onChange={this.submitData}/>
-                </Col> 
-                </Row>
+                            <Col md={{offset:5}} >
+                            <Button type="submit" variant="outline" style={{color:this.submissionColor(this.state.done)}}>Check if done {this.state.done}</Button>
+                            </Col> 
+                            
                 </Card.Footer>
+                </Form>
                 </Card>
             </React.Fragment>
         )

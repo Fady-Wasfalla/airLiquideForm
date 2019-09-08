@@ -8,6 +8,7 @@ import FleatFeedback from './components/feedback/fleatFeedback'
 import DistributionFeedback from './components/feedback/distributionFeedback'
 import FinanceFeedback from './components/feedback/financeFeedback'
 import SourcingFeedback from './components/feedback/sourcingFeedback'
+import SalesFeedback from './components/feedback/salesFeedback'
 import CiFeedback from './components/feedback/cifFeedBack'
 import PrFeedback from './components/feedback/prFeedback'
 import Cases from './components/screens/cases'
@@ -16,6 +17,10 @@ import viewQuestion from './components/screens/viewQuestion'
 import Header from './components/header'
 import Home from './components/screens/home'
 import axios from "axios"
+import salesFeedback from "./components/feedback/salesFeedback";
+
+
+import DistributionDisplay from './components/display/feedbackDisplay/distributionDisplay'
 
 
 class App extends Component {
@@ -58,6 +63,7 @@ class App extends Component {
         <Route exact path='/fillForm' component={FillForm} />
         <Route exact path='/distributionFeedback/:id' component={DistributionFeedback} />
         <Route exact path='/financeFeedback/:id' component={FinanceFeedback} />
+        <Route exact path='/salesFeedback/:id' component={SalesFeedback} />
         <Route exact path='/sourcingFeedback/:id' component={SourcingFeedback} />
         <Route exact path='/fleatFeedback/:id' component={FleatFeedback} />
         <Route exact path='/ciFeedback/:id' component={CiFeedback} />

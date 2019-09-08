@@ -7,10 +7,10 @@ import axios from 'axios'
 
 
 
-class financeFeedback extends Component {
+class salesFeedback extends Component {
 
     state = {
-        finalDecision:{dodo:false},
+        finalDecision:{},
         formId:0,
         file:null,
         filesNames:[""],
@@ -24,21 +24,12 @@ class financeFeedback extends Component {
         .get('http://localhost:8000/api/forms/'+this.props.match.params.id)
         .then(res => {this.setState({ data : res.data.data })})
         .catch(err => alert(err.message))
-        if (this.state.data.financeSubmition){
-            this.setState({displayDecision:"none"})
-        }else{
-            this.setState({displayDecision:""})
-        }
-  
       }
     finalDecisionCallBackFunction = (childData) => {
         this.setState({finalDecision:childData})
     }
 
     handleChange=()=>{
-      if (this.state.finalDecision.dodo===false){
-        return alert("please check the box in Final Decision part")
-      }
       const fd = new FormData()
       let finalDecisionAsString = JSON.stringify(this.state.finalDecision)
       let filesNamesAsString = JSON.stringify(this.state.filesNames)
@@ -77,23 +68,9 @@ class financeFeedback extends Component {
                 <Row><br/></Row>
                 </Col>
 
-                <Col md={{ span: 12, offset: 0 }}><FormDisplay  formId={this.state.formId}/></Col>
+                <Col md={{ span: 12, offset: 0 }}><FormDisplay ShowAsk={"none"} formId={this.state.formId}/></Col>
                 <Row><br/></Row>
 
-                <Form.Group style={{display:this.state.displayDecision}}>
-                <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
-                                                          fileParentCallBack={this.fileUploadCallBackFunction}/></Col>
-                <Row><br/></Row>
-
-                <Col md={{ span: 12, offset: 0 }}><ResponseCard ParentCallBack={this.finalDecisionCallBackFunction}/></Col>
-                <Row><br/></Row>
-                
-                <Row>
-                <Col md={{ span: 12, offset: 5 }}>
-                <Button className="bg-primary text-white" type="submit"
-                onClick={this.handleChange}>Submit</Button></Col>
-                </Row>
-                </Form.Group>
 
                 <Row><br/></Row>
                 
@@ -110,4 +87,4 @@ class financeFeedback extends Component {
 }
 
 
-export default financeFeedback;
+export default salesFeedback;

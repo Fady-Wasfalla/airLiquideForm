@@ -1,15 +1,18 @@
 import React, { Component } from "react";
+import axios from 'axios'
+import Popup from "reactjs-popup";
 import { Form , Col , Row , Card, Button , Collapse } from "react-bootstrap";
-
 import CustomerBiDisplay from './customerBiDisplay'
 import LvfDisplay from './lvfDisplay'
 import CifDisplay from './cifDisplay'
 import PriDisplay from './priDisplay'
 import AskQuestion from './askQuestion'
 import PreviousQuestions from './previousQuestionsDisplay'
-import axios from 'axios'
-import Popup from "reactjs-popup";
-
+import DistributionDisplay from './feedbackDisplay/distributionDisplay'
+import SourcingDisplay from './feedbackDisplay/sourcingDisplay'
+import FinanceDisplay from './feedbackDisplay/financeDisplay'
+import CiDisplay from './feedbackDisplay/ciDisplay'
+import FleatDisplay from './feedbackDisplay/fleatDisplay'
 
 
 
@@ -27,11 +30,14 @@ class formDisplay extends Component {
       distributionsResponseData:{}, /* {distributions,distributionsAP,distributionsFiles} */
       irmrData:{}, /* {irmr,irmrAP, irmrFiles } */
       pdiData:{}, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdiTemp, fireExtinguishers } */
-      sourcingsData:{} /* { sourcings,sourcingsAP, sourcingsFile} */
+      sourcingsData:{}, /* { sourcings,sourcingsAP, sourcingsFile} */
+      openFeedback:true,
+      open:false,
     }
 
-    componentWillMount(){
-     axios
+    componentWillMount(){ 
+    this.setState({showAsk:this.props.ShowAsk})
+    axios
       .get('http://localhost:8000/api/employees/showFormData/'+this.props.formId)
       // .then(res=>{if(res.data.status==='Failed'){
        
@@ -47,11 +53,11 @@ class formDisplay extends Component {
         distributionsResponseData:res.data.distributionsResponseData, 
         irmrData:res.data.irmrData, 
         pdiData:res.data.pdiData, 
-        sourcingsData:res.data.sourcingsData })
-        console.log(res.data.formData)
-        })
+        sourcingsData:res.data.sourcingsData,
+        financeData:res.data.financeData })
+        console.log(res.data.pdiData)        })
       .catch(err => alert(err.message))
-      
+     
     }
       
       render() {
@@ -71,7 +77,7 @@ class formDisplay extends Component {
 
                 <Collapse in={this.state.open}>
                 <Col md={12}>                
-                <Col md={{ span: 12, offset: 0 }}><CustomerBiDisplay CBI={this.state.formData.form} CP={this.state.cp}/></Col>
+                <Col md={{ span: 12, offset: 0 }}><CustomerBiDisplay CBI={this.state.formData.form} CP={this.state.formData.contactPerson}/></Col>
                 <Row><br/></Row>
 
 
@@ -89,13 +95,53 @@ class formDisplay extends Component {
                 </Col>
                 </Collapse>
 
+
                 <Col md={{ offset: 10 }} style={{display:this.state.showAsk}} >       
                 <Popup trigger={<Button variant="outline-primary"> Ask Question ...? </Button>} modal><AskQuestion FormID={this.props.formId}/> </Popup>
                 </Col>
                 <Row><br/></Row>
+                </Card>
+                <Row><br/></Row>
 
 
+                {/*Feedback Part*/}
+                <Card border="secondary">
+                <Card.Header as="h4" className="bg-light text-black">
+                <Row style={{height: .04*window.innerHeight + 'px'}}>
+                <Col>Feedbacks</Col>
+                <Button variant="outline-dark" size="sm"
+                 onClick={(e)=>{this.setState({openFeedback:!this.state.openFeedback})}}>☰</Button>
+                 </Row>
+                </Card.Header>                
+                <Row><br/></Row>
 
+                <Collapse in={this.state.openFeedback}>
+                <Col md={12}>     
+
+                <Col md={{ span: 12, offset: 0 }}><DistributionDisplay  DistributionsResponseData={this.state.distributionsResponseData}  /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><SourcingDisplay  SourcingsData={this.state.sourcingsData}  /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><FleatDisplay  PdiData={this.state.pdiData}  /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><CiDisplay  CifResponseData={this.state.cifResponseData}  /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><FinanceDisplay  FinanceData={this.state.financeData}  /></Col>
+                <Row><br/></Row>
+
+
+                
+
+                </Col>
+                </Collapse>
+
+
+               
+                <Row><br/></Row>
                 </Card>
 
                 <Row><br/></Row>

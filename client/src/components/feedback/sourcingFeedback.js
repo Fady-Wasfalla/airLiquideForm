@@ -11,7 +11,7 @@ import axios from 'axios'
 class sourcingFeedback extends Component {
 
     state = {
-      finalDecision:{},
+      finalDecision:{dodo:false},
       formId:0,
       file:null,
       filesNames:[""],
@@ -24,8 +24,7 @@ class sourcingFeedback extends Component {
       this.setState({formId:formId})
       await axios
       .get('http://localhost:8000/api/forms/'+this.props.match.params.id)
-      .then(res => {this.setState({ data : res.data.data })
-        console.log(res.data)})
+      .then(res => {this.setState({ data : res.data.data })})
       .catch(err => alert(err.message))
       if (this.state.data.sourcingSubmition){
           this.setState({displayDecision:"none"})
@@ -47,6 +46,9 @@ class sourcingFeedback extends Component {
     }
       
     handleChange=()=>{
+      if (this.state.finalDecision.dodo===false){
+        return alert("please check the box in Final Decision part")
+      }
       const fd = new FormData()
       let finalDecisionAsString = JSON.stringify(this.state.finalDecision)
       let filesNamesAsString = JSON.stringify(this.state.filesNames)
