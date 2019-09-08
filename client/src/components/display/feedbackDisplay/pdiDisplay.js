@@ -7,80 +7,25 @@ import "react-datepicker/dist/react-datepicker.css";
 class pdiDisplay extends Component {
     
     state = {
-        highwayEnterance:false ,
-        highwayEnteranceMP:"" ,
-        highwayEnteranceCmt:"" ,
-        
-        areaFlat:false ,
-        areaFlatMP:"" ,
-        areaFlatCmt:"" ,
-
-        areaType:false ,
-        areaTypeMP:"" ,
-        areaTypeCmt:"" ,
-
-        dischargePoint:false ,
-        dischargePointMP:"" ,
-        dischargePointCmt:"" ,
-
-        carExit:false ,
-        carExitMP:"" ,
-        carExitCmt:"" ,
-
-        carGoBack:false,
-        carGoBackDistance:0 ,
-        carGoBackSafetyProcedure:"" ,
-
-        tankCapacity:false ,
-        tankCapacityMP:"" ,
-        tankCapacityCmt:"" ,
-        tankCapacitySize:0 ,
-
-        vaccumFlushing:false ,
-        vaccumFlushingMP:"" ,
-        vaccumFlushingCmt:"" ,
-
-        suitableElectricity:false ,
-        suitableElectricityMP:"" ,
-        suitableElectricityCmt:"" ,
-
-        adequateLight:false ,
-        adequateLightMP:"" ,
-        adequateLightCmt:"" ,
-
-        supplyTime:"" , /* morning , night , all day */
-        supplyTimeFrom:'00:00' ,
-        supplyTimeTo:'00:00' ,
-        supplyTimeCmt:"",
-
-        fireExtinguishers:false ,
-        fireExtinguishersMP:"" ,
-        fireExtinguishersCmt:"" ,
-        fireExtinguishersList:{},
-        
-        areaObstacles:false ,
-        areaObstaclesMP:"" ,
-        areaObstaclesCmt:"" ,
-        
-        //Vehicle Type Options dropdown list ... you have to change both value and label with the same name
-        vehicleTypeOptions : [
-            { value: 'Road Tanker', label: 'Road Tanker' },
-            { value: 'Mobile Tank', label: 'Mobile Tank' },
-            { value: 'Cylinders', label: 'Cylinders' },
-          ],
-        vehicleType : "",
-
-        inspector:"" ,
-        approver:"" ,
-        
-
-        fieldset:"",
-        done:"✘",
-        dodo:true
 
     }
 
-      render() {
+    getRequire=(e)=>{
+        if (e===true){
+            return "Accepted ✔"
+        }
+        if (e===false){
+            return "Not Accepted ✘"
+        }
+    }
+
+    showTimeOnly = (e) =>{
+        if (e){
+        let time=e.slice(11,e.length-2)
+        return time
+        }
+    }
+    render() {
         let pdiDataChange = this.props.Data
         let pdiData = Object.assign([{}],pdiDataChange)
         return (
@@ -96,7 +41,8 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}>Is the entrance from the highway to the site safe ?</Form.Label>
                             <Col md={{span:1}}/>
-                            <Form.Text>{pdiData.highwayEnterance}</Form.Text>
+                            <Form.Text 
+                            style={{ fontSize:"16px"}}>{this.getRequire(pdiData.highwayEnterance)}</Form.Text>
                             </Row>
                             </Col>
 
@@ -104,11 +50,11 @@ class pdiDisplay extends Component {
                             <Row>
                             <Col md={{span:6}}>
                             <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({highwayEnteranceMP:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.highwayEnteranceMP} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({highwayEnteranceCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.highwayEnteranceCmt}  />
                             </Col>
                             </Row>
                             </Form.Group>
@@ -121,7 +67,7 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}>Is the unloading area flat?</Form.Label>
                             <Col md={{span:1}}/>
-                           
+                                <Form.Text style={{ fontSize:"16px"}}>{this.getRequire(pdiData.areaFlat)}</Form.Text>
                             </Row>
                             </Col>
 
@@ -129,11 +75,11 @@ class pdiDisplay extends Component {
                             <Row>
                             <Col md={{span:6}}>
                             <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaFlatMP:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.areaFlatMP} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaFlatCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.areaFlatCmt} />
                             </Col>
                             </Row>
                             </Form.Group>
@@ -146,7 +92,7 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}>Type of unloading area (Asphalt/Concrete)?</Form.Label>
                             <Col md={{span:1}}/>
-                            
+                            <Form.Text style={{ fontSize:"16px"}}>{this.getRequire(pdiData.areaType)}</Form.Text>
                             </Row>
                             </Col>
 
@@ -154,11 +100,11 @@ class pdiDisplay extends Component {
                             <Row>
                             <Col md={{span:6}}>
                             <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaTypeMP:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.areaTypeMP} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaTypeCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.areaTypeCmt} />
                             </Col>
                             </Row>
                             </Form.Group>
@@ -171,7 +117,7 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}> Is the discharge point easily accessible ? </Form.Label>
                             <Col md={{span:1}}/>
-                            
+                            <Form.Text style={{ fontSize:"16px"}}>{this.getRequire(pdiData.dischargePoint)}</Form.Text>                            
                             </Row>
                             </Col>
 
@@ -179,11 +125,11 @@ class pdiDisplay extends Component {
                             <Row>
                             <Col md={{span:6}}>
                             <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({dischargePointMP:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.dischargePointMP} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({dischargePointCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.dischargePointCmt} />
                             </Col>
                             </Row>
                             </Form.Group>
@@ -196,7 +142,7 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}> Could the car exit the site without going back? </Form.Label>
                             <Col md={{span:1}}/>
-                            
+                            <Form.Text style={{ fontSize:"16px"}}>{this.getRequire(pdiData.carExit)}</Form.Text>                                                        
                             </Row>
                             </Col>
 
@@ -204,11 +150,11 @@ class pdiDisplay extends Component {
                             <Row>
                             <Col md={{span:6}}>
                             <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({carExitMP:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.carExitMP} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({carExitCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.carExitCmt} />
                             </Col>
                             </Row>
 
@@ -222,7 +168,7 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}> Could the car go back? </Form.Label>
                             <Col md={{span:1}}/>
-                           
+                            <Form.Text style={{ fontSize:"16px"}}>{this.getRequire(pdiData.carGoBack)}</Form.Text>                            
                             </Row>
                             </Col>
 
@@ -231,11 +177,11 @@ class pdiDisplay extends Component {
                             <Col md={{span:6}}>
                             <Form.Label>Distance (Meters)</Form.Label>
                             <Form.Control type={"number"} step={0.01}
-                            onChange={(e)=>{this.setState({carGoBackDistance:e.target.value})}} />
+                            value={pdiData.carGoBackDistance} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Safety procedures</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({carGoBackSafetyProcedure:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.carGoBackSafetyProcedure} />
                             </Col>
                             </Row>
                             </Form.Group>
@@ -248,7 +194,7 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}> Tanks Capacity </Form.Label>
                             <Col md={{span:1}}/>
-                            
+                            <Form.Text style={{ fontSize:"16px"}}>{this.getRequire(pdiData.tankCapacity)}</Form.Text>                            
                             </Row>
                             </Col>
 
@@ -256,18 +202,19 @@ class pdiDisplay extends Component {
                             <Row>
                             <Col md={{span:6}}>
                             <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({tankCapacityMP:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.tankCapacityMP} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({tankCapacityCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.tankCapacityCmt} />
                             </Col>
                             </Row>
 
                             <Row style={{height: .01*window.innerHeight + 'px'}}/>  
                             <Col md={6}>
                             <Form.Label>Size</Form.Label>
-                           
+                            <Form.Control type={"number"} step={0.01}
+                                value={pdiData.tankCapacitySize} />
                             </Col>
 
                             </Form.Group>
@@ -280,7 +227,7 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}> Is the vacuum flushing suitable? </Form.Label>
                             <Col md={{span:1}}/>
-                            
+                            <Form.Text style={{ fontSize:"16px"}}>{this.getRequire(pdiData.vaccumFlushing)}</Form.Text>                            
                             </Row>
                             </Col>
 
@@ -288,11 +235,11 @@ class pdiDisplay extends Component {
                             <Row>
                             <Col md={{span:6}}>
                             <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({vaccumFlushingMP:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.vaccumFlushingMP} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({vaccumFlushingCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.vaccumFlushingCmt} />
                             </Col>
                             </Row>
                             </Form.Group>
@@ -305,7 +252,7 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}> Is suitable electricity Flange in place? </Form.Label>
                             <Col md={{span:1}}/>
-                            
+                            <Form.Text style={{ fontSize:"16px"}}>{this.getRequire(pdiData.suitableElectricity)}</Form.Text>                             
                             </Row>
                             </Col>
 
@@ -313,11 +260,11 @@ class pdiDisplay extends Component {
                             <Row>
                             <Col md={{span:6}}>
                             <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({suitableElectricityMP:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.suitableElectricityMP} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({suitableElectricityCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.suitableElectricityCmt} />
                             </Col>
                             </Row>
                             </Form.Group>
@@ -330,7 +277,7 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}> Is adequate lighting in place at night? </Form.Label>
                             <Col md={{span:1}}/>
-                            
+                            <Form.Text style={{ fontSize:"16px"}}>{this.getRequire(pdiData.adequateLight)}</Form.Text>                            
                             </Row>
                             </Col>
 
@@ -338,11 +285,11 @@ class pdiDisplay extends Component {
                             <Row>
                             <Col md={{span:6}}>
                             <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({adequateLightMP:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.adequateLightMP} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({adequateLightCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.adequateLightCmt} />
                             </Col>
                             </Row>
                             </Form.Group>
@@ -355,25 +302,25 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}> Time to supply </Form.Label>
                             <Col md={{span:1}}/>
-                           
+                            <Form.Text style={{ fontSize:"16px"}}>{pdiData.supplyTime}</Form.Text>                            
                             </Row>
                             </Col>
 
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
                             <Row>
-                            <Col md={{span:1}}>
-                            <Form.Label>From</Form.Label>
+                            <Col md={{span:2}}>
+                            <Form.Label style={{fontWeight:"bold"}}>From</Form.Label>
                             <br/>
-                           
+                            <Form.Text style={{ fontSize:"16px"}}>{this.showTimeOnly(pdiData.supplyTimeFrom)}</Form.Text>                           
                             </Col>
                             <Col md={{offset:1}}>
-                            <Form.Label>To</Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}>To</Form.Label>
                             <br/>
-                           
+                            <Form.Text style={{ fontSize:"16px"}}>{this.showTimeOnly(pdiData.supplyTimeTo)}</Form.Text>                           
                             </Col>
                             <Col md={6}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({supplyTimeCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.supplyTimeCmt} />
                             </Col>
                             </Row>
                             </Form.Group>
@@ -384,9 +331,9 @@ class pdiDisplay extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}> Are there any fire extinguishers around the tank </Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}> Are there any fire extinguishers around the tank ? </Form.Label>
                             <Col md={{span:1}}/>
-                            
+                            <Form.Text style={{ fontSize:"16px"}}>{this.getRequire(pdiData.fireExtinguishers)}</Form.Text>
                             </Row>
                             </Col>
 
@@ -394,11 +341,11 @@ class pdiDisplay extends Component {
                             <Row>
                             <Col md={{span:6}}>
                             <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({fireExtinguishersMP:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.fireExtinguishersMP} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({fireExtinguishersCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.fireExtinguishersCmt} />
                             </Col>
                             </Row>
                             </Form.Group>
@@ -414,7 +361,7 @@ class pdiDisplay extends Component {
                             <Row>
                             <Form.Label style={{fontWeight:"bold"}}> Is the unloading area obstacles free? </Form.Label>
                             <Col md={{span:1}}/>
-                            
+                            <Form.Text style={{ fontSize:"16px"}}>{this.getRequire(pdiData.areaObstacles)}</Form.Text>                            
                             </Row>
                             </Col>
 
@@ -422,11 +369,11 @@ class pdiDisplay extends Component {
                             <Row>
                             <Col md={{span:6}}>
                             <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaObstaclesMP:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.areaObstaclesMP} />
                             </Col>
                             <Col md={{span:6}}>
                             <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaObstaclesCmt:e.target.value})}} />
+                            <Form.Control as="textarea" rows="3" value={pdiData.areaObstaclesCmt} />
                             </Col>
                             </Row>
                             </Form.Group>
@@ -435,20 +382,21 @@ class pdiDisplay extends Component {
                         <Row style={{height: .01*window.innerHeight + 'px'}}/>
                         <Form.Row >
                             <Col md={6}>
-                            <Form.Label style={{fontWeight:"bold"}}>Type of vehicle suitable for service</Form.Label>
-                            
+                            <Form.Label style={{fontWeight:"bold"}}>Type of vehicle suitable for service :</Form.Label>
+                            <Form.Text style={{ fontSize:"16px"}}>{pdiData.vehicleType}</Form.Text>                            
                             </Col>
                         </Form.Row>
 
                         <Row style={{height: .015*window.innerHeight + 'px'}}/>
                         <Form.Row>
                         <Form.Group as={Col} controlId="inspector">
-                            <Form.Label style={{fontWeight:"bold"}}> Inspector </Form.Label>
-                           
+                            <Form.Label style={{fontWeight:"bold"}}> Inspector : </Form.Label>
+                            <Form.Text style={{ fontSize:"16px"}}>{pdiData.inspector}</Form.Text>                           
                             
                         </Form.Group>
                         <Form.Group as={Col} >
-                            <Form.Label style={{fontWeight:"bold"}}> Approver </Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}> Approver : </Form.Label>
+                            <Form.Text style={{ fontSize:"16px"}}>{pdiData.approver}</Form.Text>
                         </Form.Group>
                         </Form.Row>
 
