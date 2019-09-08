@@ -23,8 +23,7 @@ class distributionFeedback extends Component {
       this.setState({formId:formId})
       await axios
       .get('http://localhost:8000/api/forms/'+this.props.match.params.id)
-      .then(res => {this.setState({ data : res.data.data })
-        console.log(res.data)})
+      .then(res => {this.setState({ data : res.data.data })})
       .catch(err => alert(err.message))
       if (this.state.data.distributionSubmition){
           this.setState({displayDecision:"none"})

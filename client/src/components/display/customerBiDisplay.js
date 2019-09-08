@@ -14,8 +14,6 @@ class customerBiDisplay extends Component {
         open:false,
     }
     componentWillMount(){
-        console.log(17)
-        console.log(this.props)
     } 
       render() {
           let cbiChange = this.props.CBI
