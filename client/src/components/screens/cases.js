@@ -12,6 +12,10 @@ class cases extends Component {
         pendingForms:[],
         submittedForms:[],
         displayedForm:[],
+        allFds:[],
+        pendingFds:[],
+        submittedFds:[],
+        displayedFd:[],
         loading: true,
         department:"",
         screensNames:[],
@@ -26,7 +30,12 @@ class cases extends Component {
     .then(res => {this.setState({displayedForm:res.data.allForms , loading: false})
     this.setState({allForms:res.data.allForms , loading: false})
     this.setState({pendingForms:res.data.pendingForms , loading: false})
-    this.setState({submittedForms:res.data.submittedForms , loading: false})})
+    this.setState({submittedForms:res.data.submittedForms , loading: false})
+
+    this.setState({displayedFd:res.data.allFds})
+    this.setState({allFds:res.data.allFds})
+    this.setState({pendingFds:res.data.pendingFds})
+    this.setState({submittedFds:res.data.submittedFds})})
     .catch(err => alert(err.message))
     
     }
@@ -54,6 +63,18 @@ class cases extends Component {
         this.props.history.push(path);
     }
 
+    getColor=(e)=>{
+        if (e==="Rejected"){
+            return <Card.Text style={{color:"red"}}>Rejected ✘</Card.Text>
+        }
+        if (e==="In proccessing"){
+            return <Card.Text style={{color:"blue"}}>In proccessing ?</Card.Text>
+        }
+        if (e==="Accepted"){
+            return <Card.Text style={{color:"green"}}>Accepted ✔</Card.Text>
+        }
+    }
+
 
     
       render() {
@@ -66,9 +87,9 @@ class cases extends Component {
                 <Card.Header>
                 <ButtonToolbar>
                     <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                    <ToggleButton value={1} onClick={(e)=>this.setState({displayedForm:this.state.allForms})}>All</ToggleButton>
-                    <ToggleButton value={2} onClick={(e)=>this.setState({displayedForm:this.state.pendingForms})}>pending</ToggleButton>
-                    <ToggleButton value={3} onClick={(e)=>this.setState({displayedForm:this.state.submittedForms})}>Finished</ToggleButton>
+                    <ToggleButton value={1} onClick={(e)=>this.setState({displayedForm:this.state.allForms , displayedFd:this.state.allFds})}>All</ToggleButton>
+                    <ToggleButton value={2} onClick={(e)=>this.setState({displayedForm:this.state.pendingForms , displayedFd:this.state.pendingFds })}>pending</ToggleButton>
+                    <ToggleButton value={3} onClick={(e)=>this.setState({displayedForm:this.state.submittedForms , displayedFd:this.state.submittedFds })}>Finished</ToggleButton>
                     </ToggleButtonGroup>
                 </ButtonToolbar>
                 </Card.Header>
@@ -100,13 +121,8 @@ class cases extends Component {
                                     </Form.Row>
 
                                     <Form.Row>
-                                        <Card.Text style={{fontWeight:"bold"}}>Zone : </Card.Text>
-                                        <Card.Text>{this.state.displayedForm[index].zone} </Card.Text>
-                                    </Form.Row>
-
-                                    <Form.Row>
-                                        <Card.Text style={{fontWeight:"bold"}}>Full address : </Card.Text>
-                                        <Card.Text>{this.state.displayedForm[index].address} </Card.Text>
+                                        <Card.Text style={{fontWeight:"bold"}}>Final Decision : </Card.Text>
+                                        {this.getColor(this.state.displayedFd[index])}
                                     </Form.Row>
 
                                 </Form>

@@ -48,7 +48,7 @@ class customerBiDisplay extends Component {
                             </Form.Group>
                             <Form.Group as={Col} >
                                     <Form.Label style={{fontWeight:"bold"}}>Submission Date</Form.Label>
-                                    <Card.Text># {cbi.date}</Card.Text>
+                                    <Card.Text>{cbi.date}</Card.Text>
                             </Form.Group>
                         </Form.Row>
 
