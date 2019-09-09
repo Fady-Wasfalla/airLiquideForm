@@ -13,6 +13,7 @@ import SourcingDisplay from './feedbackDisplay/sourcingDisplay'
 import FinanceDisplay from './feedbackDisplay/financeDisplay'
 import CiDisplay from './feedbackDisplay/ciDisplay'
 import FleatDisplay from './feedbackDisplay/fleatDisplay'
+import PrFeedback from './feedbackDisplay/prFeedback'
 
 
 
@@ -92,14 +93,17 @@ class formDisplay extends Component {
 
                 <Col md={{ span: 12, offset: 0 }}><PreviousQuestions /></Col>
                 <Row><br/></Row>
-                </Col>
-                </Collapse>
-
 
                 <Col md={{ offset: 10 }} style={{display:this.state.showAsk}} >       
                 <Popup trigger={<Button variant="outline-primary"> Ask Question ...? </Button>} modal><AskQuestion FormID={this.props.formId}/> </Popup>
                 </Col>
+                
                 <Row><br/></Row>
+
+                </Col>
+                </Collapse>
+
+
                 </Card>
                 <Row><br/></Row>
 
@@ -131,6 +135,9 @@ class formDisplay extends Component {
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><FinanceDisplay  FinanceData={this.state.financeData}  /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><PrFeedback  PrData={this.state.irmrData}  /></Col>
                 <Row><br/></Row>
 
 

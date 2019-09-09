@@ -197,9 +197,11 @@ class lvfDisplay extends Component {
                                 <Form.Label style={{fontWeight:"bold"}} >Customer Consumption Type</Form.Label>
                                 <Card.Text>{lvf.customerConsumption}</Card.Text>
 
-                            <Form.Check type="checkbox" label="Product Availablity" checked={lvf.productAvailability}
-
-                            />
+                            <Form.Check id="productAvailablity" 
+                            custom={true}
+                            inline={true}
+                            label="Product Availablity"
+                            checked={lvf.productAvailability}/>
                             </Form.Group>
                           
 
