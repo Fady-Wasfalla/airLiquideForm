@@ -103,8 +103,9 @@ frequencyOfPeakConsumption VARCHAR(7000) ,
 availableDelivery VARCHAR(7000) ,
 startDeliveryTime varchar(7000) ,
 endDeliveryTime varchar(7000) ,
-weightScale float ,
-tankGuage float ,
+weightScale BIT ,
+tankGuage BIT ,
+flowMeter BIT,
 lvfComment VARCHAR(7000) ,
 )
 go
