@@ -72,6 +72,7 @@ class priForm extends Component {
         proximityOfCombustibleMaterial:false,
         proximityOfCombustibleMaterialCmt:"" ,
         undergroundNetwork:false, 
+        undergroundNetworkCmt:"", 
         undergroundNetworkDepth:0,
         properDrainage:false,
         sittingInSafetyZone:false,
@@ -546,15 +547,12 @@ class priForm extends Component {
 
                         <Form.Row>
 
-                            <Form.Group as={Col}  >
+                            <Form.Group as={Col} md={2} >
                             <Form.Check id="earthquake"
                             custom={true}
                             inline={true}
-                            label="earthquake"
+                            label="Earthquake"
                             onChange={(e)=>{this.setState({earthquake:e.target.checked})}}/>
-                            <Form.Control as="textarea" rows="1" disabled={!this.state.earthquake}
-                            placeHolder="Seismic Zone ..."
-                            onChange={(e)=>{this.setState({earthquakeCmt:e.target.value})}} />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -563,18 +561,29 @@ class priForm extends Component {
                             inline={true}
                             label="Operation affected by a regulated area (e.g. Natural Park)"
                             onChange={(e)=>{this.setState({operationAffectedRegulatedArea:e.target.checked})}}/>
-                            <Form.Control as="textarea" rows="1" disabled={!this.state.operationAffectedRegulatedArea}
-                            onChange={(e)=>{this.setState({operationAffectedRegulatedAreaCmt:e.target.value})}} />
                             </Form.Group>
 
-                            <Form.Group as={Col}  >
-                            <Form.Check id="weather"
+                            <Form.Group as={Col} md={{offset:2,span:1}} >
+                            <Form.Check id="Weather"
                             custom={true}
                             inline={true}
-                            label="weather"
+                            label="Weather"
                             onChange={(e)=>{this.setState({weather:e.target.checked})}}/>
-                            <Form.Control as="textarea" rows="1" disabled={!this.state.weather}
-                            onChange={(e)=>{this.setState({weatherCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}>
+                                <Select
+                                value={this.state.weatherCmt.value}
+                                onChange={(e)=>{this.setState({ weatherCmt: e.value})}}
+                                options={ [
+                                            { value: 'Heavy Rains', label: 'Heavy Rains' },
+                                            { value: 'Storm', label: 'Storm' },
+                                            { value: 'Freeze', label: 'Freeze' },
+                                            { value: 'Snow', label: 'Snow' },
+                                            { value: 'Lightning', label: 'Lightning' },
+                                        ]}
+                                />
+
                             </Form.Group>
 
                             
@@ -587,7 +596,7 @@ class priForm extends Component {
                             <Form.Check id="flooding"
                             custom={true}
                             inline={true}
-                            label="flooding"
+                            label="Flooding"
                             onChange={(e)=>{this.setState({flooding:e.target.checked})}}/>
                             </Form.Group>
 
@@ -595,7 +604,7 @@ class priForm extends Component {
                             <Form.Check id="landslide"
                             custom={true}
                             inline={true}
-                            label="landslide"
+                            label="Landslide"
                             onChange={(e)=>{this.setState({landslide:e.target.checked})}}/>
                             </Form.Group>
 
@@ -603,7 +612,7 @@ class priForm extends Component {
                             <Form.Check id="salinity"
                             custom={true}
                             inline={true}
-                            label="salinity"
+                            label="Salinity"
                             onChange={(e)=>{this.setState({salinity:e.target.checked})}}/>
                             </Form.Group>
 
@@ -778,13 +787,29 @@ class priForm extends Component {
                             label="Underground network"
                             onChange={(e)=>{this.setState({undergroundNetwork:e.target.checked})}}/>
                             </Col>
+
+                            <Form.Group as={Col}>
+                            <Form.Text>Network Type</Form.Text>
+                                <Select
+                                value={this.state.undergroundNetworkCmt.value}
+                                onChange={(e)=>{this.setState({ undergroundNetworkCmt: e.value})}}
+                                options={ [
+                                            { value: 'Electric cables', label: 'Electric cables' },
+                                            { value: 'Process piping', label: 'Process piping' },
+                                            { value: 'Fire fighting water', label: 'Fire fighting water' },
+                                            { value: 'Sewage piping', label: 'Sewage piping' },
+                                        ]}
+                                />
+                            </Form.Group>
+
                             <Form.Group as={Col }>
                             <Form.Text>Depth (Meters)</Form.Text>
                             <FormControl type={"number"} step={0.1} disabled={!this.state.undergroundNetwork}
                             onChange={(e)=>{this.setState({undergroundNetworkDepth:e.target.value})}} />
                             </Form.Group>
-                            <Col md={{ offset:1 ,span:6}} >
-                            <Row style={{height: .04*window.innerHeight + 'px'}}/>
+
+
+                            <Col md={{ offset:1 ,span:4}} >
                             <Form.Check id="properDrainage"
                             custom={true}
                             inline={true}
