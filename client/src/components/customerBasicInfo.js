@@ -67,25 +67,25 @@ class customerBasicInfo extends Component {
                 <fieldset disabled={this.state.fieldset}>
                         <Form.Row>
                             
-                            <Form.Group as={Col} controlId="customerName">
-                            <Form.Label>Customer Name</Form.Label>
+                            <Form.Group as={Col} >
+                            <Form.Label>Customer Name <span style={{color:"red"}}>✶</span></Form.Label>
                             <Form.Control as="textarea" rows="1" required
                             onChange={(e)=>{this.setState({name:e.target.value})}}/>
                             
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="formGridPassword">
-                            <Form.Label>Customer Zone</Form.Label>
-                            <Form.Control as="textarea" rows="1" 
+                            <Form.Label>Customer Zone <span style={{color:"red"}}>✶</span></Form.Label>
+                            <Form.Control as="textarea" rows="1" required 
                             onChange={(e)=>{this.setState({zone:e.target.value})}} />
                             </Form.Group>
 
                         </Form.Row>
 
-
+                        <fieldset disabled={"disabled"}>
                         <Form.Row>
                         <Form.Group as={Col} controlId="customerName">
-                            <Form.Label>Date</Form.Label>
+                            <Form.Label>Submission Date</Form.Label>
                             <br/>
                             <DatePicker
                                 selected={this.state.date}
@@ -93,11 +93,12 @@ class customerBasicInfo extends Component {
                                 />
                             </Form.Group>
                         </Form.Row>
+                        </fieldset>
 
                         <Form.Row>
                             <Form.Group as={Col} controlId="textarea">
-                            <Form.Label>Customer Full Address</Form.Label>
-                            <Form.Control as="textarea" rows="2" 
+                            <Form.Label>Customer Full Address <span style={{color:"red"}}>✶</span></Form.Label>
+                            <Form.Control as="textarea" rows="2" required
                             onChange={(e)=>{this.setState({address:e.target.value})}}/>
                             </Form.Group>
                         </Form.Row>

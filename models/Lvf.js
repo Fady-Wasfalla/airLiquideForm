@@ -23,8 +23,9 @@ const Lvf = db.define('Lvf', {
   availableDelivery: Sequelize.STRING,
   startDeliveryTime: Sequelize.STRING,
   endDeliveryTime: Sequelize.STRING,
-  weightScale: Sequelize.FLOAT,
-  tankGuage: Sequelize.FLOAT,
+  weightScale: Sequelize.BOOLEAN,
+  tankGuage: Sequelize.BOOLEAN,
+  flowMeter:Sequelize.BOOLEAN,
   lvfComment: Sequelize.STRING
 },
 { timestamps: false,
