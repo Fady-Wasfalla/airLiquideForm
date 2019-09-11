@@ -514,7 +514,6 @@ exports.getFormsDisplay = async (req, res) => {
   try {
     // get the final decision to be displayed in cases files
 
-
     const dept = req.params.department
     const forms = await Form.findAll()
 
@@ -522,29 +521,29 @@ exports.getFormsDisplay = async (req, res) => {
     for (let i = 0; i < forms.length; i++) {
       let decision = []
       let distributionDecision = await Distributions.findOne({ where: { formId: forms[i].id } })
-      if (distributionDecision) { decision = decision.concat(distributionDecision.decision) }else { decision = decision.concat(0) }
+      if (distributionDecision) { decision = decision.concat(distributionDecision.decision) } else { decision = decision.concat(0) }
 
       let sourcingDecision = await Sourcings.findOne({ where: { formId: forms[i].id } })
-      if (sourcingDecision) { decision = decision.concat(sourcingDecision.decision) } else{ decision = decision.concat(0) }
+      if (sourcingDecision) { decision = decision.concat(sourcingDecision.decision) } else { decision = decision.concat(0) }
 
       let pdiDecision = await Pdi.findOne({ where: { formId: forms[i].id } })
-      if (pdiDecision) { decision = decision.concat(pdiDecision.decision) } else{ decision = decision.concat(0) }
+      if (pdiDecision) { decision = decision.concat(pdiDecision.decision) } else { decision = decision.concat(0) }
 
       let ciDecision = await CifResponse.findOne({ where: { formId: forms[i].id } })
-      if (ciDecision) { decision = decision.concat(ciDecision.decision) }else { decision = decision.concat(0) }
+      if (ciDecision) { decision = decision.concat(ciDecision.decision) } else { decision = decision.concat(0) }
 
       let financeDecision = await Finance.findOne({ where: { formId: forms[i].id } })
-      if (financeDecision) { decision = decision.concat(financeDecision.decision) }else { decision = decision.concat(0) }
+      if (financeDecision) { decision = decision.concat(financeDecision.decision) } else { decision = decision.concat(0) }
 
       let irmrDecision = await Irmr.findOne({ where: { formId: forms[i].id } })
-      if (irmrDecision) { decision = decision.concat(irmrDecision.decision) }else { decision = decision.concat(0) }
+      if (irmrDecision) { decision = decision.concat(irmrDecision.decision) } else { decision = decision.concat(0) }
       let fd = ''
       if (decision.includes('Disapprove')) {
         fd = 'Rejected'
-      } else{
+      } else {
         if (decision.includes(0)) {
           fd = 'In proccessing'
-        }else {
+        } else {
           fd = 'Accepted'
         }
       }

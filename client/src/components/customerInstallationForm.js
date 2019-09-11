@@ -50,6 +50,7 @@ class customerInstallationForm extends Component {
         futureExpansionNotes:"",
 
         fieldset:"",
+        dodo:true,
         done:"✘",
         
       }
