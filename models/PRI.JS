@@ -77,6 +77,7 @@ const Pri = db.define('Pri', {
   proximityToHighRiskCmt: Sequelize.STRING,
   proximityOfCombustibleMaterialCmt: Sequelize.STRING,
   undergroundNetworkDepth: Sequelize.FLOAT,
+  undergroundNetworkCmt:Sequelize.STRING,
   sittingInSafetyZoneCmt: Sequelize.STRING,
   customerEquipmentNotFullyCompatibleCmt: Sequelize.STRING,
   industrialCmtsCmt: Sequelize.STRING,

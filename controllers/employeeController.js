@@ -443,7 +443,9 @@ exports.pdiFB = async (req, res) => {
         await PdiAP.create(irmrsAPData)
       }
     }
-    if (fireExt.length > 0) {
+    console.log(446,fireExt)
+    if (fireExt.number.length > 0) {
+      console.log(448,fireExt.number.length)
       for (let i = 0; i < fireExt.number.length; i++) {
         let fireExtData = {
           pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
@@ -506,11 +508,57 @@ exports.getStarted = async (req, res) => {
     })
   }
 }
+
+  
 // get the forms that are not submitted by the selected departement
 exports.getFormsDisplay = async (req, res) => {
   try {
+    //get the final decision to be displayed in cases files
+    
+   
     const dept = req.params.department
     const forms = await Form.findAll()
+
+    let finalDecision = []
+    for (let i = 0; i < forms.length; i++) {
+        let decision = []
+        let distributionDecision = await Distributions.findOne({ where: { formId: forms[i].id } })
+        if (distributionDecision){decision=decision.concat(distributionDecision.decision)}else{decision=decision.concat(0)}
+        
+        let sourcingDecision = await Sourcings.findOne({ where: { formId: forms[i].id } })
+        if (sourcingDecision){decision=decision.concat(sourcingDecision.decision)}else{decision=decision.concat(0)}
+
+        let pdiDecision = await Pdi.findOne({ where: { formId: forms[i].id } })
+        if (pdiDecision){decision=decision.concat(pdiDecision.decision)}else{decision=decision.concat(0)}
+
+        let ciDecision = await CifResponse.findOne({ where: { formId: forms[i].id } })
+        if(ciDecision){ decision=decision.concat(ciDecision.decision) }else{ decision=decision.concat(0)}
+
+        let financeDecision = await Finance.findOne({ where: { formId: forms[i].id } })
+        if(financeDecision){decision=decision.concat(financeDecision.decision)}else{decision=decision.concat(0)}
+
+        let irmrDecision = await Irmr.findOne({ where: { formId: forms[i].id } })
+        if(irmrDecision){decision=decision.concat(irmrDecision.decision)}else{decision=decision.concat(0)}
+        let fd = ""
+        if (decision.includes("Disapprove")){
+            fd="Rejected"
+        }else{
+          if (decision.includes(0)){
+            fd="In proccessing"
+          }else{
+            fd="Accepted"
+          }
+        }
+        forms[i]['fd']=fd
+    }
+
+    let allFds = []
+    let pendingFds = []
+    let submittedFds = []
+    for (let i=0;i<forms.length;i++){
+      allFds = allFds.concat(forms[i].fd)
+    }
+
 
     let pendingForms = []
     let submittedForms = []
@@ -521,8 +569,10 @@ exports.getFormsDisplay = async (req, res) => {
           // get submitted forms by the dept
           if (forms[i].distributionSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -531,8 +581,10 @@ exports.getFormsDisplay = async (req, res) => {
           // get submitted forms by the dept
           if (forms[i].sourcingSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -541,8 +593,10 @@ exports.getFormsDisplay = async (req, res) => {
           // get submitted forms by the dept
           if (forms[i].fleatSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -551,8 +605,10 @@ exports.getFormsDisplay = async (req, res) => {
           // get submitted forms by the dept
           if (forms[i].irmrSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -561,8 +617,10 @@ exports.getFormsDisplay = async (req, res) => {
           // get submitted forms by the dept
           if (forms[i].ciSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -571,8 +629,10 @@ exports.getFormsDisplay = async (req, res) => {
           // get submitted forms by the dept
           if (forms[i].financeSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -580,19 +640,25 @@ exports.getFormsDisplay = async (req, res) => {
         for (let i = 0; i < forms.length; i++) {
           // get submitted forms by the dept
           if (forms[i].distributionSubmition & forms[i].sourcingSubmition &
-                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition) {
+                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition & forms[i].financeSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
     }
+
     return res.json({
       status: 'Success',
       allForms: forms,
       pendingForms: pendingForms,
-      submittedForms: submittedForms
+      submittedForms: submittedForms,
+      allFds:allFds,
+      pendingFds:pendingFds,
+      submittedFds:submittedFds
     })
   } catch (error) {
     return res.json({

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import 'mdbreact/dist/css/mdb.css'
+import Select from "react-select"
 
 class fluids extends Component {
 
@@ -92,19 +93,19 @@ class fluids extends Component {
     }
 
     nature1HandleChange(e,index){
-        this.state.nature1[index] = e.target.value
+        this.state.nature1[index] = e.value
         this.setState({nature1:this.state.nature1})
         this.props.ParentCallBack(this.state)
     }
 
     nature2HandleChange(e,index){
-        this.state.nature2[index] = e.target.value
+        this.state.nature2[index] = e.value
         this.setState({nature2:this.state.nature2})
         this.props.ParentCallBack(this.state)
     }
 
     nature3HandleChange(e,index){
-        this.state.nature3[index] = e.target.value
+        this.state.nature3[index] = e.value
         this.setState({nature3:this.state.nature3})
         this.props.ParentCallBack(this.state)
     }
@@ -113,6 +114,13 @@ class fluids extends Component {
         this.state.natureOther[index] = e.target.value
         this.setState({natureOther:this.state.natureOther})
         this.props.ParentCallBack(this.state)
+    }
+
+    validateItem=(e)=>{
+        if (e===""){
+          return true
+        }
+        return false
     }
 
     
@@ -124,7 +132,7 @@ class fluids extends Component {
                 <Button variant="outline"  
                 onClick={(e)=>this.addFluid(e)}
                 >＋</Button>
-               
+                <Form>
                 {
                     this.state.fluidOrProduct.map((val,index)=>{
                         return (
@@ -136,14 +144,13 @@ class fluids extends Component {
                             <Row>
                             <Card.Text style={{ color:"black" , fontSize:"18px" }}>Fluid Information</Card.Text>
                             <Col md={{offset:10}}><Button variant="outline" 
-                                onClick={()=>this.removefluid(index)}>✗</Button></Col>
+                                onClick={(e)=>this.removefluid(index)}>✗</Button></Col>
                             </Row>
                             </Col></Card.Header>
                             <Row><br/></Row>                   
                             
                             <Col md={12}>
                             <Form>
-
                                 <Form.Row>
                                             <Form.Group as={Col} >
                                             <Form.Label>Fluid / Product {this.props.ind} </Form.Label>
@@ -192,31 +199,72 @@ class fluids extends Component {
                                             <Card border="secondary">
                                             <Form.Row>
                                             <Form.Group as={Col} >
-                                            <Form.Label>Natures</Form.Label>
-                                            <Form.Control as="textarea" rows="1" 
-                                            onChange={(e)=>this.nature1HandleChange(e , index)} value={this.state.nature1[index]}/>
+                                            <Form.Label>Natures <span style={{color:"red"}}>✶</span></Form.Label>
+                                            </Form.Group>
+                                            </Form.Row>
+
+                                            <Form.Row>
+                                            <Form.Group as={Col} >
+                                                <Select
+                                                value={this.state.nature1[index].value}
+                                                onChange={(e)=>{this.nature1HandleChange(e,index)}}
+                                                options={ [
+                                                            { value: 'Flammable', label: 'Flammable' },
+                                                            { value: 'Oxidizer', label: 'Oxidizer' },
+                                                            { value: 'Explosive', label: 'Explosive' },
+                                                            { value: 'Toxic', label: 'Toxic' },
+                                                            { value: 'Pyrophoric', label: 'Pyrophoric' },
+                                                            { value: 'Suffocating', label: 'Suffocating' },
+                                                            { value: 'Corrosive', label: 'Corrosive' },
+
+                                                        ]}
+                                                />
                                             </Form.Group>
                                             
                                             <Form.Group as={Col} >
-                                            <Row style={{height: .044*window.innerHeight + 'px'}}/>
-                                            <Form.Control as="textarea" rows="1" 
-                                           onChange={(e)=>this.nature2HandleChange(e , index)} value={this.state.nature2[index]}/>
+                                                <Select
+                                                value={this.state.nature2[index].value}
+                                                onChange={(e)=>{this.nature2HandleChange(e,index)}}
+                                                options={ [
+                                                            { value: 'Flammable', label: 'Flammable' },
+                                                            { value: 'Oxidizer', label: 'Oxidizer' },
+                                                            { value: 'Explosive', label: 'Explosive' },
+                                                            { value: 'Toxic', label: 'Toxic' },
+                                                            { value: 'Pyrophoric', label: 'Pyrophoric' },
+                                                            { value: 'Suffocating', label: 'Suffocating' },
+                                                            { value: 'Corrosive', label: 'Corrosive' },
+
+                                                        ]}
+                                                />
                                             </Form.Group>
 
                                             <Form.Group as={Col} >
-                                            <Row style={{height: .044*window.innerHeight + 'px'}}/>
-                                            <Form.Control as="textarea" rows="1" 
-                                            onChange={(e)=>this.nature3HandleChange(e , index)} value={this.state.nature3[index]}/>
-                                            </Form.Group>
+                                                <Select
+                                                value={this.state.nature3[index].value}
+                                                onChange={(e)=>{this.nature3HandleChange(e,index)}}
+                                                options={ [
+                                                            { value: 'Flammable', label: 'Flammable' },
+                                                            { value: 'Oxidizer', label: 'Oxidizer' },
+                                                            { value: 'Explosive', label: 'Explosive' },
+                                                            { value: 'Toxic', label: 'Toxic' },
+                                                            { value: 'Pyrophoric', label: 'Pyrophoric' },
+                                                            { value: 'Suffocating', label: 'Suffocating' },
+                                                            { value: 'Corrosive', label: 'Corrosive' },
 
+                                                        ]}
+                                                />
+                                            </Form.Group>
+                                            </Form.Row>
+
+                                            <Form.Row>
                                             <Form.Group as={Col} >
                                             <Row style={{height: .044*window.innerHeight + 'px'}}/>
                                             <Form.Control as="textarea" rows="2" 
-                                            placeHolder={"if there are more than three fluids , Write them all here"}
+                                            placeHolder={"if there are more than three natures , Write them all here"}
                                             onChange={(e)=>this.natureOtherHandleChange(e , index)} value={this.state.natureOther[index]}/>
                                             </Form.Group>
-
                                             </Form.Row>
+
                                             </Card>
                                             <Row><br/></Row>
                                             </Col>    
@@ -230,6 +278,7 @@ class fluids extends Component {
                         )
                     })
                 }
+                </Form>
                 
             </React.Fragment>
         )

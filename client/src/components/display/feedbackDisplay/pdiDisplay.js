@@ -28,6 +28,8 @@ class pdiDisplay extends Component {
     render() {
         let pdiDataChange = this.props.Data
         let pdiData = Object.assign([{}],pdiDataChange)
+        let fireExtChange = this.props.FireExt
+        let fireExt = Object.assign([{}],fireExtChange)
         return (
             <React.Fragment>
                 <Card border="secondary" >
@@ -350,9 +352,35 @@ class pdiDisplay extends Component {
                             </Row>
                             </Form.Group>
                         </Form.Row>
+
                         <Form.Row>
-                            {/*Fire exting. */}
+                        <Row><br/></Row>
                         </Form.Row>
+                                        <Form.Row>
+                                            <Col md={2}>
+                                                <Form.Label style={{fontWeight:"bold"}}>Number of Fire Extinguishersre </Form.Label>                                                                
+                                            </Col>
+
+                                            <Col md={3}>
+                                                <Form.Label style={{fontWeight:"bold"}}>Capacity</Form.Label>                                                                
+                                            </Col>
+                                        </Form.Row>
+            
+
+                            { fireExt.map((e,index)=>{
+                            return(
+                                        <Form.Row>
+                                            <Col md={{span:2}}>
+                                                <Form.Label >{index+1}{")"}{fireExt[index].number}</Form.Label>                                                                
+                                            </Col>
+
+                                            <Col md={{span:3}}>
+                                                <Form.Label >{fireExt[index].capacity}</Form.Label>                                                                
+                                            </Col>
+                                        </Form.Row>
+                            )
+                        })}
+                        
 
                         <Row style={{height: .04*window.innerHeight + 'px'}}/>
                         <Form.Row >

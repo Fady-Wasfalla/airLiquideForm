@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button , Collapse} from "react-bootstrap";
 import ResponseDisplay from './responseDisplay'
-import PdiDisplay from './pdiDisplay'
+import IrmrDisplay from './irmrDisplay'
 import axios from 'axios'
 
 
 
-class fleatDisplay extends Component {
+class prFeedback extends Component {
 
     state = {
         data:{},
-        open:false,
+        open:true,
       }
     async componentWillMount(){
-      this.setState({data:this.props.PdiData})
+      this.setState({data:this.props.PrData})
 
     }
 
@@ -23,7 +23,7 @@ class fleatDisplay extends Component {
 
      
       render() {
-        let newResponseData = this.props.PdiData
+        let newResponseData = this.props.PrData
         let ResponseData = Object.assign([{}],newResponseData)
         console.log("##",ResponseData)
         return (
@@ -32,7 +32,7 @@ class fleatDisplay extends Component {
                 <Card border="secondary">
                 <Card.Header as="h5" className="bg-secondary text-white" >
                 <Row style={{height: .04*window.innerHeight + 'px'}}>
-                <Col>Fleat Feedback</Col>
+                <Col>PR Feedback</Col>
                 <Button variant="outline-light" size="sm"
                  onClick={(e)=>{this.setState({open:!this.state.open})
                                  }}>☰</Button>
@@ -43,11 +43,11 @@ class fleatDisplay extends Component {
                 
                 <Form>
 
-                <Col md={{ span: 12, offset: 0 }}><PdiDisplay FireExt={ResponseData.fireExtinguishers} Data={ResponseData.pdi}/>
+                <Col md={{ span: 12, offset: 0 }}><IrmrDisplay Data={ResponseData.irmr}/>
                 </Col>
                 <Row><br/><br/></Row>
-                <Col md={{ span: 12, offset: 0 }}><ResponseDisplay FinalDecision={ResponseData.pdi} 
-                AP={ResponseData.pdiAP} Files={ResponseData.pdiFiles}/>
+                <Col md={{ span: 12, offset: 0 }}><ResponseDisplay FinalDecision={ResponseData.irmr} 
+                AP={ResponseData.irmrAP} Files={ResponseData.irmrFiles}/>
                 </Col>
                 <Row><br/></Row>
                 </Form>
@@ -65,4 +65,4 @@ class fleatDisplay extends Component {
 }
 
 
-export default fleatDisplay;
+export default prFeedback;
