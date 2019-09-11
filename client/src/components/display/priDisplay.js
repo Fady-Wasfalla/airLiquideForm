@@ -1015,9 +1015,19 @@ class priDisplay extends Component {
                             inline={true}
                             label="Include transportation activities"
                             checked={pri.includeTransportationActivities }/>
+
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
+                            <Row>
+                            <Col md={{offset:0,span:6}}>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.includeTransportationActivities}
                             value={pri.includeTransportationActivitiesCmt } />
+                            </Col>
+
+                            <Col md={{offset:0,span:6}}>
+                            <Form.Control as="textarea" rows="1" disabled={!this.state.includeTransportationActivitiesType}
+                            value={pri.includeTransportationActivitiesType } />
+                            </Col>
+                            </Row>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
