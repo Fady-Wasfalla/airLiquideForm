@@ -37,7 +37,8 @@ class priDisplay extends Component {
                        <Form.Row>
                             <Form.Group as={Col} controlId="descriptionAndGeneralCmts">
                             <Form.Label>To be completed for clear understanding of the project and associated risks</Form.Label>
-                            <Form.Control as="textarea" rows="1" value={pri.descriptionAndGeneralCmts}/>
+                            <Form.Control as="textarea" rows="1" 
+                            value={pri.descriptionAndGeneralCmts}/>
                             </Form.Group>
                         </Form.Row>
 
@@ -52,13 +53,15 @@ class priDisplay extends Component {
                             <Col md={4}>
                             <Form.Group as={Col} controlId="facilityOrEquipment">
                             <Form.Label style={{fontWeight:"bold"}}>Facility Or Equipment</Form.Label>
-                            <Form.Control as="textarea" rows="1" value={pri.facilityOrEquipment}/>
+                            <Form.Control as="textarea" rows="1" 
+                            value={pri.facilityOrEquipment}/>
                             </Form.Group>
                             </Col>
 
                             <Form.Group as={Col} controlId="facilityOrEquipmentRemarks">
                             <Form.Label style={{fontWeight:"bold"}} >Facility Or Equipment Remarks</Form.Label>
-                            <Form.Control as="textarea" rows="1" value={pri.facilityOrEquipmentRemarks}/>
+                            <Form.Control as="textarea" rows="1" 
+                            value={pri.facilityOrEquipmentRemarks}/>
 
                             </Form.Group>
                         </Form.Row>
@@ -73,7 +76,8 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col} controlId="applicationTypeRemarks">
                             <Form.Label style={{fontWeight:"bold"}} >Application Type Remarks</Form.Label>
-                            <Form.Control as="textarea" rows="1" value={pri.applicationTypeRemarks}/>
+                            <Form.Control as="textarea" rows="1" 
+                            value={pri.applicationTypeRemarks}/>
                             </Form.Group>
                         </Form.Row>
                         
@@ -81,25 +85,29 @@ class priDisplay extends Component {
                             <Col md={4}>
                             <Form.Group as={Col} controlId="projectType">
                             <Form.Label style={{fontWeight:"bold"}} >Project Type</Form.Label>
-                            <Form.Control as="textarea" rows="1" value={pri.projectType}/>
+                            <Form.Control as="textarea" rows="1" 
+                            value={pri.projectType}/>
                             </Form.Group>
                             </Col>
 
                             <Form.Group as={Col} controlId="projectTypeRemarks">
                             <Form.Label style={{fontWeight:"bold"}} >Project Type Remarks</Form.Label>
-                            <Form.Control as="textarea" rows="1" value={pri.projectTypeRemarks}/>
+                            <Form.Control as="textarea" rows="1" 
+                            value={pri.projectTypeRemarks}/>
                             </Form.Group>
                         </Form.Row>
                        
                         <Form.Row>
                             <Form.Group as={Col} controlId="facilityOrEquipmentSupply">
                             <Form.Label style={{fontWeight:"bold"}} >Facility Or Equipment Supply</Form.Label>
-                            <Form.Control as="textarea" rows="2" value={pri.facilityOrEquipmentSupply}/>
+                            <Form.Control as="textarea" rows="2" 
+                            value={pri.facilityOrEquipmentSupply}/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="facilityOrEquipmentCmts">
                             <Form.Label style={{fontWeight:"bold"}} >Facility Or Equipment Cmts</Form.Label>
-                            <Form.Control as="textarea" rows="2" value={pri.facilityOrEquipmentCmts}/>
+                            <Form.Control as="textarea" rows="2" 
+                            value={pri.facilityOrEquipmentCmts}/>
                             </Form.Group>
                         </Form.Row>
         
@@ -143,9 +151,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="On Board Equipment"
-                            onChange={(e)=>{this.setState({onBoardEquipment:e.target.checked})}}/>
+                            checked={pri.onBoardEquipment }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.onBoardEquipment}
-                            checked={pri.onBoardEquipment}/>
+                            value={pri.onBoardEquipment}/>
                             </Form.Group>
                             <Form.Group as={Col}/>
                             
@@ -287,7 +295,6 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Other / Comments"
-                            onChange={(e)=>{this.setState({naturalCmts:e.target.checked})}}
                             checked={pri.naturalCmts}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.naturalCmts}
                             value={pri.naturalCmtsCmt}/>
@@ -310,7 +317,6 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Pollution"
-                           
                             checked={pri.pollution}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.pollution}
                             value={pri.pollutionCmt}/>
@@ -322,19 +328,19 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="High voltage lines"
-                            onChange={(e)=>{this.setState({highVoltageLines:e.target.checked})}}/>
+                            checked={pri.highVoltageLines}/>
                             </Col>
 
                             <Form.Group as={Col }>
                             <Form.Text style={{fontWeight:"bold"}} >Capacity (Volt)</Form.Text>
                             <FormControl type={"number"} step={0.1} disabled={!this.state.highVoltageLines}
-                            onChange={(e)=>{this.setState({highVoltageLinesCapacity:e.target.value})}} />
+                            value={pri.highVoltageLinesCapacity}/>
                             </Form.Group>
 
                             <Form.Group as={Col}>
                             <Form.Text style={{fontWeight:"bold"}} >Distance to tank (Meter)</Form.Text>
                             <FormControl type={"number"} step={0.1} disabled={!this.state.highVoltageLines}
-                            onChange={(e)=>{this.setState({highVoltageLinesDistanceToTank:e.target.value})}} />
+                            value={pri.highVoltageLinesDistanceToTank}/>
                             </Form.Group>
 
                        </Form.Row>
@@ -346,9 +352,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Limited Spacing"
-                            onChange={(e)=>{this.setState({limitedSpacing:e.target.checked})}}/>
+                            checked={pri.limitedSpacing}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.limitedSpacing}
-                            onChange={(e)=>{this.setState({limitedSpacingCmt:e.target.value})}} />
+                            value={pri.limitedSpacingCmt}/>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -356,9 +362,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Hazardous material storage"
-                            onChange={(e)=>{this.setState({hazardousMaterialStorage:e.target.checked})}} checked={pri.hazardousMaterialStorage}/>
+                            checked={pri.hazardousMaterialStorage}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.hazardousMaterialStorage}
-                            onChange={(e)=>{this.setState({hazardousMaterialStorageCmt:e.target.value})}} />
+                            value={pri.hazardousMaterialStorageCmt}/>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -366,9 +372,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="confinement"
-                            onChange={(e)=>{this.setState({confinement:e.target.checked})}}/>
+                            checked={pri.confinement}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.confinement}
-                            onChange={(e)=>{this.setState({confinementCmt:e.target.value})}} />
+                            value={pri.confinementCmt}/>
                             </Form.Group>
 
                         </Form.Row>
@@ -381,9 +387,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Potential existing site pollution (soil)"
-                            onChange={(e)=>{this.setState({potentialExistingSitePollution:e.target.checked})}}/>
+                            checked={pri.potentialExistingSitePollution}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.potentialExistingSitePollution}
-                            onChange={(e)=>{this.setState({potentialExistingSitePollutionCmt:e.target.value})}} />
+                            value={pri.potentialExistingSitePollutionCmt} />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -391,19 +397,19 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Proximity to high risk site"
-                            onChange={(e)=>{this.setState({proximityToHighRisk:e.target.checked})}}/>
+                            checked={pri.proximityToHighRisk}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.proximityToHighRisk}
-                            onChange={(e)=>{this.setState({proximityToHighRiskCmt:e.target.value})}} />
+                            value={pri.proximityToHighRiskCmt}/>
                             </Form.Group>
 
-                            <Form.Group as={Col}  >
+                            <Form.Group as={Col}>
                             <Form.Check id="proximityOfCombustibleMaterial" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Proximity of combustible material or heat source"
-                            onChange={(e)=>{this.setState({proximityOfCombustibleMaterial:e.target.checked})}}/>
+                            checked={pri.proximityOfCombustibleMaterial}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.proximityOfCombustibleMaterial}
-                            onChange={(e)=>{this.setState({proximityOfCombustibleMaterialCmt:e.target.value})}} />
+                            value={pri.proximityOfCombustibleMaterialCmt}/>
                             </Form.Group>
 
                         </Form.Row>
@@ -416,21 +422,21 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Underground network"
-                            onChange={(e)=>{this.setState({undergroundNetwork:e.target.checked})}}/>
+                            checked={pri.undergroundNetwork}/>
                             </Col>
                             <Form.Group as={Col }>
                             <Form.Text style={{fontWeight:"bold"}} >Depth (Meters)</Form.Text>
                             <FormControl type={"number"} step={0.1} disabled={!this.state.undergroundNetwork}
-                            onChange={(e)=>{this.setState({undergroundNetworkDepth:e.target.value})}} />
+                            value={pri.undergroundNetworkDepth} />
                             </Form.Group>
                             <Col md={{ offset:1 ,span:6}} >
                             <Row style={{height: .04*window.innerHeight + 'px'}}/>
                             <Form.Check id="properDrainage" style={{fontWeight:"bold"}}
                             custom={true} 
                             inline={true}
+                            checked={pri.properDrainage}
                             label="Is proper drainage system available to avoid the water
-                            accumulation in case of heavy rain?"
-                            onChange={(e)=>{this.setState({properDrainage:e.target.checked})}}/>
+                            accumulation in case of heavy rain?"/>
                             </Col>
                             <Form.Group as={Col}/>
 
@@ -443,9 +449,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Sitting in a safety zone created by a surrounding installation (ATEX, …)"
-                            onChange={(e)=>{this.setState({sittingInSafetyZone:e.target.checked})}}/>
+                            checked={pri.sittingInSafetyZone }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.sittingInSafetyZone}
-                            onChange={(e)=>{this.setState({sittingInSafetyZoneCmt:e.target.value})}} />
+                            value={pri.sittingInSafetyZoneCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -453,9 +459,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Customer equipment or area not fully compatible to the gas in use"
-                            onChange={(e)=>{this.setState({customerEquipmentNotFullyCompatible:e.target.checked})}}/>
+                            checked={pri.customerEquipmentNotFullyCompatible}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.customerEquipmentNotFullyCompatible}
-                            onChange={(e)=>{this.setState({customerEquipmentNotFullyCompatibleCmt:e.target.value})}} />
+                            value={pri.customerEquipmentNotFullyCompatibleCmt } />
                             </Form.Group>
                         </Form.Row>
 
@@ -466,9 +472,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Other / Comments"
-                            onChange={(e)=>{this.setState({industrialCmts:e.target.checked})}}/>
+                            checked={pri.industrialCmts }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.industrialCmts}
-                            onChange={(e)=>{this.setState({industrialCmtsCmt:e.target.value})}} />
+                            value={pri.industrialCmtsCmt } />
                             </Col>
 
                         </Form.Row>
@@ -488,9 +494,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Residential area"
-                            onChange={(e)=>{this.setState({residentialArea:e.target.checked})}}/>
+                            checked={pri.residentialArea }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.residentialArea}
-                            onChange={(e)=>{this.setState({residentialAreaCmt:e.target.value})}} />
+                            value={pri.residentialAreaCmt } />
                             </Form.Group>
                             
                             <Form.Group as={Col}  >
@@ -498,9 +504,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Isolated area"
-                            onChange={(e)=>{this.setState({isolatedArea:e.target.checked})}}/>
+                            checked={pri.isolatedArea }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.isolatedArea}
-                            onChange={(e)=>{this.setState({isolatedAreaCmt:e.target.value})}} />
+                            value={pri.isolatedAreaCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -508,9 +514,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Public Building"
-                            onChange={(e)=>{this.setState({publicBuilding:e.target.checked})}}/>
+                            checked={pri.publicBuilding }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.publicBuilding}
-                            onChange={(e)=>{this.setState({publicBuildingCmt:e.target.value})}} />
+                            value={pri.publicBuildingCmt } />
                             </Form.Group>
                             
                        </Form.Row>
@@ -522,9 +528,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Issue with site accessibility"
-                            onChange={(e)=>{this.setState({siteAccessibility:e.target.checked})}}/>
+                            checked={pri.siteAccessibility }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.siteAccessibility}
-                            onChange={(e)=>{this.setState({siteAccessibilityCmt:e.target.value})}} />
+                            value={pri.siteAccessibilityCmt } />
                             </Form.Group>
                             
                             <Form.Group as={Col}  >
@@ -532,9 +538,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Transportation corridor"
-                            onChange={(e)=>{this.setState({transportationCorridor:e.target.checked})}}/>
+                            checked={pri.transportationCorridor }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.transportationCorridor}
-                            onChange={(e)=>{this.setState({transportationCorridorCmt:e.target.value})}} />
+                            value={pri.transportationCorridorCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -542,9 +548,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="High security risk (terrorism, vandalism, etc)"
-                            onChange={(e)=>{this.setState({highSecurityRisk:e.target.checked})}}/>
+                            checked={pri.highSecurityRisk }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.highSecurityRisk}
-                            onChange={(e)=>{this.setState({highSecurityRiskCmt:e.target.value})}} />
+                            value={pri.highSecurityRiskCmt } />
                             </Form.Group>
 
                        </Form.Row>
@@ -556,9 +562,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Other / Comments"
-                            onChange={(e)=>{this.setState({populationCmts:e.target.checked})}}/>
+                            checked={pri.populationCmts }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.populationCmts}
-                            onChange={(e)=>{this.setState({populationCmtsCmt:e.target.value})}} />
+                            value={pri.populationCmtsCmt } />
                             </Col>
 
                        </Form.Row>
@@ -578,9 +584,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Financial situation (solvency) of the customer (pay on time, not healthy)"
-                            onChange={(e)=>{this.setState({financialSituation:e.target.checked})}}/>
+                            checked={pri.financialSituation }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.financialSituation}
-                            onChange={(e)=>{this.setState({financialSituationCmt:e.target.value})}} />
+                            value={pri.financialSituationCmt } />
                             </Form.Group>
                             
                             <Col md={{ offset:1 ,span:3}} >
@@ -589,7 +595,7 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="New business for the customer"
-                            onChange={(e)=>{this.setState({newBusinessCustomer:e.target.checked})}}/>
+                            checked={pri.newBusinessCustomer }/>
                             </Col>
 
                             <Col md={{ offset:0 ,span:3}} >
@@ -598,7 +604,7 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Durability of customer activities"
-                            onChange={(e)=>{this.setState({durabilityOfCustomerActivities:e.target.checked})}}/>
+                            checked={pri.durabilityOfCustomerActivities }/>
                             </Col>
 
                        </Form.Row>
@@ -610,9 +616,9 @@ class priDisplay extends Component {
                             inline={true}
                             label="Strategic customer (dedicated AL development for a new customer, new area,
                                 remote sources…)"
-                            onChange={(e)=>{this.setState({strategicCustomer:e.target.checked})}}/>
+                            checked={pri.strategicCustomer }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.strategicCustomer}
-                            onChange={(e)=>{this.setState({strategicCustomerCmt:e.target.value})}} />
+                            value={pri.strategicCustomerCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -621,9 +627,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Other / Comments"
-                            onChange={(e)=>{this.setState({customerCmts:e.target.checked})}}/>
+                            checked={pri.customerCmts }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.customerCmts}
-                            onChange={(e)=>{this.setState({customerCmtsCmt:e.target.value})}} />
+                            value={pri.customerCmtsCmt } />
                             </Form.Group>
                        </Form.Row>
 
@@ -642,9 +648,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Joint project with third parties"
-                            onChange={(e)=>{this.setState({jointProjectThirdParties:e.target.checked})}}/>
+                            checked={pri.jointProjectThirdParties }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.jointProjectThirdParties}
-                            onChange={(e)=>{this.setState({jointProjectThirdPartiesCmt:e.target.value})}} />
+                            value={pri.jointProjectThirdPartiesCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -652,9 +658,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="All necessary Design Authorities are not identified"
-                            onChange={(e)=>{this.setState({necessaryDesignAuthorities:e.target.checked})}} check={pri.necessaryDesignAuthorities}/>
+                            checked={pri.necessaryDesignAuthorities}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.necessaryDesignAuthorities}
-                            onChange={(e)=>{this.setState({necessaryDesignAuthoritiesCmt:e.target.value})}} />
+                            value={pri.necessaryDesignAuthoritiesCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -662,9 +668,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Joint project involving Air Liquide entities (E&C, ALHZ, etc..)"
-                            onChange={(e)=>{this.setState({jointProjectInvolvingAirLiquide:e.target.checked})}}/>
+                            checked={pri.jointProjectInvolvingAirLiquide }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.jointProjectInvolvingAirLiquide}
-                            onChange={(e)=>{this.setState({jointProjectInvolvingAirLiquideCmt:e.target.value})}} />
+                            value={pri.jointProjectInvolvingAirLiquideCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -676,9 +682,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Project submitted to third party validation List"
-                            onChange={(e)=>{this.setState({projectSubmittedToThirdParty:e.target.checked})}}/>
+                            checked={pri.projectSubmittedToThirdParty }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.projectSubmittedToThirdParty}
-                            onChange={(e)=>{this.setState({projectSubmittedToThirdPartyCmt:e.target.value})}} />
+                            value={pri.projectSubmittedToThirdPartyCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -686,9 +692,9 @@ class priDisplay extends Component {
                             custom={true} 
                             inline={true}
                             label="Equipments / services supplied by the customer"
-                            onChange={(e)=>{this.setState({equipmentSuppliedByCustomer:e.target.checked})}}/>
+                            checked={pri.equipmentSuppliedByCustomer }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.equipmentSuppliedByCustomer}
-                            onChange={(e)=>{this.setState({equipmentSuppliedByCustomerCmt:e.target.value})}} />
+                            value={pri.equipmentSuppliedByCustomerCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -696,9 +702,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Difficulty to access expertise"
-                            onChange={(e)=>{this.setState({difficultyAccessExpertise:e.target.checked})}}/>
+                            checked={pri.difficultyAccessExpertise }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.difficultyAccessExpertise}
-                            onChange={(e)=>{this.setState({difficultyAccessExpertiseCmt:e.target.value})}} />
+                            value={pri.difficultyAccessExpertiseCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -710,9 +716,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Use of stand-by assets (not in use for a long time)"
-                            onChange={(e)=>{this.setState({useStandBbyAssets:e.target.checked})}}/>
+                            checked={pri.useStandBbyAssets }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.useStandBbyAssets}
-                            onChange={(e)=>{this.setState({useStandBbyAssetsCmt:e.target.value})}} />
+                            value={pri.useStandBbyAssetsCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -720,9 +726,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Issue of resource (e.g. long lasting project)"
-                            onChange={(e)=>{this.setState({issueOfResource:e.target.checked})}}/>
+                            checked={pri.issueOfResource }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.issueOfResource}
-                            onChange={(e)=>{this.setState({issueOfResourceCmt:e.target.value})}} />
+                            value={pri.issueOfResourceCmt } />
                             </Form.Group>
                             
                             <Form.Group as={Col}  >
@@ -730,9 +736,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Other / comment"
-                            onChange={(e)=>{this.setState({projectOrganisationCmts:e.target.checked})}}/>
+                            checked={pri.projectOrganisationCmts }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.projectOrganisationCmts}
-                            onChange={(e)=>{this.setState({projectOrganisationCmtsCmt:e.target.value})}} />
+                            value={pri.projectOrganisationCmtsCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -751,10 +757,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Equipment/Technology supplier:Qualified supplier(yes or no)"
-                            onChange={(e)=>{this.setState({equipmentTechnologySupplier:e.target.checked})}}/>
+                            checked={pri.equipmentTechnologySupplier }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.equipmentTechnologySupplier}
                             placeHolder={"yes/no : justification"}
-                            onChange={(e)=>{this.setState({equipmentTechnologySupplierCmt:e.target.value})}} />
+                            value={pri.equipmentTechnologySupplierCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -762,9 +768,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Major problem encountered on similar project"
-                            onChange={(e)=>{this.setState({majorProblemEncountered:e.target.checked})}}/>
+                            checked={pri.majorProblemEncountered }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.majorProblemEncountered}
-                            onChange={(e)=>{this.setState({majorProblemEncounteredCmt:e.target.value})}} />
+                            value={pri.majorProblemEncounteredCmt } />
                             </Form.Group>
                             
                             <Form.Group as={Col}  >
@@ -772,10 +778,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Qualified / validated equipment (yes or no)"
-                            onChange={(e)=>{this.setState({qualifiedValidatedEquipment:e.target.checked})}}/>
+                            checked={pri.qualifiedValidatedEquipment }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.qualifiedValidatedEquipment}
                             placeHolder={"yes/no : justification"}
-                            onChange={(e)=>{this.setState({qualifiedValidatedEquipmentCmt:e.target.value})}} />
+                            value={pri.qualifiedValidatedEquipmentCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -787,9 +793,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Requirements on utilities specification not fully covered (water specification …)"
-                            onChange={(e)=>{this.setState({requirementsUtilitiesSpecification:e.target.checked})}}/>
+                            checked={pri.requirementsUtilitiesSpecification }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.requirementsUtilitiesSpecification}
-                            onChange={(e)=>{this.setState({requirementsUtilitiesSpecificationCmt:e.target.value})}} />
+                            value={pri.requirementsUtilitiesSpecificationCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -798,10 +804,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="New or imposed associates or contractors"
-                            onChange={(e)=>{this.setState({newImposedAssociates:e.target.checked})}}/>
+                            checked={pri.newImposedAssociates }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.newImposedAssociates}
-                            onChange={(e)=>{this.setState({newImposedAssociatesCmt:e.target.value})}} />
+                            value={pri.newImposedAssociatesCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -810,9 +816,9 @@ class priDisplay extends Component {
                             inline={true}
                             label="Installation or product may require hazardous waste disposal / recycling cost now or
                             in the future"
-                            onChange={(e)=>{this.setState({installatioProductRequireHazardous:e.target.checked})}}/>
+                            checked={pri.installatioProductRequireHazardous }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.installatioProductRequireHazardous}
-                            onChange={(e)=>{this.setState({installatioProductRequireHazardousCmt:e.target.value})}} />
+                            value={pri.installatioProductRequireHazardousCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -826,10 +832,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Innovation and/or newly developed PPT"
-                            onChange={(e)=>{this.setState({innovationNewlyDeveloped:e.target.checked})}}/>
+                            checked={pri.innovationNewlyDeveloped }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.innovationNewlyDeveloped}
-                            onChange={(e)=>{this.setState({innovationNewlyDevelopedCmt:e.target.value})}} />
+                            value={pri.innovationNewlyDevelopedCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -837,9 +843,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Products or raw materials may have negative impacts on health (e.g. carcinogenic)"
-                            onChange={(e)=>{this.setState({productsRawMaterials:e.target.checked})}}/>
+                            checked={pri.productsRawMaterials }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.productsRawMaterials}
-                            onChange={(e)=>{this.setState({productsRawMaterialsCmt:e.target.value})}} />
+                            value={pri.productsRawMaterialsCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -849,10 +855,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Project using one or several innovative PPT"
-                            onChange={(e)=>{this.setState({projectUsingInnovativePpt:e.target.checked})}}/>
+                            checked={pri.projectUsingInnovativePpt }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.projectUsingInnovativePpt}
-                            onChange={(e)=>{this.setState({projectUsingInnovativePptCmt:e.target.value})}} />
+                            value={pri.projectUsingInnovativePptCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -865,9 +871,9 @@ class priDisplay extends Component {
                             inline={true}
                             label="Operation may have negative impact on the environment (e.g. air emissions, energy
                                 consumption, liquid discharges)"
-                            onChange={(e)=>{this.setState({operationHaveNegativeImpact:e.target.checked})}}/>
+                            checked={pri.operationHaveNegativeImpact }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.operationHaveNegativeImpact}
-                            onChange={(e)=>{this.setState({operationHaveNegativeImpactCmt:e.target.value})}} />
+                            value={pri.operationHaveNegativeImpactCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -876,10 +882,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Intellectual property watch"
-                            onChange={(e)=>{this.setState({intellectualPropertyWatch:e.target.checked})}}/>
+                            checked={pri.intellectualPropertyWatch }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.intellectualPropertyWatch}
-                            onChange={(e)=>{this.setState({intellectualPropertyWatchCmt:e.target.value})}} />
+                            value={pri.intellectualPropertyWatchCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -888,9 +894,9 @@ class priDisplay extends Component {
                             inline={true}
                             label="Risk analysis of the whole project (integration of risk analysis of subsystems)
                                     does not exist"
-                            onChange={(e)=>{this.setState({riskAnalysisProject:e.target.checked})}}/>
+                            checked={pri.riskAnalysisProject }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.riskAnalysisProject}
-                            onChange={(e)=>{this.setState({riskAnalysisProjectCmt:e.target.value})}} />
+                            value={pri.riskAnalysisProjectCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -903,10 +909,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Lack of references for main equipments or suppliers"
-                            onChange={(e)=>{this.setState({lackMainEquipments:e.target.checked})}}/>
+                            checked={pri.lackMainEquipments }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.lackMainEquipments}
-                            onChange={(e)=>{this.setState({lackMainEquipmentsCmt:e.target.value})}} />
+                            value={pri.lackMainEquipmentsCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -915,10 +921,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Previous risk analysis"
-                            onChange={(e)=>{this.setState({previousRiskAnalysis:e.target.checked})}}/>
+                            checked={pri.previousRiskAnalysis }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.previousRiskAnalysis}
-                            onChange={(e)=>{this.setState({previousRiskAnalysisCmt:e.target.value})}} />
+                            value={pri.previousRiskAnalysisCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -926,9 +932,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Lack of experience with similar process / First application for subsidiary"
-                            onChange={(e)=>{this.setState({lackSimilarProcess:e.target.checked})}}/>
+                            checked={pri.lackSimilarProcess }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.lackSimilarProcess}
-                            onChange={(e)=>{this.setState({lackSimilarProcessCmt:e.target.value})}} />
+                            value={pri.lackSimilarProcessCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -939,9 +945,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Other / Comments"
-                            onChange={(e)=>{this.setState({processesProductsCmts:e.target.checked})}}/>
+                            checked={pri.processesProductsCmts }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.processesProductsCmts}
-                            onChange={(e)=>{this.setState({processesProductsCmtsCmt:e.target.value})}} />
+                            value={pri.processesProductsCmtsCmt } />
                             </Col>
                         </Form.Row>
 
@@ -960,10 +966,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Customized plant / equipment (tailor made)"
-                            onChange={(e)=>{this.setState({customizedPlant:e.target.checked})}}/>
+                            checked={pri.customizedPlant }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.customizedPlant}
-                            onChange={(e)=>{this.setState({customizedPlantCmt:e.target.value})}} />
+                            value={pri.customizedPlantCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -972,10 +978,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="No operating experience of similar process / equipment"
-                            onChange={(e)=>{this.setState({noOperatingExperienceSimilarProcess:e.target.checked})}}/>
+                            checked={pri.noOperatingExperienceSimilarProcess }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.noOperatingExperienceSimilarProcess}
-                            onChange={(e)=>{this.setState({noOperatingExperienceSimilarProcessCmt:e.target.value})}} />
+                            value={pri.noOperatingExperienceSimilarProcessCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -983,9 +989,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="New service offered by subsidiary (e.g. after-sales service, maintenance)"
-                            onChange={(e)=>{this.setState({newServiceBySubsidiary:e.target.checked})}}/>
+                            checked={pri.newServiceBySubsidiary }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.newServiceBySubsidiary}
-                            onChange={(e)=>{this.setState({newServiceBySubsidiaryCmt:e.target.value})}} />
+                            value={pri.newServiceBySubsidiaryCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -997,9 +1003,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Potential backflow from the customer (leading to contamination, overpressure…)"
-                            onChange={(e)=>{this.setState({potentialBackflow:e.target.checked})}}/>
+                            checked={pri.potentialBackflow }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.potentialBackflow}
-                            onChange={(e)=>{this.setState({potentialBackflowCmt:e.target.value})}} />
+                            value={pri.potentialBackflowCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1008,10 +1014,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Include transportation activities"
-                            onChange={(e)=>{this.setState({includeTransportationActivities:e.target.checked})}}/>
+                            checked={pri.includeTransportationActivities }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.includeTransportationActivities}
-                            onChange={(e)=>{this.setState({includeTransportationActivitiesCmt:e.target.value})}} />
+                            value={pri.includeTransportationActivitiesCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1019,9 +1025,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Special training is required (e.g. for Electronics Specialty Gases)"
-                            onChange={(e)=>{this.setState({specialTraining:e.target.checked})}}/>
+                            checked={pri.specialTraining }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.specialTraining}
-                            onChange={(e)=>{this.setState({specialTrainingCmt:e.target.value})}} />
+                            value={pri.specialTrainingCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -1034,10 +1040,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Operation done by a customer , third-party , contractor"
-                            onChange={(e)=>{this.setState({operationDoneByCustomer:e.target.checked})}}/>
+                            checked={pri.operationDoneByCustomer }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.operationDoneByCustomer}
-                            onChange={(e)=>{this.setState({operationDoneByCustomerCmt:e.target.value})}} />
+                            value={pri.operationDoneByCustomerCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1046,10 +1052,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Unattended facility"
-                            onChange={(e)=>{this.setState({unattendedFacility:e.target.checked})}}/>
+                            checked={pri.unattendedFacility }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.unattendedFacility}
-                            onChange={(e)=>{this.setState({unattendedFacilityCmt:e.target.value})}} />
+                            value={pri.unattendedFacilityCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1058,9 +1064,9 @@ class priDisplay extends Component {
                             inline={true}
                             label="Operating conditions without design experience(e.g.filling hydrogen cylinders at
                                 700 bars,oxygen cylinders at 300 bars)"
-                            onChange={(e)=>{this.setState({operatingWithoutDesign:e.target.checked})}}/>
+                            checked={pri.operatingWithoutDesign }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.operatingWithoutDesign}
-                            onChange={(e)=>{this.setState({operatingWithoutDesignCmt:e.target.value})}} />
+                            value={pri.operatingWithoutDesignCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -1072,9 +1078,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Remote filling lines are used between unloading point and filled storage tank"
-                            onChange={(e)=>{this.setState({remoteFillingLines:e.target.checked})}}/>
+                            checked={pri.remoteFillingLines }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.remoteFillingLines}
-                            onChange={(e)=>{this.setState({remoteFillingLinesCmt:e.target.value})}} />
+                            value={pri.remoteFillingLinesCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1082,9 +1088,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Other / Comments"
-                            onChange={(e)=>{this.setState({operationCmts:e.target.checked})}}/>
+                            checked={pri.operationCmts }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.operationCmts}
-                            onChange={(e)=>{this.setState({operationCmtsCmt:e.target.value})}} />
+                            value={pri.operationCmtsCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -1103,9 +1109,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Not fully defined"
-                            onChange={(e)=>{this.setState({notFullyDefined:e.target.checked})}}/>
+                            checked={pri.notFullyDefined }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.notFullyDefined}
-                            onChange={(e)=>{this.setState({notFullyDefinedCmt:e.target.value})}} />
+                            value={pri.notFullyDefinedCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1113,9 +1119,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Mandatory customer standards to be followed"
-                            onChange={(e)=>{this.setState({mandatoryCustomerStandards:e.target.checked})}}/>
+                            checked={pri.mandatoryCustomerStandards }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.mandatoryCustomerStandards}
-                            onChange={(e)=>{this.setState({mandatoryCustomerStandardsCmt:e.target.value})}} />
+                            value={pri.mandatoryCustomerStandardsCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1123,9 +1129,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Technical issues"
-                            onChange={(e)=>{this.setState({technicalIssues:e.target.checked})}}/>
+                            checked={pri.technicalIssues }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.technicalIssues}
-                            onChange={(e)=>{this.setState({technicalIssuesCmt:e.target.value})}} />
+                            value={pri.technicalIssuesCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -1138,10 +1144,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Specific insurance required by the customer"
-                            onChange={(e)=>{this.setState({specificInsurance:e.target.checked})}}/>
+                            checked={pri.specificInsurance }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.specificInsurance}
-                            onChange={(e)=>{this.setState({specificInsuranceCmt:e.target.value})}} />
+                            value={pri.specificInsuranceCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1149,9 +1155,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Contractual targets for reliability, availability, safety, quality (e.g. food safety)"
-                            onChange={(e)=>{this.setState({contractualTargets:e.target.checked})}}/>
+                            checked={pri.contractualTargets }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.contractualTargets}
-                            onChange={(e)=>{this.setState({contractualTargetsCmt:e.target.value})}} />
+                            value={pri.contractualTargetsCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1159,9 +1165,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Required studies for operational permits (fire fighting, lightning protection, ATEX …)"
-                            onChange={(e)=>{this.setState({requiredStudies:e.target.checked})}}/>
+                            checked={pri.requiredStudies }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.requiredStudies}
-                            onChange={(e)=>{this.setState({requiredStudiesCmt:e.target.value})}} />
+                            value={pri.requiredStudiesCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -1173,9 +1179,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Required studies on reliability, availability, maintainability, safety"
-                            onChange={(e)=>{this.setState({requiredStudiesReliability:e.target.checked})}}/>
+                            checked={pri.requiredStudiesReliability }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.requiredStudiesReliability}
-                            onChange={(e)=>{this.setState({requiredStudiesReliabilityCmt:e.target.value})}} />
+                            value={pri.requiredStudiesReliabilityCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1183,9 +1189,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Peak flow requirement if any; define the maximum duration & frequency of peak flow"
-                            onChange={(e)=>{this.setState({peakFlowRequirement:e.target.checked})}}/>
+                            checked={pri.peakFlowRequirement }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.peakFlowRequirement}
-                            onChange={(e)=>{this.setState({peakFlowRequirementCmt:e.target.value})}} />
+                            value={pri.peakFlowRequirementCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1194,10 +1200,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Safety Integrity Level (SIL) study required"
-                            onChange={(e)=>{this.setState({safetyIntegrityLevel:e.target.checked})}}/>
+                            checked={pri.safetyIntegrityLevel }/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.safetyIntegrityLevel}
-                            onChange={(e)=>{this.setState({safetyIntegrityLevelCmt:e.target.value})}} />
+                            value={pri.safetyIntegrityLevelCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -1208,9 +1214,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Other / Comments"
-                            onChange={(e)=>{this.setState({processesProductsCmts:e.target.checked})}}/>
+                            checked={pri.processesProductsCmts }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.processesProductsCmts}
-                            onChange={(e)=>{this.setState({processesProductsCmtsCmt:e.target.value})}} />
+                            value={pri.processesProductsCmtsCmt } />
                             </Col>
                         </Form.Row>
 
@@ -1231,9 +1237,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Regulatory Information not available (unclear..)"
-                            onChange={(e)=>{this.setState({regulatoryInformation:e.target.checked})}}/>
+                            checked={pri.regulatoryInformation }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.regulatoryInformation}
-                            onChange={(e)=>{this.setState({regulatoryInformationCmt:e.target.value})}} />
+                            value={pri.regulatoryInformationCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1241,9 +1247,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Lack of knowledge of applicable safety / Environmental mandatory regulations"
-                            onChange={(e)=>{this.setState({lackOfKnowledge:e.target.checked})}}/>
+                            checked={pri.lackOfKnowledge }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.lackOfKnowledge}
-                            onChange={(e)=>{this.setState({lackOfKnowledgeCmt:e.target.value})}} />
+                            value={pri.lackOfKnowledgeCmt } />
                             </Form.Group>
 
                         </Form.Row>
@@ -1264,7 +1270,7 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Environmental impact study"
-                            onChange={(e)=>{this.setState({environmentalImpactStudy:e.target.checked})}}/>
+                            checked={pri.environmentalImpactStudy }/>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1272,7 +1278,7 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Societal risk analysis"
-                            onChange={(e)=>{this.setState({societalRiskAnalysis:e.target.checked})}}/>
+                            checked={pri.societalRiskAnalysis }/>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1280,7 +1286,7 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Explosive area classification"
-                            onChange={(e)=>{this.setState({explosiveAreaClassification:e.target.checked})}}/>
+                            checked={pri.explosiveAreaClassification }/>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1288,7 +1294,7 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Safety / Hazard study"
-                            onChange={(e)=>{this.setState({safetyHazardStudy:e.target.checked})}}/>
+                            checked={pri.safetyHazardStudy }/>
                             </Form.Group>
 
                        </Form.Row>
@@ -1310,7 +1316,7 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="OSHA"
-                            onChange={(e)=>{this.setState({oSHA:e.target.checked})}}/>
+                            checked={pri.oSHA }/>
                             </Col>
 
                             <Col md={3}>
@@ -1319,7 +1325,7 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Area Classification / Electrical"
-                            onChange={(e)=>{this.setState({areaClassificationElectrical:e.target.checked})}}/>
+                            checked={pri.areaClassificationElectrical }/>
                             </Col>
 
                             <Col md={5}>
@@ -1327,9 +1333,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Pressure vessel regulation"
-                            onChange={(e)=>{this.setState({pressureVesselRegulation:e.target.checked})}}/>
+                            checked={pri.pressureVesselRegulation }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.pressureVesselRegulation}
-                            onChange={(e)=>{this.setState({pressureVesselRegulationCmt:e.target.value})}} />
+                            value={pri.pressureVesselRegulationCmt } />
                             </Col>
 
                        </Form.Row>
@@ -1341,9 +1347,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Transportation regulation, please specify"
-                            onChange={(e)=>{this.setState({transportationRegulation:e.target.checked})}}/>
+                            checked={pri.transportationRegulation }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.transportationRegulation}
-                            onChange={(e)=>{this.setState({transportationRegulationCmt:e.target.value})}} />
+                            value={pri.transportationRegulationCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1351,9 +1357,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Electrical equipment regulation"
-                            onChange={(e)=>{this.setState({electricalEquipmentEegulation:e.target.checked})}}/>
+                            checked={pri.electricalEquipmentEegulation }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.electricalEquipmentEegulation}
-                            onChange={(e)=>{this.setState({electricalEquipmentEegulationCmt:e.target.value})}} />
+                            value={pri.electricalEquipmentEegulationCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1361,9 +1367,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Other regulation"
-                            onChange={(e)=>{this.setState({otherRegulation:e.target.checked})}}/>
+                            checked={pri.otherRegulation }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.otherRegulation}
-                            onChange={(e)=>{this.setState({otherRegulationCmt:e.target.value})}} />
+                            value={pri.otherRegulationCmt } />
                             </Form.Group>
 
                        </Form.Row>
@@ -1375,9 +1381,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Software / Process Control devices (e.g. SIL level)"
-                            onChange={(e)=>{this.setState({softwareProcessControl:e.target.checked})}}/>
+                            checked={pri.softwareProcessControl }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.softwareProcessControl}
-                            onChange={(e)=>{this.setState({softwareProcessControlCmt:e.target.value})}} />
+                            value={pri.softwareProcessControlCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1385,9 +1391,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="List other applicable permits"
-                            onChange={(e)=>{this.setState({otherApplicablePermits:e.target.checked})}}/>
+                            checked={pri.otherApplicablePermits }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.otherApplicablePermits}
-                            onChange={(e)=>{this.setState({otherApplicablePermitsCmt:e.target.value})}} />
+                            value={pri.otherApplicablePermitsCmt } />
                             </Form.Group>
 
                        </Form.Row>
@@ -1407,9 +1413,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Corporate image"
-                            onChange={(e)=>{this.setState({corporateImage:e.target.checked})}}/>
+                            checked={pri.corporateImage }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.corporateImage}
-                            onChange={(e)=>{this.setState({corporateImageCmt:e.target.value})}} />
+                            value={pri.corporateImageCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1417,9 +1423,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Financial loss"
-                            onChange={(e)=>{this.setState({financialLoss:e.target.checked})}}/>
+                            checked={pri.financialLoss }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.financialLoss}
-                            onChange={(e)=>{this.setState({financialLossCmt:e.target.value})}} />
+                            value={pri.financialLossCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1427,9 +1433,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Impact on customer"
-                            onChange={(e)=>{this.setState({impactOnCustomer:e.target.checked})}}/>
+                            checked={pri.impactOnCustomer }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.impactOnCustomer}
-                            onChange={(e)=>{this.setState({impactOnCustomerCmt:e.target.value})}} />
+                            value={pri.impactOnCustomerCmt } />
                             </Form.Group>
 
                        </Form.Row>
@@ -1441,10 +1447,10 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Impact on other AL business lines"
-                            onChange={(e)=>{this.setState({impactOnAL:e.target.checked})}}/>
+                            checked={pri.impactOnAL }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.impactOnAL}
                             placeHolder={"please specify ..."}
-                            onChange={(e)=>{this.setState({impactOnALCmt:e.target.value})}} />
+                            value={pri.impactOnALCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1452,9 +1458,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Impact on strategic customers"
-                            onChange={(e)=>{this.setState({impactOnStrategic:e.target.checked})}}/>
+                            checked={pri.impactOnStrategic }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.impactOnStrategic}
-                            onChange={(e)=>{this.setState({impactOnStrategicCmt:e.target.value})}} />
+                            value={pri.impactOnStrategicCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1462,9 +1468,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Contractual penalties"
-                            onChange={(e)=>{this.setState({contractualPenalties:e.target.checked})}}/>
+                            checked={pri.contractualPenalties }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.contractualPenalties}
-                            onChange={(e)=>{this.setState({contractualPenaltiesCmt:e.target.value})}} />
+                            value={pri.contractualPenaltiesCmt } />
                             </Form.Group>
 
                        </Form.Row>
@@ -1475,9 +1481,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Other / Comments"
-                            onChange={(e)=>{this.setState({consequencesCmts:e.target.checked})}}/>
+                            checked={pri.consequencesCmts }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.consequencesCmts}
-                            onChange={(e)=>{this.setState({consequencesCmtsCmt:e.target.value})}} />
+                            value={pri.consequencesCmtsCmt } />
                             </Col>
 
                        </Form.Row>
@@ -1497,9 +1503,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Technical inspection difficult prior to the completion of sale"
-                            onChange={(e)=>{this.setState({technicalInspection:e.target.checked})}}/>
+                            checked={pri.technicalInspection }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.technicalInspection}
-                            onChange={(e)=>{this.setState({technicalInspectionCmt:e.target.value})}} />
+                            value={pri.technicalInspectionCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1507,9 +1513,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Significant discrepancies with AL standards"
-                            onChange={(e)=>{this.setState({significantDiscrepanciesAL:e.target.checked})}}/>
+                            checked={pri.significantDiscrepanciesAL }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.significantDiscrepanciesAL}
-                            onChange={(e)=>{this.setState({significantDiscrepanciesALCmt:e.target.value})}} />
+                            value={pri.significantDiscrepanciesALCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1517,9 +1523,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Potential non-compliance with applicable safety regulations"
-                            onChange={(e)=>{this.setState({potentialNonComplianceSafety:e.target.checked})}}/>
+                            checked={pri.potentialNonComplianceSafety }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.potentialNonComplianceSafety}
-                            onChange={(e)=>{this.setState({potentialNonComplianceSafetyCmt:e.target.value})}} />
+                            value={pri.potentialNonComplianceSafetyCmt } />
                             </Form.Group>
 
                        </Form.Row>
@@ -1531,9 +1537,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Potential issue with competencies/qualification of personnel"
-                            onChange={(e)=>{this.setState({potentialIssueCompetencies:e.target.checked})}}/>
+                            checked={pri.potentialIssueCompetencies }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.potentialIssueCompetencies}
-                            onChange={(e)=>{this.setState({potentialIssueCompetenciesCmt:e.target.value})}} />
+                            value={pri.potentialIssueCompetenciesCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1541,9 +1547,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Obsolete equipment"
-                            onChange={(e)=>{this.setState({obsoleteEquipment:e.target.checked})}}/>
+                            checked={pri.obsoleteEquipment }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.obsoleteEquipment}
-                            onChange={(e)=>{this.setState({obsoleteEquipmentCmt:e.target.value})}} />
+                            value={pri.obsoleteEquipmentCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1551,9 +1557,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Facility age"
-                            onChange={(e)=>{this.setState({facilityAge:e.target.checked})}}/>
+                            checked={pri.facilityAge }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.facilityAge}
-                            onChange={(e)=>{this.setState({facilityAgeCmt:e.target.value})}} />
+                            value={pri.facilityAgeCmt } />
                             </Form.Group>
 
                        </Form.Row>
@@ -1565,9 +1571,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Potential non-compliance with applicable environmental regulations"
-                            onChange={(e)=>{this.setState({potentialNonComplianceEnvironmental:e.target.checked})}}/>
+                            checked={pri.potentialNonComplianceEnvironmental }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.potentialNonComplianceEnvironmental}
-                            onChange={(e)=>{this.setState({potentialNonComplianceEnvironmentalCmt:e.target.value})}} />
+                            value={pri.potentialNonComplianceEnvironmentalCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1575,9 +1581,9 @@ class priDisplay extends Component {
                             custom={true}
                             inline={true}
                             label="Others"
-                            onChange={(e)=>{this.setState({acquisitionCmts:e.target.checked})}}/>
+                            checked={pri.acquisitionCmts }/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.acquisitionCmts}
-                            onChange={(e)=>{this.setState({acquisitionCmtsCmt:e.target.value})}} />
+                            value={pri.acquisitionCmtsCmt } />
                             </Form.Group>
 
                        </Form.Row>
