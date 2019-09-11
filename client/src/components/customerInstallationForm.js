@@ -9,9 +9,10 @@ class customerInstallationForm extends Component {
     state = {
         //Product Type Options dropdown list ... you have to change both value and label with the same name
         ProductTypeOptions : [
-            { value: 'Product 1', label: 'Product 1' },
-            { value: 'Product 2', label: 'Product 2' },
-            { value: 'Product 3', label: 'Product 3' },
+          { value: 'Lox', label: 'Lox' },
+          { value: 'Lin', label: 'Lin' },
+          { value: 'Lar', label: 'Lar' },
+          { value: 'LCo2', label: 'LCo2' },
           ],
         product : "",
 
@@ -19,17 +20,15 @@ class customerInstallationForm extends Component {
 
         //Required Phase Type Options dropdown list ... you have to change both value and label with the same name
         RequiredPhaseTypeOptions : [
-            { value: 'RequiredPhase 1', label: 'RequiredPhase 1' },
-            { value: 'RequiredPhase 2', label: 'RequiredPhase 2' },
-            { value: 'RequiredPhase 3', label: 'RequiredPhase 3' },
+            { value: 'Gas', label: 'Gas' },
+            { value: 'Liquid', label: 'Liquid' },
           ],
           requiredPhase : "", 
 
         //Flow Unit Type Options dropdown list ... you have to change both value and label with the same name
         FlowUnitTypeOptions : [
-            { value: 'FlowUnit 1', label: 'FlowUnit 1' },
-            { value: 'FlowUnit 2', label: 'FlowUnit 2' },
-            { value: 'FlowUnit 3', label: 'FlowUnit 3' },
+            { value: 'Nmᵌ/hr', label: 'Nmᵌ/hr' },
+            { value: 'kg/hr', label: 'kg/hr' },
           ],
         flowUnit : "",
 
@@ -51,6 +50,7 @@ class customerInstallationForm extends Component {
         futureExpansionNotes:"",
 
         fieldset:"",
+        dodo:true,
         done:"✘",
         
       }
@@ -108,12 +108,15 @@ class customerInstallationForm extends Component {
             <React.Fragment>
                 <Card border="secondary" >
                 <Form onSubmit={this.submitData}>
+                <Form>
                 <Card.Header as="h5" className="bg-dark text-white" >Customer Installation Form</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
                 <fieldset disabled={this.state.fieldset}>
-                    <Form>
 
+                    <Card border="secondary">
+                    <Col md={12}>
+                      <br/>
                     <Form.Row >
                             <Form.Group as={Col} controlId="ProductType" >
                             <Form.Label>Product</Form.Label>
@@ -165,7 +168,7 @@ class customerInstallationForm extends Component {
                         </Form.Group>
 
                          <Form.Group as={Col} controlId="averagePressure">
-                            <Form.Label>Average Pressure</Form.Label>
+                            <Form.Label>Pressure</Form.Label>
                             <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({averagePressure:e.target.value})}} />
                         </Form.Group>
 
@@ -178,11 +181,15 @@ class customerInstallationForm extends Component {
                                 </InputGroup.Append>
                             </InputGroup>
                             </Form.Group>
-
-                            
                     </Form.Row>
 
+                    </Col>
+                    </Card>
+                    <br/>
 
+                    <Card border="secondary">
+                    <Col md={12}>
+                    <br/>
                     <Form.Row>
 
                          <Form.Group as={Col} controlId="maximumFlowRrateValue">
@@ -191,16 +198,12 @@ class customerInstallationForm extends Component {
                         </Form.Group>
 
                          <Form.Group as={Col} controlId="maximumPressure">
-                            <Form.Label>Maximum Pressure</Form.Label>
+                            <Form.Label>Pressure of maximum Flow</Form.Label>
                             <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({maximumPressure:e.target.value})}} />
                         </Form.Group>
 
-                    </Form.Row>
-
-                    <Form.Row>
-
                         <Form.Group as={Col} controlId="MaximumDurationUnit" >
-                            <Form.Label>Maximum Duration Unit</Form.Label>
+                            <Form.Label>Duration Unit</Form.Label>
                             <Select
                             value={this.state.maximumDurationUnit.value}
                             onChange={this.MaximumDurationUnitHandleChange}
@@ -209,7 +212,7 @@ class customerInstallationForm extends Component {
                         </Form.Group>
                 
                         <Form.Group as={Col} controlId="maximumDurationValue">
-                            <Form.Label>Maximum Duration Value</Form.Label>
+                            <Form.Label>Duration Value</Form.Label>
                             <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({maximumDurationValue:e.target.value})}} />
                         </Form.Group>
 
@@ -221,6 +224,10 @@ class customerInstallationForm extends Component {
 
                     </Form.Row>
 
+                    </Col>
+                    </Card>
+                    <br/>
+
                     <Form.Row>
                         <Form.Group as={Col} controlId="futureExpansionNotes">
                             <Form.Label>Future Expansion Notes</Form.Label>
@@ -229,7 +236,6 @@ class customerInstallationForm extends Component {
                     </Form.Row>
                         
                         
-                    </Form>
                   </fieldset>
                 </Col>
                 <Card.Footer > 
@@ -238,6 +244,7 @@ class customerInstallationForm extends Component {
                             </Col> 
                             
                 </Card.Footer>
+                </Form>
                 </Form>
                 </Card>
             </React.Fragment>

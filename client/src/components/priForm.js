@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Form , Col , Row , Card , FormControl , Button} from "react-bootstrap";
 import Fluids from './fluids'
 import Utilities from './utilities'
+import Select from 'react-select';
+
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -70,6 +72,7 @@ class priForm extends Component {
         proximityOfCombustibleMaterial:false,
         proximityOfCombustibleMaterialCmt:"" ,
         undergroundNetwork:false, 
+        undergroundNetworkCmt:"", 
         undergroundNetworkDepth:0,
         properDrainage:false,
         sittingInSafetyZone:false,
@@ -169,6 +172,7 @@ class priForm extends Component {
         potentialBackflow :false ,
         potentialBackflowCmt:"" ,
         includeTransportationActivities:false ,
+        includeTransportationActivitiesType:"",
         includeTransportationActivitiesCmt:"" ,
         specialTraining:false ,
         specialTrainingCmt:"" ,
@@ -239,6 +243,7 @@ class priForm extends Component {
         consequencesCmts:false ,
         corporateImageCmt:""  ,
         impactOnCustomerCmt:""  ,
+        impactOnCustomerType:"",
         impactOnStrategicCmt:"" ,
         financialLossCmt:""  ,
         impactOnALCmt:"" ,
@@ -304,17 +309,24 @@ class priForm extends Component {
         this.setState({utilities:childData})
     }
 
+    validateItem=(e)=>{
+        if (e===""){
+          return true
+        }
+        return false
+    }
+
      
       render() {
         return (
             <React.Fragment>
                 <Card border="secondary" >
                 <Form onSubmit={this.submitData}>
+                <Form>
                 <Card.Header as="h5" className="bg-dark text-white" >PRI Form</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
                 <fieldset disabled={this.state.fieldset}>
-                    <Form>
                        <Form.Row>
                             <Form.Group as={Col} >
                                 <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic" }}>1. Project description and general comments</Form.Label>
@@ -322,8 +334,9 @@ class priForm extends Component {
                        </Form.Row>
                        <Form.Row>
                             <Form.Group as={Col} controlId="descriptionAndGeneralCmts">
-                            <Form.Label>To be completed for clear understanding of the project and associated risks</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({descriptionAndGeneralCmts:e.target.value})}} />
+                            <Form.Label>To be completed for clear understanding of the project and associated risks 
+                                <span style={{color:"red"}}>✶</span></Form.Label>
+                            <Form.Control as="textarea" rows="3" required onChange={(e)=>{this.setState({descriptionAndGeneralCmts:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
 
@@ -337,13 +350,30 @@ class priForm extends Component {
                        <Form.Row>
                             <Col md={4}>
                             <Form.Group as={Col} controlId="facilityOrEquipment">
-                            <Form.Label>Facility Or Equipment</Form.Label>
-                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({facilityOrEquipment:e.target.value})}} />
+                            <Form.Label> Facility Or Equipment </Form.Label>
+                            <Select
+                            value={this.state.facilityOrEquipment.value}
+                            onChange={(e)=>{this.setState({ facilityOrEquipment: e.value})}}
+                            options={ [
+                                        { value: 'Bulk tank', label: 'Bulk tank' },
+                                        { value: 'Vaporizers', label: 'Vaporizers' },
+                                        { value: 'Tube trailer', label: 'Tube trailer' },
+                                        { value: 'Packs', label: 'Packs' },
+                                        { value: 'Quads', label: 'Quads' },
+                                        { value: 'Cylinders', label: 'Cylinders' },
+                                        { value: 'Manifold', label: 'Manifold' },
+                                        { value: 'APSA', label: 'APSA' },
+                                        { value: 'ISO tank', label: 'ISO tank' },
+                                        { value: 'Pipeline', label: 'Pipeline' },
+                                        { value: 'Gas control cabinets', label: 'Gas control cabinets' },
+                                        { value: 'Other', label: 'Other' },
+                                    ]}
+                            />
                             </Form.Group>
                             </Col>
 
                             <Form.Group as={Col} controlId="facilityOrEquipmentRemarks">
-                            <Form.Label>Facility Or Equipment Remarks</Form.Label>
+                            <Form.Label>Other </Form.Label>
                             <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({facilityOrEquipmentRemarks:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
@@ -351,13 +381,31 @@ class priForm extends Component {
                         <Form.Row>
                             <Col md={4}>
                             <Form.Group as={Col} controlId="applicationType">
-                            <Form.Label>Application Type</Form.Label>
-                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({applicationType:e.target.value})}} />
+                            <Form.Label>Application Type </Form.Label>
+                            <Select
+                            value={this.state.applicationType.value}
+                            onChange={(e)=>{this.setState({ applicationType: e.value})}}
+                            options={ [
+                                        { value: 'Bulk tank', label: 'Bulk tank' },
+                                        { value: 'Vaporizers', label: 'Vaporizers' },
+                                        { value: 'Tube trailer', label: 'Tube trailer' },
+                                        { value: 'Packs', label: 'Packs' },
+                                        { value: 'Quads', label: 'Quads' },
+                                        { value: 'Cylinders', label: 'Cylinders' },
+                                        { value: 'Manifold', label: 'Manifold' },
+                                        { value: 'APSA', label: 'APSA' },
+                                        { value: 'ISO tank', label: 'ISO tank' },
+                                        { value: 'Pipeline', label: 'Pipeline' },
+                                        { value: 'Gas control cabinets', label: 'Gas control cabinets' },
+                                        { value: 'Other', label: 'Other' },
+                                    ]}
+                            />
+                            
                             </Form.Group>
                             </Col>
 
                             <Form.Group as={Col} controlId="applicationTypeRemarks">
-                            <Form.Label>Application Type Remarks</Form.Label>
+                            <Form.Label>Remarks</Form.Label>
                             <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({applicationTypeRemarks:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
@@ -365,26 +413,57 @@ class priForm extends Component {
                         <Form.Row>
                             <Col md={4}>
                             <Form.Group as={Col} controlId="projectType">
-                            <Form.Label>Project Type</Form.Label>
-                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({projectType:e.target.value})}} />
+                            <Form.Label>Project Type </Form.Label>
+                            <Select
+                            value={this.state.projectType.value}
+                            onChange={(e)=>{this.setState({ projectType: e.value})}}
+                            options={ [
+                                        { value: 'Bulk tank', label: 'Bulk tank' },
+                                        { value: 'Vaporizers', label: 'Vaporizers' },
+                                        { value: 'Tube trailer', label: 'Tube trailer' },
+                                        { value: 'Packs', label: 'Packs' },
+                                        { value: 'Quads', label: 'Quads' },
+                                        { value: 'Cylinders', label: 'Cylinders' },
+                                        { value: 'Manifold', label: 'Manifold' },
+                                        { value: 'APSA', label: 'APSA' },
+                                        { value: 'ISO tank', label: 'ISO tank' },
+                                        { value: 'Pipeline', label: 'Pipeline' },
+                                        { value: 'Gas control cabinets', label: 'Gas control cabinets' },
+                                        { value: 'Other', label: 'Other' },
+                                    ]}
+                            />
+                            
                             </Form.Group>
                             </Col>
 
                             <Form.Group as={Col} controlId="projectTypeRemarks">
-                            <Form.Label>Project Type Remarks</Form.Label>
+                            <Form.Label>Remarks</Form.Label>
                             <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({projectTypeRemarks:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
                        
+
                         <Form.Row>
+                            <Col md={4}>
                             <Form.Group as={Col} controlId="facilityOrEquipmentSupply">
-                            <Form.Label>Facility Or Equipment Supply</Form.Label>
-                            <Form.Control as="textarea" rows="2" onChange={(e)=>{this.setState({facilityOrEquipmentSupply:e.target.value})}} />
+                            <Form.Label>Other Supply </Form.Label>
+                            <Select
+                            value={this.state.facilityOrEquipmentSupply.value}
+                            onChange={(e)=>{this.setState({ facilityOrEquipmentSupply: e.value})}}
+                            options={ [
+                                        { value: 'Services', label: 'Services' },
+                                        { value: 'Training', label: 'Training' },
+                                        { value: 'Other', label: 'Other' },
+                                        
+                                    ]}
+                            />
+                            
                             </Form.Group>
+                            </Col>
 
                             <Form.Group as={Col} controlId="facilityOrEquipmentCmts">
-                            <Form.Label>Facility Or Equipment Cmts</Form.Label>
-                            <Form.Control as="textarea" rows="2" onChange={(e)=>{this.setState({facilityOrEquipmentCmts:e.target.value})}} />
+                            <Form.Label>Other</Form.Label>
+                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({facilityOrEquipmentCmts:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
         
@@ -419,7 +498,7 @@ class priForm extends Component {
                             <Form.Check id="mobile"
                             custom={true}
                             inline={true}
-                            label="mobile (transportable equipt…) "
+                            label="Mobile (transportable equipt…) "
                             onChange={(e)=>{this.setState({mobile:e.target.checked})}}/>
                             </Form.Group>
                                 
@@ -470,15 +549,12 @@ class priForm extends Component {
 
                         <Form.Row>
 
-                            <Form.Group as={Col}  >
+                            <Form.Group as={Col} md={2} >
                             <Form.Check id="earthquake"
                             custom={true}
                             inline={true}
-                            label="earthquake"
+                            label="Earthquake"
                             onChange={(e)=>{this.setState({earthquake:e.target.checked})}}/>
-                            <Form.Control as="textarea" rows="1" disabled={!this.state.earthquake}
-                            placeHolder="Seismic Zone ..."
-                            onChange={(e)=>{this.setState({earthquakeCmt:e.target.value})}} />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -487,18 +563,29 @@ class priForm extends Component {
                             inline={true}
                             label="Operation affected by a regulated area (e.g. Natural Park)"
                             onChange={(e)=>{this.setState({operationAffectedRegulatedArea:e.target.checked})}}/>
-                            <Form.Control as="textarea" rows="1" disabled={!this.state.operationAffectedRegulatedArea}
-                            onChange={(e)=>{this.setState({operationAffectedRegulatedAreaCmt:e.target.value})}} />
                             </Form.Group>
 
-                            <Form.Group as={Col}  >
-                            <Form.Check id="weather"
+                            <Form.Group as={Col} md={{offset:2,span:1}} >
+                            <Form.Check id="Weather"
                             custom={true}
                             inline={true}
-                            label="weather"
+                            label="Weather"
                             onChange={(e)=>{this.setState({weather:e.target.checked})}}/>
-                            <Form.Control as="textarea" rows="1" disabled={!this.state.weather}
-                            onChange={(e)=>{this.setState({weatherCmt:e.target.value})}} />
+                            </Form.Group>
+
+                            <Form.Group as={Col}>
+                                <Select
+                                value={this.state.weatherCmt.value}
+                                onChange={(e)=>{this.setState({ weatherCmt: e.value})}}
+                                options={ [
+                                            { value: 'Heavy Rains', label: 'Heavy Rains' },
+                                            { value: 'Storm', label: 'Storm' },
+                                            { value: 'Freeze', label: 'Freeze' },
+                                            { value: 'Snow', label: 'Snow' },
+                                            { value: 'Lightning', label: 'Lightning' },
+                                        ]}
+                                />
+
                             </Form.Group>
 
                             
@@ -511,7 +598,7 @@ class priForm extends Component {
                             <Form.Check id="flooding"
                             custom={true}
                             inline={true}
-                            label="flooding"
+                            label="Flooding"
                             onChange={(e)=>{this.setState({flooding:e.target.checked})}}/>
                             </Form.Group>
 
@@ -519,7 +606,7 @@ class priForm extends Component {
                             <Form.Check id="landslide"
                             custom={true}
                             inline={true}
-                            label="landslide"
+                            label="Landslide"
                             onChange={(e)=>{this.setState({landslide:e.target.checked})}}/>
                             </Form.Group>
 
@@ -527,7 +614,7 @@ class priForm extends Component {
                             <Form.Check id="salinity"
                             custom={true}
                             inline={true}
-                            label="salinity"
+                            label="Salinity"
                             onChange={(e)=>{this.setState({salinity:e.target.checked})}}/>
                             </Form.Group>
 
@@ -702,13 +789,29 @@ class priForm extends Component {
                             label="Underground network"
                             onChange={(e)=>{this.setState({undergroundNetwork:e.target.checked})}}/>
                             </Col>
+
+                            <Form.Group as={Col}>
+                            <Form.Text>Network Type</Form.Text>
+                                <Select
+                                value={this.state.undergroundNetworkCmt.value}
+                                onChange={(e)=>{this.setState({ undergroundNetworkCmt: e.value})}}
+                                options={ [
+                                            { value: 'Electric cables', label: 'Electric cables' },
+                                            { value: 'Process piping', label: 'Process piping' },
+                                            { value: 'Fire fighting water', label: 'Fire fighting water' },
+                                            { value: 'Sewage piping', label: 'Sewage piping' },
+                                        ]}
+                                />
+                            </Form.Group>
+
                             <Form.Group as={Col }>
                             <Form.Text>Depth (Meters)</Form.Text>
                             <FormControl type={"number"} step={0.1} disabled={!this.state.undergroundNetwork}
                             onChange={(e)=>{this.setState({undergroundNetworkDepth:e.target.value})}} />
                             </Form.Group>
-                            <Col md={{ offset:1 ,span:6}} >
-                            <Row style={{height: .04*window.innerHeight + 'px'}}/>
+
+
+                            <Col md={{ offset:1 ,span:4}} >
                             <Form.Check id="properDrainage"
                             custom={true}
                             inline={true}
@@ -1294,8 +1397,24 @@ class priForm extends Component {
                             label="Include transportation activities"
                             onChange={(e)=>{this.setState({includeTransportationActivities:e.target.checked})}}/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
+
+                            <Row>
+                            <Col md={{offset:0,span:4}}>
+                            <Select
+                            value={this.state.includeTransportationActivitiesType.value}
+                            onChange={(e)=>{this.setState({ includeTransportationActivitiesType: e.value})}}
+                            options={ [
+                                        { value: 'Road', label: 'Road' },
+                                        { value: 'Rail', label: 'Rail' },
+                                       
+                                    ]}
+                            />
+                            </Col>
+                            <Col md={{offset:0,span:8}}>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.includeTransportationActivities}
                             onChange={(e)=>{this.setState({includeTransportationActivitiesCmt:e.target.value})}} />
+                            </Col>
+                            </Row>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1712,8 +1831,25 @@ class priForm extends Component {
                             inline={true}
                             label="Impact on customer"
                             onChange={(e)=>{this.setState({impactOnCustomer:e.target.checked})}}/>
+
+                            <Row>
+                            <Col md={{offset:0,span:6}}>
+                            <Select
+                                value={this.state.undergroundNetworkCmt.value}
+                                onChange={(e)=>{this.setState({ undergroundNetworkCmt: e.value})}}
+                                options={ [
+                                            { value: 'Safety', label: 'Safety' },
+                                            { value: 'Reliability', label: 'Reliability' },
+                                            { value: 'Equipment damage', label: 'Equipment damage' },
+                                            { value: 'Other', label: 'Other' },
+                                        ]}
+                                />
+                            </Col>
+                            <Col md={{offset:0,span:6}}>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.impactOnCustomer}
                             onChange={(e)=>{this.setState({impactOnCustomerCmt:e.target.value})}} />
+                            </Col>
+                            </Row>
                             </Form.Group>
 
                        </Form.Row>
@@ -1858,7 +1994,7 @@ class priForm extends Component {
                             <Form.Check id="acquisitionCmts"
                             custom={true}
                             inline={true}
-                            label="Others"
+                            label="Other"
                             onChange={(e)=>{this.setState({acquisitionCmts:e.target.checked})}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.acquisitionCmts}
                             onChange={(e)=>{this.setState({acquisitionCmtsCmt:e.target.value})}} />
@@ -1868,7 +2004,6 @@ class priForm extends Component {
 
                         <Row><br/></Row>
 
-                    </Form>
                 </fieldset>
                 </Col>
                 <Card.Footer > 
@@ -1877,6 +2012,7 @@ class priForm extends Component {
                             </Col> 
                             
                 </Card.Footer>
+                </Form>
                 </Form>
                 </Card>
             </React.Fragment>

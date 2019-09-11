@@ -85,15 +85,13 @@ class predeliveryIdentificationReport extends Component {
     }
 
     handleChange = () =>{
-        console.log(this.state.highwayEnterance)
     }
 
     supplyTimeFromHandleChange = supplyTimeFrom => this.setState({ supplyTimeFrom })
     supplyTimeToHandleChange = supplyTimeTo => this.setState({ supplyTimeTo })
 
-    vehicleTypeHandleChange = vehicleType => {
-        this.setState({ vehicleType });
-        console.log(vehicleType)
+    vehicleTypeHandleChange = (vehicleType) => {
+        this.setState({ vehicleType:vehicleType.value });
       };
 
 
@@ -513,7 +511,7 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}> Are there any fire extinguishers around the tank </Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}> Are there any fire extinguishers around the tank ?</Form.Label>
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Accepted" value={true}
                                 name="fireExtinguishers" id="fireExtinguishers1"
@@ -576,11 +574,12 @@ class predeliveryIdentificationReport extends Component {
                         <Row style={{height: .01*window.innerHeight + 'px'}}/>
                         <Form.Row >
                             <Col md={6}>
-                            <Form.Label style={{fontWeight:"bold"}}>Type of vehicle suitable for service</Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}>Type of vehicle suitable for service :</Form.Label>
                             <Select
-                            value={this.state.vehicleType}
+                            value={this.state.vehicleType.value}
                             onChange={this.vehicleTypeHandleChange}
                             options={this.state.vehicleTypeOptions}
+                            defaultValue={this.state.vehicleTypeOptions[0]}
                             />
                             </Col>
                         </Form.Row>
@@ -588,13 +587,13 @@ class predeliveryIdentificationReport extends Component {
                         <Row style={{height: .015*window.innerHeight + 'px'}}/>
                         <Form.Row>
                         <Form.Group as={Col} controlId="inspector">
-                            <Form.Label style={{fontWeight:"bold"}}> Inspector </Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}> Inspector :</Form.Label>
                             <Form.Control as="textarea" rows="1" required
                             onChange={(e)=>{this.setState({inspector:e.target.value})}} />
                             
                         </Form.Group>
                         <Form.Group as={Col} >
-                            <Form.Label style={{fontWeight:"bold"}}> Approver </Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}> Approver : </Form.Label>
                             <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({approver:e.target.value})}} />
                         </Form.Group>
                         </Form.Row>

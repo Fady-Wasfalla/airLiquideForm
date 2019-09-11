@@ -15,6 +15,8 @@ class fleatFeedback extends Component {
       finalDecision:{dodo:false},
       pdi:{dodo:false},
       formId:0,
+      file:null,
+      filesNames:[""],
       displayDecision:"none",
       data:{},
 
@@ -25,8 +27,7 @@ class fleatFeedback extends Component {
       this.setState({formId:formId})
       await axios
       .get('http://localhost:8000/api/forms/'+this.props.match.params.id)
-      .then(res => {this.setState({ data : res.data.data })
-        console.log(res.data)})
+      .then(res => {this.setState({ data : res.data.data })})
       .catch(err => alert(err.message))
       if (this.state.data.fleatSubmition){
           this.setState({displayDecision:"none"})
@@ -50,9 +51,21 @@ class fleatFeedback extends Component {
       if (this.state.finalDecision.dodo===false){
         return alert("please check the box in Final Decision part")
       }
-      console.log(this.state)
+      const fd = new FormData()
+      let finalDecisionAsString = JSON.stringify(this.state.finalDecision)
+      let filesNamesAsString = JSON.stringify(this.state.filesNames)
+      let pdiAsString = JSON.stringify(this.state.pdi)
+      fd.append('finalDecision', finalDecisionAsString)
+      fd.append('formId',this.state.formId)
+      fd.append('filesNames',filesNamesAsString)
+      fd.append('pdi',pdiAsString)
+      if(this.state.file){
+        for(let i = 0 ; i<this.state.file.length; i++){
+          fd.append('file',this.state.file[i])
+        }
+      }
       axios
-      .post('http://localhost:8000/api/employees/pdiFB',this.state)
+      .post('http://localhost:8000/api/employees/pdiFB',fd)
       .then(res => alert(res.data.message))
       .catch(err => alert(err.message))
       window.location.assign('http://localhost:3000/cases/Fleat')

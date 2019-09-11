@@ -64,7 +64,6 @@ exports.delete = async (req, res) => {
 /* sales man submit a form */
 exports.newForm = async (req, res) => {
   try {
-    // console.log(req.files)
     const cbi = JSON.parse(req.body.cbi)
     const lvf = JSON.parse(req.body.lvf)
     const cif = JSON.parse(req.body.cif)
@@ -147,6 +146,9 @@ exports.newForm = async (req, res) => {
 exports.distributionFB = async (req, res) => {
   try {
     const formId = req.body.formId
+    const customerTank = req.body.customerTank
+    const supplyTimeFrom = req.body.supplyTimeFrom
+    const supplyTimeTo = req.body.supplyTimeTo
     const prevFB = await Distributions.findOne({ where: { formId: formId } })
     if (prevFB) {
       return res.json({
@@ -158,7 +160,8 @@ exports.distributionFB = async (req, res) => {
     let actionPlan = finalDecision.actionPlan
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
-    const fb = await Distributions.create({ formId: formId, ...finalDecision, employeeName })
+    const fb = await Distributions.create({ formId: formId, ...finalDecision, employeeName , 
+      customerTank:customerTank , supplyTimeFrom:supplyTimeFrom , supplyTimeTo:supplyTimeTo  })
     await Form.update(
       { distributionSubmition: true },
       { where: { id: formId } }
@@ -210,7 +213,6 @@ exports.financeFB = async (req, res) => {
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
     const fb = await Finance.create({ ...finalDecision, employeeName, formId: formId })
-    console.log(fb.id)
     await Form.update(
       { financeSubmition: true },
       { where: { id: formId } }
@@ -326,11 +328,11 @@ exports.ciFB = async (req, res) => {
     }
     if (finalDecision.decision === 'Approve with recommendation') {
       for (let i = 0; i < actionPlan.length; i++) {
-        let sourcingsAPData = {
+        let cifAPData = {
           CifResponseId: fb.id,
           actions: actionPlan[i]
         }
-        await cifAPs.create(sourcingsAPData)
+        await cifAPs.create(cifAPData)
       }
     }
     return res.status(200).json({
@@ -356,14 +358,15 @@ exports.prFB = async (req, res) => {
         message: 'this form is aleady reviewed'
       })
     }
-    const irmr = req.body.irmr
-    const finalDecision = req.body.finalDecision
+    let finalDecision = JSON.parse(req.body.finalDecision)
+    let actionPlan = finalDecision.actionPlan
+    const filesNames = JSON.parse(req.body.filesNames)
+    const irmr = JSON.parse(req.body.irmr)
     const irmrFb = { ...irmr,
       decision: finalDecision.decision,
       decisionComment: finalDecision.decisionComment }
-    let finalDecisionData = Object.assign({}, irmrFb)
-    delete finalDecisionData.actionPlan
-    const fb = await Irmr.create({ formId: formId, ...finalDecisionData, employeeName })
+    const files = req.files
+    const fb = await Irmr.create({ formId: formId, ...irmrFb, employeeName })
     await Form.update(
       { irmrSubmition: true },
       { where: { id: formId } }
@@ -372,11 +375,16 @@ exports.prFB = async (req, res) => {
       { irmrSubmition: localISOTime },
       { where: { formId: formId } }
     )
-    if (finalDecisionData.decision === 'Approve with recommendation') {
-      for (let i = 0; i < finalDecision.actionPlan.length; i++) {
+    if (files.length > 0) {
+      for (let i = 0; i < filesNames.length; i++) {
+        await IrmrFiles.create({ IrmrId: fb.id, name: filesNames[i], path: files[i].path })
+      }
+    }
+    if (finalDecision.decision === 'Approve with recommendation') {
+      for (let i = 0; i < actionPlan.length; i++) {
         let irmrsAPData = {
           IrmrId: fb.id,
-          actions: finalDecision.actionPlan[i]
+          actions: actionPlan[i]
         }
         await IrmrAP.create(irmrsAPData)
       }
@@ -404,15 +412,17 @@ exports.pdiFB = async (req, res) => {
         message: 'this form is aleady reviewed'
       })
     }
-    const pdi = req.body.pdi
+    const files = req.files
+    let finalDecision = JSON.parse(req.body.finalDecision)
+    let actionPlan = finalDecision.actionPlan
+    const filesNames = JSON.parse(req.body.filesNames)
+    const pdi = JSON.parse(req.body.pdi)
     const fireExt = pdi.fireExtinguishersList
-    const finalDecision = req.body.finalDecision
     let pdiData = Object.assign({}, pdi)
     delete pdiData.fireExtinguishersList
     const pdiFb = { ...pdiData,
       decision: finalDecision.decision,
       decisionComment: finalDecision.decisionComment }
-    // console.log(irmrFb)
     const fb = await Pdi.create({ formId: formId, ...pdiFb, employeeName })
     await Form.update(
       { fleatSubmition: true },
@@ -422,17 +432,24 @@ exports.pdiFB = async (req, res) => {
       { fleatSubmition: localISOTime },
       { where: { formId: formId } }
     )
+    if (files.length > 0) {
+      for (let i = 0; i < filesNames.length; i++) {
+        await PdiFiles.create({ pdiId: fb.id, name: filesNames[i], path: files[i].path })
+      }
+    }
     const pdiId = fb.id
     if (pdiFb.decision === 'Approve with recommendation') {
-      for (let i = 0; i < finalDecision.actionPlan.length; i++) {
+      for (let i = 0; i < actionPlan.length; i++) {
         let irmrsAPData = {
           pdiId: fb.id,
-          actions: finalDecision.actionPlan[i]
+          actions: actionPlan[i]
         }
         await PdiAP.create(irmrsAPData)
       }
     }
-    if (fireExt) {
+    console.log(446, fireExt)
+    if (fireExt.number.length > 0) {
+      console.log(448, fireExt.number.length)
       for (let i = 0; i < fireExt.number.length; i++) {
         let fireExtData = {
           pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
@@ -455,7 +472,6 @@ exports.pdiFB = async (req, res) => {
 exports.getStarted = async (req, res) => {
   try {
     const employee = await Model.findOne({ where: { userName: employeeName } })
-    // console.log(employee)
     if (employee.activation === false) {
       return res.json({
         status: 'Failed',
@@ -496,24 +512,68 @@ exports.getStarted = async (req, res) => {
     })
   }
 }
+
 // get the forms that are not submitted by the selected departement
 exports.getFormsDisplay = async (req, res) => {
   try {
+    // get the final decision to be displayed in cases files
+
     const dept = req.params.department
-    const forms = await Form.findAll()
+    const forms = await Form.findAll({order: [['id', 'DESC']]})
+
+    let finalDecision = []
+    for (let i = 0; i < forms.length; i++) {
+      let decision = []
+      let distributionDecision = await Distributions.findOne({ where: { formId: forms[i].id } })
+      if (distributionDecision) { decision = decision.concat(distributionDecision.decision) } else { decision = decision.concat(0) }
+
+      let sourcingDecision = await Sourcings.findOne({ where: { formId: forms[i].id } })
+      if (sourcingDecision) { decision = decision.concat(sourcingDecision.decision) } else { decision = decision.concat(0) }
+
+      let pdiDecision = await Pdi.findOne({ where: { formId: forms[i].id } })
+      if (pdiDecision) { decision = decision.concat(pdiDecision.decision) } else { decision = decision.concat(0) }
+
+      let ciDecision = await CifResponse.findOne({ where: { formId: forms[i].id } })
+      if (ciDecision) { decision = decision.concat(ciDecision.decision) } else { decision = decision.concat(0) }
+
+      let financeDecision = await Finance.findOne({ where: { formId: forms[i].id } })
+      if (financeDecision) { decision = decision.concat(financeDecision.decision) } else { decision = decision.concat(0) }
+
+      let irmrDecision = await Irmr.findOne({ where: { formId: forms[i].id } })
+      if (irmrDecision) { decision = decision.concat(irmrDecision.decision) } else { decision = decision.concat(0) }
+      let fd = ''
+      if (decision.includes('Disapprove')) {
+        fd = 'Rejected'
+      } else {
+        if (decision.includes(0)) {
+          fd = 'In proccessing'
+        } else {
+          fd = 'Accepted'
+        }
+      }
+      forms[i]['fd'] = fd
+    }
+
+    let allFds = []
+    let pendingFds = []
+    let submittedFds = []
+    for (let i = 0; i < forms.length; i++) {
+      allFds = allFds.concat(forms[i].fd)
+    }
 
     let pendingForms = []
     let submittedForms = []
 
-    // console.log(forms[0].ciSubmition === true)
     switch (dept) {
       case 'Distribution' :
         for (let i = 0; i < forms.length; i++) {
           // get submitted forms by the dept
           if (forms[i].distributionSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -522,8 +582,10 @@ exports.getFormsDisplay = async (req, res) => {
           // get submitted forms by the dept
           if (forms[i].sourcingSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -532,8 +594,10 @@ exports.getFormsDisplay = async (req, res) => {
           // get submitted forms by the dept
           if (forms[i].fleatSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -542,8 +606,10 @@ exports.getFormsDisplay = async (req, res) => {
           // get submitted forms by the dept
           if (forms[i].irmrSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -552,8 +618,10 @@ exports.getFormsDisplay = async (req, res) => {
           // get submitted forms by the dept
           if (forms[i].ciSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -562,8 +630,10 @@ exports.getFormsDisplay = async (req, res) => {
           // get submitted forms by the dept
           if (forms[i].financeSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
@@ -571,19 +641,25 @@ exports.getFormsDisplay = async (req, res) => {
         for (let i = 0; i < forms.length; i++) {
           // get submitted forms by the dept
           if (forms[i].distributionSubmition & forms[i].sourcingSubmition &
-                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition) {
+                      forms[i].fleatSubmition & forms[i].irmrSubmition & forms[i].ciSubmition & forms[i].financeSubmition) {
             submittedForms = submittedForms.concat(forms[i])
+            submittedFds = submittedFds.concat(forms[i].fd)
           } else {
             pendingForms = pendingForms.concat(forms[i])
+            pendingFds = pendingFds.concat(forms[i].fd)
           }
         }
         ;break
     }
+
     return res.json({
       status: 'Success',
       allForms: forms,
       pendingForms: pendingForms,
-      submittedForms: submittedForms
+      submittedForms: submittedForms,
+      allFds: allFds,
+      pendingFds: pendingFds,
+      submittedFds: submittedFds
     })
   } catch (error) {
     return res.json({
@@ -631,7 +707,6 @@ exports.getQuestions = async (req, res) => {
 
 exports.showFormData = async (req, res) => {
   try {
-    console.log(627)
     const formId = req.params.id
     var form = await Form.findOne({ where: { id: formId } })
     if (!form) {
@@ -640,26 +715,28 @@ exports.showFormData = async (req, res) => {
         message: `There is no form with id ${formId}`
       })
     }
-    const formFiles = await FormFiles.findAll({ where: { formId: formId } }) 
+    const formFiles = await FormFiles.findAll({ where: { formId: formId } })
     const contactPerson = await ContactPerson.findAll({ where: { formId: formId } })
     const history = await History.findAll({ where: { formId: formId } })
     const questions = await Question.findAll({ where: { formId: formId } })
 
     const formData = { form, contactPerson, formFiles, history, questions }
-    console.log(649)
-    console.log(formData)
     let lvf = await Lvf.findOne({ where: { formId: formId } })
     let cif = await Cif.findOne({ where: { formId: formId } })
     if (lvf === null) lvf = {}
 
     /* ------------------------------------------------------PRI-------------------------------------------------------- */
-    const pri = await Pri.findOne({ where: { formId: formId } })
-    var priData = {}
-    if (pri) {
-      const priId = pri.id
-      const fulids = await Fluids.findAll({ where: { priId: priId } })
-      const utilities = await Utilities.findAll({ where: { priId: priId } })
-      priData = { pri, fulids, utilities }
+    let pri = {}
+    let fluids = []
+    let utilities = []
+    let priTemp = await Pri.findOne({ where: { formId: formId } })
+    let priData = { pri, fluids, utilities }
+    if (priTemp) {
+      const priId = priTemp.id
+      fluids = await Fluids.findAll({ where: { priId: priId } })
+      utilities = await Utilities.findAll({ where: { priId: priId } })
+      pri = priTemp
+      priData = { pri, fluids, utilities }
     }
     /* ------------------------------------------------------PRI-------------------------------------------------------- */
     /* -------------------------------------------DISTRIBUTIONS-------------------------------------------------------- */
@@ -679,8 +756,8 @@ exports.showFormData = async (req, res) => {
     /* ----------------------------------------------------CIF-------------------------------------------------------- */
     let cifResponse = await CifResponse.findOne({ where: { formId: formId } })
     let cifResponseData = {}
-    if (cif) {
-      const cifId = cif.id
+    if (cifResponse) {
+      const cifId = cifResponse.id
       const cifAP = await CifAP.findAll({ where: { CifResponseId: cifId } })
       const cifFiles = await CifFiles.findAll({ where: { CifResponseId: cifId } })
       cifResponseData = {
@@ -706,17 +783,16 @@ exports.showFormData = async (req, res) => {
     }
     /* -----------------------------------------------------IRMR-------------------------------------------------------- */
     /* ------------------------------------------------------PDI-------------------------------------------------------- */
-    const pdiTemp = await Pdi.findOne({ where: { formId: formId } })
-    let pdi = {}
+    let pdi = await Pdi.findOne({ where: { formId: formId } })
     let pdiData = {}
-    if (pdiTemp) {
-      const pdiId = pdiTemp.id
+    if (pdi) {
+      const pdiId = pdi.id
       const pdiAP = await PdiAP.findAll({ where: { pdiId: pdiId } })
       const pdiFiles = await PdiFiles.findAll({ where: { pdiId: pdiId } })
       const fireExtinguishers = await FireExtinguishers.findAll({ where: { pdiId: pdiId } })
-      pdi = { pdiTemp, fireExtinguishers }
       pdiData = {
         pdi,
+        fireExtinguishers,
         pdiAP,
         pdiFiles
       }
@@ -755,11 +831,11 @@ exports.showFormData = async (req, res) => {
       formData, /* { form, contactPerson, formFiles, history, questions } */
       lvf,
       cif,
-      priData, /* { pri, fulids, utilities } */
+      priData, /* { pri, fluids, utilities } */
       cifResponseData, /* { cifResponse,cifAP, cifFiles} */
       distributionsResponseData, /* {distributions,distributionsAP,distributionsFiles} */
       irmrData, /* {irmr,irmrAP, irmrFiles } */
-      pdiData, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdiTemp, fireExtinguishers } */
+      pdiData, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdi, fireExtinguishers } */
       sourcingsData, /* { sourcings,sourcingsAP, sourcingsFile} */
       financeData
     })

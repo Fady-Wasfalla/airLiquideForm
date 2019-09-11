@@ -1,23 +1,19 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button , Collapse} from "react-bootstrap";
 import ResponseDisplay from './responseDisplay'
+import PdiDisplay from './pdiDisplay'
 import axios from 'axios'
 
 
 
-class distributionDisplay extends Component {
+class fleatDisplay extends Component {
 
     state = {
-        finalDecision:{dodo:false},
-        formId:0,
-        file:null,
-        filesNames:[""],
-        displayDecision:"none",
         data:{},
         open:false,
       }
     async componentWillMount(){
-      this.setState({data:this.props.DistributionsResponseData})
+      this.setState({data:this.props.PdiData})
 
     }
 
@@ -27,15 +23,16 @@ class distributionDisplay extends Component {
 
      
       render() {
-        let newResponseData = this.props.DistributionsResponseData
+        let newResponseData = this.props.PdiData
         let ResponseData = Object.assign([{}],newResponseData)
+        console.log("##",ResponseData)
         return (
             <React.Fragment>
                 <Col md={{ span: 12, offset: 0 }}>
                 <Card border="secondary">
                 <Card.Header as="h5" className="bg-secondary text-white" >
                 <Row style={{height: .04*window.innerHeight + 'px'}}>
-                <Col>Distribution Feedback</Col>
+                <Col>Fleat Feedback</Col>
                 <Button variant="outline-light" size="sm"
                  onClick={(e)=>{this.setState({open:!this.state.open})
                                  }}>☰</Button>
@@ -46,8 +43,11 @@ class distributionDisplay extends Component {
                 
                 <Form>
 
-                <Col md={{ span: 12, offset: 0 }}><ResponseDisplay FinalDecision={ResponseData.distributions} 
-                AP={ResponseData.distributionsAP} Files={ResponseData.distributionsFiles}/>
+                <Col md={{ span: 12, offset: 0 }}><PdiDisplay FireExt={ResponseData.fireExtinguishers} Data={ResponseData.pdi}/>
+                </Col>
+                <Row><br/><br/></Row>
+                <Col md={{ span: 12, offset: 0 }}><ResponseDisplay FinalDecision={ResponseData.pdi} 
+                AP={ResponseData.pdiAP} Files={ResponseData.pdiFiles}/>
                 </Col>
                 <Row><br/></Row>
                 </Form>
@@ -65,4 +65,4 @@ class distributionDisplay extends Component {
 }
 
 
-export default distributionDisplay;
+export default fleatDisplay;

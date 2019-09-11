@@ -68,7 +68,7 @@ class contactPerson extends Component {
                             <Form>
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="customerName">
-                                    <Form.Label>Name</Form.Label>
+                                    <Form.Label>Name <span style={{color:"red"}}>✶</span></Form.Label>
                                     <Form.Control as="textarea" rows="1" onChange={(e)=>this.handleChangeName(e , index)} value={person} />
                                     </Form.Group>
                                 </Form.Row>
@@ -84,7 +84,7 @@ class contactPerson extends Component {
                             <Form>
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="phone">
-                                    <Form.Label>Title</Form.Label>
+                                    <Form.Label>Title <span style={{color:"red"}}>✶</span></Form.Label>
                                     <Form.Control as="textarea" rows="1"
                                     onChange={(e)=>this.handleChangeTitle(e , index)}  value={title} />
                                     </Form.Group>
@@ -102,7 +102,7 @@ class contactPerson extends Component {
                             <Form>
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="PhoneNumber">
-                                    <Form.Label>Phone Number</Form.Label>
+                                    <Form.Label>Phone Number <span style={{color:"red"}}>✶</span></Form.Label>
                                     <Form.Control as="textarea" rows="1" placeHolder={"(+2) 01xxxxxxxxx"}
                                     onChange={(e)=>this.handleChangePhone(e , index)} value={phone} />
                                     </Form.Group>
@@ -119,7 +119,7 @@ class contactPerson extends Component {
                             <Form>
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="Mail">
-                                    <Form.Label>Mail</Form.Label>
+                                    <Form.Label>Mail <span style={{color:"red"}}>✶</span></Form.Label>
                                     <Form.Control as="textarea" rows="1" placeHolder={"mail@example.com"}
                                     onChange={(e)=>this.handleChangeMail(e , index)} value={mail} />
                                     </Form.Group>

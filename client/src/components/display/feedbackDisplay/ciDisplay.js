@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 
-class distributionDisplay extends Component {
+class ciDisplay extends Component {
 
     state = {
         finalDecision:{dodo:false},
@@ -17,7 +17,7 @@ class distributionDisplay extends Component {
         open:false,
       }
     async componentWillMount(){
-      this.setState({data:this.props.DistributionsResponseData})
+      this.setState({data:this.props.CifResponseData})
 
     }
 
@@ -27,7 +27,7 @@ class distributionDisplay extends Component {
 
      
       render() {
-        let newResponseData = this.props.DistributionsResponseData
+        let newResponseData = this.props.CifResponseData
         let ResponseData = Object.assign([{}],newResponseData)
         return (
             <React.Fragment>
@@ -35,7 +35,7 @@ class distributionDisplay extends Component {
                 <Card border="secondary">
                 <Card.Header as="h5" className="bg-secondary text-white" >
                 <Row style={{height: .04*window.innerHeight + 'px'}}>
-                <Col>Distribution Feedback</Col>
+                <Col>CI Feedback</Col>
                 <Button variant="outline-light" size="sm"
                  onClick={(e)=>{this.setState({open:!this.state.open})
                                  }}>☰</Button>
@@ -46,8 +46,8 @@ class distributionDisplay extends Component {
                 
                 <Form>
 
-                <Col md={{ span: 12, offset: 0 }}><ResponseDisplay FinalDecision={ResponseData.distributions} 
-                AP={ResponseData.distributionsAP} Files={ResponseData.distributionsFiles}/>
+                <Col md={{ span: 12, offset: 0 }}><ResponseDisplay FinalDecision={ResponseData.cifResponse} 
+                AP={ResponseData.cifAP} Files={ResponseData.cifFiles}/>
                 </Col>
                 <Row><br/></Row>
                 </Form>
@@ -65,4 +65,4 @@ class distributionDisplay extends Component {
 }
 
 
-export default distributionDisplay;
+export default ciDisplay;

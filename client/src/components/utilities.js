@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card, Button } from "react-bootstrap";
+import { Form , Col , Row , Card, Button , InputGroup ,FormControl} from "react-bootstrap";
+import Select from "react-select"
 import 'mdbreact/dist/css/mdb.css'
 
 class utilities extends Component {
@@ -15,7 +16,7 @@ class utilities extends Component {
       }
 
       utilityHandleChange(e,index){
-        this.state.utility[index] = e.target.value
+        this.state.utility[index] = e.value
         this.setState({utility:this.state.utility})
         this.props.ParentCallBack(this.state)
       }
@@ -26,7 +27,7 @@ class utilities extends Component {
         this.props.ParentCallBack(this.state)
       }
 
-      removeUtilities(index){
+      removeUtilities(e,index){
         this.state.utility.splice(index,1)
         this.setState({utility:this.state.utility})
         this.state.details.splice(index,1)
@@ -42,7 +43,7 @@ class utilities extends Component {
                 onClick={(e)=>this.addUtilities(e)}
                 >＋</Button>
                 <Row>
-                <Col md={3}>
+                <Col md={4}>
                 {
                     this.state.utility.map((utility,index)=>{
                         return (
@@ -50,8 +51,28 @@ class utilities extends Component {
                                 <Form.Row>
                                     <Form.Group as={Col} >
                                     <Form.Label>Utility</Form.Label>
-                                    <Form.Control as="textarea" rows="1"
-                                    onChange={(e)=>this.utilityHandleChange(e , index)} value={utility} />
+                                    
+                                    <Row>
+                                        <Col>
+                                            <Select
+                                            placeholder="Please choose Utility"
+                                            value={"Please choose Utility"}
+                                            onChange={(e)=>this.utilityHandleChange(e , index)}
+                                            options={ [
+                                                { value: 'Electricity', label: 'Electricity' },
+                                                { value: 'Potable Water', label: 'Potable Water' },
+                                                                    { value: 'Landline', label: 'Landline' },
+                                                                    { value: 'Civil Works', label: 'Civil Works' },
+                                                                    { value: 'Cranes', label: 'Cranes' },
+                                                                    { value: 'Others', label: 'Others' },
+                                                                ]}
+                                                                />
+                                            </Col>
+                                            <Col>
+                                            <Card.Text>Utility :{utility}</Card.Text>
+                                            </Col>
+
+                                    </Row>
                                     </Form.Group>
                                 </Form.Row>
                             </Form>
@@ -59,7 +80,7 @@ class utilities extends Component {
                     })
                 }
                 </Col>
-                <Col md={6}>
+                <Col >
                 {
                     this.state.details.map((details,index)=>{
                         return (
@@ -71,7 +92,7 @@ class utilities extends Component {
                                     onChange={(e)=>this.detailsHandleChange(e , index)} value={details} />
                                     </Form.Group>
                                     <Button variant="outline" style={{height: .05*window.innerHeight + 'px'}}
-                                        onClick={()=>this.removeUtilities(index)}>✘</Button>
+                                        onClick={(e)=>this.removeUtilities(e,index)}>✘</Button>
                                 </Form.Row>
                             </Form>
                         )

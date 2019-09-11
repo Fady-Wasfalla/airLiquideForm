@@ -13,7 +13,6 @@ const Lvf = db.define('Lvf', {
   patchDay: Sequelize.FLOAT,
   patchAvgHrs: Sequelize.FLOAT,
   productAvailability: Sequelize.BOOLEAN,
-  seasonalConsumption: Sequelize.FLOAT,
   seasonPeriod: Sequelize.FLOAT,
   customerTank: Sequelize.FLOAT,
   customerDeadLevel: Sequelize.FLOAT,
@@ -23,9 +22,12 @@ const Lvf = db.define('Lvf', {
   availableDelivery: Sequelize.STRING,
   startDeliveryTime: Sequelize.STRING,
   endDeliveryTime: Sequelize.STRING,
-  weightScale: Sequelize.FLOAT,
-  tankGuage: Sequelize.FLOAT,
-  lvfComment: Sequelize.STRING
+  weightScale: Sequelize.BOOLEAN,
+  tankGuage: Sequelize.BOOLEAN,
+  flowMeter: Sequelize.BOOLEAN,
+  lvfComment: Sequelize.STRING,
+  customerhastank: Sequelize.BOOLEAN
+
 },
 { timestamps: false,
   freezeTableName: true

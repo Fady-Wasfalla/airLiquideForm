@@ -11,6 +11,9 @@ import PreviousQuestions from './previousQuestionsDisplay'
 import DistributionDisplay from './feedbackDisplay/distributionDisplay'
 import SourcingDisplay from './feedbackDisplay/sourcingDisplay'
 import FinanceDisplay from './feedbackDisplay/financeDisplay'
+import CiDisplay from './feedbackDisplay/ciDisplay'
+import FleatDisplay from './feedbackDisplay/fleatDisplay'
+import PrFeedback from './feedbackDisplay/prFeedback'
 
 
 
@@ -23,13 +26,15 @@ class formDisplay extends Component {
       cp:[],
       cif:{},
       showAsk:"",
-      priData:{}, /* { pri, fulids, utilities } */
+      // priData:{}, /* { pri, fluids, utilities } */
+      fluids:[],
+      utilities:[],
       cifResponseData:{}, /* { cifResponse,cifAP, cifFiles} */
       distributionsResponseData:{}, /* {distributions,distributionsAP,distributionsFiles} */
       irmrData:{}, /* {irmr,irmrAP, irmrFiles } */
       pdiData:{}, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdiTemp, fireExtinguishers } */
       sourcingsData:{}, /* { sourcings,sourcingsAP, sourcingsFile} */
-      openFeedback:true,
+      openFeedback:false,
       open:false,
     }
 
@@ -46,15 +51,16 @@ class formDisplay extends Component {
         cp:res.data.formData.contactPerson,
         lvf:res.data.lvf,
         cif:res.data.cif,
-        priData:res.data.priData, 
+        pri:res.data.priData.pri, 
+        fluids:res.data.priData.fluids,
+        utilities:res.data.priData.utilities,
         cifResponseData:res.data.cifResponseData, 
         distributionsResponseData:res.data.distributionsResponseData, 
         irmrData:res.data.irmrData, 
         pdiData:res.data.pdiData, 
         sourcingsData:res.data.sourcingsData,
         financeData:res.data.financeData })
-        console.log(res.data)
-        })
+        console.log(this.state.fluids)})
       .catch(err => alert(err.message))
      
     }
@@ -86,19 +92,24 @@ class formDisplay extends Component {
                 <Col md={{ span: 12, offset: 0 }}><CifDisplay CIF={this.state.cif} /></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><PriDisplay /></Col>
+                <Col md={{ span: 12, offset: 0 }}><PriDisplay PRI={this.state.pri} UTILITIES={this.state.utilities}
+                FLUIDS={this.state.fluids}
+                /></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><PreviousQuestions /></Col>
                 <Row><br/></Row>
-                </Col>
-                </Collapse>
-
 
                 <Col md={{ offset: 10 }} style={{display:this.state.showAsk}} >       
                 <Popup trigger={<Button variant="outline-primary"> Ask Question ...? </Button>} modal><AskQuestion FormID={this.props.formId}/> </Popup>
                 </Col>
+                
                 <Row><br/></Row>
+
+                </Col>
+                </Collapse>
+
+
                 </Card>
                 <Row><br/></Row>
 
@@ -123,8 +134,20 @@ class formDisplay extends Component {
                 <Col md={{ span: 12, offset: 0 }}><SourcingDisplay  SourcingsData={this.state.sourcingsData}  /></Col>
                 <Row><br/></Row>
 
+                <Col md={{ span: 12, offset: 0 }}><FleatDisplay  PdiData={this.state.pdiData}  /></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><CiDisplay  CifResponseData={this.state.cifResponseData}  /></Col>
+                <Row><br/></Row>
+
                 <Col md={{ span: 12, offset: 0 }}><FinanceDisplay  FinanceData={this.state.financeData}  /></Col>
                 <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}><PrFeedback  PrData={this.state.irmrData}  /></Col>
+                <Row><br/></Row>
+
+
+                
 
                 </Col>
                 </Collapse>

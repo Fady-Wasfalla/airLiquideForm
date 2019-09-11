@@ -12,28 +12,28 @@ class logisticsValidationForm extends Component {
     state = {
         //Customer's type dropdown list ... you have to change both value and label with the same name
         CustomerTypeOptions : [
-            { value: 'Customer Type 1', label: 'Customer Type 1' },
-            { value: 'Customer Type 2', label: 'Customer Type 2' },
-            { value: 'Customer Type 3', label: 'Customer Type 3' },
+            { value: 'New Customer', label: 'New Customer' },
+            { value: 'Existing Customer', label: 'Existing Customer' },
           ],
         customerType : "",
 
         //Buissness type dropdown list ... you have to change both value and label with the same name
          BuissnesTypeOptions : [
-            { value: 'Buissnes Type 1', label: 'Buissnes Type 1' },
-            { value: 'Buissnes Type 2', label: 'Buissnes Type 2' },
-            { value: 'Buissnes Type 3', label: 'Buissnes Type 3' },
+            { value: 'HC', label: 'HC' },
+            { value: 'IM', label: 'IM' },
+            { value: 'O&G', label: 'O&G' },
           ],
         businessType : "",
 
-        startDeliveryDate: new Date(),
-        forecastDeliveryEnd: new Date(),
+        startDeliveryDate:"",
+        forecastDeliveryEnd:"",
 
         //Product type dropdown list ... you have to change both value and label with the same name
         ProductTypeOptions : [
-            { value: 'Product 1', label: 'Product 1' },
-            { value: 'Product 2', label: 'Product 2' },
-            { value: 'Product 3', label: 'Product 3' },
+            { value: 'Lox', label: 'Lox' },
+            { value: 'Lin', label: 'Lin' },
+            { value: 'Lar', label: 'Lar' },
+            { value: 'LCo2', label: 'LCo2' },
           ],
         product : "",
         
@@ -41,7 +41,7 @@ class logisticsValidationForm extends Component {
         
         CustomerConsumtionTypeOptions : [
             { value: 'Regular', label: 'Regular' },
-            { value: 'Patch', label: 'Patch' },
+            { value: 'Spot', label: 'Spot' },
           ],
         customerConsumption:"",
         CustomerConsumtionregularShow:"none" ,
@@ -61,9 +61,12 @@ class logisticsValidationForm extends Component {
         usableCapacityAboveDeadLevel:0,
         peakConsumption:0,
         frequencyOfPeakConsumption:"",
-        weightScale:0,
-        tankGuage:0,
+        weightScale:false,
+        tankGuage:false,
+        flowMeter:false,
         lvfComment:"",
+
+        customerhastank:false,
 
         fieldset:"",
         done:"✘",
@@ -133,6 +136,7 @@ class logisticsValidationForm extends Component {
       }
 
       submitData=(event)=>{
+        console.log(this.state.businessType)
         this.setState({dodo:!this.state.dodo})
         event.preventDefault();
         this.sendData()
@@ -144,7 +148,7 @@ class logisticsValidationForm extends Component {
             this.setState({fieldset:"",
                            done:"✘" })
         }
-    }
+      }
       submissionColor=(e)=>{
           if (e==="✔"){
               return "green"
@@ -152,17 +156,25 @@ class logisticsValidationForm extends Component {
               return "red"
           }
       }
+
+      validateItem=(e)=>{
+        if (e===""){
+          return true
+        }
+        return false
+      }
+      
       
       render() {
         return (
             <React.Fragment>
                 <Card border="secondary" >
                 <Form onSubmit={this.submitData}>
-                <Card.Header as="h5" className="bg-dark text-white" >Logistics Validation Form</Card.Header>
+                <Form>
+                <Card.Header as="h5" className="bg-dark text-white" >Customer Consumption Details</Card.Header>
                 <Row><br/></Row>
                 <Col md={12}>
                 <fieldset disabled={this.state.fieldset}>
-                    <Form>
                         <Form.Row>
                             <Form.Group as={Col} >
                                 <Form.Label style={{ color:"black" , fontSize:"20px" , textDecoration:"underline" }}>Origin of the Request</Form.Label>
@@ -171,41 +183,56 @@ class logisticsValidationForm extends Component {
 
                         <Form.Row >
                             <Form.Group as={Col} controlId=">CustomerType" >
-                            <Form.Label>Customer's Type</Form.Label>
+                            <Form.Label>Customer's Type <span style={{color:"red"}}>✶</span>
+                            </Form.Label>
                             <Select
                             value={this.state.customerType.value}
                             onChange={this.CustomerTypeHandleChange}
                             options={this.state.CustomerTypeOptions}
                             />
+                              <input tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
+                                required={this.validateItem(this.state.customerType)}/>
+                            
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="BuissnesType">
-                            <Form.Label>Buissnes Type</Form.Label>
+                            <Form.Label>Buissnes Type <span style={{color:"red"}}>✶</span></Form.Label>
                             <Select
                             value={this.state.businessType.value}
-                            onChange={this.BuissnesTypeHandleChange}
-                            options={this.state.BuissnesTypeOptions}
+                            onChange={(e)=>{this.setState({ businessType: e.value})}}
+                            options={ [
+                                        { value: 'Lox', label: 'Lox' },
+                                        { value: 'Lin', label: 'Lin' },
+                                        { value: 'Lar', label: 'Lar' },
+                                        { value: 'LCo2', label: 'LCo2' },
+                                    ]}
                             />
+                             <input tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
+                                required={this.validateItem(this.state.businessType)}/>
                             </Form.Group>
 
                         </Form.Row>
 
                         <Form.Row>
                             <Form.Group as={Col} controlId="startDeliveryDate">
-                                <Form.Label>Start Delivery Date</Form.Label>
+                                <Form.Label>Start Delivery Date <span style={{color:"red"}}>✶</span></Form.Label>
                                 <br/>
                                 <DatePicker
                                     selected={this.state.startDeliveryDate}
                                     onChange={this.startDeliveryDateHandleChange.bind(this)}
                                     />
+                                <input tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
+                                   required={this.validateItem(this.state.startDeliveryDate)}/>
                             </Form.Group>
                             <Form.Group as={Col} controlId="forecastDeliveryEnd">
-                                <Form.Label>Forecast Delivery End</Form.Label>
+                                <Form.Label>Forecast Delivery End <span style={{color:"red"}}>✶</span></Form.Label>
                                 <br/>
                                 <DatePicker
                                     selected={this.state.forecastDeliveryEnd}
                                     onChange={this.forecastDeliveryEndHandleChange.bind(this)}
                                     />
+                                <input tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
+                                    required={this.validateItem(this.state.forecastDeliveryEnd)}/>
                             </Form.Group>
                         </Form.Row>
 
@@ -220,30 +247,34 @@ class logisticsValidationForm extends Component {
 
                         <Form.Row >
                             <Form.Group as={Col} controlId="ProductType" >
-                            <Form.Label>Product</Form.Label>
+                            <Form.Label>Product <span style={{color:"red"}}>✶</span></Form.Label>
                             <Select
                             value={this.state.product.value}
                             onChange={this.ProductHandleChange}
                             options={this.state.ProductTypeOptions}
                             />
+                            <input tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
+                                    required={this.validateItem(this.state.product)}/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="purity" >
-                            <Form.Label>purity</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({purity:e.target.value})}} />
+                            <Form.Label>Purity <span style={{color:"red"}}>✶</span></Form.Label>
+                            <FormControl type={"number"} step={0.1}  onChange={(e)=>{this.setState({purity:e.target.value})
+                         }} />
                             </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
                           <Col md={4}>
                             <Form.Group as={Col} controlId="CustomerConsumtionType" >
-                                <Form.Label>Customer Consumption Type</Form.Label>
+                                <Form.Label>Customer Consumption Type <span style={{color:"red"}}>✶</span></Form.Label>
                                 <Select
                                 value={this.state.customerConsumption.value}
                                 onChange={this.CustomerConsumtionHandleChange}
                                 options={this.state.CustomerConsumtionTypeOptions}
                                 />
-                            <Form.Check type="checkbox" label="Product Availablity" onChange={(e)=>{this.setState({productAvailability:e.target.checked})}}/>
+                                <input tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
+                                    required={this.validateItem(this.state.customerConsumption)}/>
                             </Form.Group>
                           </Col>
 
@@ -282,56 +313,61 @@ class logisticsValidationForm extends Component {
                             </Form.Group>
                         </Form.Row>
 
-                        
 
                         <Form.Row>
-                        <Form.Group as={Col} controlId="seasonalConsumption" >
-                            <Form.Label>Seasonal Consumption</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({seasonalConsumption:e.target.value})}} />
-                            </Form.Group>
-                            <Form.Group as={Col} controlId="seasonPeriod" >
-                            <Form.Label>Season Period</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({seasonPeriod:e.target.value})}} />
-                            </Form.Group>
-                            <Form.Group as={Col} controlId="customerTank" >
-                            <Form.Label>Customer Tank</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({customerTank:e.target.value})}} />
-                            </Form.Group>
-                        </Form.Row>
-
-                        <Form.Row>
-                        <Form.Group as={Col} controlId="customerDeadLevel" >
-                            <Form.Label>Customer Dead Level</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({customerDeadLevel:e.target.value})}} />
-                            </Form.Group>
-                            <Form.Group as={Col} controlId="usableCapacityAboveDeadLevel" >
-                            <Form.Label>Usable Capacity Above Dead Level</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({usableCapacityAboveDeadLevel:e.target.value})}} />
-                            </Form.Group>
-                        </Form.Row>
-
-                        <Form.Row>
-
                             <Form.Group as={Col} controlId="peakConsumption" >
                             <Form.Label>Peak Consumption</Form.Label>
                             <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({peakConsumption:e.target.value})}} />
                             </Form.Group>
                             <Form.Group as={Col} controlId="frequencyOfPeakConsumption">
                               <Form.Label>Frequency Of Peak Consumption</Form.Label>
-                              <Form.Control as="textarea" rows="1" placeHolder="times/period" />
+                              <Form.Control as="textarea"  rows="1" placeHolder="times/period" />
                               </Form.Group>
                         </Form.Row>
-
-                        <Form.Row >
-                         <Col md={6}>
-                            <Form.Group as={Col} controlId="availableDelivery" >
-                            <Form.Label>Deilvery Type</Form.Label>
-                            <Select
-                            value={this.state.availableDelivery.value}
-                            onChange={this.availableDeliveryHandleChange}
-                            options={[{value:'24 Hours',label:'24 Hours'},{value:'Other',label:'Other'}]}
-                            />
+                        
+                        <br/>
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="customerTank" >
+                            <Form.Check id="Customerhastank"
+                            custom={true}
+                            inline={true}
+                            label="Customer Tank"
+                            onChange={(e)=>{this.setState({customerhastank:e.target.checked})}}/>
                             </Form.Group>
+                        </Form.Row>
+
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="customerTank" >
+                            <Form.Label>Tank Capacity (Liter/Ton) <span style={{color:"red"}}>✶</span></Form.Label>
+                            <FormControl type={"number"} step={0.1} disabled={!this.state.customerhastank} required={this.state.customerhastank}
+                             onChange={(e)=>{this.setState({customerTank:e.target.value})}} />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="customerDeadLevel" >
+                            <Form.Label>Tank Dead Level <span style={{color:"red"}}>✶</span></Form.Label>
+                            <FormControl type={"number"} step={0.1} disabled={!this.state.customerhastank} required={this.state.customerhastank}
+                            onChange={(e)=>{this.setState({customerDeadLevel:e.target.value})}} />
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="usableCapacityAboveDeadLevel" >
+                            <Form.Label>Usable Capacity Above Dead Level <span style={{color:"red"}}>✶</span></Form.Label>
+                            <FormControl type={"number"} step={0.1} disabled={!this.state.customerhastank} required={this.state.customerhastank}
+                            onChange={(e)=>{this.setState({usableCapacityAboveDeadLevel:e.target.value})}} />
+                            </Form.Group>
+                        </Form.Row>
+
+                        
+                        <br/>
+                        <Form.Row >
+                            <Col md={6}>
+                              <Form.Group as={Col} controlId="availableDelivery" >
+                              <Form.Label>Deilvery Window <span style={{color:"red"}}>✶</span></Form.Label>
+                              <Select
+                              value={this.state.availableDelivery.value}
+                              onChange={this.availableDeliveryHandleChange}
+                              options={[{value:'24 Hours',label:'24 Hours'},{value:'Other',label:'Other'}]}
+                              />
+                              <input tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
+                                    required={this.validateItem(this.state.availableDelivery)}/>
+                              </Form.Group>
                             </Col>
 
                             <Form.Group as={Col} controlId="startDeliveryTime"
@@ -355,28 +391,45 @@ class logisticsValidationForm extends Component {
                             </Form.Group>
                         </Form.Row>
 
-                        
+                        <br/>
                         <Form.Row>
-                        <Form.Group as={Col}  >
-                            <Form.Label>Weight Scale</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({weightScale:e.target.value})}} />
-                            </Form.Group>
-                            <Form.Group as={Col}  >
-                            <Form.Label>Tank Guage</Form.Label>
-                            <FormControl type={"number"} step={0.1} onChange={(e)=>{this.setState({tankGuage:e.target.value})}} />
-                            </Form.Group>
+                          <Form.Group as={Col} md={{span:2}} >
+                            <Form.Label>Recieved via : <span style={{color:"red"}}>✶</span></Form.Label>
+                            <input tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
+                                    required={!(this.state.weightScale||this.state.tankGuage||this.state.flowMeter)}/>
+                          </Form.Group>
+                          <Form.Group as={Col}  >
+                           <Form.Check id="WeightScale"
+                            custom={true}
+                            inline={true}
+                            label="Weight Scale"
+                            onChange={(e)=>{this.setState({weightScale:e.target.checked})}}/>
+                          </Form.Group>
+                          <Form.Group as={Col}  >
+                           <Form.Check id="TankGuage"
+                            custom={true}
+                            inline={true}
+                            label="Tank Guage"
+                            onChange={(e)=>{this.setState({tankGuage:e.target.checked})}}/>
+                          </Form.Group>
+                          <Form.Group as={Col}  >
+                           <Form.Check id="flowMeter"
+                            custom={true}
+                            inline={true}
+                            label="Flow Meter"
+                            onChange={(e)=>{this.setState({flowMeter:e.target.checked})}}/>
+                          </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
                             <Form.Group as={Col} controlId="lvfComment">
-                            <Form.Label>Lvf Comment</Form.Label>
+                            <Form.Label>Comment</Form.Label>
                             <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({lvfComment:e.target.value})}} />
                             </Form.Group>
                         </Form.Row>
 
                        
 
-                    </Form>
                 </fieldset>
                 </Col>
                 <Card.Footer > 
@@ -385,6 +438,7 @@ class logisticsValidationForm extends Component {
                             </Col> 
                             
                 </Card.Footer>
+                </Form>
                 </Form>
                 </Card>
             </React.Fragment>

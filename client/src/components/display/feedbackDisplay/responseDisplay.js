@@ -36,7 +36,6 @@ class responseDisplay extends Component {
     }
 
     displayFiles=(e)=>{
-        console.log("###",e.length)
         if (e.length>0){
             return ""
         }else{
@@ -65,7 +64,9 @@ class responseDisplay extends Component {
                     <Form.Row>
                                 <Form.Group as={Col} >
                                         <Form.Label style={{fontWeight:"bold"}}>Decision : </Form.Label>
-                                        <Card.Text>{decision.decision}</Card.Text>
+                                        <Form.Row>
+                                        <Col md={{offset:1}}>
+                                        <Card.Text>{decision.decision}</Card.Text></Col> </Form.Row>
                                 </Form.Group>
                     </Form.Row>
 
@@ -79,7 +80,7 @@ class responseDisplay extends Component {
                                         return(
                                             <Form>
                                                 <Form.Row>
-                                                        <Col md={10}>
+                                                        <Col md={{offset:1}}>
                                                             <Form.Label >{index+1}{" . "}{ap[index].actions}</Form.Label>                                                                
                                                         </Col>
                                                     </Form.Row>
