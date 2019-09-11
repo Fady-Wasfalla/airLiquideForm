@@ -57,7 +57,7 @@ class fluids extends Component {
     }
 
     fluidOrProductHandleChange(e,index){
-        this.state.fluidOrProduct[index] = e.target.value
+        this.state.fluidOrProduct[index] = e.value
         this.setState({fluidOrProduct:this.state.fluidOrProduct})
         this.props.ParentCallBack(this.state)
     }
@@ -154,8 +154,24 @@ class fluids extends Component {
                                 <Form.Row>
                                             <Form.Group as={Col} >
                                             <Form.Label>Fluid / Product {this.props.ind} </Form.Label>
-                                            <Form.Control as="textarea" rows="1" 
-                                            onChange={(e)=>this.fluidOrProductHandleChange(e , index)} value={this.state.fluidOrProduct[index]}/>
+                                            <Select
+                                                value={this.state.fluidOrProduct[index].value}
+                                                onChange={(e)=>this.fluidOrProductHandleChange(e , index)}
+                                                options={ [
+                                                            { value: 'LOX', label: 'LOX' },
+                                                            { value: 'GOX', label: 'GOX' },
+                                                            { value: 'LIN', label: 'LIN' },
+                                                            { value: 'GAN', label: 'GAN' },
+                                                            { value: 'LCO2', label: 'LCO2' },
+                                                            { value: 'Gaseous CO2', label: 'Gaseous CO2' },
+                                                            { value: 'Liquide Helium', label: 'Liquide Helium' },
+                                                            { value: 'Gaseous Helium', label: 'Gaseous Helium' },
+                                                            { value: 'Liquide Argon', label: 'Liquide Argon' },
+                                                            { value: 'Gaseous Argon', label: 'Gaseous Argon' },
+                                                            { value: 'Hydrogen', label: 'Hydrogen' },
+
+                                                        ]}
+                                                />
                                             </Form.Group>
                                             
 
