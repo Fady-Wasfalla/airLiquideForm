@@ -10,7 +10,7 @@ class prFeedback extends Component {
 
     state = {
         data:{},
-        open:true,
+        open:false,
       }
     async componentWillMount(){
       this.setState({data:this.props.PrData})

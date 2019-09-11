@@ -172,6 +172,7 @@ class priForm extends Component {
         potentialBackflow :false ,
         potentialBackflowCmt:"" ,
         includeTransportationActivities:false ,
+        includeTransportationActivitiesType:"",
         includeTransportationActivitiesCmt:"" ,
         specialTraining:false ,
         specialTrainingCmt:"" ,
@@ -242,6 +243,7 @@ class priForm extends Component {
         consequencesCmts:false ,
         corporateImageCmt:""  ,
         impactOnCustomerCmt:""  ,
+        impactOnCustomerType:"",
         impactOnStrategicCmt:"" ,
         financialLossCmt:""  ,
         impactOnALCmt:"" ,
@@ -1395,8 +1397,24 @@ class priForm extends Component {
                             label="Include transportation activities"
                             onChange={(e)=>{this.setState({includeTransportationActivities:e.target.checked})}}/>
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
+
+                            <Row>
+                            <Col md={{offset:0,span:4}}>
+                            <Select
+                            value={this.state.includeTransportationActivitiesType.value}
+                            onChange={(e)=>{this.setState({ includeTransportationActivitiesType: e.value})}}
+                            options={ [
+                                        { value: 'Road', label: 'Road' },
+                                        { value: 'Rail', label: 'Rail' },
+                                       
+                                    ]}
+                            />
+                            </Col>
+                            <Col md={{offset:0,span:8}}>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.includeTransportationActivities}
                             onChange={(e)=>{this.setState({includeTransportationActivitiesCmt:e.target.value})}} />
+                            </Col>
+                            </Row>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -1813,8 +1831,25 @@ class priForm extends Component {
                             inline={true}
                             label="Impact on customer"
                             onChange={(e)=>{this.setState({impactOnCustomer:e.target.checked})}}/>
+
+                            <Row>
+                            <Col md={{offset:0,span:6}}>
+                            <Select
+                                value={this.state.undergroundNetworkCmt.value}
+                                onChange={(e)=>{this.setState({ undergroundNetworkCmt: e.value})}}
+                                options={ [
+                                            { value: 'Safety', label: 'Safety' },
+                                            { value: 'Reliability', label: 'Reliability' },
+                                            { value: 'Equipment damage', label: 'Equipment damage' },
+                                            { value: 'Other', label: 'Other' },
+                                        ]}
+                                />
+                            </Col>
+                            <Col md={{offset:0,span:6}}>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.impactOnCustomer}
                             onChange={(e)=>{this.setState({impactOnCustomerCmt:e.target.value})}} />
+                            </Col>
+                            </Row>
                             </Form.Group>
 
                        </Form.Row>

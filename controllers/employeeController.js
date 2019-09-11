@@ -146,6 +146,9 @@ exports.newForm = async (req, res) => {
 exports.distributionFB = async (req, res) => {
   try {
     const formId = req.body.formId
+    const customerTank = req.body.customerTank
+    const supplyTimeFrom = req.body.supplyTimeFrom
+    const supplyTimeTo = req.body.supplyTimeTo
     const prevFB = await Distributions.findOne({ where: { formId: formId } })
     if (prevFB) {
       return res.json({
@@ -157,7 +160,8 @@ exports.distributionFB = async (req, res) => {
     let actionPlan = finalDecision.actionPlan
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
-    const fb = await Distributions.create({ formId: formId, ...finalDecision, employeeName })
+    const fb = await Distributions.create({ formId: formId, ...finalDecision, employeeName , 
+      customerTank:customerTank , supplyTimeFrom:supplyTimeFrom , supplyTimeTo:supplyTimeTo  })
     await Form.update(
       { distributionSubmition: true },
       { where: { id: formId } }
