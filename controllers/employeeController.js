@@ -648,7 +648,7 @@ exports.showFormData = async (req, res) => {
         message: `There is no form with id ${formId}`
       })
     }
-    const formFiles = await FormFiles.findAll({ where: { formId: formId } }) 
+    const formFiles = await FormFiles.findAll({ where: { formId: formId } })
     const contactPerson = await ContactPerson.findAll({ where: { formId: formId } })
     const history = await History.findAll({ where: { formId: formId } })
     const questions = await Question.findAll({ where: { formId: formId } })
@@ -659,13 +659,17 @@ exports.showFormData = async (req, res) => {
     if (lvf === null) lvf = {}
 
     /* ------------------------------------------------------PRI-------------------------------------------------------- */
-    const pri = await Pri.findOne({ where: { formId: formId } })
-    var priData = {}
-    if (pri) {
-      const priId = pri.id
-      const fulids = await Fluids.findAll({ where: { priId: priId } })
-      const utilities = await Utilities.findAll({ where: { priId: priId } })
-      priData = { pri, fulids, utilities }
+    let pri = {}
+    let fluids = []
+    let utilities = []
+    let priTemp = await Pri.findOne({ where: { formId: formId } })
+    let priData = { pri, fluids, utilities }
+    if (priTemp) {
+      const priId = priTemp.id
+      fluids = await Fluids.findAll({ where: { priId: priId } })
+      utilities = await Utilities.findAll({ where: { priId: priId } })
+      pri = priTemp
+      priData = { pri, fluids, utilities }
     }
     /* ------------------------------------------------------PRI-------------------------------------------------------- */
     /* -------------------------------------------DISTRIBUTIONS-------------------------------------------------------- */
@@ -760,7 +764,7 @@ exports.showFormData = async (req, res) => {
       formData, /* { form, contactPerson, formFiles, history, questions } */
       lvf,
       cif,
-      priData, /* { pri, fulids, utilities } */
+      priData, /* { pri, fluids, utilities } */
       cifResponseData, /* { cifResponse,cifAP, cifFiles} */
       distributionsResponseData, /* {distributions,distributionsAP,distributionsFiles} */
       irmrData, /* {irmr,irmrAP, irmrFiles } */

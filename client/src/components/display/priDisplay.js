@@ -5,268 +5,15 @@ import Utilities from '../utilities'
 import "react-datepicker/dist/react-datepicker.css";
 
 class priDisplay extends Component {
-
+    
     state = {
-
-        // 1. Project description and general comments
-        descriptionAndGeneralCmts:"",
-
-        //2. Facility or Equipment
-        facilityOrEquipment:"",
-        facilityOrEquipmentRemarks:"",
-        applicationType:"" ,
-        applicationTypeRemarks:"" ,
-        projectType:"" ,
-        projectTypeRemarks:"" ,
-        facilityOrEquipmentSupply:"" ,
-        facilityOrEquipmentCmts:"" ,
-        fixedStandardBulk:false,
-        fixedBulkTankOnly:false,
-        onlySupplyOfProduct:false,
-        mobile:false,
-        onBoardEquipment:false,
-        onBoardEquipmentType:"",
-
-        //4. Site information
-	    //4.1. Natural 
-        earthquake:false,
-        earthquakeCmt:"" ,
-        operationAffectedRegulatedArea:false,
-        operationAffectedRegulatedAreaCmt:"" ,
-        weather:false,
-        weatherCmt:"" ,
-        flooding:false,
-        landslide:false,
-        salinity:false,
-        createPotentialEnvironmental:false,
-        createPotentialEnvironmentalCmt:"" ,
-        pollutionRemediation:false,
-        pollutionRemediationCmt:"" ,
-        operationsConditionsPotentially:false ,
-        operationsConditionsPotentiallyCmt:""  ,
-        naturalCmts:false,
-        naturalCmtsCmt:"" ,
-
-        // 4.2 Industrial
-        pollution:false,
-        pollutionCmt:"" ,
-        highVoltageLines:false, 
-        highVoltageLinesCapacity:0,
-        highVoltageLinesDistanceToTank:0 ,
-        limitedSpacing:false,
-        limitedSpacingCmt:"" ,
-        hazardousMaterialStorage:false,
-        hazardousMaterialStorageCmt:"",
-        confinement:false,
-        confinementCmt:"" ,
-        potentialExistingSitePollution:false ,
-        potentialExistingSitePollutionCmt:""  ,
-        proximityToHighRisk:false,
-        proximityToHighRiskCmt:"" ,
-        proximityOfCombustibleMaterial:false,
-        proximityOfCombustibleMaterialCmt:"" ,
-        undergroundNetwork:false, 
-        undergroundNetworkDepth:0,
-        properDrainage:false,
-        sittingInSafetyZone:false,
-        sittingInSafetyZoneCmt:"" ,
-        customerEquipmentNotFullyCompatible:false,
-        customerEquipmentNotFullyCompatibleCmt:"" ,
-        industrialCmts:false , 
-        industrialCmtsCmt:""  , 
-
-        // 4.3 Population/Site location
-        residentialArea:false,
-        residentialAreaCmt:"",
-        publicBuilding:false,
-        publicBuildingCmt:"",
-        transportationCorridor:false,
-        isolatedArea:false,
-        isolatedAreaCmt:"",
-        siteAccessibility:false,
-        siteAccessibilityCmt:"",
-        highSecurityRisk:false,
-        highSecurityRiskCmt:"",
-        populationCmts:false,
-        populationCmtsCmt:"",
-        transportationCorridorCmt:"",
-
-        // 4.4. Customer 
-        financialSituation:false  ,
-        financialSituationCmt:""  ,
-        newBusinessCustomer:false ,
-        durabilityOfCustomerActivities:false ,
-        strategicCustomer:false ,
-        strategicCustomerCmt:"" ,
-        customerCmts:false ,
-        customerCmtsCmt:"" ,
-
-        // 5. Project Organisation
-        jointProjectThirdParties:false ,
-        jointProjectThirdPartiesCmt:"" ,
-        necessaryDesignAuthorities:false ,
-        necessaryDesignAuthoritiesCmt:"" ,
-        jointProjectInvolvingAirLiquide:false ,
-        jointProjectInvolvingAirLiquideCmt:"" ,
-        projectSubmittedToThirdParty:false ,
-        projectSubmittedToThirdPartyCmt:"" ,
-        equipmentSuppliedByCustomer:false ,
-        equipmentSuppliedByCustomerCmt:"" ,
-        difficultyAccessExpertise:false ,
-        difficultyAccessExpertiseCmt:"" ,
-        useStandBbyAssets:false ,
-        useStandBbyAssetsCmt:"" ,
-        issueOfResource:false ,
-        issueOfResourceCmt:"" ,
-        projectOrganisationCmts:false ,
-        projectOrganisationCmtsCmt:"" ,
-
-        // 6. Processes, Products, Technology (PPT), Equipment
-        equipmentTechnologySupplier:false ,
-        equipmentTechnologySupplierCmt:"" ,
-        majorProblemEncountered:false ,
-        majorProblemEncounteredCmt:"" ,
-        qualifiedValidatedEquipment:false ,
-        qualifiedValidatedEquipmentCmt:""  ,
-        requirementsUtilitiesSpecification:false ,
-        requirementsUtilitiesSpecificationCmt:"" ,
-        newImposedAssociates:false ,
-        newImposedAssociatesCmt:""  ,
-        installatioProductRequireHazardous:false ,
-        installatioProductRequireHazardousCmt:"" ,
-        innovationNewlyDeveloped:false ,
-        innovationNewlyDevelopedCmt:"" ,
-        productsRawMaterials:false,
-        productsRawMaterialsCmt:"" ,
-        projectUsingInnovativePpt:false ,
-        projectUsingInnovativePptCmt:""  ,
-        operationHaveNegativeImpact:false ,
-        operationHaveNegativeImpactCmt:"" ,
-        intellectualPropertyWatch:false ,
-        intellectualPropertyWatchCmt:""  ,
-        riskAnalysisProject:false ,
-        riskAnalysisProjectCmt:"" ,
-        lackMainEquipments:false ,
-        lackMainEquipmentsCmt:"" ,
-        previousRiskAnalysis:false,
-        previousRiskAnalysisCmt:"",
-        lackSimilarProcess:false ,
-        lackSimilarProcessCmt:"" ,
-        processesProductsCmts:false ,
-        processesProductsCmtsCmt:"" ,
-
-        // 7. Operation Conditions 
-        customizedPlant:false ,
-        customizedPlantCmt:""  ,
-        noOperatingExperienceSimilarProcess:false ,
-        noOperatingExperienceSimilarProcessCmt:"" ,
-        newServiceBySubsidiary:false  ,
-        newServiceBySubsidiaryCmt:"" ,
-        potentialBackflow :false ,
-        potentialBackflowCmt:"" ,
-        includeTransportationActivities:false ,
-        includeTransportationActivitiesCmt:"" ,
-        specialTraining:false ,
-        specialTrainingCmt:"" ,
-        operationDoneByCustomer:false ,
-        operationDoneByCustomerCmt:"" ,
-        unattendedFacility:false ,
-        unattendedFacilityCmt:"" ,
-        operatingWithoutDesign:false ,
-        operatingWithoutDesignCmt:"" ,
-        remoteFillingLines:false ,
-        remoteFillingLinesCmt:"" ,
-        operationCmts:false ,
-        operationCmtsCmt:""  ,
-
-        // 8. Customer Requirements
-        notFullyDefined:false ,
-        notFullyDefinedCmt:"" ,
-        mandatoryCustomerStandards:false ,
-        mandatoryCustomerStandardsCmt:"" ,
-        technicalIssues:false ,
-        technicalIssuesCmt:"" ,
-        specificInsurance:false ,
-        specificInsuranceCmt:"" ,
-        contractualTargets:false  ,
-        contractualTargetsCmt:"" ,
-        requiredStudies:false ,
-        requiredStudiesCmt:"" ,
-        requiredStudiesReliability:false ,
-        requiredStudiesReliabilityCmt:"" ,
-        peakFlowRequirement:false ,
-        peakFlowRequirementCmt:"" ,
-        safetyIntegrityLevel:false ,
-        safetyIntegrityLevelCmt:"" ,
-        customerRequirementCmts:false ,
-        customerRequirementCmtsCmt:"" ,
-
-        // 9. Regulatory Obligations / Environmental 
-        regulatoryInformation:false ,
-        regulatoryInformationCmt:""  ,
-        lackOfKnowledge:false ,
-        lackOfKnowledgeCmt:"" ,
-        environmentalImpactStudy:false ,
-        societalRiskAnalysis:false ,
-        explosiveAreaClassification:false ,
-        safetyHazardStudy:false ,
-        oSHA:false ,
-        areaClassificationElectrical:false ,
-        pressureVesselRegulation:false ,
-        pressureVesselRegulationCmt:""  ,
-        transportationRegulation:false , 
-        transportationRegulationCmt:"" , 
-        electricalEquipmentEegulation:false ,
-        electricalEquipmentEegulationCmt:""  ,
-        otherRegulation:false ,
-        otherRegulationCmt:"" ,
-        softwareProcessControl:false ,
-        softwareProcessControlCmt:"" ,
-        otherApplicablePermits:false ,
-        otherApplicablePermitsCmt:"" ,
-
-        // 10. Consequences of supply or delivery loss (flow interruption)
-        corporateImage:false ,
-        financialLoss:false ,
-        impactOnCustomer:false ,
-        impactOnAL:false ,
-        impactOnStrategic:false ,
-        contractualPenalties:false ,
-        consequencesCmts:false ,
-        corporateImageCmt:""  ,
-        impactOnCustomerCmt:""  ,
-        impactOnStrategicCmt:"" ,
-        financialLossCmt:""  ,
-        impactOnALCmt:"" ,
-        contractualPenaltiesCmt:""  ,
-        consequencesCmtsCmt:""  ,
-
-        // 11. In case of acquisition (Project type acquisition) 
-        technicalInspection:false ,
-        significantDiscrepanciesAL:false ,
-        potentialNonComplianceSafety:false ,
-        potentialIssueCompetencies:false ,
-        obsoleteEquipment:false ,
-        facilityAge:false ,
-        potentialNonComplianceEnvironmental:false ,
-        acquisitionCmts:false ,
-        technicalInspectionCmt:"" ,
-        potentialNonComplianceSafetyCmt:""  ,
-        significantDiscrepanciesALCmt:""  ,
-        potentialIssueCompetenciesCmt:""  ,
-        obsoleteEquipmentCmt:""  ,
-        potentialNonComplianceEnvironmentalCmt:""  ,
-        facilityAgeCmt:"" ,
-        acquisitionCmtsCmt:"" ,
-
         open:false,
-        
     }
-
-
-
-     
       render() {
+          let pri
+          (!this.props.PRI)?pri={}:pri=this.props.PRI
+          let utilities = this.props.UTILITIES
+          let fluids = this.props.FLUIDS
         return (
             <React.Fragment>
                 <Card border="secondary" >
@@ -275,7 +22,7 @@ class priDisplay extends Component {
                 <Col>PRI Form</Col>
                 <Button variant="outline-light" size="sm"
                  onClick={(e)=>{this.setState({open:!this.state.open})
-                                }}>☰</Button>
+                         }}>☰</Button>
                  </Row>
                  </Card.Header>
                 <Row><br/></Row>
@@ -284,13 +31,13 @@ class priDisplay extends Component {
                     <Form>
                        <Form.Row>
                             <Form.Group as={Col} >
-                                <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic" }}>1. Project description and general comments</Form.Label>
+                                <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic",textDecoration:"underline" }}> 1. Project description and general comments</Form.Label>
                             </Form.Group>
                        </Form.Row>
                        <Form.Row>
                             <Form.Group as={Col} controlId="descriptionAndGeneralCmts">
                             <Form.Label>To be completed for clear understanding of the project and associated risks</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({descriptionAndGeneralCmts:e.target.value})}} />
+                            <Form.Control as="textarea" rows="1" value={pri.descriptionAndGeneralCmts}/>
                             </Form.Group>
                         </Form.Row>
 
@@ -304,100 +51,101 @@ class priDisplay extends Component {
                        <Form.Row>
                             <Col md={4}>
                             <Form.Group as={Col} controlId="facilityOrEquipment">
-                            <Form.Label>Facility Or Equipment</Form.Label>
-                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({facilityOrEquipment:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}}>Facility Or Equipment</Form.Label>
+                            <Form.Control as="textarea" rows="1" value={pri.facilityOrEquipment}/>
                             </Form.Group>
                             </Col>
 
                             <Form.Group as={Col} controlId="facilityOrEquipmentRemarks">
-                            <Form.Label>Facility Or Equipment Remarks</Form.Label>
-                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({facilityOrEquipmentRemarks:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}} >Facility Or Equipment Remarks</Form.Label>
+                            <Form.Control as="textarea" rows="1" value={pri.facilityOrEquipmentRemarks}/>
+
                             </Form.Group>
                         </Form.Row>
                         
                         <Form.Row>
                             <Col md={4}>
                             <Form.Group as={Col} controlId="applicationType">
-                            <Form.Label>Application Type</Form.Label>
-                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({applicationType:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}} >Application Type</Form.Label>
+                            <Form.Control as="textarea" rows="1" value={pri.applicationType}/>
                             </Form.Group>
                             </Col>
 
                             <Form.Group as={Col} controlId="applicationTypeRemarks">
-                            <Form.Label>Application Type Remarks</Form.Label>
-                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({applicationTypeRemarks:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}} >Application Type Remarks</Form.Label>
+                            <Form.Control as="textarea" rows="1" value={pri.applicationTypeRemarks}/>
                             </Form.Group>
                         </Form.Row>
                         
                         <Form.Row>
                             <Col md={4}>
                             <Form.Group as={Col} controlId="projectType">
-                            <Form.Label>Project Type</Form.Label>
-                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({projectType:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}} >Project Type</Form.Label>
+                            <Form.Control as="textarea" rows="1" value={pri.projectType}/>
                             </Form.Group>
                             </Col>
 
                             <Form.Group as={Col} controlId="projectTypeRemarks">
-                            <Form.Label>Project Type Remarks</Form.Label>
-                            <Form.Control as="textarea" rows="1" onChange={(e)=>{this.setState({projectTypeRemarks:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}} >Project Type Remarks</Form.Label>
+                            <Form.Control as="textarea" rows="1" value={pri.projectTypeRemarks}/>
                             </Form.Group>
                         </Form.Row>
                        
                         <Form.Row>
                             <Form.Group as={Col} controlId="facilityOrEquipmentSupply">
-                            <Form.Label>Facility Or Equipment Supply</Form.Label>
-                            <Form.Control as="textarea" rows="2" onChange={(e)=>{this.setState({facilityOrEquipmentSupply:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}} >Facility Or Equipment Supply</Form.Label>
+                            <Form.Control as="textarea" rows="2" value={pri.facilityOrEquipmentSupply}/>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="facilityOrEquipmentCmts">
-                            <Form.Label>Facility Or Equipment Cmts</Form.Label>
-                            <Form.Control as="textarea" rows="2" onChange={(e)=>{this.setState({facilityOrEquipmentCmts:e.target.value})}} />
+                            <Form.Label style={{fontWeight:"bold"}} >Facility Or Equipment Cmts</Form.Label>
+                            <Form.Control as="textarea" rows="2" value={pri.facilityOrEquipmentCmts}/>
                             </Form.Group>
                         </Form.Row>
         
                         <Form.Row>
                             <Form.Group as={Col } >
-                            <Form.Check id="fixedStandardBulk"
+                            <Form.Check id="fixedStandardBulk" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Fixed Standard bulk installation with atm. vaporizers and other standard equipment"
-                            onChange={(e)=>{this.setState({fixedStandardBulk:e.target.checked})}}/>
+                            checked={pri.fixedStandardBulk}/>
                             </Form.Group>
 
                             <Form.Group as={Col}  md={2}>
-                            <Form.Check id="fixedBulkTankOnly"
+                            <Form.Check id="fixedBulkTankOnly" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Fixed bulk tank only"
-                            onChange={(e)=>{this.setState({fixedBulkTankOnly:e.target.checked})}}/>
+                            checked={pri.fixedBulkTankOnly}/>
                             </Form.Group>
 
                             <Form.Group as={Col} >
-                            <Form.Check id="onlySupplyOfProduct"
+                            <Form.Check id="onlySupplyOfProduct" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="No Installation, only supply of product  "
-                            onChange={(e)=>{this.setState({onlySupplyOfProduct:e.target.checked})}}/>
+                            checked={pri.onlySupplyOfProduct}/>
                             </Form.Group>
                         </Form.Row>
                             
                         <Form.Row >
                             <Form.Group as={Col} >
-                            <Form.Check id="mobile"
+                            <Form.Check id="mobile" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="mobile (transportable equipt…) "
-                            onChange={(e)=>{this.setState({mobile:e.target.checked})}}/>
+                            checked={pri.mobile}/>
                             </Form.Group>
                                 
                             <Form.Group as={Col}  >
-                            <Form.Check id="onBoardEquipment"
+                            <Form.Check id="onBoardEquipment" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="On Board Equipment"
                             onChange={(e)=>{this.setState({onBoardEquipment:e.target.checked})}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.onBoardEquipment}
-                            onChange={(e)=>{this.setState({onBoardEquipmentType:e.target.value})}} />
+                            checked={pri.onBoardEquipment}/>
                             </Form.Group>
                             <Form.Group as={Col}/>
                             
@@ -407,7 +155,7 @@ class priDisplay extends Component {
                         <Row><br/></Row>
                         <Form.Row>
                             <Form.Group as={Col} >
-                                <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic" }}>
+                                <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic", textDecoration:"underline" }}>
                                 3. Fluids used</Form.Label>
                             </Form.Group>
                        </Form.Row>
@@ -426,77 +174,74 @@ class priDisplay extends Component {
                         <Row><br/></Row>
                         <Form.Row>
                             <Form.Group as={Col} >
-                                <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic" }}>4. Site information</Form.Label>
+                                <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic",textDecoration:"underline"  }}>4. Site information</Form.Label>
                             </Form.Group>
                        </Form.Row>
                        
                        <Form.Row>
                             <Form.Group as={Col} >
-                                <Form.Label style={{ color:"black" , fontSize:"16px" , fontStyle:"italic" }}>4.1. Natural</Form.Label>
+                                <Form.Label style={{ color:"black" , fontSize:"16px" , fontStyle:"italic", textDecoration:"underline"  }}>4.1. Natural</Form.Label>
                             </Form.Group>
                        </Form.Row>
 
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="earthquake"
+                            <Form.Check id="earthquake" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="earthquake"
-                            onChange={(e)=>{this.setState({earthquake:e.target.checked})}}/>
+                            checked={pri.earthquake}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.earthquake}
                             placeHolder="Seismic Zone ..."
-                            onChange={(e)=>{this.setState({earthquakeCmt:e.target.value})}} />
+                            value={pri.earthquakeCmt} />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="operationAffectedRegulatedArea"
+                            <Form.Check id="operationAffectedRegulatedArea" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Operation affected by a regulated area (e.g. Natural Park)"
-                            onChange={(e)=>{this.setState({operationAffectedRegulatedArea:e.target.checked})}}/>
+                            checked={pri.operationAffectedRegulatedArea}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.operationAffectedRegulatedArea}
-                            onChange={(e)=>{this.setState({operationAffectedRegulatedAreaCmt:e.target.value})}} />
+                            value={pri.operationAffectedRegulatedAreaCmt} />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="weather"
+                            <Form.Check id="weather" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="weather"
-                            onChange={(e)=>{this.setState({weather:e.target.checked})}}/>
+                            checked={pri.weather}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.weather}
-                            onChange={(e)=>{this.setState({weatherCmt:e.target.value})}} />
+                            value={pri.weatherCmt} />
                             </Form.Group>
-
-                            
-
                         </Form.Row>
 
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="flooding"
+                            <Form.Check id="flooding" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="flooding"
-                            onChange={(e)=>{this.setState({flooding:e.target.checked})}}/>
+                            checked={pri.flooding}/>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="landslide"
+                            <Form.Check id="landslide" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="landslide"
-                            onChange={(e)=>{this.setState({landslide:e.target.checked})}}/>
+                            checked={pri.landslide}/>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="salinity"
+                            <Form.Check id="salinity" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="salinity"
-                            onChange={(e)=>{this.setState({salinity:e.target.checked})}}/>
+                            checked={pri.salinity}/>
                             </Form.Group>
 
                         </Form.Row>
@@ -504,23 +249,23 @@ class priDisplay extends Component {
                         <Form.Row>
                             
                             <Form.Group as={Col}  >
-                            <Form.Check id="createPotentialEnvironmental"
+                            <Form.Check id="createPotentialEnvironmental" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="May create potential environmental impact"
-                            onChange={(e)=>{this.setState({createPotentialEnvironmental:e.target.checked})}}/>
+                            checked={pri.createPotentialEnvironmental}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.createPotentialEnvironmental}
-                            onChange={(e)=>{this.setState({createPotentialEnvironmentalCmt:e.target.value})}} />
+                            value={pri.createPotentialEnvironmentalCmt}/>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="pollutionRemediation"
+                            <Form.Check id="pollutionRemediation" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Within or near site requiring pollution remediation "
-                            onChange={(e)=>{this.setState({pollutionRemediation:e.target.checked})}}/>
+                            checked={pri.pollutionRemediation}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.pollutionRemediation}
-                            onChange={(e)=>{this.setState({pollutionRemediationCmt:e.target.value})}} />
+                            value={pri.pollutionRemediationCmt}/>
                             </Form.Group>
 
                         </Form.Row>    
@@ -528,30 +273,32 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="operationsConditionsPotentially"
+                            <Form.Check id="operationsConditionsPotentially" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Operations and working conditions potentially affected by wildlife (insects , animals , rats , etc.)"
-                            onChange={(e)=>{this.setState({operationsConditionsPotentially:e.target.checked})}}/>
+                            checked={pri.operationsConditionsPotentially}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.operationsConditionsPotentially}
-                            onChange={(e)=>{this.setState({operationsConditionsPotentiallyCmt:e.target.value})}} />
+                            value={pri.operationsConditionsPotentiallyCmt}/>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="naturalCmts"
+                            <Form.Check id="naturalCmts" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Other / Comments"
-                            onChange={(e)=>{this.setState({naturalCmts:e.target.checked})}}/>
+                            onChange={(e)=>{this.setState({naturalCmts:e.target.checked})}}
+                            checked={pri.naturalCmts}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.naturalCmts}
-                            onChange={(e)=>{this.setState({naturalCmtsCmt:e.target.value})}} />
+                            value={pri.naturalCmtsCmt}/>
                             </Form.Group>
 
                         </Form.Row>
+                       
                         
                         <Form.Row>
                             <Form.Group as={Col} >
-                                <Form.Label style={{ color:"black" , fontSize:"16px" , fontStyle:"italic" }}>
+                                <Form.Label style={{ color:"black" , fontSize:"16px" , fontStyle:"italic" ,textDecoration:"underline" }}>
                                     4.2. Industrial</Form.Label>
                             </Form.Group>
                        </Form.Row>
@@ -559,18 +306,19 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="pollution"
+                            <Form.Check id="pollution" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Pollution"
-                            onChange={(e)=>{this.setState({pollution:e.target.checked})}}/>
+                           
+                            checked={pri.pollution}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.pollution}
-                            onChange={(e)=>this.setState({pollutionCmt:e.target.value})} />
+                            value={pri.pollutionCmt}/>
                             </Form.Group>
 
                             <Col md={{ offset:1 ,span:2}} >
                             <Row style={{height: .04*window.innerHeight + 'px'}}/>
-                            <Form.Check id="highVoltageLines"
+                            <Form.Check id="highVoltageLines" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="High voltage lines"
@@ -578,13 +326,13 @@ class priDisplay extends Component {
                             </Col>
 
                             <Form.Group as={Col }>
-                            <Form.Text>Capacity (Volt)</Form.Text>
+                            <Form.Text style={{fontWeight:"bold"}} >Capacity (Volt)</Form.Text>
                             <FormControl type={"number"} step={0.1} disabled={!this.state.highVoltageLines}
                             onChange={(e)=>{this.setState({highVoltageLinesCapacity:e.target.value})}} />
                             </Form.Group>
 
                             <Form.Group as={Col}>
-                            <Form.Text>Distance to tank (Meter)</Form.Text>
+                            <Form.Text style={{fontWeight:"bold"}} >Distance to tank (Meter)</Form.Text>
                             <FormControl type={"number"} step={0.1} disabled={!this.state.highVoltageLines}
                             onChange={(e)=>{this.setState({highVoltageLinesDistanceToTank:e.target.value})}} />
                             </Form.Group>
@@ -594,7 +342,7 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="limitedSpacing"
+                            <Form.Check id="limitedSpacing" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Limited Spacing"
@@ -604,17 +352,17 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="hazardousMaterialStorage"
+                            <Form.Check id="hazardousMaterialStorage" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Hazardous material storage"
-                            onChange={(e)=>{this.setState({hazardousMaterialStorage:e.target.checked})}}/>
+                            onChange={(e)=>{this.setState({hazardousMaterialStorage:e.target.checked})}} checked={pri.hazardousMaterialStorage}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.hazardousMaterialStorage}
                             onChange={(e)=>{this.setState({hazardousMaterialStorageCmt:e.target.value})}} />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="confinement"
+                            <Form.Check id="confinement" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="confinement"
@@ -629,7 +377,7 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="potentialExistingSitePollution"
+                            <Form.Check id="potentialExistingSitePollution" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Potential existing site pollution (soil)"
@@ -639,7 +387,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="proximityToHighRisk"
+                            <Form.Check id="proximityToHighRisk" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Proximity to high risk site"
@@ -649,7 +397,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="proximityOfCombustibleMaterial"
+                            <Form.Check id="proximityOfCombustibleMaterial" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Proximity of combustible material or heat source"
@@ -664,21 +412,21 @@ class priDisplay extends Component {
 
                             <Col md={{ offset:0 ,span:2}} >
                             <Row style={{height: .04*window.innerHeight + 'px'}}/>
-                            <Form.Check id="undergroundNetwork"
+                            <Form.Check id="undergroundNetwork" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Underground network"
                             onChange={(e)=>{this.setState({undergroundNetwork:e.target.checked})}}/>
                             </Col>
                             <Form.Group as={Col }>
-                            <Form.Text>Depth (Meters)</Form.Text>
+                            <Form.Text style={{fontWeight:"bold"}} >Depth (Meters)</Form.Text>
                             <FormControl type={"number"} step={0.1} disabled={!this.state.undergroundNetwork}
                             onChange={(e)=>{this.setState({undergroundNetworkDepth:e.target.value})}} />
                             </Form.Group>
                             <Col md={{ offset:1 ,span:6}} >
                             <Row style={{height: .04*window.innerHeight + 'px'}}/>
-                            <Form.Check id="properDrainage"
-                            custom={true}
+                            <Form.Check id="properDrainage" style={{fontWeight:"bold"}}
+                            custom={true} 
                             inline={true}
                             label="Is proper drainage system available to avoid the water
                             accumulation in case of heavy rain?"
@@ -691,7 +439,7 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="sittingInSafetyZone"
+                            <Form.Check id="sittingInSafetyZone" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Sitting in a safety zone created by a surrounding installation (ATEX, …)"
@@ -701,7 +449,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="customerEquipmentNotFullyCompatible"
+                            <Form.Check id="customerEquipmentNotFullyCompatible" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Customer equipment or area not fully compatible to the gas in use"
@@ -714,7 +462,7 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Col md={{ offset:0 ,span:6}} >
-                            <Form.Check id="industrialCmts"
+                            <Form.Check id="industrialCmts" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Other / Comments"
@@ -736,7 +484,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="residentialArea"
+                            <Form.Check id="residentialArea" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Residential area"
@@ -746,7 +494,7 @@ class priDisplay extends Component {
                             </Form.Group>
                             
                             <Form.Group as={Col}  >
-                            <Form.Check id="isolatedArea"
+                            <Form.Check id="isolatedArea" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Isolated area"
@@ -756,7 +504,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="publicBuilding"
+                            <Form.Check id="publicBuilding" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Public Building"
@@ -770,7 +518,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="siteAccessibility"
+                            <Form.Check id="siteAccessibility" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Issue with site accessibility"
@@ -780,7 +528,7 @@ class priDisplay extends Component {
                             </Form.Group>
                             
                             <Form.Group as={Col}  >
-                            <Form.Check id="transportationCorridor"
+                            <Form.Check id="transportationCorridor" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Transportation corridor"
@@ -790,7 +538,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="highSecurityRisk"
+                            <Form.Check id="highSecurityRisk" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="High security risk (terrorism, vandalism, etc)"
@@ -804,7 +552,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Col md={{ offset:0 ,span:6}} >
-                            <Form.Check id="populationCmts"
+                            <Form.Check id="populationCmts" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Other / Comments"
@@ -826,7 +574,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="financialSituation"
+                            <Form.Check id="financialSituation" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Financial situation (solvency) of the customer (pay on time, not healthy)"
@@ -837,7 +585,7 @@ class priDisplay extends Component {
                             
                             <Col md={{ offset:1 ,span:3}} >
                             <Row style={{height: .04*window.innerHeight + 'px'}}/>
-                            <Form.Check id="newBusinessCustomer"
+                            <Form.Check id="newBusinessCustomer" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="New business for the customer"
@@ -846,7 +594,7 @@ class priDisplay extends Component {
 
                             <Col md={{ offset:0 ,span:3}} >
                             <Row style={{height: .04*window.innerHeight + 'px'}}/>
-                            <Form.Check id="durabilityOfCustomerActivities"
+                            <Form.Check id="durabilityOfCustomerActivities" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Durability of customer activities"
@@ -857,7 +605,7 @@ class priDisplay extends Component {
 
                        <Form.Row>
                             <Form.Group as={Col}  >
-                            <Form.Check id="strategicCustomer"
+                            <Form.Check id="strategicCustomer" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Strategic customer (dedicated AL development for a new customer, new area,
@@ -869,7 +617,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .033*window.innerHeight + 'px'}}/>
-                            <Form.Check id="customerCmts"
+                            <Form.Check id="customerCmts" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Other / Comments"
@@ -890,7 +638,7 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="jointProjectThirdParties"
+                            <Form.Check id="jointProjectThirdParties" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Joint project with third parties"
@@ -900,17 +648,17 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="necessaryDesignAuthorities"
+                            <Form.Check id="necessaryDesignAuthorities" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="All necessary Design Authorities are not identified"
-                            onChange={(e)=>{this.setState({necessaryDesignAuthorities:e.target.checked})}}/>
+                            onChange={(e)=>{this.setState({necessaryDesignAuthorities:e.target.checked})}} check={pri.necessaryDesignAuthorities}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.necessaryDesignAuthorities}
                             onChange={(e)=>{this.setState({necessaryDesignAuthoritiesCmt:e.target.value})}} />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="jointProjectInvolvingAirLiquide"
+                            <Form.Check id="jointProjectInvolvingAirLiquide" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Joint project involving Air Liquide entities (E&C, ALHZ, etc..)"
@@ -924,7 +672,7 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="projectSubmittedToThirdParty"
+                            <Form.Check id="projectSubmittedToThirdParty" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Project submitted to third party validation List"
@@ -934,8 +682,8 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="equipmentSuppliedByCustomer"
-                            custom={true}
+                            <Form.Check id="equipmentSuppliedByCustomer" style={{fontWeight:"bold"}}
+                            custom={true} 
                             inline={true}
                             label="Equipments / services supplied by the customer"
                             onChange={(e)=>{this.setState({equipmentSuppliedByCustomer:e.target.checked})}}/>
@@ -944,7 +692,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="difficultyAccessExpertise"
+                            <Form.Check id="difficultyAccessExpertise" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Difficulty to access expertise"
@@ -958,7 +706,7 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="useStandBbyAssets"
+                            <Form.Check id="useStandBbyAssets" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Use of stand-by assets (not in use for a long time)"
@@ -968,7 +716,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="issueOfResource"
+                            <Form.Check id="issueOfResource" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Issue of resource (e.g. long lasting project)"
@@ -978,7 +726,7 @@ class priDisplay extends Component {
                             </Form.Group>
                             
                             <Form.Group as={Col}  >
-                            <Form.Check id="projectOrganisationCmts"
+                            <Form.Check id="projectOrganisationCmts" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Other / comment"
@@ -999,7 +747,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="equipmentTechnologySupplier"
+                            <Form.Check id="equipmentTechnologySupplier" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Equipment/Technology supplier:Qualified supplier(yes or no)"
@@ -1010,7 +758,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="majorProblemEncountered"
+                            <Form.Check id="majorProblemEncountered" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Major problem encountered on similar project"
@@ -1020,7 +768,7 @@ class priDisplay extends Component {
                             </Form.Group>
                             
                             <Form.Group as={Col}  >
-                            <Form.Check id="qualifiedValidatedEquipment"
+                            <Form.Check id="qualifiedValidatedEquipment" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Qualified / validated equipment (yes or no)"
@@ -1035,7 +783,7 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="requirementsUtilitiesSpecification"
+                            <Form.Check id="requirementsUtilitiesSpecification" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Requirements on utilities specification not fully covered (water specification …)"
@@ -1046,7 +794,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="newImposedAssociates"
+                            <Form.Check id="newImposedAssociates" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="New or imposed associates or contractors"
@@ -1057,7 +805,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="installatioProductRequireHazardous"
+                            <Form.Check id="installatioProductRequireHazardous" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Installation or product may require hazardous waste disposal / recycling cost now or
@@ -1074,7 +822,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="innovationNewlyDeveloped"
+                            <Form.Check id="innovationNewlyDeveloped" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Innovation and/or newly developed PPT"
@@ -1085,7 +833,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="productsRawMaterials"
+                            <Form.Check id="productsRawMaterials" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Products or raw materials may have negative impacts on health (e.g. carcinogenic)"
@@ -1097,7 +845,7 @@ class priDisplay extends Component {
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
 
-                            <Form.Check id="projectUsingInnovativePpt"
+                            <Form.Check id="projectUsingInnovativePpt" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Project using one or several innovative PPT"
@@ -1112,7 +860,7 @@ class priDisplay extends Component {
                          <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="operationHaveNegativeImpact"
+                            <Form.Check id="operationHaveNegativeImpact" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Operation may have negative impact on the environment (e.g. air emissions, energy
@@ -1124,7 +872,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="intellectualPropertyWatch"
+                            <Form.Check id="intellectualPropertyWatch" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Intellectual property watch"
@@ -1135,7 +883,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="riskAnalysisProject"
+                            <Form.Check id="riskAnalysisProject" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Risk analysis of the whole project (integration of risk analysis of subsystems)
@@ -1151,7 +899,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="lackMainEquipments"
+                            <Form.Check id="lackMainEquipments" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Lack of references for main equipments or suppliers"
@@ -1163,7 +911,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="previousRiskAnalysis"
+                            <Form.Check id="previousRiskAnalysis" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Previous risk analysis"
@@ -1174,7 +922,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="lackSimilarProcess"
+                            <Form.Check id="lackSimilarProcess" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Lack of experience with similar process / First application for subsidiary"
@@ -1208,7 +956,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="customizedPlant"
+                            <Form.Check id="customizedPlant" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Customized plant / equipment (tailor made)"
@@ -1220,7 +968,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="noOperatingExperienceSimilarProcess"
+                            <Form.Check id="noOperatingExperienceSimilarProcess" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="No operating experience of similar process / equipment"
@@ -1231,7 +979,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="newServiceBySubsidiary"
+                            <Form.Check id="newServiceBySubsidiary" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="New service offered by subsidiary (e.g. after-sales service, maintenance)"
@@ -1245,7 +993,7 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="potentialBackflow"
+                            <Form.Check id="potentialBackflow" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Potential backflow from the customer (leading to contamination, overpressure…)"
@@ -1256,7 +1004,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="includeTransportationActivities"
+                            <Form.Check id="includeTransportationActivities" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Include transportation activities"
@@ -1267,7 +1015,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="specialTraining"
+                            <Form.Check id="specialTraining" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Special training is required (e.g. for Electronics Specialty Gases)"
@@ -1282,7 +1030,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="operationDoneByCustomer"
+                            <Form.Check id="operationDoneByCustomer" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Operation done by a customer , third-party , contractor"
@@ -1294,7 +1042,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="unattendedFacility"
+                            <Form.Check id="unattendedFacility" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Unattended facility"
@@ -1305,7 +1053,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="operatingWithoutDesign"
+                            <Form.Check id="operatingWithoutDesign" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Operating conditions without design experience(e.g.filling hydrogen cylinders at
@@ -1320,7 +1068,7 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="remoteFillingLines"
+                            <Form.Check id="remoteFillingLines" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Remote filling lines are used between unloading point and filled storage tank"
@@ -1330,7 +1078,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="operationCmts"
+                            <Form.Check id="operationCmts" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Other / Comments"
@@ -1351,7 +1099,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="notFullyDefined"
+                            <Form.Check id="notFullyDefined" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Not fully defined"
@@ -1361,7 +1109,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="mandatoryCustomerStandards"
+                            <Form.Check id="mandatoryCustomerStandards" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Mandatory customer standards to be followed"
@@ -1371,7 +1119,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="technicalIssues"
+                            <Form.Check id="technicalIssues"  style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Technical issues"
@@ -1386,7 +1134,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="specificInsurance"
+                            <Form.Check id="specificInsurance" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Specific insurance required by the customer"
@@ -1397,7 +1145,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="contractualTargets"
+                            <Form.Check id="contractualTargets" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Contractual targets for reliability, availability, safety, quality (e.g. food safety)"
@@ -1407,7 +1155,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="requiredStudies"
+                            <Form.Check id="requiredStudies" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Required studies for operational permits (fire fighting, lightning protection, ATEX …)"
@@ -1421,7 +1169,7 @@ class priDisplay extends Component {
                         <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="requiredStudiesReliability"
+                            <Form.Check id="requiredStudiesReliability" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Required studies on reliability, availability, maintainability, safety"
@@ -1431,7 +1179,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="peakFlowRequirement"
+                            <Form.Check id="peakFlowRequirement" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Peak flow requirement if any; define the maximum duration & frequency of peak flow"
@@ -1442,7 +1190,7 @@ class priDisplay extends Component {
 
                             <Form.Group as={Col}  >
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>                            
-                            <Form.Check id="safetyIntegrityLevel"
+                            <Form.Check id="safetyIntegrityLevel" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Safety Integrity Level (SIL) study required"
@@ -1456,7 +1204,7 @@ class priDisplay extends Component {
 
                         <Form.Row>
                             <Col md={{ offset:0 ,span:6}}>
-                            <Form.Check id="processesProductsCmts"
+                            <Form.Check id="processesProductsCmts" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Other / Comments"
@@ -1479,7 +1227,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="regulatoryInformation"
+                            <Form.Check id="regulatoryInformation" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Regulatory Information not available (unclear..)"
@@ -1489,7 +1237,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="lackOfKnowledge"
+                            <Form.Check id="lackOfKnowledge" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Lack of knowledge of applicable safety / Environmental mandatory regulations"
@@ -1512,7 +1260,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="environmentalImpactStudy"
+                            <Form.Check id="environmentalImpactStudy" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Environmental impact study"
@@ -1520,7 +1268,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="societalRiskAnalysis"
+                            <Form.Check id="societalRiskAnalysis" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Societal risk analysis"
@@ -1528,7 +1276,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="explosiveAreaClassification"
+                            <Form.Check id="explosiveAreaClassification" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Explosive area classification"
@@ -1536,7 +1284,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="safetyHazardStudy"
+                            <Form.Check id="safetyHazardStudy" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Safety / Hazard study"
@@ -1567,7 +1315,7 @@ class priDisplay extends Component {
 
                             <Col md={3}>
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Form.Check id="areaClassificationElectrical"
+                            <Form.Check id="areaClassificationElectrical" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Area Classification / Electrical"
@@ -1575,7 +1323,7 @@ class priDisplay extends Component {
                             </Col>
 
                             <Col md={5}>
-                            <Form.Check id="pressureVesselRegulation"
+                            <Form.Check id="pressureVesselRegulation" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Pressure vessel regulation"
@@ -1589,7 +1337,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="transportationRegulation"
+                            <Form.Check id="transportationRegulation" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Transportation regulation, please specify"
@@ -1599,7 +1347,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="electricalEquipmentEegulation"
+                            <Form.Check id="electricalEquipmentEegulation" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Electrical equipment regulation"
@@ -1609,7 +1357,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="otherRegulation"
+                            <Form.Check id="otherRegulation" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Other regulation"
@@ -1623,7 +1371,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="softwareProcessControl"
+                            <Form.Check id="softwareProcessControl" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Software / Process Control devices (e.g. SIL level)"
@@ -1633,7 +1381,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="otherApplicablePermits"
+                            <Form.Check id="otherApplicablePermits" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="List other applicable permits"
@@ -1655,7 +1403,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="corporateImage"
+                            <Form.Check id="corporateImage" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Corporate image"
@@ -1665,7 +1413,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="financialLoss"
+                            <Form.Check id="financialLoss" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Financial loss"
@@ -1675,7 +1423,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="impactOnCustomer"
+                            <Form.Check id="impactOnCustomer" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Impact on customer"
@@ -1689,7 +1437,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="impactOnAL"
+                            <Form.Check id="impactOnAL" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Impact on other AL business lines"
@@ -1700,7 +1448,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="impactOnStrategic"
+                            <Form.Check id="impactOnStrategic" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Impact on strategic customers"
@@ -1710,7 +1458,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="contractualPenalties"
+                            <Form.Check id="contractualPenalties" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Contractual penalties"
@@ -1723,7 +1471,7 @@ class priDisplay extends Component {
 
                        <Form.Row>
                             <Col md={{span:6}}>
-                            <Form.Check id="consequencesCmts"
+                            <Form.Check id="consequencesCmts" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Other / Comments"
@@ -1745,7 +1493,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="technicalInspection"
+                            <Form.Check id="technicalInspection" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Technical inspection difficult prior to the completion of sale"
@@ -1755,7 +1503,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="significantDiscrepanciesAL"
+                            <Form.Check id="significantDiscrepanciesAL" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Significant discrepancies with AL standards"
@@ -1765,7 +1513,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="potentialNonComplianceSafety"
+                            <Form.Check id="potentialNonComplianceSafety" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Potential non-compliance with applicable safety regulations"
@@ -1779,7 +1527,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="potentialIssueCompetencies"
+                            <Form.Check id="potentialIssueCompetencies" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Potential issue with competencies/qualification of personnel"
@@ -1789,7 +1537,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="obsoleteEquipment"
+                            <Form.Check id="obsoleteEquipment" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Obsolete equipment"
@@ -1799,7 +1547,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="facilityAge"
+                            <Form.Check id="facilityAge" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Facility age"
@@ -1813,7 +1561,7 @@ class priDisplay extends Component {
                        <Form.Row>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="potentialNonComplianceEnvironmental"
+                            <Form.Check id="potentialNonComplianceEnvironmental" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Potential non-compliance with applicable environmental regulations"
@@ -1823,7 +1571,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Form.Check id="acquisitionCmts"
+                            <Form.Check id="acquisitionCmts" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Others"

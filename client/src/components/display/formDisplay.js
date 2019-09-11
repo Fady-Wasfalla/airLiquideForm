@@ -25,7 +25,9 @@ class formDisplay extends Component {
       cp:[],
       cif:{},
       showAsk:"",
-      priData:{}, /* { pri, fulids, utilities } */
+      // priData:{}, /* { pri, fluids, utilities } */
+      fluids:[],
+      utilities:[],
       cifResponseData:{}, /* { cifResponse,cifAP, cifFiles} */
       distributionsResponseData:{}, /* {distributions,distributionsAP,distributionsFiles} */
       irmrData:{}, /* {irmr,irmrAP, irmrFiles } */
@@ -48,14 +50,16 @@ class formDisplay extends Component {
         cp:res.data.formData.contactPerson,
         lvf:res.data.lvf,
         cif:res.data.cif,
-        priData:res.data.priData, 
+        pri:res.data.priData.pri, 
+        fluids:res.data.priData.fluids,
+        utilities:res.data.priData.utilities,
         cifResponseData:res.data.cifResponseData, 
         distributionsResponseData:res.data.distributionsResponseData, 
         irmrData:res.data.irmrData, 
         pdiData:res.data.pdiData, 
         sourcingsData:res.data.sourcingsData,
         financeData:res.data.financeData })
-        console.log(res.data.pdiData)        })
+        console.log(this.state.fluids)})
       .catch(err => alert(err.message))
      
     }
@@ -87,7 +91,9 @@ class formDisplay extends Component {
                 <Col md={{ span: 12, offset: 0 }}><CifDisplay CIF={this.state.cif} /></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><PriDisplay /></Col>
+                <Col md={{ span: 12, offset: 0 }}><PriDisplay PRI={this.state.pri} UTILITIES={this.state.utilities}
+                FLUIDS={this.state.fluids}
+                /></Col>
                 <Row><br/></Row>
 
                 <Col md={{ span: 12, offset: 0 }}><PreviousQuestions /></Col>
