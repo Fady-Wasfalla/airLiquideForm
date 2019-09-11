@@ -259,7 +259,7 @@ class logisticsValidationForm extends Component {
 
                             <Form.Group as={Col} controlId="purity" >
                             <Form.Label>Purity <span style={{color:"red"}}>✶</span></Form.Label>
-                            <FormControl type={"number"} step={0.1} required onChange={(e)=>{this.setState({purity:e.target.value})}} />
+                            <Form.Control type={"number"} step={0.1} required onChange={(e)=>{this.setState({purity:parseInt(e.target.value)})}} />
                             </Form.Group>
                         </Form.Row>
 

@@ -521,7 +521,7 @@ exports.getFormsDisplay = async (req, res) => {
     
    
     const dept = req.params.department
-    const forms = await Form.findAll()
+    const forms = await Form.findAll({order: [['id', 'DESC']]})
 
     let finalDecision = []
     for (let i = 0; i < forms.length; i++) {

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom'
 import { Form , Col , Row , Card, Button , Spinner , ToggleButtonGroup ,ButtonToolbar,ToggleButton } from "react-bootstrap";
 import axios from 'axios'
+import Select from 'react-select'
 
 
 
@@ -19,6 +20,10 @@ class cases extends Component {
         loading: true,
         department:"",
         screensNames:[],
+        chosenField:"allForms",
+        search:"",
+        searchType:"Customer Name",
+        searchPlaceHolder:"Enter Company/Customer Name ..."
       }
 
      
@@ -75,9 +80,80 @@ class cases extends Component {
         }
     }
 
+    print = (e)=>{
+        console.log()
+    }
+
+    filterByCustomerName = (e,type) =>{
+        this.setState({search:e})
+        let forms = []
+        let proccessing = []
+        switch(this.state.chosenField){
+            case "allForms" :   forms=this.state.allForms 
+                                proccessing = this.state.allFds; break ;
+            case "pending" :    forms=this.state.pendingForms  
+                                proccessing = this.state.pendingFds ; break ;
+            case "Finished" :   forms=this.state.submittedForms 
+                                proccessing = this.state.submittedFds ; break ;
+            default :   forms=this.state.allForms 
+                        proccessing = this.state.allFds ; break ;
+        }
+        let display = []
+        let displayProccessing = []
+        for (let i=0;i<forms.length;i++){
+            switch(type){
+                case "Id" : if( e!==null&&forms[i].id!==null){
+                                if (forms[i].id===parseInt(e)){
+                                    display = display.concat(forms[i])
+                                    displayProccessing = displayProccessing.concat(proccessing[i])
+                                }
+                            } break ;
+                 case "Date" : if( e!==null&&forms[i].date!==null){
+                                if ((forms[i].date).toLowerCase().includes(e.toLowerCase())){
+                                    display = display.concat(forms[i])
+                                    displayProccessing = displayProccessing.concat(proccessing[i])
+                                }
+                            } break ;
+                case "Customer Name" : if( e!==null&&forms[i].name!==null){
+                                if ((forms[i].name).toLowerCase().includes(e.toLowerCase())){
+                                    display = display.concat(forms[i])
+                                    displayProccessing = displayProccessing.concat(proccessing[i])
+                                }
+                            } break ;
+                case "Sales Employee" : if( e!==null&&forms[i].employeeName!==null){
+                                if ((forms[i].employeeName).toLowerCase().includes(e.toLowerCase())){
+                                    display = display.concat(forms[i])
+                                    displayProccessing = displayProccessing.concat(proccessing[i])
+                                }
+                            } break ;
+                default : if( e!==null&&forms[i].name!==null){
+                                if ((forms[i].name).toLowerCase().includes(e.toLowerCase())){
+                                    display = display.concat(forms[i])
+                                    displayProccessing = displayProccessing.concat(proccessing[i])
+                                }
+                            } break ;
+            }
+            
+        }
+        this.setState({displayedForm:display})
+        this.setState({displayedFd:displayProccessing})
+    }
+
+    searchTypeHandleChange = (e) =>{
+        this.setState({searchType:e.value})
+        this.filterByCustomerName(this.state.search,e.value)
+        switch(e.value){
+            case "Id" : this.setState({searchPlaceHolder:"Enter ID Number ..."}) ; break ;
+             case "Date" : this.setState({searchPlaceHolder:"Enter date (ex : YYYY-MM-DD)"}) ; break ;
+            case "Customer Name" : this.setState({searchPlaceHolder:"Enter Company/Customer Name ..."}) ; break ;
+            case "Sales Employee" : this.setState({searchPlaceHolder:"Enter Employee Name ..."}) ; break ;
+            default :  break ;
+        }
+    }
+
 
     
-      render() {
+    render() {
           return (
             this.state.loading ? <div className='App'><Spinner animation='border' variant='primary' /></div> :
             <React.Fragment>
@@ -85,13 +161,40 @@ class cases extends Component {
                 <Col md={{ span: 12, offset: 0 }}>           
 
                 <Card.Header>
-                <ButtonToolbar>
-                    <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                    <ToggleButton value={1} onClick={(e)=>this.setState({displayedForm:this.state.allForms , displayedFd:this.state.allFds})}>All</ToggleButton>
-                    <ToggleButton value={2} onClick={(e)=>this.setState({displayedForm:this.state.pendingForms , displayedFd:this.state.pendingFds })}>pending</ToggleButton>
-                    <ToggleButton value={3} onClick={(e)=>this.setState({displayedForm:this.state.submittedForms , displayedFd:this.state.submittedFds })}>Finished</ToggleButton>
-                    </ToggleButtonGroup>
-                </ButtonToolbar>
+                <Row>
+                        <Col>
+                        <ButtonToolbar>
+                            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+                            <ToggleButton value={1} onClick={(e)=>{this.setState({displayedForm:this.state.allForms , displayedFd:this.state.allFds , chosenField:"allForms"})
+                            this.filterByCustomerName(this.state.search,this.state.searchType)}}>All</ToggleButton>
+                            <ToggleButton value={2} onClick={(e)=>{this.setState({displayedForm:this.state.pendingForms , displayedFd:this.state.pendingFds , chosenField:"pending" })
+                            this.filterByCustomerName(this.state.search,this.state.searchType)}}>pending</ToggleButton>
+                            <ToggleButton value={3} onClick={(e)=>{this.setState({displayedForm:this.state.submittedForms , displayedFd:this.state.submittedFds , chosenField:"Finished"})
+                            this.filterByCustomerName(this.state.search,this.state.searchType)}}>Finished</ToggleButton>
+                            </ToggleButtonGroup>
+                        </ButtonToolbar>
+                        </Col>
+
+                        <Form.Group as={Col}>
+                        <Form.Label>Search by :</Form.Label>
+                            <Select
+                                                value={this.state.searchType.value}
+                                                onChange={(e)=>{this.searchTypeHandleChange(e)}}
+                                                options={ [
+                                                            { value: 'Id', label: 'Id' },
+                                                            { value: 'Date', label: 'Date' },
+                                                            { value: 'Customer Name', label: 'Customer Name' },
+                                                            { value: 'Sales Employee', label: 'Sales Employee' },
+                                                        ]}
+                            />
+                        </Form.Group>
+
+                        <Form.Group as={Col}>
+                            <Form.Label>Search :</Form.Label>
+                            <Form.Control as="textarea" rows="1" placeHolder={this.state.searchPlaceHolder} onChange={(e)=>{{this.filterByCustomerName(e.target.value,this.state.searchType)}}}/>
+                        </Form.Group>
+
+                </Row>
                 </Card.Header>
                 <Row><br/></Row>
                 
@@ -123,6 +226,11 @@ class cases extends Component {
                                     <Form.Row>
                                         <Card.Text style={{fontWeight:"bold"}}>Final Decision : </Card.Text>
                                         {this.getColor(this.state.displayedFd[index])}
+                                    </Form.Row>
+
+                                    <Form.Row>
+                                        <Card.Text style={{fontWeight:"bold"}}>Sales Employee : </Card.Text>
+                                        {this.state.displayedForm[index].employeeName}
                                     </Form.Row>
 
                                 </Form>
