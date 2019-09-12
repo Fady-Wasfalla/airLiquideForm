@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import './App.css'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Footer from './components/footer'
-import Admin from './components/admin/adminHome'
 import FillForm from './components/fillForm'
 import FleatFeedback from './components/feedback/fleatFeedback'
 import DistributionFeedback from './components/feedback/distributionFeedback'
@@ -17,8 +16,8 @@ import viewQuestion from './components/screens/viewQuestion'
 import Header from './components/header'
 import Home from './components/screens/home'
 import axios from "axios"
-import salesFeedback from "./components/feedback/salesFeedback";
-
+import AdminAddEmployee from './components/admin/editEmployee'
+import AdminAddPermission from './components/admin/editPermissions'
 
 import DistributionDisplay from './components/display/feedbackDisplay/distributionDisplay'
 
@@ -59,7 +58,8 @@ class App extends Component {
       />
       
       <Switch>
-        <Route exact path='/admin' component={Admin} />
+        <Route exact path='/editEmplyoyee' component={AdminAddEmployee} />        
+        <Route exact path='/editPermissions' component={AdminAddPermission} />        
         <Route exact path='/fillForm' component={FillForm} />
         <Route exact path='/distributionFeedback/:id' component={DistributionFeedback} />
         <Route exact path='/financeFeedback/:id' component={FinanceFeedback} />

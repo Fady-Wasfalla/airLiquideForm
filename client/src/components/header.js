@@ -55,6 +55,17 @@ class header extends Component {
                         </NavDropdown> 
                     )
                   }
+                  if ( this.props.screensNames[index]==='Admin'){
+                    let editEmplyoyee = 'http://localhost:3000/editEmplyoyee'
+                    let getMyQuestions = 'http://localhost:3000/getMyQuestions/'+sessionStorage.getItem('employeeName')
+                    let href = 'http://localhost:3000/cases/' + this.props.screensNames[index]
+                    return(
+                          <NavDropdown title="Admin" id="nav-dropdown" drop={"right"}>
+                          <NavDropdown.Item href={editEmplyoyee}>Add/Edit Employee</NavDropdown.Item>
+                          <NavDropdown.Item href={getMyQuestions}>Permissions</NavDropdown.Item>
+                          </NavDropdown> 
+                      )
+                    }
                   else{
                     let href = 'http://localhost:3000/cases/' + this.props.screensNames[index]
                   return (
