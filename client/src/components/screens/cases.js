@@ -84,7 +84,7 @@ class cases extends Component {
         console.log()
     }
 
-    filterByCustomerName = (e,type) =>{
+    filterBy = (e,type) =>{
         this.setState({search:e})
         let forms = []
         let proccessing = []
@@ -141,7 +141,7 @@ class cases extends Component {
 
     searchTypeHandleChange = (e) =>{
         this.setState({searchType:e.value})
-        this.filterByCustomerName(this.state.search,e.value)
+        this.filterBy(this.state.search,e.value)
         switch(e.value){
             case "Id" : this.setState({searchPlaceHolder:"Enter ID Number ..."}) ; break ;
              case "Date" : this.setState({searchPlaceHolder:"Enter date (ex : YYYY-MM-DD)"}) ; break ;
@@ -160,22 +160,24 @@ class cases extends Component {
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>           
 
-                <Card.Header>
+                <Card border="dark">
+                <Card.Header className="text-black" style={{backgroundColor:"#fff"}}>
                 <Row>
                         <Col>
+                        <Form.Label>Display :</Form.Label>
                         <ButtonToolbar>
-                            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                            <ToggleButton value={1} onClick={(e)=>{this.setState({displayedForm:this.state.allForms , displayedFd:this.state.allFds , chosenField:"allForms"})
-                            this.filterByCustomerName(this.state.search,this.state.searchType)}}>All</ToggleButton>
-                            <ToggleButton value={2} onClick={(e)=>{this.setState({displayedForm:this.state.pendingForms , displayedFd:this.state.pendingFds , chosenField:"pending" })
-                            this.filterByCustomerName(this.state.search,this.state.searchType)}}>pending</ToggleButton>
-                            <ToggleButton value={3} onClick={(e)=>{this.setState({displayedForm:this.state.submittedForms , displayedFd:this.state.submittedFds , chosenField:"Finished"})
-                            this.filterByCustomerName(this.state.search,this.state.searchType)}}>Finished</ToggleButton>
+                            <ToggleButtonGroup type="radio" name="options" defaultValue={1} >
+                            <ToggleButton variant="primary" size="sm" value={1} onClick={(e)=>{this.setState({displayedForm:this.state.allForms , displayedFd:this.state.allFds , chosenField:"allForms"})
+                            this.filterBy(this.state.search,this.state.searchType)}}>All Requests</ToggleButton>
+                            <ToggleButton variant="primary" size="sm" value={2} onClick={(e)=>{this.setState({displayedForm:this.state.pendingForms , displayedFd:this.state.pendingFds , chosenField:"pending" })
+                            this.filterBy(this.state.search,this.state.searchType)}}>Pending Requests</ToggleButton>
+                            <ToggleButton variant="primary" size="sm" value={3} onClick={(e)=>{this.setState({displayedForm:this.state.submittedForms , displayedFd:this.state.submittedFds , chosenField:"Finished"})
+                            this.filterBy(this.state.search,this.state.searchType)}}>Finished Requests</ToggleButton>
                             </ToggleButtonGroup>
                         </ButtonToolbar>
                         </Col>
 
-                        <Form.Group as={Col}>
+                        <Form.Group as={Col} md={{offset:2,span:2}}>
                         <Form.Label>Search by :</Form.Label>
                             <Select
                                                 value={this.state.searchType.value}
@@ -191,11 +193,12 @@ class cases extends Component {
 
                         <Form.Group as={Col}>
                             <Form.Label>Search :</Form.Label>
-                            <Form.Control as="textarea" rows="1" placeHolder={this.state.searchPlaceHolder} onChange={(e)=>{{this.filterByCustomerName(e.target.value,this.state.searchType)}}}/>
+                            <Form.Control as="textarea" rows="1" placeHolder={this.state.searchPlaceHolder} onChange={(e)=>{{this.filterBy(e.target.value,this.state.searchType)}}}/>
                         </Form.Group>
 
                 </Row>
                 </Card.Header>
+                </Card>
                 <Row><br/></Row>
                 
                 <Row>

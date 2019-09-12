@@ -28,7 +28,8 @@ class distributionDisplay extends Component {
      
       render() {
         let newResponseData = this.props.DistributionsResponseData
-        let ResponseData = Object.assign([{}],newResponseData)
+        let ResponseData = Object.assign({},newResponseData)
+        let Distributions = Object.assign({},ResponseData.distributions)
         return (
             <React.Fragment>
                 <Col md={{ span: 12, offset: 0 }}>
@@ -46,6 +47,27 @@ class distributionDisplay extends Component {
                 
                 <Form>
 
+                
+                <Col md={{ span: 12, offset: 0 }}>
+                <Col md={{ span: 12, offset: 0 }}>
+                <Row>
+                <Col md={{span:4}}>
+                <Form.Label style={{fontWeight:"bold"}}>Tank Size :</Form.Label>
+                <Form.Label>{Distributions.customerTank}</Form.Label>
+                </Col>
+                <Col md={{span:4}}>
+                <Form.Label style={{fontWeight:"bold"}}>Supply Time From :</Form.Label>
+                <Form.Label>{Distributions.supplyTimeFrom}</Form.Label>                
+                </Col>
+                <Col md={{span:4}}>
+                <Form.Label style={{fontWeight:"bold"}}>Supply Time To :</Form.Label>
+                <Form.Label>{Distributions.supplyTimeTo}</Form.Label>
+                </Col>
+                </Row>
+                </Col>
+                </Col>
+                
+                <br/>
                 <Col md={{ span: 12, offset: 0 }}><ResponseDisplay FinalDecision={ResponseData.distributions} 
                 AP={ResponseData.distributionsAP} Files={ResponseData.distributionsFiles}/>
                 </Col>
