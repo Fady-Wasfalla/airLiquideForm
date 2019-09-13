@@ -130,6 +130,7 @@ class editEmployee extends Component {
                     <Card.Header>
                     <Row>
                     <Col>
+                    <Row style={{height: .04*window.innerHeight + 'px'}}/>
                     <Form.Label style={{ fontSize:"20px" , fontWeight:"bold"}}>Edit Employee</Form.Label>
                     </Col>
                     <Col>
