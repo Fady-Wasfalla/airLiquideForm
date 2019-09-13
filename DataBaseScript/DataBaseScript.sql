@@ -16,11 +16,29 @@ name VARCHAR(7000) not null unique ,
 )
 Go 
 
+INSERT into Screen ([name]) VALUES ('Distribution')
+GO
+INSERT into Screen ([name]) VALUES ('Sourcing')
+GO
+INSERT into Screen ([name]) VALUES ('Fleat')
+GO
+INSERT into Screen ([name]) VALUES ('PR')
+GO
+INSERT into Screen ([name]) VALUES ('CI')
+GO
+INSERT into Screen ([name]) VALUES ('Sales')
+GO
+INSERT into Screen ([name]) VALUES ('Finance')
+GO
+INSERT into Screen ([name]) VALUES ('Admin')
+GO
+
 
 Create table [Permission](
 id int IDENTITY(1,1) PRIMARY KEY,
 employeeId int ,
 screenId int ,
+[enabled] BIT DEFAULT 0 not null ,
 FOREIGN KEY(employeeId) REFERENCES Employee(id),
 FOREIGN KEY(screenId) REFERENCES Screen(id),
 )

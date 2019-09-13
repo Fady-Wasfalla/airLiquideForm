@@ -15,6 +15,7 @@ class editEmployee extends Component {
         loading: true,
         displayedEmployee:[],
         allEmployee:[],
+        search:""
     }
 
     componentWillMount(){
@@ -30,7 +31,7 @@ class editEmployee extends Component {
 
     addEmployee=()=>{
         axios
-        .post('http://localhost:8000/api/employees',this.state)
+        .post('http://localhost:8000/api/employees/addEmployee',this.state)
         .then(res => alert("New Employee is added successfully"))
         .catch(err => alert(err.message))
     }
@@ -44,11 +45,23 @@ class editEmployee extends Component {
 
     displayActivation =(e)=>{
         if (e===true){
-            return <Card.Text style={{color:"green"}}>✔</Card.Text>
+            return <Card.Text style={{color:"green"}}>Activated</Card.Text>
         }
         else{
-            return <Card.Text style={{color:"red"}}>✘</Card.Text>
+            return <Card.Text style={{color:"red"}}>Deactivated</Card.Text>
         }
+    }
+
+    filter=(e)=>{
+        this.setState({search:e})
+        let employees = this.state.allEmployee
+        let displayed=[]
+        for (let i=0;i<employees.length;i++){
+            if ((employees[i].userName).toLowerCase().includes(e.toLowerCase())){
+                    displayed = displayed.concat(employees[i])
+            }
+        }
+        this.setState({displayedEmployee:displayed})
     }
 
       
@@ -64,7 +77,7 @@ class editEmployee extends Component {
                 <Col md={12}>
 
                     <Card border="primary">
-                    <Card.Header>Add New Employee</Card.Header>
+                    <Card.Header style={{ fontSize:"20px" , fontWeight:"bold"}}>Add New Employee</Card.Header>
                     <br/>
                     <Col md={12}>
                     <Form onSubmit={this.addEmployee}>
@@ -114,7 +127,17 @@ class editEmployee extends Component {
 
                     <br/>
                     <Card border="primary">
-                    <Card.Header>Edit Employee</Card.Header>
+                    <Card.Header>
+                    <Row>
+                    <Col>
+                    <Form.Label style={{ fontSize:"20px" , fontWeight:"bold"}}>Edit Employee</Form.Label>
+                    </Col>
+                    <Col>
+                    <Form.Label>Search :</Form.Label>
+                    <Form.Control as="textarea" rows="1" onChange={(e)=>{{this.filter(e.target.value)}}}/>
+                    </Col>
+                    </Row>
+                    </Card.Header>
                     <br/>
                     <Col md={12}>
                     <Row>
@@ -127,9 +150,7 @@ class editEmployee extends Component {
                                
                                 <Row><br/></Row>
                                 <Col md={12}>
-                                <Row>              
-                                <Col md={7}>
-                                <Form>
+                             
 
                                     <Form.Row>
                                         <Card.Text style={{fontWeight:"bold"}}>Name : </Card.Text>
@@ -146,28 +167,17 @@ class editEmployee extends Component {
                                         <Card.Text>{this.state.displayedEmployee[index].departement} </Card.Text>
                                     </Form.Row>
                                     
-                                    <Form.Row>
-                                        <Row>
-                                        <Col md={{span:6}}>
-                                        <Card.Text style={{fontWeight:"bold"}}>Activation :</Card.Text>
-                                        </Col>
-                                        <Col md={{span:1}}>
-                                        {this.displayActivation(this.state.displayedEmployee[index].activation)}
-                                        </Col>
-                                        <Col md={{offset:1,span:1}}>
-                                        <Popup trigger={<Button size="small" variant="outline-danger"> Edit </Button>} modal><ShowEmployee Data={this.state.displayedEmployee[index]}/></Popup>
-                                        </Col>
-                                        </Row>
+                                   <Form.Row>
+                                        <Card.Text style={{fontWeight:"bold"}}>Status : </Card.Text>
+                                        <Card.Text style={{fontWeight:"bold"}}>{this.displayActivation(this.state.displayedEmployee[index].activation)}</Card.Text>
                                     </Form.Row>
-                                </Form>
-                                </Col>
-                                
-                                <Form.Row>
-                                <Col md={{offset:9,span:2}}>
-                                </Col>
-                                </Form.Row>
 
-                                </Row>
+                                    <Form.Row>
+                                        <Col md={{offset:5}}>
+                                            <Popup trigger={<Button size="small" variant="outline-danger"> Edit </Button>} modal><ShowEmployee Data={this.state.displayedEmployee[index]}/></Popup>
+                                        </Col>
+                                    </Form.Row>
+                              
                                 </Col>
                                 <Row><br/></Row>
                                 </Card>
