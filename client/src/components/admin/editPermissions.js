@@ -78,7 +78,18 @@ class editEmployee extends Component {
             <React.Fragment>
                 <br/>
                 <Card border="secondary" >
-                <Card.Header as="h5" className="bg-dark text-white" >Edit Permissions</Card.Header>
+                    <Row>
+                    <Col>
+                    <Row style={{height: .04*window.innerHeight + 'px'}}/>
+                    <Form.Label style={{ fontSize:"20px" , fontWeight:"bold"}}>Edit Permissions</Form.Label>
+                    </Col>
+                    <Col>
+                    <Form.Label>Search :</Form.Label>
+                    <Form.Control as="textarea" rows="1" onChange={(e)=>{{this.filter(e.target.value)}}}/>
+                    </Col>
+                    </Row>
+                <Row><br/></Row>
+                </Card>
                 <Row><br/></Row>
                 <Col md={12}>
                 <Row>
@@ -170,7 +181,6 @@ class editEmployee extends Component {
                     </Row>
                 </Col>
                 <br/>
-                </Card>
                 <br/>
                 <br/>
             </React.Fragment>
