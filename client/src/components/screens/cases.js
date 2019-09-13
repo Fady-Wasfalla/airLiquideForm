@@ -144,7 +144,7 @@ class cases extends Component {
         this.filterBy(this.state.search,e.value)
         switch(e.value){
             case "Id" : this.setState({searchPlaceHolder:"Enter ID Number ..."}) ; break ;
-             case "Date" : this.setState({searchPlaceHolder:"Enter date (ex : YYYY-MM-DD)"}) ; break ;
+            case "Date" : this.setState({searchPlaceHolder:"Enter date (ex : YYYY-MM-DD)"}) ; break ;
             case "Customer Name" : this.setState({searchPlaceHolder:"Enter Company/Customer Name ..."}) ; break ;
             case "Sales Employee" : this.setState({searchPlaceHolder:"Enter Employee Name ..."}) ; break ;
             default :  break ;

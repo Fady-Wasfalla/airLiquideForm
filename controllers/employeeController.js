@@ -472,13 +472,14 @@ exports.pdiFB = async (req, res) => {
 exports.getStarted = async (req, res) => {
   try {
     const employee = await Model.findOne({ where: { userName: employeeName } })
+    console.log(employee.activation)
     if (employee.activation === false) {
       return res.json({
         status: 'Failed',
         message: 'Your account is deactivated 🤦 , Contact IT departement '
       })
     }
-    const permissions = await Permission.findAll({ where: { employeeId: employee.id } })
+    const permissions = await Permission.findAll({ where: { employeeId: employee.id , enabled:true } })
 
     if (permissions.length === 0) {
       return res.json({
@@ -845,4 +846,117 @@ exports.showFormData = async (req, res) => {
       message: error.message
     })
   }
+}
+
+
+exports.getPermissions = async (req, res) => {
+  try{
+    Model.hasMany(Permission, { foreignKey: 'employeeId' })
+    Permission.belongsTo(Model, { foreignKey: 'employeeId' })
+    Screen.hasMany(Permission, { foreignKey: 'screenId' })
+    Permission.belongsTo(Screen, { foreignKey: 'screenId' })
+    
+    const employees = await Model.findAll({
+                include: [{
+                  model: Permission,
+                  include: [{
+                      model: Screen,
+                  }]
+                }]
+              })
+    
+    return res.json({
+      status: 'Success',
+      data:employees
+    })
+
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  } 
+}
+
+
+
+exports.addEmployee = async (req, res) => {
+  try{
+    const employee = await Model.create(req.body)
+    const screenIds = await Screen.findAll()
+    for (let i=0 ; i<screenIds.length ; i++){
+      const permission = await Permission.create({employeeId:employee.id , screenId:screenIds[i].id})
+    }
+
+    return res.json({
+      status: 'Success',
+      message: 'you can work now',
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  } 
+}
+
+exports.editPermissions = async (req, res) => {
+  try{
+    Screen.hasMany(Permission, { foreignKey: 'screenId' })
+    Permission.belongsTo(Screen, { foreignKey: 'screenId' })
+    
+    let {employeeId} = req.body
+    let {distribution} = req.body
+    let {sourcing} = req.body
+    let {fleat} = req.body
+    let {pR} = req.body
+    let {cI} = req.body
+    let {sales} = req.body
+    let {finance} = req.body
+    let {admin} = req.body
+    
+    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
+                                                                model: Screen,
+                                                                where:{name:"Distribution" }
+                                                                    }]}).then(r => Permission.update({enabled:distribution} , {where:{id:r.id}} ))
+    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
+                                                                model: Screen,
+                                                                where:{name:"Sourcing" }
+                                                                    }]}).then(r => Permission.update({enabled:sourcing} , {where:{id:r.id}} ))
+    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
+                                                                model: Screen,
+                                                                where:{name:"Fleat" }
+                                                                    }]}).then(r => Permission.update({enabled:fleat} , {where:{id:r.id}} ))
+    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
+                                                                model: Screen,
+                                                                where:{name:"PR" }
+                                                                    }]}).then(r => Permission.update({enabled:pR} , {where:{id:r.id}} ))     
+    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
+                                                                model: Screen,
+                                                                where:{name:"CI" }
+                                                                    }]}).then(r => Permission.update({enabled:cI} , {where:{id:r.id}} ))
+    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
+                                                                model: Screen,
+                                                                where:{name:"Sales" }
+                                                                    }]}).then(r => Permission.update({enabled:sales} , {where:{id:r.id}} ))
+    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
+                                                                model: Screen,
+                                                                where:{name:"Finance" }
+                                                                    }]}).then(r => Permission.update({enabled:finance} , {where:{id:r.id}} ))
+    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
+                                                                model: Screen,
+                                                                where:{name:"Admin" }
+                                                                    }]}).then(r => Permission.update({enabled:admin} , {where:{id:r.id}} ))
+    
+    return res.json({
+      status: 'Success',
+      
+    })
+
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  } 
 }
