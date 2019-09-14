@@ -9,8 +9,6 @@ class customerBiDisplay extends Component {
         date: new Date(),
         address:"",
         zone:"",
-        address:"",
-
         open:false,
     }
     componentWillMount(){

@@ -50,13 +50,13 @@ class App extends Component {
   
   render() {
   return (
-    <div style={{  'overflow-x':'hidden' }}>
+    <div style={{  'overflowX':'hidden' }}>
     <Router>
       <link
         rel='stylesheet'
         href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
         integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T'
-        crossorigin='anonymous' />
+        crossOrigin='anonymous' />
       <Route render={(props) => <Header {...props} screensNames={this.state.screensNames} /> } />
       <Route
       path='/home'

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card, Button } from "react-bootstrap";
 import FormDisplay from '../display/formDisplay'
-import Upload from '../upload'
 import axios from 'axios'
 
 

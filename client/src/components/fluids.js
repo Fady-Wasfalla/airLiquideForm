@@ -276,7 +276,7 @@ class fluids extends Component {
                                             <Form.Group as={Col} >
                                             <Row style={{height: .044*window.innerHeight + 'px'}}/>
                                             <Form.Control as="textarea" rows="2" 
-                                            placeHolder={"if there are more than three natures , Write them all here"}
+                                            placeholder={"if there are more than three natures , Write them all here"}
                                             onChange={(e)=>this.natureOtherHandleChange(e , index)} value={this.state.natureOther[index]}/>
                                             </Form.Group>
                                             </Form.Row>

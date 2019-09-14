@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Form , Col , Row , Card , Button } from "react-bootstrap";
-import Select from 'react-select';
 import DatePicker from "react-datepicker";
-import TimePicker from "react-time-picker"
 import "react-datepicker/dist/react-datepicker.css";
 
 

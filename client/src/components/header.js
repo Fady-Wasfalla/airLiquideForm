@@ -27,6 +27,7 @@ class header extends Component {
               <NavDropdown title="Departements" id="nav-dropdown">
               {
                 this.props.screensNames.map((form,index)=>{
+                  
                   if ( this.props.screensNames[index]==='Sales'){
                   let newRequest = 'http://localhost:3000/fillForm'
                   let getMyQuestions = 'http://localhost:3000/getMyQuestions/'+sessionStorage.getItem('employeeName')
