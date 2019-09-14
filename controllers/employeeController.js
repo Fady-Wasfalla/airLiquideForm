@@ -34,7 +34,16 @@ const FormFiles = require('../models/FormFiles')
 const Question = require('../models/Question')
 const os = require('os')
 const employeeName = os.userInfo().username
-
+const emailUserName = require('../config/keys').user
+const emailPassword = require('../config/keys').pass
+const nodemailer = require('nodemailer')
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: emailUserName,
+    pass: emailPassword
+  }
+})
 const tzoffset = (new Date()).getTimezoneOffset() * 60000
 const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
 exports.default = async (req, res) => {
