@@ -1026,6 +1026,7 @@ class priDisplay extends Component {
                             value={pri.includeTransportationActivitiesType } />
                             </Col>
                             </Row>
+                            </Col>
                             </Form.Group>
 
                             <Form.Group as={Col}  >
