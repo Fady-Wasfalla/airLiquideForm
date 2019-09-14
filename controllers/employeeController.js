@@ -95,6 +95,7 @@ exports.newForm = async (req, res) => {
         }
       }
     }
+    console.log(99,tzoffset)
     // creating the lvf of the form
     await Lvf.create({ formId, ...lvf })
     // creating the cif of the form
@@ -679,7 +680,7 @@ exports.getQuestions = async (req, res) => {
     Form.hasMany(Question, { foreignKey: 'id' })
     Question.belongsTo(Form, { foreignKey: 'formId' })
     const userName = req.params.userName
-    const questions = await Question.findAll({
+    const questions = await Question.findAll({order: [['id', 'DESC']] ,
       include: [{
         model: Form,
         required: true,

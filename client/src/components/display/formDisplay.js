@@ -35,7 +35,7 @@ class formDisplay extends Component {
       pdiData:{}, /* {pdi,pdiAP,pdiFiles} ======> pdi conatins { pdiTemp, fireExtinguishers } */
       sourcingsData:{}, /* { sourcings,sourcingsAP, sourcingsFile} */
       openFeedback:false,
-      open:false,
+      open:true,
     }
 
     componentWillMount(){ 
