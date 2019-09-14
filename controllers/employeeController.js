@@ -448,13 +448,15 @@ exports.pdiFB = async (req, res) => {
       }
     }
     console.log(446, fireExt)
-    if (fireExt.number.length > 0) {
+    if (fireExt.length > 0) {
+      if (fireExt.number.length > 0) {
       console.log(448, fireExt.number.length)
       for (let i = 0; i < fireExt.number.length; i++) {
         let fireExtData = {
           pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
         }
         await FireExtinguishers.create(fireExtData)
+       }
       }
     }
     return res.status(200).json({
