@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 class priDisplay extends Component {
     
     state = {
-        open:false,
+        open:true,
     }
       render() {
           let pri
@@ -98,15 +98,17 @@ class priDisplay extends Component {
                         </Form.Row>
                        
                         <Form.Row>
-                            <Form.Group as={Col} controlId="facilityOrEquipmentSupply">
-                            <Form.Label style={{fontWeight:"bold"}} >Facility Or Equipment Supply</Form.Label>
-                            <Form.Control as="textarea" rows="2" 
+                            <Col md={4}>
+                            <Form.Group as={Col} md={4} controlId="facilityOrEquipmentSupply">
+                            <Form.Label style={{fontWeight:"bold"}} >Other Supply</Form.Label>
+                            <Form.Control as="textarea" rows="1" 
                             value={pri.facilityOrEquipmentSupply}/>
                             </Form.Group>
+                            </Col>
 
                             <Form.Group as={Col} controlId="facilityOrEquipmentCmts">
-                            <Form.Label style={{fontWeight:"bold"}} >Facility Or Equipment Cmts</Form.Label>
-                            <Form.Control as="textarea" rows="2" 
+                            <Form.Label style={{fontWeight:"bold"}} >Other</Form.Label>
+                            <Form.Control as="textarea" rows="1" 
                             value={pri.facilityOrEquipmentCmts}/>
                             </Form.Group>
                         </Form.Row>
@@ -160,25 +162,8 @@ class priDisplay extends Component {
 
                         </Form.Row>
 
-                        <Row><br/></Row>
-                        <Form.Row>
-                            <Form.Group as={Col} >
-                                <Form.Label style={{ color:"black" , fontSize:"18px" , fontStyle:"italic", textDecoration:"underline" }}>
-                                3. Fluids used</Form.Label>
-                            </Form.Group>
-                       </Form.Row>
+                        {/* fluids and utilities */}
 
-                       <Form.Row>
-                        <Col md={12}><Fluids/></Col>
-                        </Form.Row>
-
-                        <Form.Row>
-                        <Col md={12}><Utilities/></Col>
-                        </Form.Row>
-
-
-
-                       
                         <Row><br/></Row>
                         <Form.Row>
                             <Form.Group as={Col} >
@@ -211,8 +196,6 @@ class priDisplay extends Component {
                             inline={true}
                             label="Operation affected by a regulated area (e.g. Natural Park)"
                             checked={pri.operationAffectedRegulatedArea}/>
-                            <Form.Control as="textarea" rows="1" disabled={!this.state.operationAffectedRegulatedArea}
-                            value={pri.operationAffectedRegulatedAreaCmt} />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
@@ -291,6 +274,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
+                            <Row style={{height: .035*window.innerHeight + 'px'}}/>
                             <Form.Check id="naturalCmts" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
@@ -415,8 +399,9 @@ class priDisplay extends Component {
                         </Form.Row>
 
                         <Form.Row>
-
-                            <Col md={{ offset:0 ,span:2}} >
+                            <Col md={{ offset:0 ,span:6}} >
+                            <Row>
+                            <Col md={{ offset:0 ,span:3}} >
                             <Row style={{height: .04*window.innerHeight + 'px'}}/>
                             <Form.Check id="undergroundNetwork" style={{fontWeight:"bold"}}
                             custom={true}
@@ -424,12 +409,23 @@ class priDisplay extends Component {
                             label="Underground network"
                             checked={pri.undergroundNetwork}/>
                             </Col>
-                            <Form.Group as={Col }>
+
+                            <Form.Group as={Col} md={{offset:0,span:5}}>
+                            <Form.Text></Form.Text>
+                            <Form.Text style={{fontWeight:"bold"}} >Network Type</Form.Text>
+                            <FormControl type="textarea"  disabled={!this.state.undergroundNetwork}
+                            value={pri.undergroundNetworkCmt} />
+                            </Form.Group>
+
+                            <Form.Group as={Col} md={{offset:0,span:4}}>
                             <Form.Text style={{fontWeight:"bold"}} >Depth (Meters)</Form.Text>
                             <FormControl type={"number"} step={0.1} disabled={!this.state.undergroundNetwork}
                             value={pri.undergroundNetworkDepth} />
                             </Form.Group>
-                            <Col md={{ offset:1 ,span:6}} >
+                            </Row>
+                            </Col>
+
+                            <Col md={{ offset:1 ,span:5}} >
                             <Row style={{height: .04*window.innerHeight + 'px'}}/>
                             <Form.Check id="properDrainage" style={{fontWeight:"bold"}}
                             custom={true} 
@@ -764,6 +760,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
+                            <Row style={{height: .033*window.innerHeight + 'px'}}/>
                             <Form.Check id="majorProblemEncountered" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
@@ -774,6 +771,7 @@ class priDisplay extends Component {
                             </Form.Group>
                             
                             <Form.Group as={Col}  >
+                            <Row style={{height: .033*window.innerHeight + 'px'}}/>
                             <Form.Check id="qualifiedValidatedEquipment" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
@@ -877,18 +875,18 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Row style={{height: .066*window.innerHeight + 'px'}}/>
                             <Form.Check id="intellectualPropertyWatch" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Intellectual property watch"
                             checked={pri.intellectualPropertyWatch }/>
-                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.intellectualPropertyWatch}
                             value={pri.intellectualPropertyWatchCmt } />
                             </Form.Group>
 
                             <Form.Group as={Col}  >
+                            <Row style={{height: .033*window.innerHeight + 'px'}}/>
                             <Form.Check id="riskAnalysisProject" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
@@ -973,13 +971,11 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
                             <Form.Check id="noOperatingExperienceSimilarProcess" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="No operating experience of similar process / equipment"
                             checked={pri.noOperatingExperienceSimilarProcess }/>
-                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.noOperatingExperienceSimilarProcess}
                             value={pri.noOperatingExperienceSimilarProcessCmt } />
                             </Form.Group>
@@ -1009,6 +1005,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
+                            <Col>
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
                             <Form.Check id="includeTransportationActivities" style={{fontWeight:"bold"}}
                             custom={true}
@@ -1018,6 +1015,7 @@ class priDisplay extends Component {
 
                             <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Row>
+
                             <Col md={{offset:0,span:6}}>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.includeTransportationActivities}
                             value={pri.includeTransportationActivitiesCmt } />
@@ -1057,13 +1055,12 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
+                            <Row style={{height: .066*window.innerHeight + 'px'}}/>
                             <Form.Check id="unattendedFacility" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
                             label="Unattended facility"
                             checked={pri.unattendedFacility }/>
-                            <Row style={{height: .014*window.innerHeight + 'px'}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.unattendedFacility}
                             value={pri.unattendedFacilityCmt } />
                             </Form.Group>
@@ -1519,6 +1516,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
+                            <Row style={{height: .033*window.innerHeight + 'px'}}/>
                             <Form.Check id="significantDiscrepanciesAL" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
@@ -1553,6 +1551,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
+                            <Row style={{height: .033*window.innerHeight + 'px'}}/>
                             <Form.Check id="obsoleteEquipment" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}
@@ -1563,6 +1562,7 @@ class priDisplay extends Component {
                             </Form.Group>
 
                             <Form.Group as={Col}  >
+                            <Row style={{height: .033*window.innerHeight + 'px'}}/>
                             <Form.Check id="facilityAge" style={{fontWeight:"bold"}}
                             custom={true}
                             inline={true}

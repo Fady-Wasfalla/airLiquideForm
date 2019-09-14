@@ -30,7 +30,8 @@ const Lvf = db.define('Lvf', {
 
 },
 { timestamps: false,
-  freezeTableName: true
+  freezeTableName: true,
+  timezone: "Tashkent/Ashgabat"
 }
 )
 
