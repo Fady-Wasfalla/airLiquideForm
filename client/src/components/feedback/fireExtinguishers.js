@@ -5,8 +5,8 @@ import 'mdbreact/dist/css/mdb.css'
 class fireExtinguishers extends Component {
 
     state = {
-        number:[],
-        capacity:[],
+        number:[0],
+        capacity:[0],
       }
 
       addFireExtinguishers(){
