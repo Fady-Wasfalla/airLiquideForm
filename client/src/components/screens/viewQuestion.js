@@ -16,7 +16,6 @@ class viewQuestion extends Component {
         replayDate : new Date(),
         displayDecision:"none",
         displayAnswer:"none",
-        data:{},
 
 
       }
@@ -27,11 +26,7 @@ class viewQuestion extends Component {
         .get('http://localhost:8000/api/questions/'+this.props.match.params.questionId)
         .then(res => { this.setState({question:res.data.data}) })
         .catch(err => alert(err.message))
-      await  axios
-        .get('http://localhost:8000/api/questions/'+this.props.match.params.questionId)
-        .then(res => {this.setState({ data : res.data.data })})
-        .catch(err => alert(err.message))
-        if (this.state.data.answer){
+        if (this.state.question.answer){
             this.setState({displayDecision:"none" , displayAnswer:"" })
         }else{
             this.setState({displayDecision:"" , displayAnswer:"none"})

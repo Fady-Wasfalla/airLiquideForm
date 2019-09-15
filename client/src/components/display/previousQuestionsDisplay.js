@@ -11,7 +11,15 @@ class previousQuestionsDisplay extends Component {
         zone:"",
         address:"",
 
-        open:true,
+        open:false,
+    }
+
+    showDateOnly=(e)=>{
+        if(e){
+
+            return e.substr(0,10)
+        }
+        return ""
     }
 
     
@@ -19,9 +27,8 @@ class previousQuestionsDisplay extends Component {
     
      
       render() {
-          let cpChange = this.props.CP
-          let newCP = Object.assign([{}],cpChange)
-          let cbi = this.props.CBI
+          let qsChange = this.props.Data
+          let qs = Object.assign([{}],qsChange)
         return (
             <React.Fragment>
                 <Card border="secondary" >
@@ -39,26 +46,31 @@ class previousQuestionsDisplay extends Component {
                 <fieldset disabled="disabled">
                     <Form>
 
-                        {newCP.map((e,index)=>{
+                        {qs.map((e,index)=>{
                             return(
                                 <Form>
                                      <Form.Row>
-                                            <Col md={3}>
-                                                <Form.Label >{index+1}{" . "}{newCP[index].contactPersonName}</Form.Label>                                                                
+                                            <Col md={9}>
+                                                <Form.Label >{index+1} {")"} {qs[index].question}</Form.Label>                                                            
                                             </Col>
 
                                             <Col md={3}>
-                                                <Form.Label >{newCP[index].phone}</Form.Label>                                                                
-                                            </Col>
-
-                                            <Col md={3}>
-                                                <Form.Label >{newCP[index].title}</Form.Label>
-                                            </Col>
-
-                                            <Col md={3}>
-                                                <Form.Label >{newCP[index].mail}</Form.Label>
-                                            </Col>
+                                                <Form.Label> Submition Date : #</Form.Label>
+                                                <Form.Label >{this.showDateOnly(qs[index].submitionDate)}</Form.Label>                                                                
+                                            </Col>                                           
                                         </Form.Row>
+
+                                        <Form.Row>
+                                            <Col md={9}>
+                                                <Form.Label >{index+1}{" . "}{qs[index].answer}</Form.Label>                                                          
+                                            </Col>
+
+                                            <Col md={3}>
+                                                <Form.Label> Replay Date : #</Form.Label>
+                                                <Form.Label >{this.showDateOnly(qs[index].replayDate)}</Form.Label>                                                                
+                                            </Col>   
+                                        </Form.Row>
+                                        <br/>
                                 </Form>
                             )
                         })}

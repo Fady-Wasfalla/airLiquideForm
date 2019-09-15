@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 class priDisplay extends Component {
     
     state = {
-        open:true,
+        open:false,
     }
       render() {
           let pri

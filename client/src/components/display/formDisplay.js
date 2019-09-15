@@ -21,7 +21,7 @@ import PrFeedback from './feedbackDisplay/prFeedback'
 class formDisplay extends Component {
 
     state = {
-      formData:{}, /* { form, contactPerson, formFiles, history, questions } */
+      formData:{formFiles:[]}, /* { form, contactPerson, formFiles, history, questions } */
       lvf:{},
       cp:[],
       cif:{},
@@ -64,6 +64,8 @@ class formDisplay extends Component {
       .catch(err => alert(err.message))
      
     }
+
+    
       
       render() {
         return (
@@ -97,7 +99,25 @@ class formDisplay extends Component {
                 /></Col>
                 <Row><br/></Row>
 
-                <Col md={{ span: 12, offset: 0 }}><PreviousQuestions /></Col>
+                <Col md={{ span: 12, offset: 0 }}><PreviousQuestions Data={this.state.formData.questions}/></Col>
+                <Row><br/></Row>
+
+                <Col md={{ span: 12, offset: 0 }}>
+                  <Col md={12}>
+                    <Row>
+                            <Form.Label style={{fontWeight:"bold"}}>Files: </Form.Label>
+                                { this.state.formData.formFiles.map((e,index)=>{
+                                        return(
+                                            <Col md={{offset:0,span:2}}>                                                    
+                                                <Button variant="link" size={"sm"} href= {"http://localhost:8000/"+this.state.formData.formFiles[index].path} target="_blank"
+                                                style={{textDecoration:"underline", color:"black" ,  fontSize:"14px"}}>
+                                                    {this.state.formData.formFiles[index].name+" ▼ "}</Button>
+                                            </Col>
+                                        )
+                                })}
+                    </Row>
+                    </Col>
+                </Col>
                 <Row><br/></Row>
 
                 <Col md={{ offset: 10 }} style={{display:this.state.showAsk}} >       
@@ -109,6 +129,9 @@ class formDisplay extends Component {
                 </Col>
                 </Collapse>
 
+                {
+
+                }
 
                 </Card>
                 <Row><br/></Row>
