@@ -80,8 +80,8 @@ exports.newForm = async (req, res) => {
         await FormFiles.create({ formId, name: filesNames[i], path: files[i].path })
       }
     }
-    // inserting the conatct perosns
-    if (cbi && cbi.contactPerson.length > 0) {
+      // inserting the conatct perosns
+    if (cbi && cbi.contactPerson.contactPersonName.length > 0) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
         if (cbi.contactPerson.contactPersonName[i] !== '') {
           let ContactPersonData = {
@@ -103,7 +103,8 @@ exports.newForm = async (req, res) => {
     // creating the pri of the form
     const newPri = await Pri.create({ formId, ...pri })
     const priId = newPri.id
-    if (pri && pri.fluids.length > 0) {
+    console.log(106,pri)
+    if (pri && pri.fluids.fluidOrProduct.length > 0) {
       for (let i = 0; i < pri.fluids.characteristics.length; i++) {
         let fluidData = {
           priId,
@@ -121,7 +122,8 @@ exports.newForm = async (req, res) => {
         await Fluids.create(fluidData)
       }
     }
-    if (pri && pri.utilities.length > 0) {
+
+    if (pri && pri.utilities.utility.length > 0) {
       for (let i = 0; i < pri.utilities.utility.length; i++) {
         let fluidData = {
           priId,

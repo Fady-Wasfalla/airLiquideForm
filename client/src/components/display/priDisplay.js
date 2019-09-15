@@ -12,8 +12,9 @@ class priDisplay extends Component {
       render() {
           let pri
           (!this.props.PRI)?pri={}:pri=this.props.PRI
-          let utilities = this.props.UTILITIES
-          let fluids = this.props.FLUIDS
+          let Utilities = this.props.UTILITIES
+          let Fluids = this.props.FLUIDS
+          console.log("$$",Fluids)
         return (
             <React.Fragment>
                 <Card border="secondary" >
@@ -163,6 +164,100 @@ class priDisplay extends Component {
                         </Form.Row>
 
                         {/* fluids and utilities */}
+
+                        {
+                            Fluids.map((e,index)=>{
+                                return(
+                                    <Col md={12}>
+                                    <Card border="secondary">
+                                        <Card.Header style={{ color:"black" , fontSize:"18px" }}>Fluid Information</Card.Header>
+                                        <Col md={12}>
+                                        <Form.Row>
+                                            <Form.Group as={Col}>
+                                            <Form.Label style={{fontWeight:"bold"}} >Fluid / Product</Form.Label>
+                                            <Form.Control as="textarea" rows="1" 
+                                            value={Fluids[index].fluidOrProduct}/>
+                                            </Form.Group>
+                                            <Form.Group as={Col}>
+                                            <Form.Label style={{fontWeight:"bold"}} >Extreme pressure (Bar)</Form.Label>
+                                            <Form.Control as="textarea" rows="1" 
+                                            value={Fluids[index].extremePressure}/>
+                                            </Form.Group>
+                                            <Form.Group as={Col}>
+                                            <Form.Label style={{fontWeight:"bold"}} >Extreme temperature (°C)</Form.Label>
+                                            <Form.Control as="textarea" rows="1" 
+                                            value={Fluids[index].extremeTemperature}/>
+                                            </Form.Group>
+                                        </Form.Row>
+
+                                        <Form.Row>
+                                            <Form.Group as={Col}>
+                                            <Form.Label style={{fontWeight:"bold"}} >Maximum flow (Nm3/hr)</Form.Label>
+                                            <Form.Control as="textarea" rows="1" 
+                                            value={Fluids[index].maximumFlow}/>
+                                            </Form.Group>
+                                            <Form.Group as={Col}>
+                                            <Form.Label style={{fontWeight:"bold"}} >Volume stored(Ltrs / Cyls.)</Form.Label>
+                                            <Form.Control as="textarea" rows="1" 
+                                            value={Fluids[index].volumeStored}/>
+                                            </Form.Group>
+                                            <Form.Group as={Col}>
+                                            <Form.Label style={{fontWeight:"bold"}} >Characteristics(Purity...)</Form.Label>
+                                            <Form.Control as="textarea" rows="1" 
+                                            value={Fluids[index].characteristics}/>
+                                            </Form.Group>
+                                        </Form.Row>
+
+                                        <Form.Row>
+                                            
+                                            <Form.Label style={{fontWeight:"bold"}} >Natures : </Form.Label>
+                                            <span>{'           '}</span> 
+                                            <Form.Label >
+                                                {Fluids[index].nature1}<span>{'   -    '}</span>
+                                                {Fluids[index].nature2}<span>{'   -    '}</span>
+                                                {Fluids[index].nature3}<span>{'   -    '}</span>
+                                                {Fluids[index].natureOther}
+                                            </Form.Label>
+                                            
+
+                                        </Form.Row>
+                                    
+                                    </Col>
+                                    </Card>
+                                    <br/>
+                                    </Col>
+                                )
+                            })
+                            
+                        }
+
+{
+                            Utilities.map((e,index)=>{
+                                return(
+                                    <Col md={12}>
+                                    <Card border="secondary">
+                                        <Card.Header style={{ color:"black" , fontSize:"18px" }}>Utilities Information</Card.Header>
+                                        <Col md={12}>
+                                        <Form.Row>
+                                            <Form.Group as={Col} md={{offset:0,span:3}}>
+                                            <Form.Label style={{fontWeight:"bold"}} >Utility</Form.Label>
+                                            <Form.Control as="textarea" rows="1" 
+                                            value={Utilities[index].utility}/>
+                                            </Form.Group>
+                                            <Form.Group as={Col} md={{offset:0,span:8}}>
+                                            <Form.Label style={{fontWeight:"bold"}} >Details</Form.Label>
+                                            <Form.Control as="textarea" rows="1" 
+                                            value={Utilities[index].details}/>
+                                            </Form.Group>
+                                        </Form.Row>
+                                    </Col>
+                                    </Card>
+                                    <br/>
+                                    </Col>
+                                )
+                            })
+                            
+                        }
 
                         <Row><br/></Row>
                         <Form.Row>
