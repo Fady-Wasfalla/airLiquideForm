@@ -231,7 +231,7 @@ class priDisplay extends Component {
                             
                         }
 
-{
+                        {
                             Utilities.map((e,index)=>{
                                 return(
                                     <Col md={12}>
