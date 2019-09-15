@@ -82,11 +82,21 @@ class logisticsValidationForm extends Component {
       };
 
       startDeliveryDateHandleChange(date) {
-        this.setState({startDeliveryDate: date})
+        let x = date
+        let hoursDiff = x.getHours() - x.getTimezoneOffset() / 60;
+        let minutesDiff = (x.getHours() - x.getTimezoneOffset()) % 60;
+        x.setHours(hoursDiff);
+        x.setMinutes(minutesDiff);
+        this.setState({startDeliveryDate: x})
       }
 
       forecastDeliveryEndHandleChange(date) {
-        this.setState({forecastDeliveryEnd: date})
+        let x = date
+        let hoursDiff = x.getHours() - x.getTimezoneOffset() / 60;
+        let minutesDiff = (x.getHours() - x.getTimezoneOffset()) % 60;
+        x.setHours(hoursDiff);
+        x.setMinutes(minutesDiff);
+        this.setState({forecastDeliveryEnd: x})
       }
 
       ProductHandleChange = (product) => {

@@ -8,22 +8,6 @@ class header extends Component {
 
     }
 
-    reDirect=(dept)=>{
-      let path = ""
-      switch(dept) {
-          case "Distribution" :  path= "/cases/Distribution" ; break;
-          case "Sourcing" : path= "/cases/Sourcing" ; break;
-          case "Fleat" : path= "/cases/Fleat" ; break;
-          case "PR" : path= "/cases/PR" ; break;
-          case "CI" :  path= "/cases/CI" ; break;
-          case "Finance" : path= "/cases/Finance" ; break;
-          case "Sales" : path= "/cases/Sales" ; break;
-          default:
-            
-        }
-      this.props.history.push(path);
-  }
-
       render() {
         return (
           <React.Fragment>
@@ -55,6 +39,16 @@ class header extends Component {
                         </NavDropdown> 
                     )
                   }
+                  if ( this.props.screensNames[index]==='Admin'){
+                    let editEmplyoyee = 'http://localhost:3000/editEmplyoyee'
+                    let editPermission = 'http://localhost:3000/editPermission'
+                    return(
+                          <NavDropdown title="Admin" id="nav-dropdown" drop={"right"}>
+                          <NavDropdown.Item href={editEmplyoyee}>Add/Edit Employee</NavDropdown.Item>
+                          <NavDropdown.Item href={editPermission}>Permissions</NavDropdown.Item>
+                          </NavDropdown> 
+                      )
+                    }
                   else{
                     let href = 'http://localhost:3000/cases/' + this.props.screensNames[index]
                   return (

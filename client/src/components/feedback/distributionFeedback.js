@@ -104,7 +104,6 @@ class distributionFeedback extends Component {
                 <Col md={{ span: 12, offset: 0 }}><FormDisplay  formId={this.state.formId}/></Col>
                 <Row><br/></Row>
 
-                <Form  onSubmit={this.handleChange}>
                 <Form.Group style={{display:this.state.displayDecision}}>
                 <Col md={{ span: 12, offset: 0 }}><Upload nameParentCallBack={this.nameUploadCallBackFunction}
                                                           fileParentCallBack={this.fileUploadCallBackFunction}/></Col>
@@ -125,8 +124,6 @@ class distributionFeedback extends Component {
                                       onChange={this.supplyTimeFromHandleChange}
                                       value={this.state.supplyTimeFrom}
                                       />
-                                      <input tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
-                                    required={this.validateItem(this.state.supplyTimeFrom)}/>
                               </Col>
                               <Col md={{offset:1}}>
                               <Form.Label>Supply Time To</Form.Label>
@@ -135,8 +132,6 @@ class distributionFeedback extends Component {
                                       onChange={this.supplyTimeToHandleChange}
                                       value={this.state.supplyTimeTo}
                                       />
-                                      <input tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
-                                    required={this.validateItem(this.state.supplyTimeTo)}/>
                               </Col>
                   </Form.Row>
                 </Col>
@@ -148,12 +143,11 @@ class distributionFeedback extends Component {
                 
                 <Row>
                 <Col md={{ span: 12, offset: 5 }}>
-                <Button variant="danger" className="text-white" type="submit">Submit</Button></Col>
+                <Button variant="danger" className="text-white" onClick={this.handleChange}>Submit</Button></Col>
                 </Row>
                 
                 </Form.Group>
 
-                </Form>
 
                 <Row><br/></Row>
                 

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import './App.css'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Footer from './components/footer'
-import Admin from './components/admin/adminHome'
 import FillForm from './components/fillForm'
 import FleatFeedback from './components/feedback/fleatFeedback'
 import DistributionFeedback from './components/feedback/distributionFeedback'
@@ -17,9 +16,10 @@ import viewQuestion from './components/screens/viewQuestion'
 import Header from './components/header'
 import Home from './components/screens/home'
 import axios from "axios"
-import salesFeedback from "./components/feedback/salesFeedback";
-
-
+import AdminAddEmployee from './components/admin/editEmployee'
+import AdminAddPermission from './components/admin/editPermissions'
+import NotFound from './components/notFound'
+import Unauthorized from './components/unauthorized'
 import DistributionDisplay from './components/display/feedbackDisplay/distributionDisplay'
 
 
@@ -33,10 +33,15 @@ class App extends Component {
   async componentDidMount(){
     await axios
     .get('http://localhost:8000/api/employees/getStarted')
-    .then( (res) => { this.setState({screensNames:res.data.data})
+    .then( (res) => { if (res.data.status === 'Failed'){
+                          alert(res.data.message)
+                          window.location.assign('http://localhost:3000/Unauthorized')
+                      }else{
+                      this.setState({screensNames:res.data.data})
                       sessionStorage.setItem('ID', res.data.employeeId)
                       sessionStorage.setItem('employeeName', res.data.employeeName)
                       this.setState({employeeId:res.data.employeeId})
+                    }
   })
     .catch(err => alert(err.message))
 
@@ -59,7 +64,8 @@ class App extends Component {
       />
       
       <Switch>
-        <Route exact path='/admin' component={Admin} />
+        <Route exact path='/editEmplyoyee' component={AdminAddEmployee} />        
+        <Route exact path='/editPermission' component={AdminAddPermission} />        
         <Route exact path='/fillForm' component={FillForm} />
         <Route exact path='/distributionFeedback/:id' component={DistributionFeedback} />
         <Route exact path='/financeFeedback/:id' component={FinanceFeedback} />
@@ -72,6 +78,10 @@ class App extends Component {
         <Route exact path='/viewQuestion/:formId/:questionId' component={viewQuestion} />
         <Route exact path='/cases/:department'
         render={(props) => <Cases {...props} screensNames={this.state.screensNames} />}/>
+        
+
+        <Route exact path='/Unauthorized' component={Unauthorized} />        
+        <Route path="" component={NotFound} />
       </Switch>
       <Route component={Footer} />
     </Router>

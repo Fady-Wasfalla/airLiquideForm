@@ -28,20 +28,26 @@ class cifDisplay extends Component {
                 <Col md={12}>
                 <Collapse in={this.state.open}>
                     <Form>
-
+                    
+                    <Card border="secondary">
+                    <Col md={12}>
+                      <br/>
                     <Form.Row >
                             <Form.Group as={Col}   controlId="ProductType" >
-                            <Form.Label style={{fontWeight:"bold"}} >Product</Form.Label>
-                            <Card.Text>{cif.product}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}} >Product :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.product}</Form.Label>
 
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="applicationProduct">
-                            <Form.Label style={{fontWeight:"bold"}}>Application Product</Form.Label>
-                            <Card.Text>{cif.applicationProduct}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Application Product :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.applicationProduct}</Form.Label>
 
                             </Form.Group>
-                        
+                            
+                            <Form.Group as={Col}/>
 
                             
                         </Form.Row>
@@ -49,84 +55,105 @@ class cifDisplay extends Component {
                     <Form.Row>
 
                             <Form.Group as={Col} controlId="RequiredPhase" >
-                            <Form.Label style={{fontWeight:"bold"}}>Required Phase</Form.Label>
-                            <Card.Text>{cif.requiredPhase}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Required Phase :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.requiredPhase}</Form.Label>
 
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="FlowUnit" >
-                            <Form.Label style={{fontWeight:"bold"}} >Flow Unit</Form.Label>
-                            <Card.Text>{cif.flowUnit}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}} >Flow Unit :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.flowUnit}</Form.Label>
 
                             </Form.Group>
+
+                            <Form.Group as={Col}/>
 
                     </Form.Row>
 
                     <Form.Row>
                         
                          <Form.Group as={Col} controlId="averageFlowRateValue">
-                            <Form.Label style={{fontWeight:"bold"}}>Average Flow Rate Value</Form.Label>
-                            <Card.Text>{cif.averageFlowRateValue}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Average Flow Rate Value :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.averageFlowRateValue}</Form.Label>
                         </Form.Group>
 
                          <Form.Group as={Col} controlId="averagePressure">
-                            <Form.Label style={{fontWeight:"bold"}} >Average Pressure</Form.Label>
-                            <Card.Text>{cif.averagePressure}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}} >Pressure :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.averagePressure}</Form.Label>
                         </Form.Group>
 
-                            <Form.Group as={Col} controlId="averageDuration" >
-                            <Form.Label style={{fontWeight:"bold"}} >Average Duration</Form.Label>
-                            <Card.Text>{cif.averageDuration}</Card.Text>
+                        <Form.Group as={Col} controlId="averageDuration" >
+                            <Form.Label style={{fontWeight:"bold"}} >Average Duration :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.averageDuration}<span>{'      '}</span> Hrs/Day</Form.Label>
 
-                            </Form.Group>
+                        </Form.Group>
 
-                            
                     </Form.Row>
+                    </Col>
+                    </Card>
 
-
+                    <br/>
+                    <Card border="secondary">   
+                    <Col md={12}>
+                      <br/>                 
                     <Form.Row>
 
                          <Form.Group as={Col} controlId="maximumFlowRrateValue">
-                            <Form.Label style={{fontWeight:"bold"}} >Maximum Flow Rrate Value</Form.Label>
-                            <Card.Text>{cif.maximumFlowRrateValue}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}} >Maximum Flow Rrate Value :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.maximumFlowRrateValue}</Form.Label>
                         </Form.Group>
 
                          <Form.Group as={Col} controlId="maximumPressure">
-                            <Form.Label style={{fontWeight:"bold"}}>Maximum Pressure</Form.Label>
-                            <Card.Text>{cif.maximumPressure}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Pressure of maximum Flow :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.maximumPressure}</Form.Label>
                         </Form.Group>
+                        
+                        <Form.Group as={Col}/>
 
                     </Form.Row>
 
                     <Form.Row>
 
                         <Form.Group as={Col} controlId="MaximumDurationUnit" >
-                            <Form.Label style={{fontWeight:"bold"}}>Maximum Duration Unit</Form.Label>
-                            <Card.Text>{cif.maximumDurationUnit}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Duration Unit :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.maximumDurationUnit}</Form.Label>
 
                         </Form.Group>
                 
                         <Form.Group as={Col} controlId="maximumDurationValue">
-                            <Form.Label style={{fontWeight:"bold"}}>Maximum Duration Value</Form.Label>
-                            <Card.Text>{cif.maximumDurationValue}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Duration Value :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.maximumDurationValue}</Form.Label>
                         </Form.Group>
 
                         <Form.Group as={Col} controlId="repetitionPerDay">
-                            <Form.Label style={{fontWeight:"bold"}}>Repetition/Day</Form.Label>
-                            <Card.Text>{cif.repetitionPerDay}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Repetition/Day :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.repetitionPerDay}</Form.Label>
                         </Form.Group>
                         
 
                     </Form.Row>
+                    </Col>
+                    </Card>
+                    <br/>
 
                     <Form.Row>
                         <Form.Group as={Col} controlId="futureExpansionNotes">
-                            <Form.Label style={{fontWeight:"bold"}}>Future Expansion Notes</Form.Label>
-                            <Card.Text>{cif.futureExpansionNotes}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Future Expansion Notes :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{cif.futureExpansionNotes}</Form.Label>
                         </Form.Group>
                     </Form.Row>
-                        
-                        
+                    <br/>
                     </Form>
                 </Collapse>
                 </Col>

@@ -1,9 +1,12 @@
+CREATE DATABASE [Air_Liquide]
+GO
+
 use [Air_Liquide]
 go 
 
 Create table Employee (
 id int IDENTITY(1,1) PRIMARY KEY,
-userName VARCHAR(7000) not null unique , /* make them unique and not null*/ 
+userName VARCHAR(200) not null unique , /* make them unique and not null*/ 
 email VARCHAR(7000) not null unique , /* make them unique and not null*/
 departement VARCHAR(7000) , /* make them unique and not null*/
 [activation] BIT DEFAULT 1 not null ,
@@ -12,16 +15,34 @@ Go
 
 Create table Screen (
 id int IDENTITY(1,1) PRIMARY KEY,
-name VARCHAR(7000) not null unique ,
+name VARCHAR(200) not null unique ,
 )
 Go 
+
+INSERT into Screen ([name]) VALUES ('Distribution')
+GO
+INSERT into Screen ([name]) VALUES ('Sourcing')
+GO
+INSERT into Screen ([name]) VALUES ('Fleat')
+GO
+INSERT into Screen ([name]) VALUES ('PR')
+GO
+INSERT into Screen ([name]) VALUES ('CI')
+GO
+INSERT into Screen ([name]) VALUES ('Sales')
+GO
+INSERT into Screen ([name]) VALUES ('Finance')
+GO
+INSERT into Screen ([name]) VALUES ('Admin')
+GO
 
 
 Create table [Permission](
 id int IDENTITY(1,1) PRIMARY KEY,
 employeeId int ,
 screenId int ,
-FOREIGN KEY(employeeId) REFERENCES Employee(id),
+[enabled] BIT DEFAULT 0 not null ,
+FOREIGN KEY(employeeId) REFERENCES Employee(id) ,
 FOREIGN KEY(screenId) REFERENCES Screen(id),
 )
 Go
@@ -30,8 +51,8 @@ Go
 /* Form */
 create table [dbo].[Form](
 id int IDENTITY(1,1) PRIMARY KEY,
-employeename VARCHAR(7000) ,
-FOREIGN KEY(employeeName) REFERENCES Employee(userName),
+employeename VARCHAR(200) ,
+FOREIGN KEY(employeeName) REFERENCES Employee(userName) ON UPDATE CASCADE ON DELETE CASCADE,
 name VARCHAR(7000),
 [date] date ,
 [address] VARCHAR(7000),
@@ -68,7 +89,7 @@ go
 create table [dbo].[Question](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-asker VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
+asker VARCHAR(200) FOREIGN KEY REFERENCES Employee(userName)  ON UPDATE CASCADE ON DELETE CASCADE ,
 submitionDate datetime ,
 replayDate datetime ,
 question VARCHAR(7000),
@@ -106,6 +127,7 @@ endDeliveryTime varchar(7000) ,
 weightScale BIT ,
 tankGuage BIT ,
 flowMeter BIT,
+customerhastank BIT,
 lvfComment VARCHAR(7000) ,
 )
 go
@@ -133,7 +155,7 @@ go
 create table [dbo].[CifResponse](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
+employeeName VARCHAR(200) FOREIGN KEY REFERENCES Employee(userName)  ON UPDATE CASCADE ON DELETE CASCADE,
 decision VARCHAR(7000)  , /* disapprove   approve   approve with recommendation */
 decisionComment VARCHAR(7000),
 )
@@ -465,7 +487,7 @@ go
 create table [dbo].[Irmr](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
+employeeName VARCHAR(200) FOREIGN KEY REFERENCES Employee(userName)  ON UPDATE CASCADE ON DELETE CASCADE,
 projectType VARCHAR(7000) ,
 
 /*IRMR classification */
@@ -524,7 +546,7 @@ go
 create table [dbo].[Distributions](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
+employeeName VARCHAR(200) FOREIGN KEY REFERENCES Employee(userName)  ON UPDATE CASCADE ON DELETE CASCADE,
 customerTank float ,
 supplyTimeFrom VARCHAR(7000) ,
 supplyTimeTo VARCHAR(7000) ,
@@ -552,7 +574,7 @@ go
 create table [dbo].[Sourcings](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
+employeeName VARCHAR(200) FOREIGN KEY REFERENCES Employee(userName)  ON UPDATE CASCADE ON DELETE CASCADE,
 customerTank float ,
 decision VARCHAR(7000)  , /* disapprove   approve   approve with recommendation */
 decisionComment VARCHAR(7000),
@@ -578,7 +600,7 @@ go
 create table [dbo].[Pdi](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
+employeeName VARCHAR(200) FOREIGN KEY REFERENCES Employee(userName)  ON UPDATE CASCADE ON DELETE CASCADE,
 
 highwayEnterance BIT ,
 highwayEnteranceMP VARCHAR(7000) ,
@@ -656,7 +678,7 @@ go
 create table [dbo].[Finance](
 id int IDENTITY(1,1) PRIMARY KEY,
 formId int FOREIGN KEY REFERENCES Form(id) ,
-employeeName VARCHAR(7000) FOREIGN KEY REFERENCES Employee(userName) ,
+employeeName VARCHAR(200) FOREIGN KEY REFERENCES Employee(userName)  ON UPDATE CASCADE ON DELETE CASCADE,
 decision VARCHAR(7000)  , /* disapprove   approve   approve with recommendation */
 decisionComment VARCHAR(7000),
 )
