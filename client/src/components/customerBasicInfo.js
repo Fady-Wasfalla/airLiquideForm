@@ -9,7 +9,6 @@ class customerBasicInfo extends Component {
     state = {
         name:"",
         date: new Date(),
-        address:"",
         zone:"",
         address:"",
         contactPerson:{},
