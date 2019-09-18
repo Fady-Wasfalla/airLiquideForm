@@ -169,8 +169,12 @@ exports.distributionFB = async (req, res) => {
     let actionPlan = finalDecision.actionPlan
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
-    const fb = await Distributions.create({ formId: formId, ...finalDecision, employeeName , 
-      customerTank:customerTank , supplyTimeFrom:supplyTimeFrom , supplyTimeTo:supplyTimeTo  })
+    const fb = await Distributions.create({ formId: formId,
+      ...finalDecision,
+      employeeName,
+      customerTank: customerTank,
+      supplyTimeFrom: supplyTimeFrom,
+      supplyTimeTo: supplyTimeTo })
     await Form.update(
       { distributionSubmition: true },
       { where: { id: formId } }
@@ -488,7 +492,7 @@ exports.getStarted = async (req, res) => {
         message: 'Your account is deactivated 🤦 , Contact IT departement '
       })
     }
-    const permissions = await Permission.findAll({ where: { employeeId: employee.id , enabled:true } })
+    const permissions = await Permission.findAll({ where: { employeeId: employee.id, enabled: true } })
 
     if (permissions.length === 0) {
       return res.json({
@@ -529,7 +533,7 @@ exports.getFormsDisplay = async (req, res) => {
     // get the final decision to be displayed in cases files
 
     const dept = req.params.department
-    const forms = await Form.findAll({order: [['id', 'DESC']]})
+    const forms = await Form.findAll({ order: [['id', 'DESC']] })
 
     let finalDecision = []
     for (let i = 0; i < forms.length; i++) {
@@ -857,115 +861,117 @@ exports.showFormData = async (req, res) => {
   }
 }
 
-
 exports.getPermissions = async (req, res) => {
-  try{
+  try {
     Model.hasMany(Permission, { foreignKey: 'employeeId' })
     Permission.belongsTo(Model, { foreignKey: 'employeeId' })
     Screen.hasMany(Permission, { foreignKey: 'screenId' })
     Permission.belongsTo(Screen, { foreignKey: 'screenId' })
-    
+
     const employees = await Model.findAll({
-                include: [{
-                  model: Permission,
-                  include: [{
-                      model: Screen,
-                  }]
-                }]
-              })
-    
-    return res.json({
-      status: 'Success',
-      data:employees
+      include: [{
+        model: Permission,
+        include: [{
+          model: Screen
+        }]
+      }]
     })
 
+    return res.json({
+      status: 'Success',
+      data: employees
+    })
   } catch (error) {
     return res.json({
       status: 'Failed',
       message: error.message
     })
-  } 
+  }
 }
 
-
-
 exports.addEmployee = async (req, res) => {
-  try{
+  try {
     const employee = await Model.create(req.body)
     const screenIds = await Screen.findAll()
-    for (let i=0 ; i<screenIds.length ; i++){
-      const permission = await Permission.create({employeeId:employee.id , screenId:screenIds[i].id})
+    for (let i = 0; i < screenIds.length; i++) {
+      await Permission.create({ employeeId: employee.id, screenId: screenIds[i].id })
     }
 
     return res.json({
       status: 'Success',
-      message: 'you can work now',
+      message: 'you can work now'
     })
   } catch (error) {
     return res.json({
       status: 'Failed',
       message: error.message
     })
-  } 
+  }
 }
 
 exports.editPermissions = async (req, res) => {
-  try{
+  try {
     Screen.hasMany(Permission, { foreignKey: 'screenId' })
     Permission.belongsTo(Screen, { foreignKey: 'screenId' })
-    
-    let {employeeId} = req.body
-    let {distribution} = req.body
-    let {sourcing} = req.body
-    let {fleat} = req.body
-    let {pR} = req.body
-    let {cI} = req.body
-    let {sales} = req.body
-    let {finance} = req.body
-    let {admin} = req.body
-    
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Distribution" }
-                                                                    }]}).then(r => Permission.update({enabled:distribution} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Sourcing" }
-                                                                    }]}).then(r => Permission.update({enabled:sourcing} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Fleat" }
-                                                                    }]}).then(r => Permission.update({enabled:fleat} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"PR" }
-                                                                    }]}).then(r => Permission.update({enabled:pR} , {where:{id:r.id}} ))     
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"CI" }
-                                                                    }]}).then(r => Permission.update({enabled:cI} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Sales" }
-                                                                    }]}).then(r => Permission.update({enabled:sales} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Finance" }
-                                                                    }]}).then(r => Permission.update({enabled:finance} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Admin" }
-                                                                    }]}).then(r => Permission.update({enabled:admin} , {where:{id:r.id}} ))
-    
-    return res.json({
-      status: 'Success',
-      
-    })
+    let { employeeId } = req.body
+    let { distribution } = req.body
+    let { sourcing } = req.body
+    let { fleat } = req.body
+    let { pR } = req.body
+    let { cI } = req.body
+    let { sales } = req.body
+    let { finance } = req.body
+    let { admin } = req.body
 
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Distribution' }
+      }] }).then(r => Permission.update({ enabled: distribution }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Sourcing' }
+      }] }).then(r => Permission.update({ enabled: sourcing }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Fleat' }
+      }] }).then(r => Permission.update({ enabled: fleat }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'PR' }
+      }] }).then(r => Permission.update({ enabled: pR }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'CI' }
+      }] }).then(r => Permission.update({ enabled: cI }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Sales' }
+      }] }).then(r => Permission.update({ enabled: sales }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Finance' }
+      }] }).then(r => Permission.update({ enabled: finance }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Admin' }
+      }] }).then(r => Permission.update({ enabled: admin }, { where: { id: r.id } }))
+
+    return res.json({
+      status: 'Success'
+
+    })
   } catch (error) {
     return res.json({
       status: 'Failed',
       message: error.message
     })
-  } 
+  }
 }
