@@ -495,6 +495,12 @@ exports.getStarted = async (req, res) => {
   try {
     const name = req.body.userName
     const employee = await Model.findOne({ where: { userName: name } })
+    if (!employee) {
+      return res.json({
+        status: 'Failed',
+        message: 'You have to sign in'
+      })
+    }
     if (employee.activation === false) {
       return res.json({
         status: 'Failed',
@@ -702,6 +708,7 @@ exports.getFormsDisplay = async (req, res) => {
 
 exports.getQuestions = async (req, res) => {
   try {
+    
     let pendingQuestions = []
     let submittedQuestions = []
     Form.hasMany(Question, { foreignKey: 'id' })
