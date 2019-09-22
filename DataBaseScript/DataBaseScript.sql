@@ -10,6 +10,7 @@ userName VARCHAR(200) not null unique , /* make them unique and not null*/
 email VARCHAR(7000) not null unique , /* make them unique and not null*/
 departement VARCHAR(7000) , /* make them unique and not null*/
 [activation] BIT DEFAULT 1 not null ,
+[password] VARCHAR(200) not null ,
 )
 Go
 

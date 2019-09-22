@@ -23,7 +23,9 @@ class cases extends Component {
         chosenField:"allForms",
         search:"",
         searchType:"Customer Name",
-        searchPlaceHolder:"Enter Company/Customer Name ..."
+        searchPlaceHolder:"Enter Company/Customer Name ...",
+        userName:window.localStorage.getItem("sysEmployeeName")
+        
       }
 
      
@@ -31,8 +33,12 @@ class cases extends Component {
     this.setState({loading: true})
     this.setState({screensNames:this.props.screensNames})
     axios
-    .get('http://localhost:8000/api/employees/getFormsDisplay/'+this.props.match.params.department)
-    .then(res => {this.setState({displayedForm:res.data.allForms , loading: false})
+    .post('http://localhost:8000/api/employees/getFormsDisplay/'+this.props.match.params.department , this.state)
+    .then(res => { if (res.data.status === 'Unauthorized'){
+        alert(res.data.message)
+        window.location.assign('http://localhost:3000/Unauthorized')
+    }else{
+    this.setState({displayedForm:res.data.allForms , loading: false})
     this.setState({allForms:res.data.allForms , loading: false})
     this.setState({pendingForms:res.data.pendingForms , loading: false})
     this.setState({submittedForms:res.data.submittedForms , loading: false})
@@ -40,7 +46,7 @@ class cases extends Component {
     this.setState({displayedFd:res.data.allFds})
     this.setState({allFds:res.data.allFds})
     this.setState({pendingFds:res.data.pendingFds})
-    this.setState({submittedFds:res.data.submittedFds})})
+    this.setState({submittedFds:res.data.submittedFds})}})
     .catch(err => alert(err.message))
     
     }
