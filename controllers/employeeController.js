@@ -199,6 +199,12 @@ exports.distributionFB = async (req, res) => {
         await DistributionsAP.create(distributionsAPData)
       }
     }
+    // transporter.sendMail({
+    //   to: "", //  write mail
+    //   subject: 'Reset your Password',
+    //   message: 'Reset your password of GAFI',
+    //   html: `Please click this link to reset your password: <a href="${url}">${url}</a>`
+    // })
     return res.status(200).json({
       status: 'Success',
       message: 'Distribution Feedback sumbmitted ',
