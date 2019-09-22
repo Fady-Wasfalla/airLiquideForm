@@ -89,7 +89,7 @@ exports.newForm = async (req, res) => {
         await FormFiles.create({ formId, name: filesNames[i], path: files[i].path })
       }
     }
-      // inserting the conatct perosns
+    // inserting the conatct perosns
     if (cbi && cbi.contactPerson.contactPersonName.length > 0) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
         if (cbi.contactPerson.contactPersonName[i] !== '') {
@@ -104,7 +104,7 @@ exports.newForm = async (req, res) => {
         }
       }
     }
-    console.log(99,tzoffset)
+    console.log(99, tzoffset)
     // creating the lvf of the form
     await Lvf.create({ formId, ...lvf })
     // creating the cif of the form
@@ -112,7 +112,7 @@ exports.newForm = async (req, res) => {
     // creating the pri of the form
     const newPri = await Pri.create({ formId, ...pri })
     const priId = newPri.id
-    console.log(106,pri)
+    console.log(106, pri)
     if (pri && pri.fluids.fluidOrProduct.length > 0) {
       for (let i = 0; i < pri.fluids.characteristics.length; i++) {
         let fluidData = {
@@ -466,13 +466,13 @@ exports.pdiFB = async (req, res) => {
     console.log(446, fireExt)
     if (fireExt.length > 0) {
       if (fireExt.number.length > 0) {
-      console.log(448, fireExt.number.length)
-      for (let i = 0; i < fireExt.number.length; i++) {
-        let fireExtData = {
-          pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
+        console.log(448, fireExt.number.length)
+        for (let i = 0; i < fireExt.number.length; i++) {
+          let fireExtData = {
+            pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
+          }
+          await FireExtinguishers.create(fireExtData)
         }
-        await FireExtinguishers.create(fireExtData)
-       }
       }
     }
     return res.status(200).json({
@@ -695,7 +695,7 @@ exports.getQuestions = async (req, res) => {
     Form.hasMany(Question, { foreignKey: 'id' })
     Question.belongsTo(Form, { foreignKey: 'formId' })
     const userName = req.params.userName
-    const questions = await Question.findAll({order: [['id', 'DESC']] ,
+    const questions = await Question.findAll({ order: [['id', 'DESC']],
       include: [{
         model: Form,
         required: true,
@@ -972,6 +972,33 @@ exports.editPermissions = async (req, res) => {
     return res.json({
       status: 'Success'
 
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
+exports.resetPassword = async (req, res) => {
+  try {
+    console.log(985)
+    const { userName } = req.body
+    const user = await Model.findOne({ where: { userName: userName } })
+    if (!user) {
+      return res.json({
+        status: 'Failed',
+        message: 'No such a user'
+      })
+    }
+    const newPassword = { password: 'Welcome_1' }
+    await Model.update(
+      newPassword,
+      { where: { userName: userName } }
+    )
+    return res.json({
+      status: 'Success',
+      message: 'Password resetted successfully'
     })
   } catch (error) {
     return res.json({

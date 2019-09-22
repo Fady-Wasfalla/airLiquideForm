@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios'
 import Popup from "reactjs-popup";
-import { Col , Row , Card, Button , Collapse } from "react-bootstrap";
+import { Col , Row , Card, Button , Collapse, Form } from "react-bootstrap";
 import CustomerBiDisplay from './customerBiDisplay'
 import LvfDisplay from './lvfDisplay'
 import CifDisplay from './cifDisplay'

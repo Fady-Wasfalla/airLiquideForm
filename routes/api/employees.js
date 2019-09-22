@@ -8,13 +8,11 @@ const entity = require('../../controllers/employeeController')
 router.get('/getStarted', entity.getStarted)
 
 router.get('/getFormsDisplay/:department', entity.getFormsDisplay)
-
+router.put('/resetPassword', entity.resetPassword)
 router.get('/getQuestions/:userName', entity.getQuestions)
 router.get('/getPermissions', entity.getPermissions)
 router.post('/addEmployee', entity.addEmployee)
 router.put('/editPermissions', entity.editPermissions)
-
-
 
 // read all
 router.get('/', entity.default)
