@@ -156,8 +156,6 @@ exports.newForm = async (req, res) => {
 // distribution feedback
 exports.distributionFB = async (req, res) => {
   try {
-   
-
     const formId = req.body.formId
     const customerTank = req.body.customerTank
     const supplyTimeFrom = req.body.supplyTimeFrom
@@ -471,13 +469,14 @@ exports.pdiFB = async (req, res) => {
             pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
           }
           await FireExtinguishers.create(fireExtData)
+        }
       }
+      return res.status(200).json({
+        status: 'Success',
+        message: 'Fleat Feedback sumbmitted',
+        data: fb
+      })
     }
-    return res.status(200).json({
-      status: 'Success',
-      message: 'Fleat Feedback sumbmitted',
-      data: fb
-    })
   } catch (error) {
     return res.json({
       status: 'Failed',
@@ -485,6 +484,7 @@ exports.pdiFB = async (req, res) => {
     })
   }
 }
+
 exports.getStarted = async (req, res) => {
   try {
     const name = req.body.userName
@@ -547,7 +547,6 @@ exports.getFormsDisplay = async (req, res) => {
     const dept = req.params.department
     const forms = await Form.findAll({ order: [['id', 'DESC']] })
 
-    let finalDecision = []
     for (let i = 0; i < forms.length; i++) {
       let decision = []
       let distributionDecision = await Distributions.findOne({ where: { formId: forms[i].id } })
@@ -733,9 +732,6 @@ exports.getQuestions = async (req, res) => {
 
 exports.showFormData = async (req, res) => {
   try {
-    
-    
-
     const formId = req.params.id
     const form = await Form.findOne({ where: { id: formId } })
     if (!form) {
@@ -854,7 +850,6 @@ exports.showFormData = async (req, res) => {
         financeFiles
       }
     }
-    console.log(843,name)
     /* -----------------------------------------------------FINANCE-------------------------------------------------------- */
     return res.json({
       status: 'Success',
@@ -1015,7 +1010,6 @@ exports.resetPassword = async (req, res) => {
       status: 'Failed',
       message: error.message
     })
-
   }
 }
 exports.changePassword = async (req, res) => {
@@ -1045,27 +1039,27 @@ exports.changePassword = async (req, res) => {
     })
   } catch (error) {
 
-  } 
+  }
 }
 
 exports.login = async (req, res) => {
-  try{
-    const {userName , password} = req.body
-    console.log(974,req.body)
-    const employee = await Model.findOne({where:{userName:userName}})
-    if (!employee){
+  try {
+    const { userName, password } = req.body
+    console.log(974, req.body)
+    const employee = await Model.findOne({ where: { userName: userName } })
+    if (!employee) {
       return res.json({
         status: 'Failed',
         message: `unregistered user`
       })
     }
-    if(!employee.activation){
+    if (!employee.activation) {
       return res.json({
         status: 'Failed',
         message: `your account is deactivated`
       })
     }
-    if(employee.password!==password){
+    if (employee.password !== password) {
       return res.json({
         status: 'Failed',
         message: `Wrong password , if you forget your password contact admin`
@@ -1075,12 +1069,10 @@ exports.login = async (req, res) => {
       status: 'Sucess',
       data: userName
     })
-  }catch (error) {
+  } catch (error) {
     return res.json({
       status: 'Failed',
       message: error.message
     })
-
   }
 }
-
