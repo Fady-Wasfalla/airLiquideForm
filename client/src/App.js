@@ -21,7 +21,7 @@ import AdminAddPermission from './components/admin/editPermissions'
 import NotFound from './components/notFound'
 import Unauthorized from './components/unauthorized'
 import DistributionDisplay from './components/display/feedbackDisplay/distributionDisplay'
-
+import ChangePass from './components/screens/changePass'
 
 class App extends Component {
 
@@ -64,7 +64,8 @@ class App extends Component {
         path='/'
         render={(props) => <Home {...props} screensNames={this.state.screensNames} />}
         />
-        <Route exact path='/editEmplyoyee' component={AdminAddEmployee} />        
+        <Route exact path='/editEmplyoyee' component={AdminAddEmployee} />
+        <Route exact path='/changePass' component={ChangePass} />        
         <Route exact path='/editPermission' component={AdminAddPermission} />        
         <Route exact path='/fillForm' component={FillForm} />
         <Route exact path='/distributionFeedback/:id' component={DistributionFeedback} />

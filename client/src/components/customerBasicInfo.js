@@ -82,6 +82,7 @@ class customerBasicInfo extends Component {
                             <Form.Label>Customer Zone <span style={{color:"red"}}>✶</span></Form.Label>
                             <Form.Control as="textarea" rows="1" required 
                             onChange={(e)=>{this.setState({zone:e.target.value})}} />
+                            {/* <Form.Text className="text-muted"> 5555 </Form.Text> */}
                             </Form.Group>
 
                         </Form.Row>

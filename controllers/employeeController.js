@@ -1008,7 +1008,7 @@ exports.resetPassword = async (req, res) => {
 }
 exports.changePassword = async (req, res) => {
   try {
-    const { userName, oldPassword, newPassword } = req.body
+    const { userName, oldPassword, firstPassword } = req.body
     const user = await Model.findOne({ where: { userName: userName } })
     if (!user) {
       return res.json({
@@ -1022,7 +1022,7 @@ exports.changePassword = async (req, res) => {
         message: 'Wrong password'
       })
     }
-    const pass = { password: newPassword }
+    const pass = { password: firstPassword }
     await Model.update(
       pass,
       { where: { userName: userName } }
