@@ -982,7 +982,6 @@ exports.editPermissions = async (req, res) => {
 }
 exports.resetPassword = async (req, res) => {
   try {
-    console.log(985)
     const { userName } = req.body
     const user = await Model.findOne({ where: { userName: userName } })
     if (!user) {
@@ -999,6 +998,32 @@ exports.resetPassword = async (req, res) => {
     return res.json({
       status: 'Success',
       message: 'Password resetted successfully'
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
+exports.changePassword = async (req, res) => {
+  try {
+    const { userName, password } = req.body
+    const user = await Model.findOne({ where: { userName: userName } })
+    if (!user) {
+      return res.json({
+        status: 'Failed',
+        message: 'No such a user'
+      })
+    }
+    const newPassword = { password: password }
+    await Model.update(
+      newPassword,
+      { where: { userName: userName } }
+    )
+    return res.json({
+      status: 'Success',
+      message: 'Password updated successfully'
     })
   } catch (error) {
     return res.json({

@@ -13,6 +13,7 @@ router.get('/getQuestions/:userName', entity.getQuestions)
 router.get('/getPermissions', entity.getPermissions)
 router.post('/addEmployee', entity.addEmployee)
 router.put('/editPermissions', entity.editPermissions)
+router.put('/changePassword', entity.changePassword)
 
 // read all
 router.get('/', entity.default)
