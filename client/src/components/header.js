@@ -65,7 +65,10 @@ class header extends Component {
                         )
                       }
                     </NavDropdown>
-                    <Button onClick={this.logout} variant="outline-success">Logout</Button>
+                    <NavDropdown title="⚙" id="nav1-dropdown">
+                        <NavDropdown.Item href={"http://localhost:3000/changePass"}>Change password</NavDropdown.Item>
+                        <NavDropdown.Item onClick={this.logout}>Logout</NavDropdown.Item>
+                    </NavDropdown>
                 </Navbar>
                 
               </React.Fragment>
@@ -122,7 +125,10 @@ class header extends Component {
                 )
               }
             </NavDropdown>
-            <Button onClick={this.logout} variant="outline-success">Logout</Button>
+                    <NavDropdown title="⚙" id="nav1-dropdown">
+                        <NavDropdown.Item href={"#"}>Change password</NavDropdown.Item>
+                        <NavDropdown.Item onClick={this.logout}>Logout</NavDropdown.Item>
+                    </NavDropdown>
         </Navbar>
         
       </React.Fragment>

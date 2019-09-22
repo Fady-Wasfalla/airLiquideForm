@@ -18,8 +18,23 @@ class fillForm extends Component {
       cif:{dodo:false},
       pri:{dodo:false},
       file:null,
-      filesNames:[""]
+      filesNames:[""],
+      userName:window.localStorage.getItem("sysEmployeeName"),      
       }
+
+    async componentDidMount(){
+        await axios
+        .post('http://localhost:8000/api/employees/getStarted',this.state)
+        .then( (res) => { if (res.data.status === 'Failed'){
+                              alert(res.data.message)
+                              window.location.assign('http://localhost:3000/Unauthorized')
+                          }else{
+                          this.props.CallBack(res.data.data)
+                          window.localStorage.setItem("screens",res.data.data)
+                        } })
+        .catch(err => alert(err.message))
+
+    }
 
       handleChange =() =>{
         if (this.state.cbi.dodo===false){
