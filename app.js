@@ -48,8 +48,6 @@ app.use('/files/pdiFiles', express.static('pdiFiles'))
 app.use('/files/prFiles', express.static('prFiles'))
 app.use('/files/financeFiles', express.static('financeFiles'))
 
-
-
 // DB authenticate
 const db = require('./config/database')
 db
