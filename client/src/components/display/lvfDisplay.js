@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card, Button , FormControl , InputGroup , Collapse} from "react-bootstrap";
-import Select from 'react-select';
-import DatePicker from "react-datepicker";
-import TimePicker from "react-time-picker"
+import { Form , Col , Row , Card, Button , Collapse} from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -61,7 +58,6 @@ class lvfDisplay extends Component {
         usableCapacityAboveDeadLevel:0,
         peakConsumption:0,
         frequencyOfPeakConsumption:"",
-        weightScale:0,
         weightScale:0,
         lvfComment:"",
         open:false,

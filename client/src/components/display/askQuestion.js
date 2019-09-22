@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card, Button , Collapse , Navbar } from "react-bootstrap";
+import { Form , Col , Row , Card, Button  } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios"
 
@@ -8,7 +8,7 @@ class askQuestion extends Component {
     state = {
 
         formId:this.props.FormID,
-        asker:sessionStorage.getItem("employeeName"),
+        asker:window.localStorage.getItem("sysEmployeeName"),
         question:"",
         submitionDate :""
     }

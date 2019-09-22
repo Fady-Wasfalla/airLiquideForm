@@ -18,8 +18,23 @@ class fillForm extends Component {
       cif:{dodo:false},
       pri:{dodo:false},
       file:null,
-      filesNames:[""]
+      filesNames:[""],
+      userName:window.localStorage.getItem("sysEmployeeName"),      
       }
+
+    async componentDidMount(){
+        await axios
+        .post('http://localhost:8000/api/employees/getStarted',this.state)
+        .then( (res) => { if (res.data.status === 'Failed'){
+                              alert(res.data.message)
+                              window.location.assign('http://localhost:3000/Unauthorized')
+                          }else{
+                          this.props.CallBack(res.data.data)
+                          window.localStorage.setItem("screens",res.data.data)
+                        } })
+        .catch(err => alert(err.message))
+
+    }
 
       handleChange =() =>{
         if (this.state.cbi.dodo===false){
@@ -35,8 +50,10 @@ class fillForm extends Component {
           return alert("please check the box in PRI Form part")
         }
         const fd = new FormData()
+        console.log(this.state.lvf.startDeliveryDate)
         var cbiAsString = JSON.stringify(this.state.cbi)
         var lvfAsString = JSON.stringify(this.state.lvf)
+        console.log(lvfAsString)
         var cifAsString = JSON.stringify(this.state.cif)
         var priAsString = JSON.stringify(this.state.pri)
         var filesNamesAsString = JSON.stringify(this.state.filesNames)
@@ -98,7 +115,7 @@ class fillForm extends Component {
 
       render() {
         return (
-          <div style={{  'overflow-x':'hidden' }}>
+          <div style={{  'overflowX':'hidden' }}>
             <React.Fragment >
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>

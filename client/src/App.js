@@ -15,56 +15,49 @@ import Questions from './components/screens/questions'
 import viewQuestion from './components/screens/viewQuestion'
 import Header from './components/header'
 import Home from './components/screens/home'
-import axios from "axios"
 import AdminAddEmployee from './components/admin/editEmployee'
 import AdminAddPermission from './components/admin/editPermissions'
 import NotFound from './components/notFound'
 import Unauthorized from './components/unauthorized'
 import DistributionDisplay from './components/display/feedbackDisplay/distributionDisplay'
+import ChangePass from './components/screens/changePass'
+
+import SignIn from './components/screens/signIn'
 
 
 class App extends Component {
 
   state = {
-    screensNames:[],
+    screensNames:[""],
     employeeId:0
   }
 
-  async componentDidMount(){
-    await axios
-    .get('http://localhost:8000/api/employees/getStarted')
-    .then( (res) => { if (res.data.status === 'Failed'){
-                          alert(res.data.message)
-                          window.location.assign('http://localhost:3000/Unauthorized')
-                      }else{
-                      this.setState({screensNames:res.data.data})
-                      sessionStorage.setItem('ID', res.data.employeeId)
-                      sessionStorage.setItem('employeeName', res.data.employeeName)
-                      this.setState({employeeId:res.data.employeeId})
-                    }
-  })
-    .catch(err => alert(err.message))
+  
 
+  setScreenName = (e) =>{
+    this.setState({screensNames:e})
   }
 
   
   render() {
   return (
-    <div style={{  'overflow-x':'hidden' }}>
+    <div style={{  'overflowX':'hidden' }}>
     <Router>
       <link
         rel='stylesheet'
         href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
         integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T'
-        crossorigin='anonymous' />
+        crossOrigin='anonymous' />
       <Route render={(props) => <Header {...props} screensNames={this.state.screensNames} /> } />
-      <Route
-      path='/home'
-      render={(props) => <Home {...props} screensNames={this.state.screensNames} />}
-      />
       
       <Switch>
-        <Route exact path='/editEmplyoyee' component={AdminAddEmployee} />        
+        <Route exact path='/' component={SignIn} />        
+        <Route exact
+        path='/home'
+        render={(props) => <Home {...props} CallBack={this.setScreenName}/>}
+        />
+        <Route exact path='/editEmplyoyee' component={AdminAddEmployee} />
+        <Route exact path='/changePass' component={ChangePass} />        
         <Route exact path='/editPermission' component={AdminAddPermission} />        
         <Route exact path='/fillForm' component={FillForm} />
         <Route exact path='/distributionFeedback/:id' component={DistributionFeedback} />
@@ -78,10 +71,8 @@ class App extends Component {
         <Route exact path='/viewQuestion/:formId/:questionId' component={viewQuestion} />
         <Route exact path='/cases/:department'
         render={(props) => <Cases {...props} screensNames={this.state.screensNames} />}/>
-        
-
         <Route exact path='/Unauthorized' component={Unauthorized} />        
-        <Route path="" component={NotFound} />
+        <Route exact path="*" component={NotFound} />
       </Switch>
       <Route component={Footer} />
     </Router>

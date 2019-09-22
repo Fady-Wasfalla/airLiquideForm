@@ -34,7 +34,16 @@ const FormFiles = require('../models/FormFiles')
 const Question = require('../models/Question')
 const os = require('os')
 const employeeName = os.userInfo().username
-
+const emailUserName = require('../config/keys').user
+const emailPassword = require('../config/keys').pass
+const nodemailer = require('nodemailer')
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: emailUserName,
+    pass: emailPassword
+  }
+})
 const tzoffset = (new Date()).getTimezoneOffset() * 60000
 const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
 exports.default = async (req, res) => {
@@ -80,7 +89,7 @@ exports.newForm = async (req, res) => {
         await FormFiles.create({ formId, name: filesNames[i], path: files[i].path })
       }
     }
-      // inserting the conatct perosns
+    // inserting the conatct perosns
     if (cbi && cbi.contactPerson.contactPersonName.length > 0) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
         if (cbi.contactPerson.contactPersonName[i] !== '') {
@@ -95,7 +104,6 @@ exports.newForm = async (req, res) => {
         }
       }
     }
-    console.log(99,tzoffset)
     // creating the lvf of the form
     await Lvf.create({ formId, ...lvf })
     // creating the cif of the form
@@ -103,7 +111,7 @@ exports.newForm = async (req, res) => {
     // creating the pri of the form
     const newPri = await Pri.create({ formId, ...pri })
     const priId = newPri.id
-    console.log(106,pri)
+
     if (pri && pri.fluids.fluidOrProduct.length > 0) {
       for (let i = 0; i < pri.fluids.characteristics.length; i++) {
         let fluidData = {
@@ -163,8 +171,12 @@ exports.distributionFB = async (req, res) => {
     let actionPlan = finalDecision.actionPlan
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
-    const fb = await Distributions.create({ formId: formId, ...finalDecision, employeeName , 
-      customerTank:customerTank , supplyTimeFrom:supplyTimeFrom , supplyTimeTo:supplyTimeTo  })
+    const fb = await Distributions.create({ formId: formId,
+      ...finalDecision,
+      employeeName,
+      customerTank: customerTank,
+      supplyTimeFrom: supplyTimeFrom,
+      supplyTimeTo: supplyTimeTo })
     await Form.update(
       { distributionSubmition: true },
       { where: { id: formId } }
@@ -187,6 +199,12 @@ exports.distributionFB = async (req, res) => {
         await DistributionsAP.create(distributionsAPData)
       }
     }
+    // transporter.sendMail({
+    //   to: "", //  write mail
+    //   subject: 'Reset your Password',
+    //   message: 'Reset your password of GAFI',
+    //   html: `Please click this link to reset your password: <a href="${url}">${url}</a>`
+    // })
     return res.status(200).json({
       status: 'Success',
       message: 'Distribution Feedback sumbmitted ',
@@ -450,23 +468,21 @@ exports.pdiFB = async (req, res) => {
         await PdiAP.create(irmrsAPData)
       }
     }
-    console.log(446, fireExt)
     if (fireExt.length > 0) {
       if (fireExt.number.length > 0) {
-      console.log(448, fireExt.number.length)
-      for (let i = 0; i < fireExt.number.length; i++) {
-        let fireExtData = {
-          pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
+        for (let i = 0; i < fireExt.number.length; i++) {
+          let fireExtData = {
+            pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
+          }
+          await FireExtinguishers.create(fireExtData)
         }
-        await FireExtinguishers.create(fireExtData)
-       }
       }
+      return res.status(200).json({
+        status: 'Success',
+        message: 'Fleat Feedback sumbmitted',
+        data: fb
+      })
     }
-    return res.status(200).json({
-      status: 'Success',
-      message: 'Fleat Feedback sumbmitted',
-      data: fb
-    })
   } catch (error) {
     return res.json({
       status: 'Failed',
@@ -474,17 +490,24 @@ exports.pdiFB = async (req, res) => {
     })
   }
 }
+
 exports.getStarted = async (req, res) => {
   try {
-    const employee = await Model.findOne({ where: { userName: employeeName } })
-    console.log(employee.activation)
+    const name = req.body.userName
+    const employee = await Model.findOne({ where: { userName: name } })
+    if (!employee) {
+      return res.json({
+        status: 'Failed',
+        message: 'You have to sign in'
+      })
+    }
     if (employee.activation === false) {
       return res.json({
         status: 'Failed',
         message: 'Your account is deactivated 🤦 , Contact IT departement '
       })
     }
-    const permissions = await Permission.findAll({ where: { employeeId: employee.id , enabled:true } })
+    const permissions = await Permission.findAll({ where: { employeeId: employee.id, enabled: true } })
 
     if (permissions.length === 0) {
       return res.json({
@@ -524,10 +547,18 @@ exports.getFormsDisplay = async (req, res) => {
   try {
     // get the final decision to be displayed in cases files
 
-    const dept = req.params.department
-    const forms = await Form.findAll({order: [['id', 'DESC']]})
+    const name = req.body.userName
+    const employee = await Model.findOne({ where: { userName: name } })
+    if (!employee) {
+      return res.json({
+        status: 'Unauthorized',
+        message: 'You have to sign in'
+      })
+    }
 
-    let finalDecision = []
+    const dept = req.params.department
+    const forms = await Form.findAll({ order: [['id', 'DESC']] })
+
     for (let i = 0; i < forms.length; i++) {
       let decision = []
       let distributionDecision = await Distributions.findOne({ where: { formId: forms[i].id } })
@@ -677,12 +708,13 @@ exports.getFormsDisplay = async (req, res) => {
 
 exports.getQuestions = async (req, res) => {
   try {
+    
     let pendingQuestions = []
     let submittedQuestions = []
     Form.hasMany(Question, { foreignKey: 'id' })
     Question.belongsTo(Form, { foreignKey: 'formId' })
     const userName = req.params.userName
-    const questions = await Question.findAll({order: [['id', 'DESC']] ,
+    const questions = await Question.findAll({ order: [['id', 'DESC']],
       include: [{
         model: Form,
         required: true,
@@ -714,7 +746,7 @@ exports.getQuestions = async (req, res) => {
 exports.showFormData = async (req, res) => {
   try {
     const formId = req.params.id
-    var form = await Form.findOne({ where: { id: formId } })
+    const form = await Form.findOne({ where: { id: formId } })
     if (!form) {
       return res.json({
         status: 'Failed',
@@ -853,115 +885,207 @@ exports.showFormData = async (req, res) => {
   }
 }
 
-
 exports.getPermissions = async (req, res) => {
-  try{
+  try {
     Model.hasMany(Permission, { foreignKey: 'employeeId' })
     Permission.belongsTo(Model, { foreignKey: 'employeeId' })
     Screen.hasMany(Permission, { foreignKey: 'screenId' })
     Permission.belongsTo(Screen, { foreignKey: 'screenId' })
-    
+
     const employees = await Model.findAll({
-                include: [{
-                  model: Permission,
-                  include: [{
-                      model: Screen,
-                  }]
-                }]
-              })
-    
-    return res.json({
-      status: 'Success',
-      data:employees
+      include: [{
+        model: Permission,
+        include: [{
+          model: Screen
+        }]
+      }]
     })
 
+    return res.json({
+      status: 'Success',
+      data: employees
+    })
   } catch (error) {
     return res.json({
       status: 'Failed',
       message: error.message
     })
-  } 
+  }
 }
 
-
-
 exports.addEmployee = async (req, res) => {
-  try{
+  try {
     const employee = await Model.create(req.body)
     const screenIds = await Screen.findAll()
-    for (let i=0 ; i<screenIds.length ; i++){
-      const permission = await Permission.create({employeeId:employee.id , screenId:screenIds[i].id})
+    for (let i = 0; i < screenIds.length; i++) {
+      await Permission.create({ employeeId: employee.id, screenId: screenIds[i].id })
     }
 
     return res.json({
       status: 'Success',
-      message: 'you can work now',
+      message: 'you can work now'
     })
   } catch (error) {
     return res.json({
       status: 'Failed',
       message: error.message
     })
-  } 
+  }
 }
 
 exports.editPermissions = async (req, res) => {
-  try{
+  try {
     Screen.hasMany(Permission, { foreignKey: 'screenId' })
     Permission.belongsTo(Screen, { foreignKey: 'screenId' })
-    
-    let {employeeId} = req.body
-    let {distribution} = req.body
-    let {sourcing} = req.body
-    let {fleat} = req.body
-    let {pR} = req.body
-    let {cI} = req.body
-    let {sales} = req.body
-    let {finance} = req.body
-    let {admin} = req.body
-    
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Distribution" }
-                                                                    }]}).then(r => Permission.update({enabled:distribution} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Sourcing" }
-                                                                    }]}).then(r => Permission.update({enabled:sourcing} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Fleat" }
-                                                                    }]}).then(r => Permission.update({enabled:fleat} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"PR" }
-                                                                    }]}).then(r => Permission.update({enabled:pR} , {where:{id:r.id}} ))     
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"CI" }
-                                                                    }]}).then(r => Permission.update({enabled:cI} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Sales" }
-                                                                    }]}).then(r => Permission.update({enabled:sales} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Finance" }
-                                                                    }]}).then(r => Permission.update({enabled:finance} , {where:{id:r.id}} ))
-    Permission.findOne({where:{ employeeId:employeeId } , include:  [{
-                                                                model: Screen,
-                                                                where:{name:"Admin" }
-                                                                    }]}).then(r => Permission.update({enabled:admin} , {where:{id:r.id}} ))
-    
-    return res.json({
-      status: 'Success',
-      
-    })
+    let { employeeId } = req.body
+    let { distribution } = req.body
+    let { sourcing } = req.body
+    let { fleat } = req.body
+    let { pR } = req.body
+    let { cI } = req.body
+    let { sales } = req.body
+    let { finance } = req.body
+    let { admin } = req.body
 
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Distribution' }
+      }] }).then(r => Permission.update({ enabled: distribution }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Sourcing' }
+      }] }).then(r => Permission.update({ enabled: sourcing }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Fleat' }
+      }] }).then(r => Permission.update({ enabled: fleat }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'PR' }
+      }] }).then(r => Permission.update({ enabled: pR }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'CI' }
+      }] }).then(r => Permission.update({ enabled: cI }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Sales' }
+      }] }).then(r => Permission.update({ enabled: sales }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Finance' }
+      }] }).then(r => Permission.update({ enabled: finance }, { where: { id: r.id } }))
+    Permission.findOne({ where: { employeeId: employeeId },
+      include: [{
+        model: Screen,
+        where: { name: 'Admin' }
+      }] }).then(r => Permission.update({ enabled: admin }, { where: { id: r.id } }))
+
+    return res.json({
+      status: 'Success'
+
+    })
   } catch (error) {
     return res.json({
       status: 'Failed',
       message: error.message
     })
-  } 
+  }
+}
+exports.resetPassword = async (req, res) => {
+  try {
+    const { userName } = req.body
+    const user = await Model.findOne({ where: { userName: userName } })
+    if (!user) {
+      return res.json({
+        status: 'Failed',
+        message: 'No such a user'
+      })
+    }
+    const newPassword = { password: 'Welcome_1' }
+    await Model.update(
+      newPassword,
+      { where: { userName: userName } }
+    )
+    return res.json({
+      status: 'Success',
+      message: 'Password resetted successfully'
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
+}
+exports.changePassword = async (req, res) => {
+  try {
+    const { userName, oldPassword, firstPassword } = req.body
+    const user = await Model.findOne({ where: { userName: userName } })
+    if (!user) {
+      return res.json({
+        status: 'Failed',
+        message: 'No such a user'
+      })
+    }
+    if (oldPassword !== user.password) {
+      return res.json({
+        status: 'Failed',
+        message: 'Wrong password'
+      })
+    }
+    const pass = { password: firstPassword }
+    await Model.update(
+      pass,
+      { where: { userName: userName } }
+    )
+    return res.json({
+      status: 'Success',
+      message: 'Password updated successfully'
+    })
+  } catch (error) {
+
+  }
+}
+
+exports.login = async (req, res) => {
+  try {
+    const { userName, password } = req.body
+    console.log(974, req.body)
+    const employee = await Model.findOne({ where: { userName: userName } })
+    if (!employee) {
+      return res.json({
+        status: 'Failed',
+        message: `unregistered user`
+      })
+    }
+    if (!employee.activation) {
+      return res.json({
+        status: 'Failed',
+        message: `your account is deactivated`
+      })
+    }
+    if (employee.password !== password) {
+      return res.json({
+        status: 'Failed',
+        message: `Wrong password , if you forget your password contact admin`
+      })
+    }
+    return res.json({
+      status: 'Sucess',
+      data: userName
+    })
+  } catch (error) {
+    return res.json({
+      status: 'Failed',
+      message: error.message
+    })
+  }
 }

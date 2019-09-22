@@ -15,12 +15,21 @@ class questions extends Component {
         loading: true,
         department:"",
         screensNames:[],
-      }
+        userName:window.localStorage.getItem("sysEmployeeName"),      
+    }
 
      
-    componentDidMount(){
+    async componentDidMount(){
     this.setState({loading: true})
-    axios
+    await axios
+        .post('http://localhost:8000/api/employees/getStarted',this.state)
+        .then( (res) => { if (res.data.status === 'Failed'){
+                              alert(res.data.message)
+                              window.location.assign('http://localhost:3000/Unauthorized')
+                          }else{
+                          window.localStorage.setItem("screens",res.data.data)
+                        } })
+    await axios
     .get('http://localhost:8000/api/employees/getQuestions/'+this.props.match.params.userName)
     .then(res => {this.setState({displayedQuestion:res.data.allQuestions , loading: false})
     this.setState({allQuestions:res.data.allQuestions , loading: false})

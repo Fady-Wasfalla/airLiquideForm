@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card, Button , Collapse } from "react-bootstrap";
+import { Form , Col , Row , Card, Button  } from "react-bootstrap";
 import ContactPerson from './contactPerson'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,7 +9,6 @@ class customerBasicInfo extends Component {
     state = {
         name:"",
         date: new Date(),
-        address:"",
         zone:"",
         address:"",
         contactPerson:{},
@@ -83,6 +82,7 @@ class customerBasicInfo extends Component {
                             <Form.Label>Customer Zone <span style={{color:"red"}}>✶</span></Form.Label>
                             <Form.Control as="textarea" rows="1" required 
                             onChange={(e)=>{this.setState({zone:e.target.value})}} />
+                            {/* <Form.Text className="text-muted"> 5555 </Form.Text> */}
                             </Form.Group>
 
                         </Form.Row>

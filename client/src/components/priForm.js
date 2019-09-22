@@ -1140,7 +1140,7 @@ class priForm extends Component {
                             label="Equipment/Technology supplier:Qualified supplier(yes or no)"
                             onChange={(e)=>{this.setState({equipmentTechnologySupplier:e.target.checked})}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.equipmentTechnologySupplier}
-                            placeHolder={"yes/no : justification"}
+                            placeholder={"yes/no : justification"}
                             onChange={(e)=>{this.setState({equipmentTechnologySupplierCmt:e.target.value})}} />
                             </Form.Group>
 
@@ -1161,7 +1161,7 @@ class priForm extends Component {
                             label="Qualified / validated equipment (yes or no)"
                             onChange={(e)=>{this.setState({qualifiedValidatedEquipment:e.target.checked})}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.qualifiedValidatedEquipment}
-                            placeHolder={"yes/no : justification"}
+                            placeholder={"yes/no : justification"}
                             onChange={(e)=>{this.setState({qualifiedValidatedEquipmentCmt:e.target.value})}} />
                             </Form.Group>
 
@@ -1863,7 +1863,7 @@ class priForm extends Component {
                             label="Impact on other AL business lines"
                             onChange={(e)=>{this.setState({impactOnAL:e.target.checked})}}/>
                             <Form.Control as="textarea" rows="1" disabled={!this.state.impactOnAL}
-                            placeHolder={"please specify ..."}
+                            placeholder={"please specify ..."}
                             onChange={(e)=>{this.setState({impactOnALCmt:e.target.value})}} />
                             </Form.Group>
 

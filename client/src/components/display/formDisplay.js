@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios'
 import Popup from "reactjs-popup";
-import { Form , Col , Row , Card, Button , Collapse } from "react-bootstrap";
+import { Col , Row , Card, Button , Collapse, Form } from "react-bootstrap";
 import CustomerBiDisplay from './customerBiDisplay'
 import LvfDisplay from './lvfDisplay'
 import CifDisplay from './cifDisplay'
@@ -36,17 +36,19 @@ class formDisplay extends Component {
       sourcingsData:{}, /* { sourcings,sourcingsAP, sourcingsFile} */
       openFeedback:false,
       open:true,
+      userName:window.localStorage.getItem("sysEmployeeName"),
+      
     }
 
-    componentWillMount(){ 
+    async componentWillMount(){ 
     this.setState({showAsk:this.props.ShowAsk})
-    axios
-      .get('http://localhost:8000/api/employees/showFormData/'+this.props.formId)
-      // .then(res=>{if(res.data.status==='Failed'){
-       
-      //   alert(res.data.message)}
-      // })
-      .then(res => {this.setState({
+    await axios
+      .post('http://localhost:8000/api/employees/showFormData/'+this.props.formId , this.state )
+      .then(res => {if (res.data.status === 'Failed'){
+        alert(res.data.message)
+        window.location.assign('http://localhost:3000/Unauthorized')
+    }else{
+        this.setState({
         formData:res.data.formData,
         cp:res.data.formData.contactPerson,
         lvf:res.data.lvf,
@@ -60,7 +62,7 @@ class formDisplay extends Component {
         pdiData:res.data.pdiData, 
         sourcingsData:res.data.sourcingsData,
         financeData:res.data.financeData })
-        console.log(this.state.fluids)})
+      } })
       .catch(err => alert(err.message))
      
     }

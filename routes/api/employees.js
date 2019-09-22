@@ -5,16 +5,20 @@ const multer = require('multer')
 
 const entity = require('../../controllers/employeeController')
 
-router.get('/getStarted', entity.getStarted)
+router.post('/getStarted', entity.getStarted)
+
 
 router.get('/getFormsDisplay/:department', entity.getFormsDisplay)
+router.put('/resetPassword', entity.resetPassword)
+
+router.post('/getFormsDisplay/:department', entity.getFormsDisplay)
+
 
 router.get('/getQuestions/:userName', entity.getQuestions)
 router.get('/getPermissions', entity.getPermissions)
 router.post('/addEmployee', entity.addEmployee)
 router.put('/editPermissions', entity.editPermissions)
-
-
+router.put('/changePassword', entity.changePassword)
 
 // read all
 router.get('/', entity.default)
@@ -108,6 +112,9 @@ const financeStorage = multer.diskStorage({
 const financeFilesUpload = multer({ storage: financeStorage })
 router.post('/financeFB', financeFilesUpload.array('file', 50), entity.financeFB)
 /* ------------------------------------------------------------------------------------------------------------------- */
-router.get('/showFormData/:id', entity.showFormData)
+router.post('/showFormData/:id', entity.showFormData)
+
+router.post('/login', entity.login)
+
 
 module.exports = router

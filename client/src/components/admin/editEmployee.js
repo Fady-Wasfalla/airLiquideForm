@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form , Col , Row , Card, Button , Collapse , Spinner } from "react-bootstrap";
+import { Form , Col , Row , Card, Button , Spinner } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import Popup from "reactjs-popup";
 import Select from 'react-select'
