@@ -1,6 +1,7 @@
 import React from "react";
 import { Parallax } from "react-parallax";
 import Button from 'react-bootstrap/Button'; 
+import axios from 'axios'
 
 const styles = {
   fontFamily: "sans-serif",
@@ -21,6 +22,27 @@ const image3 =require('../../images/chair.jpg')
 const image4 = require('../../images/About.jpeg')
 
   class home extends React.Component {
+    state = {
+      screensNames:[],
+      userName:window.localStorage.getItem("sysEmployeeName"),
+    }
+
+
+    async componentDidMount(){
+      await axios
+      .post('http://localhost:8000/api/employees/getStarted',this.state)
+      .then( (res) => { if (res.data.status === 'Failed'){
+                            alert(res.data.message)
+                            window.location.assign('http://localhost:3000/Unauthorized')
+                        }else{
+                        this.props.CallBack(res.data.data)
+                        window.localStorage.setItem("screens",res.data.data)
+                      }
+    })
+      .catch(err => alert(err.message))
+  
+    }
+
     render() {
       return (
         
@@ -35,55 +57,6 @@ const image4 = require('../../images/About.jpeg')
       </div>
     </Parallax>
    
-    <Parallax bgImage={image2} strength={-100} renderLayer={percentage => (
-        <div>
-          <div
-            style={{
-              position: "absolute",
-              background: `rgba(40, 96, 144 , ${percentage * 1})`,
-              left: "50%",
-              top: "50%",
-              borderRadius: "50%",
-              transform: "translate(-50%,-50%)",
-              width: percentage * 1500,
-              height: percentage * 400
-            }}
-          />
-        </div>
-      )}>
-      <div style={{ height: window.innerHeight }}>
-        <div style={insideStyles}>
-        <h1 Style="color:#d9132f;"> Everything is easy now , it is just one click</h1>
-         </div>
-      </div>
-    </Parallax>
-  
-    <Parallax
-      bgImage={image4}
-      strength={200}
-      renderLayer={percentage => (
-        <div>
-          <div
-            style={{
-              position: "absolute",
-              background: `rgba(40, 96, 144 , ${percentage * 1})`,
-              left: "50%",
-              top: "50%",
-              borderRadius: "50%",
-              transform: "translate(-50%,-50%)",
-              width: percentage * 600,
-              height: percentage * 500
-            }}
-          />
-        </div>
-      )}
-    >
-      <div style={{ height: window.innerHeight }}>
-        <div style={insideStyles}>
-            <h1 Style="color:#d9132f;">Now go to work</h1>            
-        </div>
-      </div>
-    </Parallax>
   
   </div>
 );

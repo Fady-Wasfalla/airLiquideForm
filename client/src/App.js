@@ -15,36 +15,23 @@ import Questions from './components/screens/questions'
 import viewQuestion from './components/screens/viewQuestion'
 import Header from './components/header'
 import Home from './components/screens/home'
-import axios from "axios"
 import AdminAddEmployee from './components/admin/editEmployee'
 import AdminAddPermission from './components/admin/editPermissions'
 import NotFound from './components/notFound'
 import Unauthorized from './components/unauthorized'
-import DistributionDisplay from './components/display/feedbackDisplay/distributionDisplay'
-
+import SignIn from './components/screens/signIn'
 
 class App extends Component {
 
   state = {
-    screensNames:[],
+    screensNames:[""],
     employeeId:0
   }
 
-  async componentDidMount(){
-    await axios
-    .get('http://localhost:8000/api/employees/getStarted')
-    .then( (res) => { if (res.data.status === 'Failed'){
-                          alert(res.data.message)
-                          window.location.assign('http://localhost:3000/Unauthorized')
-                      }else{
-                      this.setState({screensNames:res.data.data})
-                      sessionStorage.setItem('ID', res.data.employeeId)
-                      sessionStorage.setItem('employeeName', res.data.employeeName)
-                      this.setState({employeeId:res.data.employeeId})
-                    }
-  })
-    .catch(err => alert(err.message))
+  
 
+  setScreenName = (e) =>{
+    this.setState({screensNames:e})
   }
 
   
@@ -61,9 +48,10 @@ class App extends Component {
       <Route render={(props) => <Header {...props} screensNames={this.state.screensNames} /> } />
       
       <Switch>
+        <Route exact path='/' component={SignIn} />        
         <Route exact
-        path='/'
-        render={(props) => <Home {...props} screensNames={this.state.screensNames} />}
+        path='/home'
+        render={(props) => <Home {...props} CallBack={this.setScreenName}/>}
         />
         <Route exact path='/editEmplyoyee' component={AdminAddEmployee} />        
         <Route exact path='/editPermission' component={AdminAddPermission} />        
