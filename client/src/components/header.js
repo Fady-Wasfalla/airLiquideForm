@@ -88,6 +88,7 @@ class header extends Component {
 
               <NavDropdown title="Departements" id="nav-dropdown">
               {
+
                 window.localStorage.getItem("screens").split(',').map((form,index)=>{
                   if ( window.localStorage.getItem("screens").split(',')[index]==='Sales'){
                   let newRequest = 'http://localhost:3000/fillForm'

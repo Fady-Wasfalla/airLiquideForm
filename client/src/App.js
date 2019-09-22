@@ -19,7 +19,11 @@ import AdminAddEmployee from './components/admin/editEmployee'
 import AdminAddPermission from './components/admin/editPermissions'
 import NotFound from './components/notFound'
 import Unauthorized from './components/unauthorized'
+import DistributionDisplay from './components/display/feedbackDisplay/distributionDisplay'
+import ChangePass from './components/screens/changePass'
+
 import SignIn from './components/screens/signIn'
+
 
 class App extends Component {
 
@@ -37,14 +41,13 @@ class App extends Component {
   
   render() {
   return (
-    <div style={{  'overflow-x':'hidden' }}>
-      
+    <div style={{  'overflowX':'hidden' }}>
     <Router>
       <link
         rel='stylesheet'
         href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
         integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T'
-        crossorigin='anonymous' />
+        crossOrigin='anonymous' />
       <Route render={(props) => <Header {...props} screensNames={this.state.screensNames} /> } />
       
       <Switch>
@@ -53,7 +56,8 @@ class App extends Component {
         path='/home'
         render={(props) => <Home {...props} CallBack={this.setScreenName}/>}
         />
-        <Route exact path='/editEmplyoyee' component={AdminAddEmployee} />        
+        <Route exact path='/editEmplyoyee' component={AdminAddEmployee} />
+        <Route exact path='/changePass' component={ChangePass} />        
         <Route exact path='/editPermission' component={AdminAddPermission} />        
         <Route exact path='/fillForm' component={FillForm} />
         <Route exact path='/distributionFeedback/:id' component={DistributionFeedback} />

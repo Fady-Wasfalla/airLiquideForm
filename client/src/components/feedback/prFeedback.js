@@ -80,7 +80,7 @@ class prFeedback extends Component {
      
       render() {
         return (
-          <div style={{  'overflow-x':'hidden' }} >
+          <div style={{  'overflowX':'hidden' }} >
             <React.Fragment>
                 <Row><br/></Row>
                 <Col md={{ span: 12, offset: 0 }}>

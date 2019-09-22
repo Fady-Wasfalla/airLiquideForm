@@ -7,14 +7,18 @@ const entity = require('../../controllers/employeeController')
 
 router.post('/getStarted', entity.getStarted)
 
+
+router.get('/getFormsDisplay/:department', entity.getFormsDisplay)
+router.put('/resetPassword', entity.resetPassword)
+
 router.post('/getFormsDisplay/:department', entity.getFormsDisplay)
+
 
 router.get('/getQuestions/:userName', entity.getQuestions)
 router.get('/getPermissions', entity.getPermissions)
 router.post('/addEmployee', entity.addEmployee)
 router.put('/editPermissions', entity.editPermissions)
-
-
+router.put('/changePassword', entity.changePassword)
 
 // read all
 router.get('/', entity.default)

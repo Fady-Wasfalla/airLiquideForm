@@ -103,7 +103,7 @@ class contactPerson extends Component {
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="PhoneNumber">
                                     <Form.Label>Phone Number <span style={{color:"red"}}>✶</span></Form.Label>
-                                    <Form.Control as="textarea" rows="1" placeHolder={"(+2) 01xxxxxxxxx"}
+                                    <Form.Control as="textarea" rows="1" placeholder={"(+2) 01xxxxxxxxx"}
                                     onChange={(e)=>this.handleChangePhone(e , index)} value={phone} />
                                     </Form.Group>
                                 </Form.Row>
@@ -120,7 +120,7 @@ class contactPerson extends Component {
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="Mail">
                                     <Form.Label>Mail <span style={{color:"red"}}>✶</span></Form.Label>
-                                    <Form.Control as="textarea" rows="1" placeHolder={"mail@example.com"}
+                                    <Form.Control as="textarea" rows="1" placeholder={"mail@example.com"}
                                     onChange={(e)=>this.handleChangeMail(e , index)} value={mail} />
                                     </Form.Group>
                                     <Button variant="outline" style={{height: .05*window.innerHeight + 'px'}}

@@ -331,7 +331,7 @@ class logisticsValidationForm extends Component {
                             </Form.Group>
                             <Form.Group as={Col} controlId="frequencyOfPeakConsumption">
                               <Form.Label>Frequency Of Peak Consumption</Form.Label>
-                              <Form.Control as="textarea"  rows="1" placeHolder="times/period" />
+                              <Form.Control as="textarea"  rows="1" placeholder="times/period" />
                               </Form.Group>
                         </Form.Row>
                         
