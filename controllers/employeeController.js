@@ -104,7 +104,6 @@ exports.newForm = async (req, res) => {
         }
       }
     }
-    console.log(99, tzoffset)
     // creating the lvf of the form
     await Lvf.create({ formId, ...lvf })
     // creating the cif of the form
@@ -112,7 +111,7 @@ exports.newForm = async (req, res) => {
     // creating the pri of the form
     const newPri = await Pri.create({ formId, ...pri })
     const priId = newPri.id
-    console.log(106, pri)
+
     if (pri && pri.fluids.fluidOrProduct.length > 0) {
       for (let i = 0; i < pri.fluids.characteristics.length; i++) {
         let fluidData = {
@@ -157,6 +156,8 @@ exports.newForm = async (req, res) => {
 // distribution feedback
 exports.distributionFB = async (req, res) => {
   try {
+   
+
     const formId = req.body.formId
     const customerTank = req.body.customerTank
     const supplyTimeFrom = req.body.supplyTimeFrom
@@ -463,16 +464,13 @@ exports.pdiFB = async (req, res) => {
         await PdiAP.create(irmrsAPData)
       }
     }
-    console.log(446, fireExt)
     if (fireExt.length > 0) {
       if (fireExt.number.length > 0) {
-        console.log(448, fireExt.number.length)
         for (let i = 0; i < fireExt.number.length; i++) {
           let fireExtData = {
             pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
           }
           await FireExtinguishers.create(fireExtData)
-        }
       }
     }
     return res.status(200).json({
@@ -489,8 +487,8 @@ exports.pdiFB = async (req, res) => {
 }
 exports.getStarted = async (req, res) => {
   try {
-    const employee = await Model.findOne({ where: { userName: employeeName } })
-    console.log(employee.activation)
+    const name = req.body.userName
+    const employee = await Model.findOne({ where: { userName: name } })
     if (employee.activation === false) {
       return res.json({
         status: 'Failed',
@@ -536,6 +534,15 @@ exports.getStarted = async (req, res) => {
 exports.getFormsDisplay = async (req, res) => {
   try {
     // get the final decision to be displayed in cases files
+
+    const name = req.body.userName
+    const employee = await Model.findOne({ where: { userName: name } })
+    if (!employee) {
+      return res.json({
+        status: 'Unauthorized',
+        message: 'You have to sign in'
+      })
+    }
 
     const dept = req.params.department
     const forms = await Form.findAll({ order: [['id', 'DESC']] })
@@ -726,8 +733,11 @@ exports.getQuestions = async (req, res) => {
 
 exports.showFormData = async (req, res) => {
   try {
+    
+    
+
     const formId = req.params.id
-    var form = await Form.findOne({ where: { id: formId } })
+    const form = await Form.findOne({ where: { id: formId } })
     if (!form) {
       return res.json({
         status: 'Failed',
@@ -844,6 +854,7 @@ exports.showFormData = async (req, res) => {
         financeFiles
       }
     }
+    console.log(843,name)
     /* -----------------------------------------------------FINANCE-------------------------------------------------------- */
     return res.json({
       status: 'Success',
@@ -1004,6 +1015,7 @@ exports.resetPassword = async (req, res) => {
       status: 'Failed',
       message: error.message
     })
+
   }
 }
 exports.changePassword = async (req, res) => {
@@ -1032,9 +1044,43 @@ exports.changePassword = async (req, res) => {
       message: 'Password updated successfully'
     })
   } catch (error) {
+
+  } 
+}
+
+exports.login = async (req, res) => {
+  try{
+    const {userName , password} = req.body
+    console.log(974,req.body)
+    const employee = await Model.findOne({where:{userName:userName}})
+    if (!employee){
+      return res.json({
+        status: 'Failed',
+        message: `unregistered user`
+      })
+    }
+    if(!employee.activation){
+      return res.json({
+        status: 'Failed',
+        message: `your account is deactivated`
+      })
+    }
+    if(employee.password!==password){
+      return res.json({
+        status: 'Failed',
+        message: `Wrong password , if you forget your password contact admin`
+      })
+    }
+    return res.json({
+      status: 'Sucess',
+      data: userName
+    })
+  }catch (error) {
     return res.json({
       status: 'Failed',
       message: error.message
     })
+
   }
 }
+

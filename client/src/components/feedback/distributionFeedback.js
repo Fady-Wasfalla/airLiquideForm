@@ -20,6 +20,7 @@ class distributionFeedback extends Component {
         filesNames:[""],
         displayDecision:"none",
         data:{},
+        userName:window.localStorage.getItem("sysEmployeeName"),
 
       }
     async componentWillMount(){

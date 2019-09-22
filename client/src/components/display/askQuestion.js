@@ -8,7 +8,7 @@ class askQuestion extends Component {
     state = {
 
         formId:this.props.FormID,
-        asker:sessionStorage.getItem("employeeName"),
+        asker:window.localStorage.getItem("sysEmployeeName"),
         question:"",
         submitionDate :""
     }

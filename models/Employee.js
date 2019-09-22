@@ -5,7 +5,7 @@ const Employee = db.define('Employee', {
   email: Sequelize.STRING,
   activation: Sequelize.BOOLEAN,
   departement: Sequelize.STRING,
-  password: Sequelize.STRING
+  password: Sequelize.STRING,
 },
 { timestamps: false,
   freezeTableName: true
