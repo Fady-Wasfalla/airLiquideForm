@@ -1835,8 +1835,8 @@ class priForm extends Component {
                             <Row>
                             <Col md={{offset:0,span:6}}>
                             <Select
-                                value={this.state.undergroundNetworkCmt.value}
-                                onChange={(e)=>{this.setState({ undergroundNetworkCmt: e.value})}}
+                                value={this.state.impactOnCustomerType.value}
+                                onChange={(e)=>{this.setState({ impactOnCustomerType: e.value})}}
                                 options={ [
                                             { value: 'Safety', label: 'Safety' },
                                             { value: 'Reliability', label: 'Reliability' },

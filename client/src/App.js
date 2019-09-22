@@ -58,12 +58,12 @@ class App extends Component {
         integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T'
         crossOrigin='anonymous' />
       <Route render={(props) => <Header {...props} screensNames={this.state.screensNames} /> } />
-      <Route
-      path='/home'
-      render={(props) => <Home {...props} screensNames={this.state.screensNames} />}
-      />
       
       <Switch>
+        <Route exact
+        path='/'
+        render={(props) => <Home {...props} screensNames={this.state.screensNames} />}
+        />
         <Route exact path='/editEmplyoyee' component={AdminAddEmployee} />        
         <Route exact path='/editPermission' component={AdminAddPermission} />        
         <Route exact path='/fillForm' component={FillForm} />
@@ -78,10 +78,8 @@ class App extends Component {
         <Route exact path='/viewQuestion/:formId/:questionId' component={viewQuestion} />
         <Route exact path='/cases/:department'
         render={(props) => <Cases {...props} screensNames={this.state.screensNames} />}/>
-        
-
         <Route exact path='/Unauthorized' component={Unauthorized} />        
-        <Route path="" component={NotFound} />
+        <Route exact path="*" component={NotFound} />
       </Switch>
       <Route component={Footer} />
     </Router>

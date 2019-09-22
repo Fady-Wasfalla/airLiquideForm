@@ -141,27 +141,28 @@ class lvfDisplay extends Component {
 
                         <Form.Row >
                             <Form.Group as={Col} controlId=">CustomerType" >
-                            <Form.Label style={{fontWeight:"bold"}} >Customer's Type</Form.Label>
-                            <Card.Text>{lvf.customerType}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}} >Customer's Type : </Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.customerType}</Form.Label>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="BuissnesType">
-                            <Form.Label style={{fontWeight:"bold"}}>Buissnes Type</Form.Label>
-                            <Card.Text>{lvf.businessType}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Buissnes Type :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.businessType}</Form.Label>
                             </Form.Group>
-
                         </Form.Row>
 
                         <Form.Row>
                             <Form.Group as={Col} controlId="startDeliveryDate">
                                 <Form.Label style={{fontWeight:"bold"}}>Start Delivery Date</Form.Label>
-                                <br/>
-                                <Card.Text>{lvf.startDeliveryDate}</Card.Text>
+                                 <span>{'      '}</span>
+                            <Form.Label>{lvf.startDeliveryDate}</Form.Label>
                             </Form.Group>
                             <Form.Group as={Col} controlId="forecastDeliveryEnd">
                                 <Form.Label style={{fontWeight:"bold"}} >Forecast Delivery End</Form.Label>
-                                <br/>
-                                <Card.Text>{lvf.forecastDeliveryEnd}</Card.Text>
+                                 <span>{'      '}</span>
+                            <Form.Label>{lvf.forecastDeliveryEnd}</Form.Label>
                             </Form.Group>
                         </Form.Row>
 
@@ -176,130 +177,191 @@ class lvfDisplay extends Component {
 
                         <Form.Row >
                             <Form.Group as={Col} controlId="ProductType" >
-                            <Form.Label style={{fontWeight:"bold"}} >Product</Form.Label>
-                            <Card.Text>{lvf.product}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}} >Product :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{lvf.product}</Form.Label>
 
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="purity" >
-                            <Form.Label style={{fontWeight:"bold"}} >purity</Form.Label>
-                            <Card.Text>{lvf.purity}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}} >Purity :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.purity}</Form.Label>
                             </Form.Group>
+
+                            
+                            <Form.Group as={Col}/>
+
                         </Form.Row>
 
                         <Form.Row>
                           
                             <Form.Group as={Col} controlId="CustomerConsumtionType" >
-                                <Form.Label style={{fontWeight:"bold"}} >Customer Consumption Type</Form.Label>
-                                <Card.Text>{lvf.customerConsumption}</Card.Text>
-
-                            <Form.Check id="productAvailablity" 
-                            custom={true}
-                            inline={true}
-                            label="Product Availablity"
-                            checked={lvf.productAvailability}/>
+                                <Form.Label style={{fontWeight:"bold"}} >Customer Consumption Type :</Form.Label>
+                                 <span>{'      '}</span>
+                            <Form.Label>{lvf.customerConsumption}</Form.Label>
                             </Form.Group>
                           
 
 
                             <Form.Group as={Col} controlId="regularMonths">
-                            <Form.Label  style={{fontWeight:"bold"}}  >Customer Consumption Rate Per Months</Form.Label>
-                            <Card.Text>{lvf.regularMonths}</Card.Text>
+                            <Form.Label  style={{fontWeight:"bold"}}  >Customer Consumption Rate Per Months :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.regularMonths}</Form.Label>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="patchDay">
-                            <Form.Label style={{fontWeight:"bold"}} >Customer Consumption Days</Form.Label>
-                            <Card.Text>{lvf.patchDay}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}} >Customer Consumption Days :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.patchDay}</Form.Label>
 
                             </Form.Group>
 
+                        </Form.Row>
+
+                        <Form.Row>                        
                             <Form.Group as={Col} controlId="patchAvgHrs">
-                            <Form.Label style={{fontWeight:"bold"}} >Customer Consumption Rate Per Hr</Form.Label>
-                            <Card.Text>{lvf.patchAvgHrs}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}} >Customer Consumption Rate Per Hr :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.patchAvgHrs}</Form.Label>
                             </Form.Group>
                         </Form.Row>
 
-                        
-
                         <Form.Row>
                         <Form.Group as={Col} controlId="seasonalConsumption" >
-                            <Form.Label style={{fontWeight:"bold"}}>Seasonal Consumption</Form.Label>
-                            <Card.Text>{lvf.seasonalConsumption}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Seasonal Consumption :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.seasonalConsumption}</Form.Label>
                             </Form.Group>
                             <Form.Group as={Col} controlId="seasonPeriod" >
-                            <Form.Label style={{fontWeight:"bold"}}>Season Period</Form.Label>
-                            <Card.Text>{lvf.seasonPeriod}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Season Period :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.seasonPeriod}</Form.Label>
                             </Form.Group>
                             <Form.Group as={Col} controlId="customerTank" >
-                            <Form.Label style={{fontWeight:"bold"}}>Customer Tank</Form.Label>
-                            <Card.Text>{lvf.customerTank}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Customer Tank :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.customerTank}</Form.Label>
                             </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
                         <Form.Group as={Col} controlId="customerDeadLevel" >
-                            <Form.Label style={{fontWeight:"bold"}}>Customer Dead Level</Form.Label>
-                            <Card.Text>{lvf.customerDeadLevel}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Customer Dead Level :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.customerDeadLevel}</Form.Label>
                             </Form.Group>
                             <Form.Group as={Col} controlId="usableCapacityAboveDeadLevel" >
-                            <Form.Label style={{fontWeight:"bold"}}>Usable Capacity Above Dead Level</Form.Label>
-                            <Card.Text>{lvf.usableCapacityAboveDeadLevel}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Usable Capacity Above Dead Level :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.usableCapacityAboveDeadLevel}</Form.Label>
                             </Form.Group>
+
+                            <Form.Group as={Col}  />
+                            
                         </Form.Row>
 
                         <Form.Row>
 
                             <Form.Group as={Col} controlId="peakConsumption" >
-                            <Form.Label style={{fontWeight:"bold"}} >Peak Consumption</Form.Label>
-                            <Card.Text>{lvf.peakConsumption}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}} >Peak Consumption :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.peakConsumption}</Form.Label>
 
                             </Form.Group>
                             <Form.Group as={Col} controlId="frequencyOfPeakConsumption">
-                              <Form.Label style={{fontWeight:"bold"}} >Frequency Of Peak Consumption</Form.Label>
-                              <Card.Text>{lvf.frequencyOfPeakConsumption}</Card.Text>
+                              <Form.Label style={{fontWeight:"bold"}} >Frequency Of Peak Consumption :</Form.Label>
+                               <span>{'      '}</span>
+                            <Form.Label>{lvf.frequencyOfPeakConsumption}</Form.Label>
                               </Form.Group>
+
+                            <Form.Group as={Col}  />
                         </Form.Row>
+
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="customerTank" >
+                            <Form.Check id="Customerhastank"
+                            custom={true}
+                            inline={true}
+                            label="Customer Tank"
+                            checked={lvf.customerhastank }/>
+                            </Form.Group>
+                        </Form.Row>
+
+                        <Form.Row>
+                            <Form.Group as={Col} controlId="customerTank" >
+                            <Form.Label style={{fontWeight:"bold"}}>Tank Capacity (Liter/Ton) :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{lvf.customerTank}</Form.Label>
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="customerDeadLevel" >
+                            <Form.Label style={{fontWeight:"bold"}}>Tank Dead Level :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{lvf.customerDeadLevel}</Form.Label>
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="usableCapacityAboveDeadLevel" >
+                            <Form.Label style={{fontWeight:"bold"}}>Usable Capacity Above Dead Level :</Form.Label>
+                            <span>{'      '}</span>
+                            <Form.Label>{lvf.usableCapacityAboveDeadLevel}</Form.Label>
+                            </Form.Group>
+                        </Form.Row>
+
 
                         <Form.Row >
                          
                             <Form.Group as={Col} controlId="availableDelivery" >
-                            <Form.Label style={{fontWeight:"bold"}}>Deilvery Type</Form.Label>
-                            <Card.Text>{lvf.availableDelivery}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Deilvery Type :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.availableDelivery}</Form.Label>
                             </Form.Group>
                         
 
                             <Form.Group as={Col} controlId="startDeliveryTime">
-                                <Form.Label style={{fontWeight:"bold"}}>Start Delivery Time</Form.Label>
-                                <br/>
-                                <Card.Text>{lvf.startDeliveryTime}</Card.Text>
-
+                                <Form.Label style={{fontWeight:"bold"}}>Start Delivery Time :</Form.Label>
+                                 <span>{'      '}</span>
+                            <Form.Label>{lvf.startDeliveryTime}</Form.Label>
                             </Form.Group>
 
                             <Form.Group as={Col} controlId="endDeliveryTime">
-                                <Form.Label style={{fontWeight:"bold"}}>End Delivery Time</Form.Label>
-                                <br/>
-                                <Card.Text>{lvf.endDeliveryTime}</Card.Text>
+                                <Form.Label style={{fontWeight:"bold"}}>End Delivery Time :</Form.Label>
+                                 <span>{'      '}</span>
+                            <Form.Label>{lvf.endDeliveryTime}</Form.Label>
 
                             </Form.Group>
                         </Form.Row>
 
                         
                         <Form.Row>
-                        <Form.Group as={Col} controlId="weightScale" >
-                            <Form.Label style={{fontWeight:"bold"}}>Weight Scale</Form.Label>
-                            <Card.Text>{lvf.weightScale}</Card.Text>
-
+                            <Form.Group as={Col} controlId="customerTank" >
+                            <Form.Label style={{fontWeight:"bold"}}>Recieved via :</Form.Label>
+                                 <span>{'      '}</span>
+                            <Form.Check id="weightScale"
+                            custom={true}
+                            inline={true}
+                            label="Weight Scale"
+                            checked={lvf.weightScale }/>
                             </Form.Group>
-                            <Form.Group as={Col} controlId="tankGuage" >
-                            <Form.Label style={{fontWeight:"bold"}}>Tank Guage</Form.Label>
-                            <Card.Text>{lvf.tankGuage}</Card.Text>
+                            <Form.Group as={Col} controlId="customerTank" >
+                            <Form.Check id="tankGuage"
+                            custom={true}
+                            inline={true}
+                            label="Customer Tank"
+                            checked={lvf.tankGuage }/>
+                            </Form.Group>
+                            <Form.Group as={Col} controlId="flowMeter" >
+                            <Form.Check id="flowMeter"
+                            custom={true}
+                            inline={true}
+                            label="Customer Tank"
+                            checked={lvf.flowMeter }/>
                             </Form.Group>
                         </Form.Row>
 
                         <Form.Row>
                             <Form.Group as={Col} controlId="lvfComment">
-                            <Form.Label style={{fontWeight:"bold"}}>Lvf Comment</Form.Label>
-                            <Card.Text>{lvf.lvfComment}</Card.Text>
+                            <Form.Label style={{fontWeight:"bold"}}>Lvf Comment :</Form.Label>
+                             <span>{'      '}</span>
+                            <Form.Label>{lvf.lvfComment}</Form.Label>
                             </Form.Group>
                         </Form.Row>
 

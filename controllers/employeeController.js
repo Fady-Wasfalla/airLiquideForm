@@ -89,8 +89,8 @@ exports.newForm = async (req, res) => {
         await FormFiles.create({ formId, name: filesNames[i], path: files[i].path })
       }
     }
-    // inserting the conatct perosns
-    if (cbi && cbi.contactPerson.length > 0) {
+      // inserting the conatct perosns
+    if (cbi && cbi.contactPerson.contactPersonName.length > 0) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
         if (cbi.contactPerson.contactPersonName[i] !== '') {
           let ContactPersonData = {
@@ -104,6 +104,7 @@ exports.newForm = async (req, res) => {
         }
       }
     }
+    console.log(99,tzoffset)
     // creating the lvf of the form
     await Lvf.create({ formId, ...lvf })
     // creating the cif of the form
@@ -111,7 +112,8 @@ exports.newForm = async (req, res) => {
     // creating the pri of the form
     const newPri = await Pri.create({ formId, ...pri })
     const priId = newPri.id
-    if (pri && pri.fluids.length > 0) {
+    console.log(106,pri)
+    if (pri && pri.fluids.fluidOrProduct.length > 0) {
       for (let i = 0; i < pri.fluids.characteristics.length; i++) {
         let fluidData = {
           priId,
@@ -129,7 +131,8 @@ exports.newForm = async (req, res) => {
         await Fluids.create(fluidData)
       }
     }
-    if (pri && pri.utilities.length > 0) {
+
+    if (pri && pri.utilities.utility.length > 0) {
       for (let i = 0; i < pri.utilities.utility.length; i++) {
         let fluidData = {
           priId,
@@ -461,13 +464,15 @@ exports.pdiFB = async (req, res) => {
       }
     }
     console.log(446, fireExt)
-    if (fireExt.number.length > 0) {
+    if (fireExt.length > 0) {
+      if (fireExt.number.length > 0) {
       console.log(448, fireExt.number.length)
       for (let i = 0; i < fireExt.number.length; i++) {
         let fireExtData = {
           pdiId, number: fireExt.number[i], capacity: fireExt.capacity[i]
         }
         await FireExtinguishers.create(fireExtData)
+       }
       }
     }
     return res.status(200).json({
@@ -690,7 +695,7 @@ exports.getQuestions = async (req, res) => {
     Form.hasMany(Question, { foreignKey: 'id' })
     Question.belongsTo(Form, { foreignKey: 'formId' })
     const userName = req.params.userName
-    const questions = await Question.findAll({
+    const questions = await Question.findAll({order: [['id', 'DESC']] ,
       include: [{
         model: Form,
         required: true,

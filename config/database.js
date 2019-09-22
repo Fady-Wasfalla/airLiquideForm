@@ -10,5 +10,6 @@ module.exports = new Sequelize('Air_Liquide', dbAdmin.user,
       min: 0,
       acquire: 30000,
       idle: 10000
-    }
+    },
+  
   })

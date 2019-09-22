@@ -143,9 +143,9 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}>Is the entrance from the highway to the site safe ?</Form.Label>
-                            <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Accepted" value={true} required
+                            <Form.Label style={{fontWeight:"bold"}}>1. Electrical plug compatibility</Form.Label>
+                            <Col md={{offset:1,span:1}}/>
+                            <Form.Check type="radio" custom={true} label="Accepted" value={true} 
                                 name="highwayEnterance" id="highwayEnterance1"
                                 onClick={(e) =>{this.setState({highwayEnterance:e.target.value})}} /> 
                             <Col md={{span:1}}/>
@@ -154,18 +154,6 @@ class predeliveryIdentificationReport extends Component {
                                 onClick={(e) =>{this.setState({highwayEnterance:e.target.value})}} /> 
                             </Row>
                             </Col>
-
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({highwayEnteranceMP:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
-                            <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({highwayEnteranceCmt:e.target.value})}} />
-                            </Col>
-                            </Row>
                             </Form.Group>
                         </Form.Row>
 
@@ -174,8 +162,8 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}>Is the unloading area flat?</Form.Label>
-                            <Col md={{span:1}}/>
+                            <Form.Label style={{fontWeight:"bold"}}>2. Connections compatibility</Form.Label>
+                            <Col md={{offset:1,span:1}}/>
                             <Form.Check type="radio" custom={true} label="Accepted" value={true}
                                 name="areaFlat" id="areaFlat1"
                                 onClick={(e) =>{this.setState({areaFlat:e.target.value})}} /> 
@@ -185,18 +173,6 @@ class predeliveryIdentificationReport extends Component {
                                 onClick={(e) =>{this.setState({areaFlat:e.target.value})}} /> 
                             </Row>
                             </Col>
-
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaFlatMP:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
-                            <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaFlatCmt:e.target.value})}} />
-                            </Col>
-                            </Row>
                             </Form.Group>
                         </Form.Row>
 
@@ -205,7 +181,7 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}>Type of unloading area (Asphalt/Concrete)?</Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}>3. Safety vslves / Rupture disc / Three way valve</Form.Label>
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Accepted" value={true}
                                 name="areaType" id="areaType1"
@@ -216,18 +192,6 @@ class predeliveryIdentificationReport extends Component {
                                 onClick={(e) =>{this.setState({areaType:e.target.value})}} /> 
                             </Row>
                             </Col>
-
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaTypeMP:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
-                            <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaTypeCmt:e.target.value})}} />
-                            </Col>
-                            </Row>
                             </Form.Group>
                         </Form.Row>
 
@@ -236,26 +200,13 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}> Is the discharge point easily accessible ? </Form.Label>
-                            <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Accepted" value={true}
-                                name="dischargePoint" id="dischargePoint1"
-                                onClick={(e) =>{this.setState({dischargePoint:e.target.value})}} /> 
-                            <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Not Accepted" value={false}
-                                name="dischargePoint"id="dischargePoint0"
-                                onClick={(e) =>{this.setState({dischargePoint:e.target.value})}} /> 
+                            <Form.Label style={{fontWeight:"bold"}}>4. Tank condition </Form.Label>
                             </Row>
                             </Col>
 
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
                             <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({dischargePointMP:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
-                            <Form.Label>Comments</Form.Label>
+                            <Col md={{offset:1,span:10}}>
                             <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({dischargePointCmt:e.target.value})}} />
                             </Col>
                             </Row>
@@ -267,7 +218,7 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}> Could the car exit the site without going back? </Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}>5. Outside road (Site entrance and exit) </Form.Label>
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Accepted" value={true}
                                 name="carExit" id="carExit1"
@@ -278,19 +229,6 @@ class predeliveryIdentificationReport extends Component {
                                 onClick={(e) =>{this.setState({carExit:e.target.value})}} /> 
                             </Row>
                             </Col>
-
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({carExitMP:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
-                            <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({carExitCmt:e.target.value})}} />
-                            </Col>
-                            </Row>
-
                             </Form.Group>
                         </Form.Row>
 
@@ -299,27 +237,14 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}> Could the car go back? </Form.Label>
-                            <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Accepted" value={true}
-                                name="carGoBack" id="carGoBack1"
-                                onClick={(e) =>{this.setState({carGoBack:e.target.value})}} /> 
-                            <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Not Accepted" value={false}
-                                name="carGoBack"id="carGoBack0"
-                                onClick={(e) =>{this.setState({carGoBack:e.target.value})}} /> 
+                            <Form.Label style={{fontWeight:"bold"}}> 6. Gates width </Form.Label>
                             </Row>
                             </Col>
 
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
                             <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Distance (Meters)</Form.Label>
-                            <Form.Control type={"number"} step={0.01}
-                            onChange={(e)=>{this.setState({carGoBackDistance:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
-                            <Form.Label>Safety procedures</Form.Label>
+                            <Col md={{offset:1,span:10}}>
+                            <Form.Label>Comment</Form.Label>
                             <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({carGoBackSafetyProcedure:e.target.value})}} />
                             </Col>
                             </Row>
@@ -331,7 +256,7 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}> Tanks Capacity </Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}>7. Road to the tank location </Form.Label>
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Accepted" value={true}
                                 name="tankCapacity" id="tankCapacity1"
@@ -342,26 +267,6 @@ class predeliveryIdentificationReport extends Component {
                                 onClick={(e) =>{this.setState({tankCapacity:e.target.value})}} /> 
                             </Row>
                             </Col>
-
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({tankCapacityMP:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
-                            <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({tankCapacityCmt:e.target.value})}} />
-                            </Col>
-                            </Row>
-
-                            <Row style={{height: .01*window.innerHeight + 'px'}}/>  
-                            <Col md={6}>
-                            <Form.Label>Size</Form.Label>
-                            <Form.Control type={"number"} step={0.01}
-                            onChange={(e)=>{this.setState({tankCapacitySize:e.target.value})}} />
-                            </Col>
-
                             </Form.Group>
                         </Form.Row>
 
@@ -370,7 +275,7 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}> Is the vacuum flushing suitable? </Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}>8. Lighting</Form.Label>
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Accepted" value={true}
                                 name="vaccumFlushing" id="vaccumFlushing1"
@@ -381,18 +286,6 @@ class predeliveryIdentificationReport extends Component {
                                 onClick={(e) =>{this.setState({vaccumFlushing:e.target.value})}} /> 
                             </Row>
                             </Col>
-
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({vaccumFlushingMP:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
-                            <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({vaccumFlushingCmt:e.target.value})}} />
-                            </Col>
-                            </Row>
                             </Form.Group>
                         </Form.Row>
 
@@ -401,7 +294,7 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}> Is suitable electricity Flange in place? </Form.Label>
+                            <Form.Label style={{fontWeight:"bold"}}>9. Is backing required ? </Form.Label>
                             <Col md={{span:1}}/>
                             <Form.Check type="radio" custom={true} label="Accepted" value={true}
                                 name="suitableElectricity" id="suitableElectricity1"
@@ -412,18 +305,6 @@ class predeliveryIdentificationReport extends Component {
                                 onClick={(e) =>{this.setState({suitableElectricity:e.target.value})}} /> 
                             </Row>
                             </Col>
-
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({suitableElectricityMP:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
-                            <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({suitableElectricityCmt:e.target.value})}} />
-                            </Col>
-                            </Row>
                             </Form.Group>
                         </Form.Row>
 
@@ -432,25 +313,13 @@ class predeliveryIdentificationReport extends Component {
                             <Form.Group as={Col} >
                             <Col md={12}>
                             <Row>
-                            <Form.Label style={{fontWeight:"bold"}}> Is adequate lighting in place at night? </Form.Label>
-                            <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Accepted" value={true}
-                                name="adequateLight" id="adequateLight1"
-                                onClick={(e) =>{this.setState({adequateLight:e.target.value})}} /> 
-                            <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Not Accepted" value={false}
-                                name="adequateLight"id="adequateLight0"
-                                onClick={(e) =>{this.setState({adequateLight:e.target.value})}} /> 
+                            <Form.Label style={{fontWeight:"bold"}}>10. Backing distance - Extra precautions for backing </Form.Label>
                             </Row>
                             </Col>
 
                             <Row style={{height: .02*window.innerHeight + 'px'}}/>
                             <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({adequateLightMP:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
+                            <Col md={{offset:1,span:10}}>
                             <Form.Label>Comments</Form.Label>
                             <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({adequateLightCmt:e.target.value})}} />
                             </Col>
@@ -521,53 +390,10 @@ class predeliveryIdentificationReport extends Component {
                                 onClick={(e) =>{this.setState({fireExtinguishers:e.target.value})}} /> 
                             </Row>
                             </Col>
-
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({fireExtinguishersMP:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
-                            <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({fireExtinguishersCmt:e.target.value})}} />
-                            </Col>
-                            </Row>
                             </Form.Group>
                         </Form.Row>
                         <Form.Row>
                         <Col md={12}><FireExtinguishers ParentCallBack={this.fireExtinguishersCallBackFunction}/></Col>
-                        </Form.Row>
-
-                        <Row style={{height: .04*window.innerHeight + 'px'}}/>
-                        <Form.Row >
-                            <Form.Group as={Col} >
-                            <Col md={12}>
-                            <Row>
-                            <Form.Label style={{fontWeight:"bold"}}> Is the unloading area obstacles free? </Form.Label>
-                            <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Accepted" value={true}
-                                name="areaObstacles" id="areaObstacles1"
-                                onClick={(e) =>{this.setState({areaObstacles:e.target.value})}} /> 
-                            <Col md={{span:1}}/>
-                            <Form.Check type="radio" custom={true} label="Not Accepted" value={false}
-                                name="areaObstacles"id="areaObstacles0"
-                                onClick={(e) =>{this.setState({areaObstacles:e.target.value})}} /> 
-                            </Row>
-                            </Col>
-
-                            <Row style={{height: .02*window.innerHeight + 'px'}}/>
-                            <Row>
-                            <Col md={{span:6}}>
-                            <Form.Label>Measurses Required</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaObstaclesMP:e.target.value})}} />
-                            </Col>
-                            <Col md={{span:6}}>
-                            <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows="3" onChange={(e)=>{this.setState({areaObstaclesCmt:e.target.value})}} />
-                            </Col>
-                            </Row>
-                            </Form.Group>
                         </Form.Row>
 
                         <Row style={{height: .01*window.innerHeight + 'px'}}/>
@@ -578,7 +404,6 @@ class predeliveryIdentificationReport extends Component {
                             value={this.state.vehicleType.value}
                             onChange={this.vehicleTypeHandleChange}
                             options={this.state.vehicleTypeOptions}
-                            defaultValue={this.state.vehicleTypeOptions[0]}
                             />
                             </Col>
                         </Form.Row>
@@ -587,7 +412,7 @@ class predeliveryIdentificationReport extends Component {
                         <Form.Row>
                         <Form.Group as={Col} controlId="inspector">
                             <Form.Label style={{fontWeight:"bold"}}> Inspector :</Form.Label>
-                            <Form.Control as="textarea" rows="1" required
+                            <Form.Control as="textarea" rows="1" 
                             onChange={(e)=>{this.setState({inspector:e.target.value})}} />
                             
                         </Form.Group>

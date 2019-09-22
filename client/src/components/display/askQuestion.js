@@ -10,16 +10,19 @@ class askQuestion extends Component {
         formId:this.props.FormID,
         asker:sessionStorage.getItem("employeeName"),
         question:"",
-        submitionDate : new Date()
-        
+        submitionDate :""
     }
+
+    
     
     handleChange=()=>{
         axios
         .post('http://localhost:8000/api/questions',this.state)
-        .then(res => alert("Your question send Succefully to the sales man"))
+        .then(res => alert("Your question is sent succefully to the sales man"))
         .catch(err => alert(err.message))
     }
+
+   
     
      
       render() {

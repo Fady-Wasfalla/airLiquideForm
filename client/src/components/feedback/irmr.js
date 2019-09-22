@@ -52,11 +52,21 @@ class irmr extends Component {
 
 
     irmrHandleChange(date) {
-        this.setState({irmrDate: date})
+        let x = date
+        let hoursDiff = x.getHours() - x.getTimezoneOffset() / 60;
+        let minutesDiff = (x.getHours() - x.getTimezoneOffset()) % 60;
+        x.setHours(hoursDiff);
+        x.setMinutes(minutesDiff);
+        this.setState({irmrDate: x})
       }
     
     sisHandleChange(date) {
-        this.setState({sisDate: date})
+        let x = date
+        let hoursDiff = x.getHours() - x.getTimezoneOffset() / 60;
+        let minutesDiff = (x.getHours() - x.getTimezoneOffset()) % 60;
+        x.setHours(hoursDiff);
+        x.setMinutes(minutesDiff);
+        this.setState({sisDate: x})
       }
 
     sendData =()=>{

@@ -9,7 +9,6 @@ class customerBasicInfo extends Component {
     state = {
         name:"",
         date: new Date(),
-        address:"",
         zone:"",
         address:"",
         contactPerson:{},
@@ -19,7 +18,12 @@ class customerBasicInfo extends Component {
     }
 
     handleChange(date) {
-        this.setState({date: date})
+        let x = date
+        let hoursDiff = x.getHours() - x.getTimezoneOffset() / 60;
+        let minutesDiff = (x.getHours() - x.getTimezoneOffset()) % 60;
+        x.setHours(hoursDiff);
+        x.setMinutes(minutesDiff);
+        this.setState({date: x})
       }
     
     

@@ -12,7 +12,7 @@ class header extends Component {
         return (
           <React.Fragment>
             <Navbar bg="light" variant="dark" >
-             <Navbar.Brand href="http://localhost:3000/home">
+             <Navbar.Brand href="http://localhost:3000/">
               <img
                 src={logo}
                 width="100"
@@ -21,7 +21,7 @@ class header extends Component {
               />
             </Navbar.Brand>
 
-              <Nav.Link href="http://localhost:3000/home">🏠</Nav.Link>
+              <Nav.Link href="http://localhost:3000/">🏠</Nav.Link>
 
             
               <NavDropdown title="Departements" id="nav-dropdown">
