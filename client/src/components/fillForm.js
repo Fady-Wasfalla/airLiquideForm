@@ -19,7 +19,7 @@ class fillForm extends Component {
       pri:{dodo:false},
       file:null,
       filesNames:[""],
-      userName:window.localStorage.getItem("sysEmployeeName"),      
+      userName:window.localStorage.getItem("sysEmployeeName"),    
       }
 
     async componentDidMount(){
@@ -29,7 +29,6 @@ class fillForm extends Component {
                               alert(res.data.message)
                               window.location.assign('http://localhost:3000/Unauthorized')
                           }else{
-                          this.props.CallBack(res.data.data)
                           window.localStorage.setItem("screens",res.data.data)
                         } })
         .catch(err => alert(err.message))
@@ -57,11 +56,13 @@ class fillForm extends Component {
         var cifAsString = JSON.stringify(this.state.cif)
         var priAsString = JSON.stringify(this.state.pri)
         var filesNamesAsString = JSON.stringify(this.state.filesNames)
+        var employee = JSON.stringify(this.state.userName)        
         fd.append('cbi',cbiAsString)
         fd.append('lvf',lvfAsString)
         fd.append('cif',cifAsString)
         fd.append('pri',priAsString)
         fd.append('filesNames',filesNamesAsString)
+        fd.append('employeeName',employee)
         if(this.state.file){
           for(let i = 0 ; i<this.state.file.length; i++){
             fd.append('file',this.state.file[i])
