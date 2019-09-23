@@ -36,7 +36,17 @@ const os = require('os')
 const employeeName = os.userInfo().username
 const emailUserName = require('../config/keys').user
 const emailPassword = require('../config/keys').pass
+
+const DistributionMail = require('../config/keys').Distribution
+const SourcingMail = require('../config/keys').Sourcing
+const FleatMail = require('../config/keys').Fleat
+const PRMail = require('../config/keys').PR
+const CIMail = require('../config/keys').CI
+const SalesMail = require('../config/keys').Sales
+const FinanceMail = require('../config/keys').Finance
+
 const nodemailer = require('nodemailer')
+
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
@@ -44,6 +54,7 @@ const transporter = nodemailer.createTransport({
     pass: emailPassword
   }
 })
+
 const tzoffset = (new Date()).getTimezoneOffset() * 60000
 const localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1)
 exports.default = async (req, res) => {
@@ -79,12 +90,13 @@ exports.newForm = async (req, res) => {
     const pri = JSON.parse(req.body.pri)
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
-    const newForm = await Form.create({ ...cbi, employeeName })
+    const name = JSON.parse(req.body.employeeName)
+    const newForm = await Form.create({ ...cbi, employeeName:name })
     const formId = newForm.id
     // history of the form
     await History.create({ formId, formSubmition: localISOTime })
     // uploading the files with the name
-    if (files.length > 0) {
+      if (files.length > 0) {
       for (let i = 0; i < filesNames.length; i++) {
         await FormFiles.create({ formId, name: filesNames[i], path: files[i].path })
       }
@@ -130,7 +142,6 @@ exports.newForm = async (req, res) => {
         await Fluids.create(fluidData)
       }
     }
-
     if (pri && pri.utilities.utility.length > 0) {
       for (let i = 0; i < pri.utilities.utility.length; i++) {
         let fluidData = {
@@ -141,6 +152,13 @@ exports.newForm = async (req, res) => {
         await Utilities.create(fluidData)
       }
     }
+    // transporter.sendMail({
+    //   to: `"${DistributionMail}","${SourcingMail}","${FleatMail}",
+    //   "${PRMail}","${CIMail}","${SalesMail}","${FinanceMail}"`,
+    //   subject: 'New job request need to be reviewed',
+    //   message: `Please review the form with id number ${formId} and give your feedback`,
+    //   html: `Please click this link to reset your password: <a href="${url}">${url}</a>`
+    // })
     return res.status(200).json({
       status: 'Success',
       message: 'new form submitted with id ' + formId,
@@ -171,9 +189,10 @@ exports.distributionFB = async (req, res) => {
     let actionPlan = finalDecision.actionPlan
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
+    const name = JSON.parse(req.body.employeeName)
     const fb = await Distributions.create({ formId: formId,
       ...finalDecision,
-      employeeName,
+      employeeName:name,
       customerTank: customerTank,
       supplyTimeFrom: supplyTimeFrom,
       supplyTimeTo: supplyTimeTo })
@@ -199,12 +218,6 @@ exports.distributionFB = async (req, res) => {
         await DistributionsAP.create(distributionsAPData)
       }
     }
-    // transporter.sendMail({
-    //   to: "", //  write mail
-    //   subject: 'Reset your Password',
-    //   message: 'Reset your password of GAFI',
-    //   html: `Please click this link to reset your password: <a href="${url}">${url}</a>`
-    // })
     return res.status(200).json({
       status: 'Success',
       message: 'Distribution Feedback sumbmitted ',
@@ -233,7 +246,8 @@ exports.financeFB = async (req, res) => {
     let actionPlan = finalDecision.actionPlan
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
-    const fb = await Finance.create({ ...finalDecision, employeeName, formId: formId })
+    const name = JSON.parse(req.body.employee)
+    const fb = await Finance.create({ ...finalDecision, employeeName:name, formId: formId })
     await Form.update(
       { financeSubmition: true },
       { where: { id: formId } }
@@ -283,7 +297,8 @@ exports.sourcingsFB = async (req, res) => {
     let actionPlan = finalDecision.actionPlan
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
-    const fb = await Sourcings.create({ formId: formId, ...finalDecision, employeeName })
+    const name = JSON.parse(req.body.employeeName)
+    const fb = await Sourcings.create({ formId: formId, ...finalDecision, employeeName:name })
     await Form.update(
       { sourcingSubmition: true },
       { where: { id: formId } }
@@ -333,7 +348,8 @@ exports.ciFB = async (req, res) => {
     let actionPlan = finalDecision.actionPlan
     const filesNames = JSON.parse(req.body.filesNames)
     const files = req.files
-    const fb = await CifResponse.create({ formId: formId, ...finalDecision, employeeName })
+    const name = JSON.parse(req.body.employeeName)
+    const fb = await CifResponse.create({ formId: formId, ...finalDecision, employeeName:name })
     await Form.update(
       { ciSubmition: true },
       { where: { id: formId } }
@@ -387,7 +403,8 @@ exports.prFB = async (req, res) => {
       decision: finalDecision.decision,
       decisionComment: finalDecision.decisionComment }
     const files = req.files
-    const fb = await Irmr.create({ formId: formId, ...irmrFb, employeeName })
+    const name = JSON.parse(req.body.employeeName)
+    const fb = await Irmr.create({ formId: formId, ...irmrFb, employeeName:name })
     await Form.update(
       { irmrSubmition: true },
       { where: { id: formId } }
@@ -444,7 +461,8 @@ exports.pdiFB = async (req, res) => {
     const pdiFb = { ...pdiData,
       decision: finalDecision.decision,
       decisionComment: finalDecision.decisionComment }
-    const fb = await Pdi.create({ formId: formId, ...pdiFb, employeeName })
+    const name = JSON.parse(req.body.employeeName)
+    const fb = await Pdi.create({ formId: formId, ...pdiFb, employeeName:name })
     await Form.update(
       { fleatSubmition: true },
       { where: { id: formId } }
@@ -1058,7 +1076,6 @@ exports.changePassword = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { userName, password } = req.body
-    console.log(974, req.body)
     const employee = await Model.findOne({ where: { userName: userName } })
     if (!employee) {
       return res.json({

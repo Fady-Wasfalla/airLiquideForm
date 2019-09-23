@@ -49,12 +49,14 @@ class distributionFeedback extends Component {
       const fd = new FormData()
       let finalDecisionAsString = JSON.stringify(this.state.finalDecision)
       let filesNamesAsString = JSON.stringify(this.state.filesNames)
+      var employee = JSON.stringify(this.state.userName)        
       fd.append('finalDecision', finalDecisionAsString)
       fd.append('formId',this.state.formId)
       fd.append('filesNames',filesNamesAsString)
       fd.append('customerTank',this.state.customerTank)
       fd.append('supplyTimeFrom',this.state.supplyTimeFrom)
       fd.append('supplyTimeTo',this.state.supplyTimeTo)
+      fd.append('employeeName',employee)
       if(this.state.file){
         for(let i = 0 ; i<this.state.file.length; i++){
           fd.append('file',this.state.file[i])

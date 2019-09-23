@@ -16,6 +16,7 @@ class financeFeedback extends Component {
         filesNames:[""],
         displayDecision:"none",
         data:{},
+        userName:window.localStorage.getItem("sysEmployeeName"),
       }
       async componentWillMount(){
         const formId  = this.props.match.params.id
@@ -42,6 +43,8 @@ class financeFeedback extends Component {
       const fd = new FormData()
       let finalDecisionAsString = JSON.stringify(this.state.finalDecision)
       let filesNamesAsString = JSON.stringify(this.state.filesNames)
+      var employee = JSON.stringify(this.state.userName)        
+      fd.append('employeeName',employee)
       fd.append('finalDecision', finalDecisionAsString)
       fd.append('formId',this.state.formId)
       fd.append('filesNames',filesNamesAsString)

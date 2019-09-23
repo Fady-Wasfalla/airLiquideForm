@@ -30,8 +30,8 @@ class priForm extends Component {
         onBoardEquipmentType:"",
 
         //3. Fluids
-        fluids:{},
-        utilities:{},
+        fluids:{fluidOrProduct:[]},
+        utilities:{utility:[]},
 
         //4. Site information
 	    //4.1. Natural 

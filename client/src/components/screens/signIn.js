@@ -38,7 +38,6 @@ class signIn extends Component  {
     
 
     render(){
-        console.log(this.state)
     return (
       <React.Fragment>
         <Col md={12}>
