@@ -11,7 +11,7 @@ class customerBasicInfo extends Component {
         date: new Date(),
         zone:"",
         address:"",
-        contactPerson:{},
+        contactPerson:{contactPersonName:[]},
         fieldset:"",
         done:"✘",
         dodo:true

@@ -25,7 +25,6 @@ class prFeedback extends Component {
       render() {
         let newResponseData = this.props.PrData
         let ResponseData = Object.assign([{}],newResponseData)
-        console.log("##",ResponseData)
         return (
             <React.Fragment>
                 <Col md={{ span: 12, offset: 0 }}>

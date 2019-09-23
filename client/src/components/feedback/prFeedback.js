@@ -19,6 +19,7 @@ class prFeedback extends Component {
         filesNames:[""],
         displayDecision:"none",
         data:{},
+        userName:window.localStorage.getItem("sysEmployeeName"),
     }
 
     async componentWillMount(){
@@ -62,6 +63,8 @@ class prFeedback extends Component {
       let finalDecisionAsString = JSON.stringify(this.state.finalDecision)
       let filesNamesAsString = JSON.stringify(this.state.filesNames)
       let irmrAsString = JSON.stringify(this.state.irmr)
+      var employee = JSON.stringify(this.state.userName)        
+        fd.append('employeeName',employee)
       fd.append('finalDecision', finalDecisionAsString)
       fd.append('formId',this.state.formId)
       fd.append('filesNames',filesNamesAsString)

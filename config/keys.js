@@ -1,4 +1,4 @@
 module.exports = {
-  user: 'gafiweb2019@gmail.com',
-  pass: 'Gafi-Web2019'
+    user : 'fady.wasfallah-sc@airliquide.com',
+    pass : 'Welcome_1',
 }
