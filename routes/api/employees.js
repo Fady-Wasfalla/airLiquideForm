@@ -9,7 +9,7 @@ router.post('/getStarted', entity.getStarted)
 
 
 router.get('/getFormsDisplay/:department', entity.getFormsDisplay)
-router.put('/resetPassword', entity.resetPassword)
+router.put('/resetPassword/:id', entity.resetPassword)
 
 router.post('/getFormsDisplay/:department', entity.getFormsDisplay)
 

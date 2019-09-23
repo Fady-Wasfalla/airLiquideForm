@@ -50,6 +50,13 @@ class showEmployee extends Component {
     deptDefault=(e)=>{
         return { value: e , label: e }
     }
+
+    resetPassword = () =>{
+        axios
+        .put('http://localhost:8000/api/employees/resetPassword/'+this.state.id)
+        .then(res => alert(res.data.message))
+        .catch(err => alert(err.message))
+    }
     
      
       render() {
@@ -109,6 +116,14 @@ class showEmployee extends Component {
                              <input tabIndex={-1} autoComplete="off" style={{ opacity: 0, height: 0 }}
                                 required={this.validateItem(this.state.activation)}/>
                             
+                            </Form.Group>
+                            <Form.Group as={Col} md={{span:3,offset:0}}>
+                            <Col md={12}>
+                            <Row style={{height: .035*window.innerHeight + 'px'}}/>
+                            <Row style={{height: .04*window.innerHeight + 'px'}}>
+                            <Button variant="outline" onClick={this.resetPassword}>Reset Password</Button>
+                            </Row>
+                            </Col>
                             </Form.Group>
 
 
