@@ -49,10 +49,8 @@ class fillForm extends Component {
           return alert("please check the box in PRI Form part")
         }
         const fd = new FormData()
-        console.log(this.state.lvf.startDeliveryDate)
         var cbiAsString = JSON.stringify(this.state.cbi)
         var lvfAsString = JSON.stringify(this.state.lvf)
-        console.log(lvfAsString)
         var cifAsString = JSON.stringify(this.state.cif)
         var priAsString = JSON.stringify(this.state.pri)
         var filesNamesAsString = JSON.stringify(this.state.filesNames)

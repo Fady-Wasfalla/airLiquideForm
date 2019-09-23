@@ -14,7 +14,6 @@ class priDisplay extends Component {
           (!this.props.PRI)?pri={}:pri=this.props.PRI
           let Utilities = this.props.UTILITIES
           let Fluids = this.props.FLUIDS
-          console.log("$$",Fluids)
         return (
             <React.Fragment>
                 <Card border="secondary" >

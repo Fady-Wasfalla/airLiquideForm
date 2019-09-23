@@ -146,7 +146,6 @@ class logisticsValidationForm extends Component {
       }
 
       submitData=(event)=>{
-        console.log(this.state.businessType)
         this.setState({dodo:!this.state.dodo})
         event.preventDefault();
         this.sendData()

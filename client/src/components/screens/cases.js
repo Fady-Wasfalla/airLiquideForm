@@ -86,9 +86,7 @@ class cases extends Component {
         }
     }
 
-    print = (e)=>{
-        console.log()
-    }
+    
 
     filterBy = (e,type) =>{
         this.setState({search:e})

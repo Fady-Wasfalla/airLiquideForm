@@ -101,7 +101,6 @@ exports.newForm = async (req, res) => {
         await FormFiles.create({ formId, name: filesNames[i], path: files[i].path })
       }
     }
-    console.log(104)
     // inserting the conatct perosns
     if (cbi && cbi.contactPerson.contactPersonName.length > 0) {
       for (let i = 0; i < cbi.contactPerson.contactPersonName.length; i++) {
@@ -125,7 +124,6 @@ exports.newForm = async (req, res) => {
     const newPri = await Pri.create({ formId, ...pri })
     const priId = newPri.id
 
-    console.log(128)
     if (pri && pri.fluids.fluidOrProduct.length > 0) {
       for (let i = 0; i < pri.fluids.characteristics.length; i++) {
         let fluidData = {
@@ -144,7 +142,6 @@ exports.newForm = async (req, res) => {
         await Fluids.create(fluidData)
       }
     }
-    console.log(146)
     if (pri && pri.utilities.utility.length > 0) {
       for (let i = 0; i < pri.utilities.utility.length; i++) {
         let fluidData = {
@@ -155,7 +152,6 @@ exports.newForm = async (req, res) => {
         await Utilities.create(fluidData)
       }
     }
-    console.log(157)
     // transporter.sendMail({
     //   to: `"${DistributionMail}","${SourcingMail}","${FleatMail}",
     //   "${PRMail}","${CIMail}","${SalesMail}","${FinanceMail}"`,
@@ -1080,7 +1076,6 @@ exports.changePassword = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { userName, password } = req.body
-    console.log(974, req.body)
     const employee = await Model.findOne({ where: { userName: userName } })
     if (!employee) {
       return res.json({
